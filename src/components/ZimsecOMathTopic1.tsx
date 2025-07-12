@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ChevronRight, CheckCircle, XCircle, Star, Trophy, Target, Zap, Calculator, Hash, Percent } from 'lucide-react';
+import { MathJax, MathJaxContext } from 'better-react-mathjax';
 
 type Section = {
   title: string;
@@ -25,41 +26,50 @@ const ZimsecOMathTopic1 = () => {
   const [animateScore, setAnimateScore] = useState<boolean>(false);
   const [completedSections, setCompletedSections] = useState<Set<number>>(new Set());
 
+  const mathjaxConfig = {
+    loader: { load: ["[tex]/html"] },
+    tex: {
+      packages: { "[+]": ["html"] },
+      inlineMath: [["$", "$"], ["\\(", "\\)"]],
+      displayMath: [["$$", "$$"], ["\\[", "\\]"]]
+    }
+  };
+
   const sections: Section[] = [
     {
       title: "Number Concepts and Operations",
       icon: "🔢",
       content: `Number types are the foundation of mathematics. Let's explore the different families of numbers:
 
-NATURAL NUMBERS (ℕ)
-These are counting numbers: 1, 2, 3, 4, 5, ...
-• Used for counting objects
-• Always positive
-• Start from 1 and go to infinity
+**NATURAL NUMBERS** ($\\mathbb{N}$)
+These are counting numbers: $1, 2, 3, 4, 5, \\ldots$
+- Used for counting objects
+- Always positive
+- Start from 1 and go to infinity
 
-WHOLE NUMBERS (W)
-Natural numbers plus zero: 0, 1, 2, 3, 4, 5, ...
-• Include zero (representing "nothing")
-• All non-negative integers
-• Foundation for basic arithmetic
+**WHOLE NUMBERS** ($\\mathbb{W}$)
+Natural numbers plus zero: $0, 1, 2, 3, 4, 5, \\ldots$
+- Include zero (representing "nothing")
+- All non-negative integers
+- Foundation for basic arithmetic
 
-INTEGERS (Z)
-All whole numbers and their negatives: ..., -3, -2, -1, 0, 1, 2, 3, ...
-• Include positive, negative, and zero
-• Represent opposites (temperature, debt/credit)
-• Form a complete number line
+**INTEGERS** ($\\mathbb{Z}$)
+All whole numbers and their negatives: $\\ldots, -3, -2, -1, 0, 1, 2, 3, \\ldots$
+- Include positive, negative, and zero
+- Represent opposites (temperature, debt/credit)
+- Form a complete number line
 
-RATIONAL NUMBERS (Q)
-Numbers that can be expressed as fractions: 1/2, 3/4, -2/3, 0.25, 0.333...
-• Can be written as p/q where p and q are integers (q ≠ 0)
-• Include terminating and repeating decimals
-• All integers are rational numbers
+**RATIONAL NUMBERS** ($\\mathbb{Q}$)
+Numbers that can be expressed as fractions: $\\frac{1}{2}, \\frac{3}{4}, -\\frac{2}{3}, 0.25, 0.\\overline{3}$
+- Can be written as $\\frac{p}{q}$ where $p$ and $q$ are integers ($q \\neq 0$)
+- Include terminating and repeating decimals
+- All integers are rational numbers
 
-REAL NUMBERS (ℝ)
+**REAL NUMBERS** ($\\mathbb{R}$)
 All rational and irrational numbers combined
-• Include everything on the number line
-• Foundation for advanced mathematics
-• Used in real-world measurements`,
+- Include everything on the number line
+- Foundation for advanced mathematics
+- Used in real-world measurements`,
       interactive: "number-classifier"
     },
     {
@@ -67,35 +77,35 @@ All rational and irrational numbers combined
       icon: "📏",
       content: `Approximations help us work with numbers that are easier to handle while maintaining reasonable accuracy.
 
-ROUNDING OFF NUMBERS
+**ROUNDING OFF NUMBERS**
 Rules for rounding:
-• Look at the digit to the right of the place you're rounding to
-• If it's 5 or greater, round up
-• If it's less than 5, round down
-• Examples: 3.67 → 3.7 (to 1 d.p.), 245 → 250 (to nearest 10)
+- Look at the digit to the right of the place you're rounding to
+- If it's $\\geq 5$, round up
+- If it's $< 5$, round down
+- Examples: $3.67 \\rightarrow 3.7$ (to 1 d.p.), $245 \\rightarrow 250$ (to nearest 10)
 
-DECIMAL PLACES (d.p.)
+**DECIMAL PLACES (d.p.)**
 Count digits after the decimal point:
-• 3.456 has 3 decimal places
-• 0.2 has 1 decimal place
-• 15.0 has 1 decimal place
+- $3.456$ has 3 decimal places
+- $0.2$ has 1 decimal place
+- $15.0$ has 1 decimal place
 
-SIGNIFICANT FIGURES (s.f.)
+**SIGNIFICANT FIGURES (s.f.)**
 Count meaningful digits from the first non-zero digit:
-• 3.456 has 4 significant figures
-• 0.00456 has 3 significant figures
-• 3400 has 2 significant figures (assuming trailing zeros aren't significant)
+- $3.456$ has 4 significant figures
+- $0.00456$ has 3 significant figures
+- $3400$ has 2 significant figures (assuming trailing zeros aren't significant)
 
-ESTIMATIONS
+**ESTIMATIONS**
 Make quick calculations easier:
-• 19.8 × 4.2 ≈ 20 × 4 = 80
-• 297 ÷ 3.1 ≈ 300 ÷ 3 = 100
-• Always round to make calculations simpler
+- $19.8 \\times 4.2 \\approx 20 \\times 4 = 80$
+- $297 \\div 3.1 \\approx 300 \\div 3 = 100$
+- Always round to make calculations simpler
 
-LIMITS OF ACCURACY
+**LIMITS OF ACCURACY**
 Understanding the range of possible values:
-• 5.2 cm (to 1 d.p.) means the actual value is between 5.15 and 5.25 cm
-• This is written as 5.15 ≤ x < 5.25`,
+- $5.2$ cm (to 1 d.p.) means the actual value is between $5.15$ and $5.25$ cm
+- This is written as $5.15 \\leq x < 5.25$`,
       interactive: "rounding-game"
     },
     {
@@ -103,40 +113,40 @@ Understanding the range of possible values:
       icon: "⚖️",
       content: `Ratios and proportions help us compare quantities and solve real-world problems.
 
-RATIOS
+**RATIOS**
 Compare quantities of the same type:
-• 3:4 means "3 to 4" or "3 parts to 4 parts"
-• Can be simplified like fractions: 6:8 = 3:4
-• Used for mixing, sharing, scaling
+- $3:4$ means "3 to 4" or "3 parts to 4 parts"
+- Can be simplified like fractions: $6:8 = 3:4$
+- Used for mixing, sharing, scaling
 
-RATES
+**RATES**
 Compare quantities of different types:
-• Speed: 60 km/h (distance per time)
-• Density: 2.5 g/cm³ (mass per volume)
-• Price: $5 per kg (cost per weight)
+- Speed: $60\\text{ km/h}$ (distance per time)
+- Density: $2.5\\text{ g/cm}^3$ (mass per volume)
+- Price: $\\$5\\text{ per kg}$ (cost per weight)
 
-PROPORTIONS
+**PROPORTIONS**
 When two ratios are equal:
-• 3:4 = 6:8 (this is a proportion)
-• Cross multiplication: 3 × 8 = 4 × 6
-• Used for scaling recipes, maps, currency conversion
+- $3:4 = 6:8$ (this is a proportion)
+- Cross multiplication: $3 \\times 8 = 4 \\times 6$
+- Used for scaling recipes, maps, currency conversion
 
-DIRECT PROPORTION
+**DIRECT PROPORTION**
 As one quantity increases, the other increases proportionally:
-• Cost ∝ quantity (more items cost more)
-• Distance ∝ time (at constant speed)
-• Formula: y = kx (where k is constant)
+- $\\text{Cost} \\propto \\text{quantity}$ (more items cost more)
+- $\\text{Distance} \\propto \\text{time}$ (at constant speed)
+- Formula: $y = kx$ (where $k$ is constant)
 
-INVERSE PROPORTION
+**INVERSE PROPORTION**
 As one quantity increases, the other decreases proportionally:
-• Time ∝ 1/speed (faster speed means less time)
-• Workers ∝ 1/time (more workers means less time)
-• Formula: y = k/x (where k is constant)
+- $\\text{Time} \\propto \\frac{1}{\\text{speed}}$ (faster speed means less time)
+- $\\text{Workers} \\propto \\frac{1}{\\text{time}}$ (more workers means less time)
+- Formula: $y = \\frac{k}{x}$ (where $k$ is constant)
 
-PRACTICAL APPLICATIONS
-• Recipe scaling: If 2 cups flour make 12 cookies, how much for 18 cookies?
-• Map reading: If 2 cm represents 5 km, what does 7 cm represent?
-• Currency exchange: If £1 = $1.30, how much is £25?`,
+**PRACTICAL APPLICATIONS**
+- Recipe scaling: If $2$ cups flour make $12$ cookies, how much for $18$ cookies?
+- Map reading: If $2\\text{ cm}$ represents $5\\text{ km}$, what does $7\\text{ cm}$ represent?
+- Currency exchange: If £$1 = \\$1.30$, how much is £$25$?`,
       interactive: "proportion-solver"
     },
     {
@@ -144,22 +154,22 @@ PRACTICAL APPLICATIONS
       icon: "🔬",
       content: `Standard form helps us write very large or very small numbers in a manageable way.
 
-LARGE NUMBERS
-• 5,000,000 = 5 × 10⁶
-• 340,000,000 = 3.4 × 10⁸
-• 7,200,000,000 = 7.2 × 10⁹
+**LARGE NUMBERS**
+- $5,000,000 = 5 \\times 10^6$
+- $340,000,000 = 3.4 \\times 10^8$
+- $7,200,000,000 = 7.2 \\times 10^9$
 
-SMALL NUMBERS
-• 0.005 = 5 × 10⁻³
-• 0.00034 = 3.4 × 10⁻⁴
-• 0.000000072 = 7.2 × 10⁻⁸
+**SMALL NUMBERS**
+- $0.005 = 5 \\times 10^{-3}$
+- $0.00034 = 3.4 \\times 10^{-4}$
+- $0.000000072 = 7.2 \\times 10^{-8}$
 
-STANDARD FORM RULES
-A number in standard form is written as: a × 10ⁿ
-• Where 1 ≤ a < 10
-• n is an integer (positive for large numbers, negative for small numbers)
+**STANDARD FORM RULES**
+A number in standard form is written as: $a \\times 10^n$
+- Where $1 \\leq a < 10$
+- $n$ is an integer (positive for large numbers, negative for small numbers)
 
-CONVERTING TO STANDARD FORM
+**CONVERTING TO STANDARD FORM**
 For large numbers:
 1. Place decimal point after first digit
 2. Count places moved (this is your power)
@@ -170,14 +180,14 @@ For small numbers:
 2. Count places moved (this is your power)
 3. Power is negative
 
-OPERATIONS IN STANDARD FORM
-Multiplication: (a × 10ᵐ) × (b × 10ⁿ) = (a × b) × 10⁽ᵐ⁺ⁿ⁾
-Division: (a × 10ᵐ) ÷ (b × 10ⁿ) = (a ÷ b) × 10⁽ᵐ⁻ⁿ⁾
+**OPERATIONS IN STANDARD FORM**
+Multiplication: $(a \\times 10^m) \\times (b \\times 10^n) = (a \\times b) \\times 10^{m+n}$
+Division: $(a \\times 10^m) \\div (b \\times 10^n) = (a \\div b) \\times 10^{m-n}$
 
-REAL-WORLD EXAMPLES
-• Distance to sun: 1.5 × 10⁸ km
-• Mass of electron: 9.1 × 10⁻³¹ kg
-• World population: 8 × 10⁹ people`,
+**REAL-WORLD EXAMPLES**
+- Distance to sun: $1.5 \\times 10^8\\text{ km}$
+- Mass of electron: $9.1 \\times 10^{-31}\\text{ kg}$
+- World population: $8 \\times 10^9\\text{ people}$`,
       interactive: "standard-form-converter"
     },
     {
@@ -185,46 +195,46 @@ REAL-WORLD EXAMPLES
       icon: "💻",
       content: `Number bases show us different ways to represent numbers, essential for computer science and mathematics.
 
-BASE 10 (DECIMAL)
+**BASE 10 (DECIMAL)**
 Our everyday number system:
-• Uses digits 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
-• Each position represents a power of 10
-• 245₁₀ = 2×10² + 4×10¹ + 5×10⁰ = 200 + 40 + 5
+- Uses digits $0, 1, 2, 3, 4, 5, 6, 7, 8, 9$
+- Each position represents a power of $10$
+- $245_{10} = 2\\times10^2 + 4\\times10^1 + 5\\times10^0 = 200 + 40 + 5$
 
-BASE 2 (BINARY)
+**BASE 2 (BINARY)**
 Computer language:
-• Uses only digits 0 and 1
-• Each position represents a power of 2
-• 1011₂ = 1×2³ + 0×2² + 1×2¹ + 1×2⁰ = 8 + 0 + 2 + 1 = 11₁₀
+- Uses only digits $0$ and $1$
+- Each position represents a power of $2$
+- $1011_2 = 1\\times2^3 + 0\\times2^2 + 1\\times2^1 + 1\\times2^0 = 8 + 0 + 2 + 1 = 11_{10}$
 
-BASE 5 (QUINARY)
+**BASE 5 (QUINARY)**
 Alternative base system:
-• Uses digits 0, 1, 2, 3, 4
-• Each position represents a power of 5
-• 123₅ = 1×5² + 2×5¹ + 3×5⁰ = 25 + 10 + 3 = 38₁₀
+- Uses digits $0, 1, 2, 3, 4$
+- Each position represents a power of $5$
+- $123_5 = 1\\times5^2 + 2\\times5^1 + 3\\times5^0 = 25 + 10 + 3 = 38_{10}$
 
-CONVERTING BETWEEN BASES
-From base 10 to other bases:
-• Divide by the target base repeatedly
-• Read remainders from bottom to top
-• Example: 13₁₀ to base 2: 13÷2=6 R1, 6÷2=3 R0, 3÷2=1 R1, 1÷2=0 R1
-• So 13₁₀ = 1101₂
+**CONVERTING BETWEEN BASES**
+From base $10$ to other bases:
+- Divide by the target base repeatedly
+- Read remainders from bottom to top
+- Example: $13_{10}$ to base $2$: $13\\div2=6\\text{ R}1$, $6\\div2=3\\text{ R}0$, $3\\div2=1\\text{ R}1$, $1\\div2=0\\text{ R}1$
+- So $13_{10} = 1101_2$
 
-From other bases to base 10:
-• Multiply each digit by its place value
-• Add all products together
+From other bases to base $10$:
+- Multiply each digit by its place value
+- Add all products together
 
-OPERATIONS IN DIFFERENT BASES
-Addition in base 2:
-• 0 + 0 = 0
-• 0 + 1 = 1
-• 1 + 0 = 1
-• 1 + 1 = 10 (carry 1)
+**OPERATIONS IN DIFFERENT BASES**
+Addition in base $2$:
+- $0 + 0 = 0$
+- $0 + 1 = 1$
+- $1 + 0 = 1$
+- $1 + 1 = 10$ (carry $1$)
 
-EVERYDAY APPLICATIONS
-• Digital clocks (base 60 for minutes/seconds)
-• Computer memory (base 2)
-• Time (base 24 for hours, base 60 for minutes)`,
+**EVERYDAY APPLICATIONS**
+- Digital clocks (base $60$ for minutes/seconds)
+- Computer memory (base $2$)
+- Time (base $24$ for hours, base $60$ for minutes)`,
       interactive: "base-converter"
     },
     {
@@ -232,40 +242,40 @@ EVERYDAY APPLICATIONS
       icon: "🗺️",
       content: `Scales help us represent large real-world distances on manageable maps and drawings.
 
-SCALE RATIOS
+**SCALE RATIOS**
 A scale shows the relationship between map distance and real distance:
-• 1:50,000 means 1 cm on map = 50,000 cm in reality
-• 1:100 means 1 cm on drawing = 100 cm in reality
-• Always written as map distance : real distance
+- $1:50,000$ means $1\\text{ cm}$ on map $= 50,000\\text{ cm}$ in reality
+- $1:100$ means $1\\text{ cm}$ on drawing $= 100\\text{ cm}$ in reality
+- Always written as map distance : real distance
 
-SCALE CALCULATIONS
+**SCALE CALCULATIONS**
 Finding real distance:
-• If map distance = 5 cm and scale = 1:20,000
-• Real distance = 5 × 20,000 = 100,000 cm = 1 km
+- If map distance $= 5\\text{ cm}$ and scale $= 1:20,000$
+- Real distance $= 5 \\times 20,000 = 100,000\\text{ cm} = 1\\text{ km}$
 
 Finding map distance:
-• If real distance = 3 km and scale = 1:50,000
-• Convert: 3 km = 300,000 cm
-• Map distance = 300,000 ÷ 50,000 = 6 cm
+- If real distance $= 3\\text{ km}$ and scale $= 1:50,000$
+- Convert: $3\\text{ km} = 300,000\\text{ cm}$
+- Map distance $= 300,000 \\div 50,000 = 6\\text{ cm}$
 
-SCALE FACTOR
+**SCALE FACTOR**
 The number you multiply by to get from map to reality:
-• Scale 1:1000 has scale factor 1000
-• Scale 1:25,000 has scale factor 25,000
+- Scale $1:1000$ has scale factor $1000$
+- Scale $1:25,000$ has scale factor $25,000$
 
-AREA FACTOR
+**AREA FACTOR**
 For areas, square the scale factor:
-• If linear scale factor is 100, area factor is 100² = 10,000
-• If map area is 4 cm², real area is 4 × 10,000 = 40,000 cm²
+- If linear scale factor is $100$, area factor is $100^2 = 10,000$
+- If map area is $4\\text{ cm}^2$, real area is $4 \\times 10,000 = 40,000\\text{ cm}^2$
 
-PRACTICAL APPLICATIONS
-• Reading road maps for journey planning
-• Architectural drawings for buildings
-• Model making (trains, planes, etc.)
-• Garden design and landscaping
-• Engineering blueprints
+**PRACTICAL APPLICATIONS**
+- Reading road maps for journey planning
+- Architectural drawings for buildings
+- Model making (trains, planes, etc.)
+- Garden design and landscaping
+- Engineering blueprints
 
-SCALE DRAWING STEPS
+**SCALE DRAWING STEPS**
 1. Choose appropriate scale for your paper size
 2. Convert all real measurements to map measurements
 3. Draw accurately using ruler and compass
@@ -276,40 +286,40 @@ SCALE DRAWING STEPS
 
   const quizQuestions: QuizQuestion[] = [
     {
-      question: "Which type of number is -5?",
+      question: "Which type of number is $-5$?",
       options: ["Natural number", "Whole number", "Integer", "Only negative"],
       correct: 2,
-      explanation: "Integers include positive numbers, negative numbers, and zero. So -5 is an integer."
+      explanation: "Integers include positive numbers, negative numbers, and zero. So $-5$ is an integer."
     },
     {
-      question: "Round 3.6789 to 2 decimal places:",
-      options: ["3.67", "3.68", "3.679", "3.7"],
+      question: "Round $3.6789$ to 2 decimal places:",
+      options: ["$3.67$", "$3.68$", "$3.679$", "$3.7$"],
       correct: 1,
-      explanation: "Look at the third decimal place (8). Since 8 ≥ 5, round up the second decimal place from 7 to 8."
+      explanation: "Look at the third decimal place ($8$). Since $8 \\geq 5$, round up the second decimal place from $7$ to $8$."
     },
     {
-      question: "If 3:4 = x:12, what is x?",
-      options: ["9", "16", "15", "8"],
+      question: "If $3:4 = x:12$, what is $x$?",
+      options: ["$9$", "$16$", "$15$", "$8$"],
       correct: 0,
-      explanation: "Cross multiply: 3 × 12 = 4 × x, so 36 = 4x, therefore x = 9."
+      explanation: "Cross multiply: $3 \\times 12 = 4 \\times x$, so $36 = 4x$, therefore $x = 9$."
     },
     {
-      question: "Write 0.00456 in standard form:",
-      options: ["4.56 × 10⁻³", "4.56 × 10⁻²", "45.6 × 10⁻⁴", "4.56 × 10³"],
+      question: "Write $0.00456$ in standard form:",
+      options: ["$4.56 \\times 10^{-3}$", "$4.56 \\times 10^{-2}$", "$45.6 \\times 10^{-4}$", "$4.56 \\times 10^3$"],
       correct: 0,
-      explanation: "Move decimal point 3 places right to get 4.56, so power is -3."
+      explanation: "Move decimal point $3$ places right to get $4.56$, so power is $-3$."
     },
     {
-      question: "What is 1011₂ in base 10?",
-      options: ["11", "9", "13", "15"],
+      question: "What is $1011_2$ in base $10$?",
+      options: ["$11$", "$9$", "$13$", "$15$"],
       correct: 0,
-      explanation: "1×2³ + 0×2² + 1×2¹ + 1×2⁰ = 8 + 0 + 2 + 1 = 11"
+      explanation: "$1\\times2^3 + 0\\times2^2 + 1\\times2^1 + 1\\times2^0 = 8 + 0 + 2 + 1 = 11$"
     },
     {
-      question: "On a map with scale 1:25,000, what real distance does 8 cm represent?",
-      options: ["2 km", "200 m", "20 km", "2000 m"],
+      question: "On a map with scale $1:25,000$, what real distance does $8\\text{ cm}$ represent?",
+      options: ["$2\\text{ km}$", "$200\\text{ m}$", "$20\\text{ km}$", "$2000\\text{ m}$"],
       correct: 0,
-      explanation: "8 cm × 25,000 = 200,000 cm = 2000 m = 2 km"
+      explanation: "$8\\text{ cm} \\times 25,000 = 200,000\\text{ cm} = 2000\\text{ m} = 2\\text{ km}$"
     }
   ];
 
@@ -326,22 +336,22 @@ SCALE DRAWING STEPS
       
       // Check if it's a natural number
       if (number > 0 && Number.isInteger(number)) {
-        types.push('Natural Number');
+        types.push('Natural Number ($\\mathbb{N}$)');
       }
       
       // Check if it's a whole number
       if (number >= 0 && Number.isInteger(number)) {
-        types.push('Whole Number');
+        types.push('Whole Number ($\\mathbb{W}$)');
       }
       
       // Check if it's an integer
       if (Number.isInteger(number)) {
-        types.push('Integer');
+        types.push('Integer ($\\mathbb{Z}$)');
       }
       
       // All numbers we can input are rational
-      types.push('Rational Number');
-      types.push('Real Number');
+      types.push('Rational Number ($\\mathbb{Q}$)');
+      types.push('Real Number ($\\mathbb{R}$)');
       
       return types;
     };
@@ -383,7 +393,7 @@ SCALE DRAWING STEPS
               {classification.map((type, index) => (
                 <div key={index} className="flex items-center">
                   <CheckCircle className="w-4 h-4 mr-2 text-green-300" />
-                  <span>{type}</span>
+                  <MathJax inline>{`\\(${type}\\)`}</MathJax>
                 </div>
               ))}
             </div>
@@ -422,7 +432,9 @@ SCALE DRAWING STEPS
         </h3>
         
         <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 mb-4">
-          <p className="text-lg mb-2">Round <span className="font-bold">{number}</span> to <span className="font-bold">{decimalPlaces}</span> decimal places</p>
+          <p className="text-lg mb-2">
+            Round <MathJax inline>{`\\(${number}\\)`}</MathJax> to <MathJax inline>{`\\(${decimalPlaces}\\)`}</MathJax> decimal places
+          </p>
           
           <input
             type="number"
@@ -463,7 +475,7 @@ SCALE DRAWING STEPS
                 {isCorrect ? 'Correct!' : 'Incorrect'}
               </span>
             </div>
-            <p>Correct answer: {correctAnswer}</p>
+            <p>Correct answer: <MathJax inline>{`\\(${correctAnswer}\\)`}</MathJax></p>
           </div>
         )}
       </div>
@@ -499,7 +511,7 @@ SCALE DRAWING STEPS
         
         <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 mb-4">
           <p className="text-center text-lg mb-4">
-            <span className="font-bold text-2xl">{a} : {b} = {c} : x</span>
+            <MathJax inline>{`\\(${a} : ${b} = ${c} : x\\)`}</MathJax>
           </p>
           
           <input
@@ -530,9 +542,9 @@ SCALE DRAWING STEPS
         {showSolution && (
           <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4">
             <p className="font-bold mb-2">Solution:</p>
-            <p className="mb-2">Cross multiply: {a} × x = {b} × {c}</p>
-            <p className="mb-2">{a}x = {b * c}</p>
-            <p className="text-xl font-bold">x = {correctX}</p>
+            <p className="mb-2">Cross multiply: <MathJax inline>{`\\(${a} \\times x = ${b} \\times ${c}\\)`}</MathJax></p>
+            <p className="mb-2"><MathJax inline>{`\\(${a}x = ${b * c}\\)`}</MathJax></p>
+            <p className="text-xl font-bold"><MathJax inline>{`\\(x = ${correctX}\\)`}</MathJax></p>
           </div>
         )}
       </div>
@@ -552,7 +564,7 @@ SCALE DRAWING STEPS
       const exponent = Math.floor(Math.log10(Math.abs(number)));
       const mantissa = number / Math.pow(10, exponent);
       
-      return `${mantissa.toFixed(2)} × 10^${exponent}`;
+      return `${mantissa.toFixed(2)} \\times 10^{${exponent}}`;
     };
 
     const convert = () => {
@@ -588,7 +600,7 @@ SCALE DRAWING STEPS
         {showResult && (
           <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4">
             <p className="font-bold mb-2">Standard Form:</p>
-            <p className="text-xl font-mono">{result}</p>
+            <MathJax>{`\\[${result}\\]`}</MathJax>
           </div>
         )}
       </div>
@@ -661,7 +673,7 @@ SCALE DRAWING STEPS
         {showResult && (
           <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4">
             <p className="font-bold mb-2">Result:</p>
-            <p className="text-xl font-mono">{decimal}₁₀ = {result}₍{targetBase}₎</p>
+            <MathJax>{`\\(${decimal}_{10} = ${result}_{${targetBase}}\\)`}</MathJax>
           </div>
         )}
       </div>
@@ -728,7 +740,7 @@ SCALE DRAWING STEPS
             <p className="font-bold mb-2">Real Distance:</p>
             <p className="text-xl font-mono">{realDistance} km</p>
             <p className="text-sm mt-2">
-              {mapDistance} cm on map = {realDistance} km in reality
+              <MathJax>{`\\(${mapDistance}\\text{ cm on map} = ${realDistance}\\text{ km in reality}\\)`}</MathJax>
             </p>
           </div>
         )}
@@ -849,9 +861,15 @@ SCALE DRAWING STEPS
           </h2>
           
           <div className="prose prose-invert max-w-none">
-            <div className="text-white/90 leading-relaxed whitespace-pre-line font-mono text-sm">
-              {sections[currentSection].content}
-            </div>
+            <MathJaxContext config={mathjaxConfig}>
+              <MathJax>
+                {sections[currentSection].content.split('\n').map((paragraph, i) => (
+                  <p key={i} className="text-white/90 leading-relaxed mb-4">
+                    {paragraph}
+                  </p>
+                ))}
+              </MathJax>
+            </MathJaxContext>
           </div>
         </div>
 
@@ -903,7 +921,7 @@ SCALE DRAWING STEPS
           </div>
 
           <h3 className="text-xl font-bold text-white mb-6">
-            {quizQuestions[currentQuestion].question}
+            <MathJax inline>{`\\(${quizQuestions[currentQuestion].question}\\)`}</MathJax>
           </h3>
 
           <div className="space-y-3 mb-6">
@@ -922,7 +940,7 @@ SCALE DRAWING STEPS
                     : 'bg-white/20 text-white hover:bg-white/30 hover:scale-105'
                 }`}
               >
-                {option}
+                <MathJax inline>{`\\(${option}\\)`}</MathJax>
               </button>
             ))}
           </div>
@@ -940,7 +958,7 @@ SCALE DRAWING STEPS
                 </span>
               </div>
               <p className="text-white/90 text-sm">
-                {quizQuestions[currentQuestion].explanation}
+                <MathJax inline>{`\\(${quizQuestions[currentQuestion].explanation}\\)`}</MathJax>
               </p>
             </div>
           )}
@@ -1008,12 +1026,14 @@ SCALE DRAWING STEPS
   );
 
   return (
-    <div className="font-sans">
-      {currentView === 'home' && <HomeView />}
-      {currentView === 'study' && <StudyView />}
-      {currentView === 'quiz' && <QuizView />}
-      {currentView === 'quiz-complete' && <QuizCompleteView />}
-    </div>
+    <MathJaxContext config={mathjaxConfig}>
+      <div className="font-sans">
+        {currentView === 'home' && <HomeView />}
+        {currentView === 'study' && <StudyView />}
+        {currentView === 'quiz' && <QuizView />}
+        {currentView === 'quiz-complete' && <QuizCompleteView />}
+      </div>
+    </MathJaxContext>
   );
 };
 
