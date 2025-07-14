@@ -67,7 +67,10 @@ const StudyView = ({
   };
 
   const handleNext = () => {
-    if (section.subsections && currentSubsection < section.subsections.length - 1) {
+    if (
+      section.subsections &&
+      currentSubsection < section.subsections.length - 1
+    ) {
       setCurrentSubsection(currentSubsection + 1);
     }
   };
@@ -105,17 +108,20 @@ const StudyView = ({
               {currentContent.title}
             </h3>
           )}
-
-          <div className="prose prose-neutral max-w-none text-[15px] leading-relaxed">
-            <MathJax>
-              {currentContent.content.split("\n").map((paragraph, i) => (
-                <p key={i}>{paragraph}</p>
-              ))}
-            </MathJax>
-          </div>
+            <div className="prose prose-invert max-w-none">
+             <MathJax>
+               {currentContent.content.split("\n").map((paragraph, i) => (
+                 <p key={i} className="text-gray-900 leading-relaxed mb-4">
+                   {paragraph}
+                 </p>
+               ))}
+             </MathJax>
+         </div>
         </div>
 
-        <div className="mb-6">{renderInteractive(currentContent.interactive as string)}</div>
+        <div className="mb-6">
+          {renderInteractive(currentContent.interactive as string)}
+        </div>
 
         {section.subsections && (
           <div className="flex justify-between mb-6">
@@ -165,4 +171,3 @@ const StudyView = ({
 };
 
 export default StudyView;
-
