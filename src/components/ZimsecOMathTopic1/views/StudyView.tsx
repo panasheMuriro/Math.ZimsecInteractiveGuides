@@ -67,10 +67,7 @@ const StudyView = ({
   };
 
   const handleNext = () => {
-    if (
-      section.subsections &&
-      currentSubsection < section.subsections.length - 1
-    ) {
+    if (section.subsections && currentSubsection < section.subsections.length - 1) {
       setCurrentSubsection(currentSubsection + 1);
     }
   };
@@ -86,67 +83,63 @@ const StudyView = ({
     : section;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-700 p-6">
+    <div className="min-h-screen bg-[#fdfaf6] text-[#3b3a30] p-6 font-serif">
       <div className="max-w-md mx-auto">
-        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mb-6">
+        <div className="bg-[#fffef9] shadow-lg border border-[#e4ded4] rounded-2xl p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
             <button
               onClick={() => setCurrentView("home")}
-              className="text-white/60 hover:text-white transition-colors flex items-center"
+              className="text-[#5c5b57] hover:text-[#1a1a1a] transition-colors flex items-center"
             >
               <ChevronLeft className="w-5 h-5 mr-1" /> Back
             </button>
             <div className="text-2xl">{section.icon}</div>
           </div>
 
-          <h2 className="text-2xl font-bold text-white mb-2">
+          <h2 className="text-2xl font-bold text-[#2e2c28] mb-2">
             {section.title}
           </h2>
 
           {section.subsections && (
-            <h3 className="text-xl font-semibold text-white/90 mb-4">
+            <h3 className="text-lg font-semibold text-[#4e4b44] mb-4">
               {currentContent.title}
             </h3>
           )}
 
-          <div className="prose prose-invert max-w-none">
+          <div className="prose prose-neutral max-w-none text-[15px] leading-relaxed">
             <MathJax>
               {currentContent.content.split("\n").map((paragraph, i) => (
-                <p key={i} className="text-white/90 leading-relaxed mb-4">
-                  {paragraph}
-                </p>
+                <p key={i}>{paragraph}</p>
               ))}
             </MathJax>
           </div>
         </div>
 
-        <div className="mb-6">
-          {renderInteractive(currentContent.interactive as string)}
-        </div>
+        <div className="mb-6">{renderInteractive(currentContent.interactive as string)}</div>
 
         {section.subsections && (
           <div className="flex justify-between mb-6">
             <button
               onClick={handlePrev}
               disabled={currentSubsection === 0}
-              className={`flex items-center px-4 py-2 rounded-lg ${
+              className={`flex items-center px-4 py-2 rounded-lg border ${
                 currentSubsection === 0
-                  ? "text-white/30"
-                  : "text-white/90 hover:bg-white/10"
+                  ? "text-gray-400 border-gray-200"
+                  : "hover:bg-[#f0ece6] text-[#333] border-[#ddd]"
               }`}
             >
               <ChevronLeft className="w-5 h-5 mr-1" /> Previous
             </button>
-            <div className="text-white/70">
+            <div className="text-sm text-[#5c5b57] tracking-wide pt-2">
               {currentSubsection + 1} of {section.subsections.length}
             </div>
             <button
               onClick={handleNext}
               disabled={currentSubsection === section.subsections.length - 1}
-              className={`flex items-center px-4 py-2 rounded-lg ${
+              className={`flex items-center px-4 py-2 rounded-lg border ${
                 currentSubsection === section.subsections.length - 1
-                  ? "text-white/30"
-                  : "text-white/90 hover:bg-white/10"
+                  ? "text-gray-400 border-gray-200"
+                  : "hover:bg-[#f0ece6] text-[#333] border-[#ddd]"
               }`}
             >
               Next <ChevronRight className="w-5 h-5 ml-1" />
@@ -161,7 +154,7 @@ const StudyView = ({
             setCompletedSections(newCompleted);
             setCurrentView("home");
           }}
-          className="w-full bg-gradient-to-r from-green-500 to-emerald-500 text-white font-bold py-4 px-6 rounded-2xl hover:from-green-600 hover:to-emerald-600 transition-all duration-300 hover:scale-105 flex items-center justify-center space-x-2"
+          className="w-full bg-gradient-to-r from-[#90be6d] to-[#43aa8b] text-white font-bold py-4 px-6 rounded-2xl hover:from-[#7fae5c] hover:to-[#369b7d] transition-all duration-300 hover:scale-105 flex items-center justify-center space-x-2"
         >
           <CheckCircle className="w-5 h-5" />
           <span>Mark as Complete</span>
@@ -172,3 +165,4 @@ const StudyView = ({
 };
 
 export default StudyView;
+
