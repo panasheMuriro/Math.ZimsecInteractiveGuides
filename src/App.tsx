@@ -1,5 +1,6 @@
-import ZimsecOMathTopic1 from './components/ZimsecOMathTopic1';
 // import MathDropGame from './components/ZimsecOMathTopic1';
+
+import ZimsecOMathTopic1 from "./components/ZimsecOMathTopic1";
 
 function App() {
   return (

@@ -14,12 +14,16 @@
     "better-react-mathjax": "^2.3.0",
     "bootstrap": "^5.3.3",
     "framer-motion": "^12.23.3",
+    "katex": "^0.16.22",
     "lucide-react": "^0.525.0",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-markdown": "^10.1.0",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
