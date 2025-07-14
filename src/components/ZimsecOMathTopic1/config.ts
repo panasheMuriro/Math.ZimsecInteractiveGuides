@@ -285,6 +285,101 @@ Finding map distance:
   }
 ];
 
+
+export const topic2Sections: Section[]=[
+
+ {
+    title: "Sets and Set Notation",
+    icon: "🧮",
+    content: `Sets are fundamental building blocks in mathematics that help organize and categorize objects.`,
+    subsections: [
+      {
+        title: "Sets and Set Notation",
+        content: `**SETS**
+A collection of distinct objects called elements:
+- Represented with curly braces: $A = \\{1, 2, 3\\}$
+- Order doesn't matter: $\\{1, 2, 3\\} = \\{3, 2, 1\\}$
+- No duplicates: $\\{1, 1, 2\\} = \\{1, 2\\}$
+
+**NOTATION**
+- $\\in$ means "is an element of": $2 \\in \\{1, 2, 3\\}$
+- $\\notin$ means "is not an element of": $4 \\notin \\{1, 2, 3\\}$
+- $\\emptyset$ or $\\{\\}$ represents the empty set`,
+        interactive: "set-basics"
+      },
+      {
+        title: "Types of Sets",
+        content: `**TYPES OF SETS**
+
+1. Finite Set: Has countable number of elements
+   - Example: $A = \\{a, b, c\\}$
+
+2. Infinite Set: Has unlimited elements
+   - Example: $\\mathbb{N} = \\{1, 2, 3, \\ldots\\}$
+
+3. Empty Set ($\\emptyset$): Contains no elements
+
+4. Universal Set ($\\mathbb{U}$): All possible elements in context
+
+5. Subset ($A \\subseteq B$): All elements of A are in B
+   - Example: $\\{1, 2\\} \\subseteq \\{1, 2, 3\\}$
+
+6. Proper Subset ($A \\subset B$): A is subset but $A \\neq B$`,
+        interactive: "set-types"
+      },
+      {
+        title: "Venn Diagrams (Two Subsets)",
+        content: `**VENN DIAGRAMS WITH TWO SETS**
+Visual representation of sets using overlapping circles:
+
+- Union ($A \\cup B$): All elements in A or B or both
+- Intersection ($A \\cap B$): Only elements in both A and B
+- Complement ($A'$): Elements not in A (relative to universal set)
+- Difference ($A \\setminus B$): Elements in A but not in B
+
+Example:
+- Let $A = \\{1, 2, 3\\}$, $B = \\{3, 4, 5\\}$
+- $A \\cup B = \\{1, 2, 3, 4, 5\\}$
+- $A \\cap B = \\{3\\}$
+- $A \\setminus B = \\{1, 2\\}$`,
+        interactive: "venn-two-sets"
+      },
+      {
+        title: "Set Builder Notation",
+        content: `**SET BUILDER NOTATION**
+A concise way to define sets using properties:
+- $\\{x \\mid x \\text{ has property } P\\}$
+- Read as "the set of all x such that x has property P"
+
+Examples:
+1. $\\{x \\mid x \\text{ is an even integer}\\}$
+2. $\\{x \\mid x > 0 \\text{ and } x < 10\\}$
+3. $\\{x \\in \\mathbb{R} \\mid x^2 < 4\\}$
+
+This notation is especially useful for infinite sets.`,
+        interactive: "set-builder"
+      },
+      {
+        title: "Venn Diagrams (Three Subsets)",
+        content: `**VENN DIAGRAMS WITH THREE SETS**
+Three overlapping circles representing sets A, B, and C:
+
+Key regions:
+1. $A \\cap B \\cap C$: Elements in all three sets
+2. $(A \\cap B) \\setminus C$: In A and B but not C
+3. $A \\setminus (B \\cup C)$: Only in A
+4. And similarly for other combinations
+
+Example operations:
+- $A \\cup B \\cup C$: All elements in any set
+- $(A \\cap B) \\cup (A \\cap C)$: Elements in both A and B, or both A and C`,
+        interactive: "venn-three-sets"
+      }
+    ]
+  }
+
+];
+
 export const quizQuestions: QuizQuestion[] = [
   {
     question: "Which type of number is $-5$?",

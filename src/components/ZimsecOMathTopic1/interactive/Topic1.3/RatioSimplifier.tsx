@@ -66,13 +66,15 @@ const RatioSimplifier = () => {
           placeholder="Value B"
           className="rounded-xl px-4 py-2 bg-yellow-100 border-2 border-yellow-300 w-1/2 text-center shadow-inner font-bold text-lg"
         />
-        <button
+    
+      </div>
+
+          <button
           onClick={simplifyRatio}
           className="bg-gradient-to-r from-pink-400 to-purple-500 text-white px-4 py-2 rounded-xl font-bold shadow-md hover:scale-105 transition"
         >
           Simplify
         </button>
-      </div>
 
       {steps.length > 0 && (
         <motion.div
