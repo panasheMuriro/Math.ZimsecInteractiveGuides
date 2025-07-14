@@ -4,7 +4,7 @@ import { MathJax } from "better-react-mathjax";
 import { Section } from "../types";
 import NumberClassifier from "../interactive/Topic1.1/NumberClassifier";
 import RoundingGame from "../interactive/RoundingGame";
-import ProportionSolver from "../interactive/ProportionSolver";
+
 import StandardFormConverter from "../interactive/StandardFormConverter";
 import BaseConverter from "../interactive/BaseConverter";
 import ScaleCalculator from "../interactive/ScaleCalculator";
@@ -15,6 +15,11 @@ import RationalNumbers from "../interactive/Topic1.1/RationalNumbers";
 import DecimalPlacesVisualizer from "../interactive/Topic1.2/DecimalPlacesVisualizer";
 import EstimationGame from "../interactive/Topic1.2/EstimationGame";
 import LimitsOfAccuracy from "../interactive/Topic1.2/LimitsOfAccuracy";
+import LargeNumbers from "../interactive/Topic1.4/LargeNumbers";
+import SmallNumbers from "../interactive/Topic1.4/SmallNumbers";
+import RatioSimplifier from "../interactive/Topic1.3/RatioSimplifier";
+import RateCalculator from "../interactive/Topic1.3/RateCalculator";
+import ProportionSolver from "../interactive/Topic1.3/ProportionSolver";
 
 interface StudyViewProps {
   section: Section;
@@ -39,8 +44,7 @@ const StudyView = ({
         return <NumberClassifier />;
       case "rounding-game":
         return <RoundingGame />;
-      case "proportion-solver":
-        return <ProportionSolver />;
+
       case "standard-form-converter":
         return <StandardFormConverter />;
       case "base-converter":
@@ -61,6 +65,18 @@ const StudyView = ({
         return <EstimationGame />;
       case "limits-accuracy":
         return <LimitsOfAccuracy />;
+
+      case "large-numbers":
+        return <LargeNumbers />;
+      case "small-numbers":
+        return <SmallNumbers />;
+      case "ratio-simplifier":
+        return <RatioSimplifier />;
+      case "rate-calculator":
+        return <RateCalculator/>
+      case "proportion-solver":
+        return <ProportionSolver />;
+
       default:
         return null;
     }
@@ -108,15 +124,15 @@ const StudyView = ({
               {currentContent.title}
             </h3>
           )}
-            <div className="prose prose-invert max-w-none">
-             <MathJax>
-               {currentContent.content.split("\n").map((paragraph, i) => (
-                 <p key={i} className="text-gray-900 leading-relaxed mb-4">
-                   {paragraph}
-                 </p>
-               ))}
-             </MathJax>
-         </div>
+          <div className="prose prose-invert max-w-none">
+            <MathJax>
+              {currentContent.content.split("\n").map((paragraph, i) => (
+                <p key={i} className="text-gray-900 leading-relaxed mb-4">
+                  {paragraph}
+                </p>
+              ))}
+            </MathJax>
+          </div>
         </div>
 
         <div className="mb-6">
