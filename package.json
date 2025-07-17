@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
+    "@upsetjs/venn.js": "^1.4.2",
     "better-react-mathjax": "^2.3.0",
     "bootstrap": "^5.3.3",
+    "d3": "^7.9.0",
     "framer-motion": "^12.23.3",
     "katex": "^0.16.22",
     "lucide-react": "^0.525.0",
@@ -22,6 +24,7 @@
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^19.0.0",
     "react-markdown": "^10.1.0",
+    "react-router-dom": "^7.6.3",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0"
   },
