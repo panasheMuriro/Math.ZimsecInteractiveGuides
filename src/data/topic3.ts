@@ -78,7 +78,7 @@ Business calculations for buying and selling:
 
 **Finding SP/CP:**
 - SP = CP + Profit = CP(1 + Profit%)
-- CP = $\\frac{\\text{SP}}{1 + \\text{Profit%}}$
+- CP = $\\frac{SP}{1 + p}$, where _p_ is the profit percentage in decimal
 
 **Example:**
 Article bought for $80, sold for $100:
@@ -205,7 +205,7 @@ Item costs $100, VAT = 15%:
       {
         title: "Foreign Exchange and Banking",
         content: `**FOREIGN EXCHANGE**
-        
+
 Converting between different currencies:
 
 **Exchange Rate:**
