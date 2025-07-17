@@ -40,6 +40,7 @@ import ProfitLossCalculator from "../interactive/Topic3/ProfitLossCalculator";
 import SimpleInterestCalculator from "../interactive/Topic3/SimpleInterestCalculator";
 // import CompoundInterestCalculator from "../interactive/Topic3/CompoundInterest";
 import CompoundInterest from "../interactive/Topic3/CompoundInterest";
+import HirePurchaseCalculator from "../interactive/Topic3/HirePurchaseCalculator";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -118,6 +119,8 @@ const StudyView = () => {
         return <SimpleInterestCalculator/>
       case "compound-interest":
         return <CompoundInterest/>
+      case "hire-purchase":
+        return <HirePurchaseCalculator/>
       
       default:
         return null;
