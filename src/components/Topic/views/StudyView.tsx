@@ -37,6 +37,7 @@ import SetBuilder from "../interactive/Topic2/SetBuilder";
 import ConsumerArithmeticCalculator from "../interactive/Topic3/ConsumerArithmeticCalculator";
 import HouseholdBills from "../interactive/Topic3/HouseholdBills";
 import ProfitLossCalculator from "../interactive/Topic3/ProfitLossCalculator";
+import SimpleInterestCalculator from "../interactive/Topic3/SimpleInterestCalculator";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -111,6 +112,8 @@ const StudyView = () => {
         return <HouseholdBills/>
       case "profit-loss":
         return <ProfitLossCalculator/>
+      case "simple-interest":
+        return <SimpleInterestCalculator/>
 
       
       default:
