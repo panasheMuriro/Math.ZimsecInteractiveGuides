@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState } from 'react';
 import { Check, X, RotateCcw, ArrowRight } from 'lucide-react';
 
 const SetBasics = () => {

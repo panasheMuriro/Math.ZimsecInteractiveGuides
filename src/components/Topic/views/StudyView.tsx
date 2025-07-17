@@ -29,11 +29,13 @@ import RateCalculator from "../interactive/Topic1/Topic1.3/RateCalculator";
 import ProportionSolver from "../interactive/Topic1/Topic1.3/ProportionSolver";
 import Base10Explorer from "../interactive/Topic1/Topic1.5/Base10Explorer";
 import BinaryExplorer from "../interactive/Topic1/Topic1.5/BinaryExplorer";
-import SetBasics from "../interactive/Topic2/Topic2.1/SetBasics";
-import SetTypes from "../interactive/Topic2/Topic2.1/SetTypes";
-import VennTwoSets from "../interactive/Topic2/Topic2.1/VennTwoSets";
-import VennThreeSets from "../interactive/Topic2/Topic2.1/VennThreeSets";
-import SetBuilder from "../interactive/Topic2/Topic2.1/SetBuilder";
+import SetBasics from "../interactive/Topic2/SetBasics";
+import SetTypes from "../interactive/Topic2/SetTypes";
+import VennTwoSets from "../interactive/Topic2/VennTwoSets";
+import VennThreeSets from "../interactive/Topic2/VennThreeSets";
+import SetBuilder from "../interactive/Topic2/SetBuilder";
+import ConsumerArithmeticCalculator from "../interactive/Topic3/ConsumerArithmeticCalculator";
+import HouseholdBills from "../interactive/Topic3/HouseholdBills";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -100,6 +102,15 @@ const StudyView = () => {
         return <VennThreeSets />;
       case "set-builder":
         return <SetBuilder />;
+
+
+      // Topic 3
+      case "consumer-arithmetic":
+        return <ConsumerArithmeticCalculator/>
+      case "household-bills":
+        return <HouseholdBills/>
+
+      
       default:
         return null;
     }
