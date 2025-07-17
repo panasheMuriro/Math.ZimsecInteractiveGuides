@@ -38,6 +38,8 @@ import ConsumerArithmeticCalculator from "../interactive/Topic3/ConsumerArithmet
 import HouseholdBills from "../interactive/Topic3/HouseholdBills";
 import ProfitLossCalculator from "../interactive/Topic3/ProfitLossCalculator";
 import SimpleInterestCalculator from "../interactive/Topic3/SimpleInterestCalculator";
+// import CompoundInterestCalculator from "../interactive/Topic3/CompoundInterest";
+import CompoundInterest from "../interactive/Topic3/CompoundInterest";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -114,7 +116,8 @@ const StudyView = () => {
         return <ProfitLossCalculator/>
       case "simple-interest":
         return <SimpleInterestCalculator/>
-
+      case "compound-interest":
+        return <CompoundInterest/>
       
       default:
         return null;
