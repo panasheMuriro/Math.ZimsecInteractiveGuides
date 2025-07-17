@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Calculator, DollarSign, ArrowRightLeft, Coins } from "lucide-react";
+import { Calculator, Coins } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";

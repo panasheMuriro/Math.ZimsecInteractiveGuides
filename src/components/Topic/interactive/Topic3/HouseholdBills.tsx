@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Home, Zap, Flame, Phone, Calculator, ChevronDown, ChevronUp, AlertCircle, TrendingUp, PieChart } from 'lucide-react';
 
 export default function HouseholdBills() {

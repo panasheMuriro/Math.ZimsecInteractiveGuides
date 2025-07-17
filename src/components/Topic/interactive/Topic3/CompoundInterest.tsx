@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Calculator, TrendingUp, RefreshCw } from "lucide-react";
+import { Calculator, RefreshCw } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
@@ -111,7 +111,7 @@ $$CI = A - P = ${A.toFixed(2)} - ${principal} = ${CI.toFixed(2)}$$
           <label className="text-sm font-medium text-gray-600">Frequency</label>
           <select
             value={frequency}
-            onChange={(e) => setFrequency(e.target.value as any)}
+            onChange={(e) => setFrequency(e.target.value as "annually" | "semi" | "quarterly" | "monthly")}
             className="w-full px-3 py-2 rounded-xl border focus:ring-2 focus:ring-indigo-500 bg-white"
           >
             <option value="annually">Annually</option>
@@ -125,7 +125,7 @@ $$CI = A - P = ${A.toFixed(2)} - ${principal} = ${CI.toFixed(2)}$$
           <label className="text-sm font-medium text-gray-600">Currency</label>
           <select
             value={currency}
-            onChange={(e) => setCurrency(e.target.value as any)}
+            onChange={(e) => setCurrency(e.target.value as keyof typeof currencies)}
             className="w-full px-3 py-2 rounded-xl border focus:ring-2 focus:ring-indigo-500 bg-white"
           >
             {Object.entries(currencies).map(([key, label]) => (
