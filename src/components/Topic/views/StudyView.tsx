@@ -44,6 +44,7 @@ import CompoundInterest from "../interactive/Topic3/CompoundInterest";
 import HirePurchaseCalculator from "../interactive/Topic3/HirePurchaseCalculator";
 import CommissionTaxCalculator from "../interactive/Topic3/CommissionTaxCalculator";
 import ForeignExchange from "../interactive/Topic3/ForeignExchange";
+import TimeUnitsInteractive from "../interactive/Topic4/Topic4.1/TimeUnits";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -129,6 +130,11 @@ const StudyView = () => {
       case "foreign-exchange":
         return <ForeignExchange/>
 
+      // Topic4
+
+      case "time-units":
+        return <TimeUnitsInteractive/>
+
       default:
         return null;
     }
@@ -147,7 +153,9 @@ const StudyView = () => {
   const handlePrev = () => {
     if (currentSubsection > 0) {
       setCurrentSubsection(currentSubsection - 1);
+     
     }
+     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (

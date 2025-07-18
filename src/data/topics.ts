@@ -3,6 +3,7 @@ import { TopicData } from '../types';
 import { sections as topic1Sections, quizQuestions as topic1Quiz } from './topic1';
 import { sections as topic2Sections, quizQuestions as topic2Quiz } from './topic2';
 import { sections as topic3Sections, quizQuestions as topic3Quiz } from './topic3';
+import { sections as topic4Sections, quizQuestions as topic4Quiz } from './topic4';
 
 export const topics: TopicData[] = [
   {
@@ -28,5 +29,18 @@ export const topics: TopicData[] = [
     icon: "💰",
     sections: topic3Sections,
     quizQuestions: topic3Quiz
-  }
+  },
+
+  {
+    id: 4,
+    title: "Measures and Mensuration",
+    description: "Units of measurement, perimeter, area, volume, and surface area",
+    icon: "📏",
+    sections: topic4Sections,
+    quizQuestions: topic4Quiz
+  },
+
+
+
+
 ];
