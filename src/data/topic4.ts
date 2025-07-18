@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Section, QuizQuestion } from "../types";
 
 export const sections: Section[] = [
@@ -592,3 +593,4 @@ export const quizQuestions: QuizQuestion[] = [
     explanation: "Volume = (4/3)πr³ = (4/3)π × 3³ = (4/3)π × 27 = 36π cm³",
   },
 ];
+

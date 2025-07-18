@@ -39,7 +39,6 @@ import ConsumerArithmeticCalculator from "../interactive/Topic3/ConsumerArithmet
 import HouseholdBills from "../interactive/Topic3/HouseholdBills";
 import ProfitLossCalculator from "../interactive/Topic3/ProfitLossCalculator";
 import SimpleInterestCalculator from "../interactive/Topic3/SimpleInterestCalculator";
-// import CompoundInterestCalculator from "../interactive/Topic3/CompoundInterest";
 import CompoundInterest from "../interactive/Topic3/CompoundInterest";
 import HirePurchaseCalculator from "../interactive/Topic3/HirePurchaseCalculator";
 import CommissionTaxCalculator from "../interactive/Topic3/CommissionTaxCalculator";
@@ -47,6 +46,11 @@ import ForeignExchange from "../interactive/Topic3/ForeignExchange";
 import TimeUnitsInteractive from "../interactive/Topic4/Topic4.1/TimeUnits";
 import MassUnitsInteractive from "../interactive/Topic4/Topic4.1/MassUnits";
 import LengthUnits from "../interactive/Topic4/Topic4.1/LengthUnits";
+import TemperatureUnits from "../interactive/Topic4/Topic4.1/TemperatureUnits";
+import CapacityUnits from "../interactive/Topic4/Topic4.1/CapacityUnits";
+import AreaUnits from "../interactive/Topic4/Topic4.1/AreaUnits";
+import VolumeUnits from "../interactive/Topic4/Topic4.1/VolumeUnits";
+import AreaUnits2 from "../interactive/Topic4/Topic4.1/AreaUnits2";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -140,6 +144,15 @@ const StudyView = () => {
         return <MassUnitsInteractive/>
       case "length-units":
         return <LengthUnits/>
+      case "temperature-units":
+        return <TemperatureUnits/>
+      case "capacity-units":
+        return <CapacityUnits/>
+      case "area-units":
+        return <AreaUnits2/>
+      case "volume-units":
+        return <VolumeUnits/>
+
       default:
         return null;
     }
