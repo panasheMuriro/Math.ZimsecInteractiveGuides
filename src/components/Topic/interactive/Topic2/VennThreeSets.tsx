@@ -49,7 +49,7 @@ const VennThreeSets = () => {
   };
 
   return (
-    <div className="w-full max-w-xl mx-auto p-5 bg-white rounded-2xl shadow-lg space-y-6 border border-gray-200">
+    <div className="w-full max-w-xl mx-auto p-5 bg-[#FFE8CD] rounded-2xl shadow-lg space-y-6 border border-gray-200">
       <h2 className="text-2xl font-bold text-center text-blue-600">🎯 Venn Diagram — Three Sets</h2>
 
       {/* Set Inputs */}
@@ -57,7 +57,7 @@ const VennThreeSets = () => {
         <div>
           <label className="block text-sm font-semibold text-blue-600 mb-1">Set A</label>
           <input
-            className="w-full p-2 border-2 border-blue-400 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-2 border-2 border-blue-400 rounded-lg text-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
             placeholder="e.g. 1, 2, 3"
             value={setA}
             onChange={(e) => setSetA(e.target.value)}
@@ -66,7 +66,7 @@ const VennThreeSets = () => {
         <div>
           <label className="block text-sm font-semibold text-green-600 mb-1">Set B</label>
           <input
-            className="w-full p-2 border-2 border-green-400 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full p-2 border-2 border-green-400 rounded-lg text-md focus:outline-none focus:ring-2 focus:ring-green-500 bg-white"
             placeholder="e.g. 2, 3, 4"
             value={setB}
             onChange={(e) => setSetB(e.target.value)}
@@ -75,7 +75,7 @@ const VennThreeSets = () => {
         <div>
           <label className="block text-sm font-semibold text-purple-600 mb-1">Set C</label>
           <input
-            className="w-full p-2 border-2 border-purple-400 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="w-full p-2 border-2  border-purple-400 rounded-lg text-md focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white"
             placeholder="e.g. 3, 4, 5"
             value={setC}
             onChange={(e) => setSetC(e.target.value)}
@@ -111,7 +111,7 @@ const VennThreeSets = () => {
         </button>
         <button
           onClick={reset}
-          className="group flex items-center gap-1 px-4 py-2 bg-gray-100 text-gray-700 hover:ring-2 ring-gray-300 rounded-lg transition"
+          className="group flex items-center gap-1 px-4 py-2 bg-white text-gray-700 hover:ring-2 ring-gray-300 rounded-lg transition"
         >
           Reset <RefreshCcw className="w-4 h-4 group-hover:rotate-90 transition" />
         </button>
@@ -120,21 +120,12 @@ const VennThreeSets = () => {
       {/* Result */}
       <div className="text-center">
         <p className="text-sm font-medium text-gray-500 mb-1">Result</p>
-        <div className="inline-block px-4 py-2 bg-gray-100 text-gray-800 rounded-full text-sm border">
+        <div className="inline-block px-4 py-4 bg-white text-gray-800 rounded-full text-sm border">
           {result || "No result yet"}
         </div>
       </div>
 
-      {/* Optional Venn SVG placeholder */}
-      <div className="mt-4">
-        <div className="w-full flex justify-center">
-          <div className="relative w-64 h-64">
-            <div className="absolute w-40 h-40 bg-blue-200 opacity-50 rounded-full top-8 left-4" />
-            <div className="absolute w-40 h-40 bg-green-200 opacity-50 rounded-full top-8 left-20" />
-            <div className="absolute w-40 h-40 bg-purple-200 opacity-50 rounded-full top-16 left-12" />
-          </div>
-        </div>
-      </div>
+    
     </div>
   );
 };
