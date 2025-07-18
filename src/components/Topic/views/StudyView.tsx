@@ -216,7 +216,7 @@ const StudyView = () => {
 
         <Link
           to={`/topics/${topicData.id}`}
-          className="w-full mt-6 bg-[#4A9782] text-white font-bold py-4 px-6 rounded-2xl hover:bg-[#f9c77c] transition-all duration-300 hover:scale-[1.02] flex items-center justify-center space-x-2 shadow-md"
+          className="w-full mt-6 bg-[#4A9782] text-white font-bold py-4 px-6 rounded-2xl hover:bg-[#f9c77c] transition-all duration-300 hover:scale-[1.02] flex items-center justify-center space-x-2 shadow-md mt-10"
         >
           <CheckCircle className="w-5 h-5" />
           <span>Mark as Complete</span>
