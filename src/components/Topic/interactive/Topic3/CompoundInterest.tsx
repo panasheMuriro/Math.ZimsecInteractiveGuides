@@ -80,7 +80,7 @@ $$CI = A - P = ${A.toFixed(2)} - ${principal} = ${CI.toFixed(2)}$$
             type="number"
             value={principal}
             onChange={(e) => setPrincipal(+e.target.value)}
-            className="w-full px-3 py-2 rounded-xl border focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-3 py-2 rounded-xl border focus:ring-2 focus:ring-indigo-500 bg-white"
             placeholder="e.g. 1000"
           />
         </div>
@@ -91,7 +91,7 @@ $$CI = A - P = ${A.toFixed(2)} - ${principal} = ${CI.toFixed(2)}$$
             type="number"
             value={rate}
             onChange={(e) => setRate(+e.target.value)}
-            className="w-full px-3 py-2 rounded-xl border focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-3 py-2 rounded-xl border focus:ring-2 focus:ring-indigo-500 bg-white"
             placeholder="e.g. 8"
           />
         </div>
@@ -102,7 +102,7 @@ $$CI = A - P = ${A.toFixed(2)} - ${principal} = ${CI.toFixed(2)}$$
             type="number"
             value={time}
             onChange={(e) => setTime(+e.target.value)}
-            className="w-full px-3 py-2 rounded-xl border focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-3 py-2 rounded-xl border focus:ring-2 focus:ring-indigo-500 bg-white"
             placeholder="e.g. 2"
           />
         </div>
