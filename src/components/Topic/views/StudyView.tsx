@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import "katex/dist/katex.min.css"; // Include KaTeX styles
+import remarkGfm from "remark-gfm";
 
 import Header from "../../Global/Header";
 import { useTopicContext } from "../hooks/useTopicContext";
@@ -42,6 +43,7 @@ import SimpleInterestCalculator from "../interactive/Topic3/SimpleInterestCalcul
 import CompoundInterest from "../interactive/Topic3/CompoundInterest";
 import HirePurchaseCalculator from "../interactive/Topic3/HirePurchaseCalculator";
 import CommissionTaxCalculator from "../interactive/Topic3/CommissionTaxCalculator";
+import ForeignExchange from "../interactive/Topic3/ForeignExchange";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -111,20 +113,22 @@ const StudyView = () => {
 
       // Topic 3
       case "consumer-arithmetic":
-        return <ConsumerArithmeticCalculator/>
+        return <ConsumerArithmeticCalculator />;
       case "household-bills":
-        return <HouseholdBills/>
+        return <HouseholdBills />;
       case "profit-loss":
-        return <ProfitLossCalculator/>
+        return <ProfitLossCalculator />;
       case "simple-interest":
-        return <SimpleInterestCalculator/>
+        return <SimpleInterestCalculator />;
       case "compound-interest":
-        return <CompoundInterest/>
+        return <CompoundInterest />;
       case "hire-purchase":
-        return <HirePurchaseCalculator/>
+        return <HirePurchaseCalculator />;
       case "commission-tax":
-        return <CommissionTaxCalculator/>
-      
+        return <CommissionTaxCalculator />;
+      case "foreign-exchange":
+        return <ForeignExchange/>
+
       default:
         return null;
     }
@@ -162,22 +166,19 @@ const StudyView = () => {
         )}
 
         <div className="bg-[#fffef9] shadow-lg border border-[#e4ded4] rounded-2xl p-6 mb-6 prose max-w-none">
-
-          <div className="prose max-w-none text-gray-900 leading-relaxed">
-
-
-          <ReactMarkdown
-            remarkPlugins={[remarkMath]}
-            rehypePlugins={[rehypeKatex]}
-          
-            // className="prose max-w-none text-gray-900 leading-relaxed"
-          >
-            {currentContent.content}
-          </ReactMarkdown>
+          <div className="prose max-w-none text-gray-900 leading-[30px]">
+            <ReactMarkdown
+              remarkPlugins={[remarkMath, remarkGfm]}
+              rehypePlugins={[rehypeKatex]}
+            >
+              {currentContent.content}
+            </ReactMarkdown>
           </div>
         </div>
 
-        <div className="mb-6">{renderInteractive(currentContent.interactive)}</div>
+        <div className="mb-6">
+          {renderInteractive(currentContent.interactive as string)}
+        </div>
 
         {section.subsections && (
           <div className="flex justify-between mb-6">
@@ -211,7 +212,7 @@ const StudyView = () => {
 
         <Link
           to={`/topics/${topicData.id}`}
-          className="w-full mt-6 bg-[#ffd28f] text-[#4b3f2f] font-bold py-4 px-6 rounded-2xl hover:bg-[#f9c77c] transition-all duration-300 hover:scale-[1.02] flex items-center justify-center space-x-2 shadow-md"
+          className="w-full mt-6 bg-[#4A9782] text-white font-bold py-4 px-6 rounded-2xl hover:bg-[#f9c77c] transition-all duration-300 hover:scale-[1.02] flex items-center justify-center space-x-2 shadow-md"
         >
           <CheckCircle className="w-5 h-5" />
           <span>Mark as Complete</span>

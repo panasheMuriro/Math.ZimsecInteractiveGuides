@@ -1,15 +1,44 @@
-import  { useState } from 'react';
+// export default SetBasics;
+import { useState, ChangeEvent } from 'react';
 import { Check, X, RotateCcw, ArrowRight } from 'lucide-react';
 
-const SetBasics = () => {
-  const [currentExercise, setCurrentExercise] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [showFeedback, setShowFeedback] = useState(false);
-  const [score, setScore] = useState(0);
-  const [userSet, setUserSet] = useState('');
-  const [setDisplay, setSetDisplay] = useState('');
+type MembershipExercise = {
+  type: 'membership';
+  question: string;
+  set: string;
+  element: string;
+  options: string[];
+  correct: number;
+  explanation: string;
+};
 
-  const exercises = [
+type EqualityExercise = {
+  type: 'equality';
+  question: string;
+  options: string[];
+  correct: number;
+  explanation: string;
+};
+
+type BuildExercise = {
+  type: 'build';
+  question: string;
+  placeholder: string;
+  correct: string;
+  explanation: string;
+};
+
+type Exercise = MembershipExercise | EqualityExercise | BuildExercise;
+
+const SetBasics = () => {
+  const [currentExercise, setCurrentExercise] = useState<number>(0);
+  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+  const [showFeedback, setShowFeedback] = useState<boolean>(false);
+  const [score, setScore] = useState<number>(0);
+  const [userSet, setUserSet] = useState<string>('');
+  const [setDisplay, setSetDisplay] = useState<string>('');
+
+  const exercises: Exercise[] = [
     {
       type: 'membership',
       question: 'Is 5 an element of the set {2, 5, 8, 11}?',
@@ -53,17 +82,16 @@ const SetBasics = () => {
 
   const currentEx = exercises[currentExercise];
 
-  const handleAnswerSelect = (index) => {
+  const handleAnswerSelect = (index: number) => {
     setSelectedAnswer(index);
     setShowFeedback(true);
-    if (index === currentEx.correct) {
-      setScore(score + 1);
+    if (index === (currentEx as MembershipExercise | EqualityExercise).correct) {
+      setScore((prev) => prev + 1);
     }
   };
 
-  const handleSetInput = (value) => {
+  const handleSetInput = (value: string) => {
     setUserSet(value);
-    // Clean and format the input
     const cleaned = value.replace(/\s+/g, '');
     setSetDisplay(cleaned);
   };
@@ -71,10 +99,10 @@ const SetBasics = () => {
   const checkSetAnswer = () => {
     setShowFeedback(true);
     const userCleaned = userSet.replace(/\s+/g, '').toLowerCase();
-    const correctCleaned = currentEx.correct.replace(/\s+/g, '').toLowerCase();
-    
+    const correctCleaned = (currentEx as BuildExercise).correct.replace(/\s+/g, '').toLowerCase();
+
     if (userCleaned === correctCleaned) {
-      setScore(score + 1);
+      setScore((prev) => prev + 1);
     }
   };
 
@@ -102,19 +130,15 @@ const SetBasics = () => {
 
   const renderMembershipVisual = () => {
     if (currentEx.type !== 'membership') return null;
-    
+
     const elements = currentEx.set.slice(1, -1).split(', ');
     const targetElement = currentEx.element;
-    
+
     return (
       <div className="mb-6 p-4 bg-blue-50 rounded-lg">
         <div className="text-center mb-4">
-          <div className="text-lg font-mono text-blue-800">
-            Set: {currentEx.set}
-          </div>
-          <div className="text-lg font-mono text-purple-800 mt-2">
-            Element: {targetElement}
-          </div>
+          <div className="text-lg font-mono text-blue-800">Set: {currentEx.set}</div>
+          <div className="text-lg font-mono text-purple-800 mt-2">Element: {targetElement}</div>
         </div>
         <div className="flex flex-wrap justify-center gap-2">
           {elements.map((element, idx) => (
@@ -136,12 +160,11 @@ const SetBasics = () => {
 
   return (
     <div className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-lg">
+      {/* Header */}
       <div className="mb-4">
         <div className="flex justify-between items-center mb-2">
           <h3 className="text-lg font-bold text-gray-800">Set Basics Practice</h3>
-          <div className="text-sm text-gray-600">
-            Score: {score}/{exercises.length}
-          </div>
+          <div className="text-sm text-gray-600">Score: {score}/{exercises.length}</div>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2">
           <div 
@@ -149,24 +172,22 @@ const SetBasics = () => {
             style={{ width: `${((currentExercise + 1) / exercises.length) * 100}%` }}
           />
         </div>
-        <div className="text-xs text-gray-500 mt-1">
-          Exercise {currentExercise + 1} of {exercises.length}
-        </div>
+        <div className="text-xs text-gray-500 mt-1">Exercise {currentExercise + 1} of {exercises.length}</div>
       </div>
 
+      {/* Question */}
       <div className="mb-6">
-        <div className="text-base font-medium text-gray-800 mb-4">
-          {currentEx.question}
-        </div>
+        <div className="text-base font-medium text-gray-800 mb-4">{currentEx.question}</div>
 
         {renderMembershipVisual()}
 
+        {/* Build Type */}
         {currentEx.type === 'build' ? (
           <div className="space-y-4">
             <input
               type="text"
               value={userSet}
-              onChange={(e) => handleSetInput(e.target.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => handleSetInput(e.target.value)}
               placeholder={currentEx.placeholder}
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -188,7 +209,7 @@ const SetBasics = () => {
           </div>
         ) : (
           <div className="space-y-3">
-            {currentEx.options.map((option, index) => (
+            {(currentEx as MembershipExercise | EqualityExercise).options.map((option, index) => (
               <button
                 key={index}
                 onClick={() => handleAnswerSelect(index)}
@@ -221,29 +242,30 @@ const SetBasics = () => {
           </div>
         )}
 
+        {/* Explanation and Controls */}
         {showFeedback && (
-          <div className="mt-4 p-3 bg-blue-50 rounded-lg">
-            <div className="text-sm font-medium text-blue-800 mb-2">Explanation:</div>
-            <div className="text-sm text-blue-700">{currentEx.explanation}</div>
-          </div>
-        )}
+          <>
+            <div className="mt-4 p-3 bg-blue-50 rounded-lg">
+              <div className="text-sm font-medium text-blue-800 mb-2">Explanation:</div>
+              <div className="text-sm text-blue-700">{currentEx.explanation}</div>
+            </div>
 
-        {showFeedback && (
-          <div className="mt-4 flex gap-2">
-            <button
-              onClick={nextExercise}
-              className="flex-1 py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2"
-            >
-              {currentExercise === exercises.length - 1 ? 'Restart' : 'Next'}
-              <ArrowRight className="w-4 h-4" />
-            </button>
-            <button
-              onClick={resetExercise}
-              className="py-2 px-4 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
-            >
-              <RotateCcw className="w-4 h-4" />
-            </button>
-          </div>
+            <div className="mt-4 flex gap-2">
+              <button
+                onClick={nextExercise}
+                className="flex-1 py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2"
+              >
+                {currentExercise === exercises.length - 1 ? 'Restart' : 'Next'}
+                <ArrowRight className="w-4 h-4" />
+              </button>
+              <button
+                onClick={resetExercise}
+                className="py-2 px-4 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
+              >
+                <RotateCcw className="w-4 h-4" />
+              </button>
+            </div>
+          </>
         )}
       </div>
 

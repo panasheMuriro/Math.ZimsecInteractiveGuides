@@ -74,14 +74,21 @@ export interface VennRegion {
   color: string;
 }
 
+export const domains = {
+  integers: { symbol: 'ℤ', name: 'Integers', range: [-10, 10] },
+  naturals: { symbol: 'ℕ', name: 'Natural Numbers', range: [1, 20] },
+  reals: { symbol: 'ℝ', name: 'Real Numbers', range: [-5, 5] }
+} as const;
+
 export interface Domain {
   symbol: string;
   name: string;
   range: [number, number];
 }
+export type DomainKey = keyof typeof domains;
 
 export interface PresetCondition {
   name: string;
   condition: string;
-  domain: keyof typeof domains;
+  domain: DomainKey
 }

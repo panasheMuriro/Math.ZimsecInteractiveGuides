@@ -208,6 +208,7 @@ Item costs $100, VAT = 15%:
 
 Converting between different currencies:
 
+
 **Exchange Rate:**
 - Price of one currency in terms of another
 - Buying Rate: Rate at which bank buys foreign currency

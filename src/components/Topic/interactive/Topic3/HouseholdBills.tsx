@@ -1,19 +1,62 @@
 import { useState } from 'react';
-import { Home, Zap, Flame, Phone, Calculator, ChevronDown, ChevronUp, AlertCircle, TrendingUp, PieChart } from 'lucide-react';
+import {
+  Home,
+  Zap,
+  Flame,
+  Phone,
+  Calculator,
+  ChevronDown,
+  ChevronUp,
+  AlertCircle,
+  TrendingUp,
+  PieChart
+} from 'lucide-react';
+
+type PhonePlanKey = 'basic' | 'standard' | 'premium';
+
+type BillState = {
+  electricity: { units: string; rate: string; fixed: string };
+  gas: { kg: string; rate: string; fixed: string };
+  phone: { minutes: string; sms: string; data: string; plan: PhonePlanKey };
+};
+
+type BudgetState = {
+  income: string;
+  rent: string;
+  food: string;
+  transport: string;
+  utilities: string;
+  entertainment: string;
+  savings: string;
+};
+
+type PhonePlan = {
+  monthly: number;
+  minutes: number | 'unlimited';
+  sms: number | 'unlimited';
+  data: number;
+};
+
+interface BillType {
+  id: keyof BillState;
+  name: string;
+  icon: React.ComponentType<{ className?: string }>;
+  color: string;
+  unit: string;
+  description: string;
+}
 
 export default function HouseholdBills() {
-  const [activeTab, setActiveTab] = useState('bills');
-  const [expandedSection, setExpandedSection] = useState('electricity');
-  
-  // Bill Calculator States
-  const [bills, setBills] = useState({
-    electricity: { units: '', rate: '0.15', fixed: '5' }, // ZESA rates
-    gas: { kg: '', rate: '3.50', fixed: '0' }, // LPG gas rates
-    phone: { minutes: '', sms: '', data: '', plan: 'basic' } // Mobile plans
+  const [activeTab, setActiveTab] = useState<'bills' | 'budget'>('bills');
+  const [expandedSection, setExpandedSection] = useState<keyof BillState | null>('electricity');
+
+  const [bills, setBills] = useState<BillState>({
+    electricity: { units: '', rate: '0.15', fixed: '5' },
+    gas: { kg: '', rate: '3.50', fixed: '0' },
+    phone: { minutes: '', sms: '', data: '', plan: 'basic' }
   });
-  
-  // Budget States
-  const [budget, setBudget] = useState({
+
+  const [budget, setBudget] = useState<BudgetState>({
     income: '',
     rent: '',
     food: '',
@@ -23,13 +66,13 @@ export default function HouseholdBills() {
     savings: ''
   });
 
-  const phonePlans = {
-    basic: { monthly: 5, minutes: 50, sms: 50, data: 1 }, // Econet/EcoCash bundles
+  const phonePlans: Record<PhonePlanKey, PhonePlan> = {
+    basic: { monthly: 5, minutes: 50, sms: 50, data: 1 },
     standard: { monthly: 10, minutes: 100, sms: 100, data: 5 },
     premium: { monthly: 30, minutes: 'unlimited', sms: 'unlimited', data: 20 }
   };
 
-  const billTypes = [
+  const billTypes: BillType[] = [
     {
       id: 'electricity',
       name: 'ZESA',
@@ -56,49 +99,54 @@ export default function HouseholdBills() {
     }
   ];
 
-  const calculateBill = (type) => {
-    const bill = bills[type];
-    if (type === 'electricity') {
-      const units = parseFloat(bill.units) || 0;
-      const rate = parseFloat(bill.rate) || 0;
-      const fixed = parseFloat(bill.fixed) || 0;
-      return fixed + (units * rate);
-    } else if (type === 'gas') {
-      const kg = parseFloat(bill.kg) || 0;
-      const rate = parseFloat(bill.rate) || 0;
-      return kg * rate; // No fixed charge for gas in Zim
-    } else if (type === 'phone') {
-      const plan = phonePlans[bill.plan];
-      let extra = 0;
-      
-      if (plan.minutes !== 'unlimited') {
-        const extraMinutes = Math.max(0, (parseFloat(bill.minutes) || 0) - plan.minutes);
-        extra += extraMinutes * 0.50; // Higher out-of-bundle rates
-      }
-      
-      if (plan.sms !== 'unlimited') {
-        const extraSms = Math.max(0, (parseFloat(bill.sms) || 0) - plan.sms);
-        extra += extraSms * 0.20;
-      }
-      
-      const extraData = Math.max(0, (parseFloat(bill.data) || 0) - plan.data);
-      extra += extraData * 5; // Higher data costs
-      
-      return plan.monthly + extra;
-    }
-    return 0;
-  };
+const calculateBill = (type: keyof BillState): number => {
+  const bill = bills[type];
 
-  const totalBills = billTypes.reduce((sum, type) => sum + calculateBill(type.id), 0);
+  if (type === 'electricity') {
+    const { units, rate, fixed } = bill as BillState['electricity'];
+    return (parseFloat(fixed) || 0) + (parseFloat(units) || 0) * (parseFloat(rate) || 0);
+  }
+
+  if (type === 'gas') {
+    const { kg, rate } = bill as BillState['gas'];
+    return (parseFloat(kg) || 0) * (parseFloat(rate) || 0);
+  }
+
+  if (type === 'phone') {
+    const { minutes, sms, data, plan } = bill as BillState['phone'];
+    const planData = phonePlans[plan];
+
+    let extra = 0;
+
+    if (planData.minutes !== 'unlimited') {
+      const extraMinutes = Math.max(0, (parseFloat(minutes) || 0) - planData.minutes);
+      extra += extraMinutes * 0.5;
+    }
+
+    if (planData.sms !== 'unlimited') {
+      const extraSms = Math.max(0, (parseFloat(sms) || 0) - planData.sms);
+      extra += extraSms * 0.2;
+    }
+
+    const extraData = Math.max(0, (parseFloat(data) || 0) - planData.data);
+    extra += extraData * 5;
+
+    return planData.monthly + extra;
+  }
+
+  return 0;
+};
+  const totalBills = billTypes.reduce((sum, t) => sum + calculateBill(t.id), 0);
 
   const calculateBudget = () => {
     const income = parseFloat(budget.income) || 0;
     const expenses = ['rent', 'food', 'transport', 'utilities', 'entertainment'].reduce(
-      (sum, key) => sum + (parseFloat(budget[key]) || 0), 0
+      (sum, key) => sum + (parseFloat(budget[key as keyof BudgetState]) || 0),
+      0
     );
     const savings = parseFloat(budget.savings) || 0;
     const remaining = income - expenses - savings;
-    
+
     return {
       income,
       totalExpenses: expenses,
@@ -110,35 +158,39 @@ export default function HouseholdBills() {
 
   const budgetResult = calculateBudget();
 
-  const toggleSection = (section) => {
+  const toggleSection = (section: keyof BillState) => {
     setExpandedSection(expandedSection === section ? null : section);
   };
 
-  const updateBill = (type, field, value) => {
-    setBills(prev => ({
+  const updateBill = (type: keyof BillState, field: string, value: string) => {
+    setBills((prev) => ({
       ...prev,
       [type]: { ...prev[type], [field]: value }
     }));
   };
 
-  const updateBudget = (field, value) => {
-    setBudget(prev => ({ ...prev, [field]: value }));
+  const updateBudget = (field: keyof BudgetState, value: string) => {
+    setBudget((prev) => ({
+      ...prev,
+      [field]: value
+    }));
   };
 
-  return (
+    return (
     <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-4 text-white">
-        <div className="flex items-center gap-2">
-          <Home className="w-6 h-6" />
-          <h2 className="text-lg font-bold">Zim Household Finance</h2>
-        </div>
-        <p className="text-sm opacity-90 mt-1">Manage bills and budget in ZIG/USD</p>
-      </div>
 
-      {/* Tab Navigation */}
-      <div className="flex border-b">
-        <button
+      
+      {/* You already have this part in your code */}
+      {/* Just reuse it as-is, everything below this remains the same */}
+
+       {/* Header */}
+       <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-4 text-white">         <div className="flex items-center gap-2">
+           <Home className="w-6 h-6" />           <h2 className="text-lg font-bold">Zim Household Finance</h2>
+         </div>
+         <p className="text-sm opacity-90 mt-1">Manage bills and budget in ZIG/USD</p>       </div>
+       {/* Tab Navigation */}
+       <div className="flex border-b">
+       <button
           onClick={() => setActiveTab('bills')}
           className={`flex-1 py-3 px-4 text-sm font-medium transition-colors ${
             activeTab === 'bills' 
@@ -378,8 +430,8 @@ export default function HouseholdBills() {
                     </label>
                     <input
                       type="number"
-                      value={budget[field]}
-                      onChange={(e) => updateBudget(field, e.target.value)}
+                      value={budget[field as keyof BudgetState]}
+                      onChange={(e) => updateBudget(field as keyof BudgetState, e.target.value)}
                       placeholder={field === 'rent' ? '1000' : field === 'food' ? '400' : '200'}
                       className="w-full px-2 py-1 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                     />
@@ -418,6 +470,8 @@ export default function HouseholdBills() {
           </div>
         )}
       </div>
+
+
     </div>
-  );
-}
+
+  )}
