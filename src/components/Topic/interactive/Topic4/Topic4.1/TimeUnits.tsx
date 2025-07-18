@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Clock, Calendar, Sunrise, Moon, BookOpen, Bus, Home, Coffee } from 'lucide-react';
+import { Clock, Calendar, Sunrise, BookOpen, Bus, Home, Coffee } from 'lucide-react';
 
 // Define types
 type Scenario = {
