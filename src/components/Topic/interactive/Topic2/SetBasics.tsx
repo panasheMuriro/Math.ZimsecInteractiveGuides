@@ -159,7 +159,7 @@ const SetBasics = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-[#EFE4D2] rounded-lg shadow-lg">
+    <div className="max-w-md mx-auto p-4 bg-[#FF9B45] rounded-lg shadow-lg">
       {/* Header */}
       <div className="mb-4">
         <div className="flex justify-between items-center mb-2">
