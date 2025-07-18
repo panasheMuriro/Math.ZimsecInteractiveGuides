@@ -117,7 +117,7 @@ $$`}
         </div>
       </div>
 
-      <div className="text-xs text-gray-500 mt-4">
+      <div className="text-xs text-black mt-4">
         <div className="flex items-start gap-2">
           <Info className="w-4 h-4 mt-0.5" />
           <span>
