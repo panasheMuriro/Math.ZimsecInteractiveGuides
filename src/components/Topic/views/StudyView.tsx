@@ -177,6 +177,9 @@ const StudyView = () => {
           </div>
         </div>
 
+        <div className="text-lg mb-4 font-bold">Practice</div>
+
+
         <div className="mb-6">
           {renderInteractive(currentContent.interactive as string)}
         </div>
