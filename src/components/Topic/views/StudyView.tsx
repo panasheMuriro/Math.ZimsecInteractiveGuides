@@ -135,13 +135,14 @@ const StudyView = () => {
   };
 
   const handleNext = () => {
-    if (
-      section.subsections &&
-      currentSubsection < section.subsections.length - 1
-    ) {
-      setCurrentSubsection(currentSubsection + 1);
-    }
-  };
+  if (
+    section.subsections &&
+    currentSubsection < section.subsections.length - 1
+  ) {
+    setCurrentSubsection(currentSubsection + 1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+};
 
   const handlePrev = () => {
     if (currentSubsection > 0) {
