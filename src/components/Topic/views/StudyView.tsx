@@ -45,6 +45,8 @@ import HirePurchaseCalculator from "../interactive/Topic3/HirePurchaseCalculator
 import CommissionTaxCalculator from "../interactive/Topic3/CommissionTaxCalculator";
 import ForeignExchange from "../interactive/Topic3/ForeignExchange";
 import TimeUnitsInteractive from "../interactive/Topic4/Topic4.1/TimeUnits";
+import MassUnitsInteractive from "../interactive/Topic4/Topic4.1/MassUnits";
+import LengthUnits from "../interactive/Topic4/Topic4.1/LengthUnits";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -134,7 +136,10 @@ const StudyView = () => {
 
       case "time-units":
         return <TimeUnitsInteractive/>
-
+      case "mass-units":
+        return <MassUnitsInteractive/>
+      case "length-units":
+        return <LengthUnits/>
       default:
         return null;
     }
