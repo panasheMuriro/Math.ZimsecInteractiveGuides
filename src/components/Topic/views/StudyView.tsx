@@ -60,6 +60,7 @@ import SurfaceAreas from "../interactive/Topic4/Topic4.2/SurfaceAreas";
 import { VolumeDensity } from "../interactive/Topic4/Topic4.2/VolumeDensity";
 import CartesianPlane from "../interactive/Topic5/Topic5.1/CartesianPlane";
 import GraphCodeRenderer from "../interactive/Topic5/Topic5.1/GraphViewers/MarkdownGraphViewers";
+import LinearGraphInteractive from "../interactive/Topic5/Topic5.1/LinearGraphs";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -76,6 +77,8 @@ const StudyView = () => {
 
   const renderInteractive = (type: string) => {
     switch (type) {
+
+      // Topic1
       case "number-classifier":
         return <NumberClassifier />;
       case "rounding-game":
@@ -182,6 +185,8 @@ const StudyView = () => {
 
       case "cartesian-plane":
         return <CartesianPlane />;
+      case "linear-graphs":
+        return <LinearGraphInteractive/>
 
       default:
         return null;
