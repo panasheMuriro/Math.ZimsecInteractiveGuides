@@ -143,48 +143,45 @@ const StudyView = () => {
       case "commission-tax":
         return <CommissionTaxCalculator />;
       case "foreign-exchange":
-        return <ForeignExchange/>
+        return <ForeignExchange />;
 
       // Topic4
 
       case "time-units":
-        return <TimeUnits/>
+        return <TimeUnits />;
       case "mass-units":
-        return <MassUnits/>
+        return <MassUnits />;
       case "length-units":
-        return <LengthUnits/>
+        return <LengthUnits />;
       case "temperature-units":
-        return <TemperatureUnits/>
+        return <TemperatureUnits />;
       case "capacity-units":
-        return <CapacityUnits/>
+        return <CapacityUnits />;
       case "area-units":
-        return <AreaUnits/>
+        return <AreaUnits />;
       case "volume-units":
-        return <VolumeUnits/>
+        return <VolumeUnits />;
       case "density":
-        return <DensityUnits/>
+        return <DensityUnits />;
       case "perimeter":
-        return <PerimeterChallenge/>
+        return <PerimeterChallenge />;
       case "area":
-        return <AreaChallenge/>
+        return <AreaChallenge />;
       case "combined-shapes":
-        return <CombinedShapesCalculator/>
+        return <CombinedShapesCalculator />;
       case "volume-cuboids":
-        return <VolumeCuboids/>
+        return <VolumeCuboids />;
       case "volume-cylinders":
-        return <VolumeCylinders/>
+        return <VolumeCylinders />;
       case "surface-area":
-        return <SurfaceAreas/>
+        return <SurfaceAreas />;
       case "volume-density":
-        return <VolumeDensity/>
-
-
+        return <VolumeDensity />;
 
       // Topic 5
 
       case "cartesian-plane":
-        return <CartesianPlane/>
-
+        return <CartesianPlane />;
 
       default:
         return null;
@@ -192,21 +189,20 @@ const StudyView = () => {
   };
 
   const handleNext = () => {
-  if (
-    section.subsections &&
-    currentSubsection < section.subsections.length - 1
-  ) {
-    setCurrentSubsection(currentSubsection + 1);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-};
+    if (
+      section.subsections &&
+      currentSubsection < section.subsections.length - 1
+    ) {
+      setCurrentSubsection(currentSubsection + 1);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   const handlePrev = () => {
     if (currentSubsection > 0) {
       setCurrentSubsection(currentSubsection - 1);
-     
     }
-     window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -231,19 +227,18 @@ const StudyView = () => {
               remarkPlugins={[remarkMath, remarkGfm]}
               rehypePlugins={[rehypeKatex]}
               components={{
-    code({ className, children }) {
-      if (className === "language-graph") {
-        try {
-          const data = JSON.parse(children as string);
-          return <JSXGraphViewer data={data} />;
-        } catch {
-          return <pre>Invalid graph data</pre>;
-        }
-      }
-      return <code className={className}>{children}</code>;
-    },
-  }}
-
+                code({ className, children }) {
+                  if (className === "language-graph") {
+                    try {
+                      const data = JSON.parse(children as string);
+                      return <JSXGraphViewer data={data} />;
+                    } catch {
+                      return <pre>Invalid graph data</pre>;
+                    }
+                  }
+                  return <code className={className}>{children}</code>;
+                },
+              }}
             >
               {currentContent.content}
             </ReactMarkdown>
@@ -251,7 +246,6 @@ const StudyView = () => {
         </div>
 
         <div className="text-lg mb-4 font-bold">Practice</div>
-
 
         <div className="mb-6">
           {renderInteractive(currentContent.interactive as string)}

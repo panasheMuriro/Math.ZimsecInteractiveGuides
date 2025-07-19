@@ -19,6 +19,11 @@ export default function JSXGraphViewer({ data }: JSXGraphViewerProps) {
       axis: true,
       showNavigation: false,
       showCopyright: false,
+      pan:{
+        enabled:false
+      },
+      zoom:false
+ 
     });
 
     data.points?.forEach(([x, y]) => {

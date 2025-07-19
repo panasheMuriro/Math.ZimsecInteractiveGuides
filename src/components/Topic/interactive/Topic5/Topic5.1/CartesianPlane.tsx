@@ -23,6 +23,10 @@ export default function CartesianPlane() {
       axis: true,
       showNavigation: false,
       showCopyright: false,
+      pan: {
+        enabled: false,
+      },
+
     });
 
     pointRef.current = boardRef.current.create("point", [x, y], {
@@ -50,10 +54,10 @@ export default function CartesianPlane() {
   }, [x, y]);
 
   return (
-    <div className="bg-white rounded-2xl shadow-md p-6 space-y-6 w-full max-w-2xl mx-auto">
+    <div className="bg-[#FFBF78] rounded-2xl shadow-md p-6 space-y-6 w-full max-w-2xl mx-auto">
       <h2 className="text-xl font-semibold text-center text-gray-700">Plot a Point</h2>
 
-      <div ref={boxRef} className="w-full h-[300px] rounded-md border border-gray-300" />
+      <div ref={boxRef} className="w-full bg-white h-[300px] rounded-md border border-gray-300" />
 
       <div className="flex items-center justify-center gap-6">
         <div className="flex flex-col text-sm text-gray-600">
@@ -63,7 +67,7 @@ export default function CartesianPlane() {
             type="number"
             value={x}
             onChange={(e) => setX(Number(e.target.value))}
-            className="border border-gray-300 rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 w-24 text-center"
+            className="bg-white border border-gray-300 rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 w-24 text-center"
           />
         </div>
 
@@ -74,7 +78,7 @@ export default function CartesianPlane() {
             type="number"
             value={y}
             onChange={(e) => setY(Number(e.target.value))}
-            className="border border-gray-300 rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 w-24 text-center"
+            className="bg-white border border-gray-300 rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 w-24 text-center"
           />
         </div>
       </div>
