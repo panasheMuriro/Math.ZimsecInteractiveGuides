@@ -63,6 +63,7 @@ import GraphCodeRenderer from "../interactive/Topic5/Topic5.1/GraphViewers/Graph
 import LinearGraphInteractive from "../interactive/Topic5/Topic5.1/LinearGraphs";
 import QuadraticGraphs from "../interactive/Topic5/Topic5.1/QuadraticGraphs";
 import CubicFunctions from "../interactive/Topic5/Topic5.1/CubicFunctions";
+import InverseFunctions from "../interactive/Topic5/Topic5.1/InverseFunctions";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -193,6 +194,8 @@ const StudyView = () => {
         return <QuadraticGraphs/>
       case "cubic-functions":
         return <CubicFunctions/>
+      case "inverse-functions":
+        return <InverseFunctions/>
 
       default:
         return null;
