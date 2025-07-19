@@ -61,6 +61,8 @@ import { VolumeDensity } from "../interactive/Topic4/Topic4.2/VolumeDensity";
 import CartesianPlane from "../interactive/Topic5/Topic5.1/CartesianPlane";
 import GraphCodeRenderer from "../interactive/Topic5/Topic5.1/GraphViewers/GraphCodeRenderer";
 import LinearGraphInteractive from "../interactive/Topic5/Topic5.1/LinearGraphs";
+import QuadraticGraphs from "../interactive/Topic5/Topic5.1/QuadraticGraphs";
+import CubicFunctions from "../interactive/Topic5/Topic5.1/CubicFunctions";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -187,6 +189,10 @@ const StudyView = () => {
         return <CartesianPlane />;
       case "linear-graphs":
         return <LinearGraphInteractive/>
+      case "quadratic-graphs":
+        return <QuadraticGraphs/>
+      case "cubic-functions":
+        return <CubicFunctions/>
 
       default:
         return null;
