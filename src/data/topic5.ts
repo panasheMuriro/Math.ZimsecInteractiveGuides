@@ -309,19 +309,17 @@ Check: f⁻¹(f(x)) = f⁻¹(2x + 3) = ((2x + 3) - 3)/2 = 2x/2 = x ✓`,
         interactive: "inverse-functions",
       },
 
-    //   distance
-   
+      //   distance
     ],
   },
 
-
   {
-
     title: "Travel Graphs",
     icon: "📈",
-    content: "Travel graphs visually represent motion by showing how distance, speed, or velocity changes over time, with different graph shapes indicating movement patterns like constant speed, acceleration, or rest.",
+    content:
+      "Travel graphs visually represent motion by showing how distance, speed, or velocity changes over time, with different graph shapes indicating movement patterns like constant speed, acceleration, or rest.",
     subsections: [
-   {
+      {
         title: "Distance-Time Graphs",
         content: `**DISTANCE-TIME GRAPHS**
 
@@ -390,7 +388,7 @@ Speed = gradient of distance-time graph
 
 **Example Interpretation:**
 
-\`\`\`examplegraph
+\`\`\`distance-time-example
 {
   "showSpeedCalculations": true
 }
@@ -420,6 +418,13 @@ These graphs show how speed or velocity changes over time:
 - Shows both magnitude and direction
 
 **Key Features:**
+
+\`\`\`velocity-time-features
+{
+  "showLegend": true,
+  "title": "Velocity-Time Graph Key Features"
+}
+  \`\`\`
 
 **Horizontal Line:**
 - Constant speed/velocity
@@ -460,13 +465,31 @@ Distance = Area under speed-time or velocity-time graph
 - Curved line
 - Acceleration changes with time
 
-**Example:**
-Velocity-time graph showing:
-- 0-5s: Line from 0 to 20 m/s - acceleration = 4 m/s²
-- 5-10s: Horizontal line at 20 m/s - constant velocity
-- 10-15s: Line from 20 to 0 m/s - deceleration = -4 m/s²
 
-Distance = Area under graph = ½×5×20 + 20×5 + ½×5×20 = 50 + 100 + 50 = 200 m`,
+**Example Interpretation:**
+
+\`\`\`velocity-time-example
+{
+  "showCalculations": false
+}
+\`\`\`
+
+
+
+A velocity-time graph showing:
+- 0-2s: Acceleration of 2.5 m/s² (velocity increases from 0 to 5 m/s)
+- 2-4s: Constant velocity of 5 m/s (no acceleration)
+- 4-6s: Deceleration of -2.5 m/s² (velocity decreases to 0 m/s)
+
+**Key Observations:**
+1. The acceleration values match the slope of the distance-time graph
+2. The area under each segment corresponds to:
+   - 0-2s: Triangle area = ½ × 2 × 5 = 5m (distance traveled)
+   - 2-4s: Rectangle area = 2 × 5 = 10m
+   - 4-6s: Triangle area = ½ × 2 × 5 = 5m
+   - Total distance = 5 + 10 + 5 = 20m
+3. Negative velocity would indicate opposite direction
+  `,
         interactive: "velocity-time",
       },
       {
@@ -536,9 +559,8 @@ A ball thrown upward:
 - Returns to starting position at t = 4s`,
         interactive: "displacement-time",
       },
-    ]
-
-  }
+    ],
+  },
 ];
 
 export const quizQuestions: QuizQuestion[] = [
@@ -546,10 +568,12 @@ export const quizQuestions: QuizQuestion[] = [
     question: "In which quadrant is the point (-3, 4) located?",
     options: ["Quadrant I", "Quadrant II", "Quadrant III", "Quadrant IV"],
     correct: 1,
-    explanation: "Point (-3, 4) has negative x-coordinate and positive y-coordinate, which places it in Quadrant II.",
+    explanation:
+      "Point (-3, 4) has negative x-coordinate and positive y-coordinate, which places it in Quadrant II.",
   },
   {
-    question: "Find the gradient of the line passing through points (2, 5) and (6, 13):",
+    question:
+      "Find the gradient of the line passing through points (2, 5) and (6, 13):",
     options: ["2", "3", "4", "8"],
     correct: 0,
     explanation: "Gradient = (y₂ - y₁)/(x₂ - x₁) = (13 - 5)/(6 - 2) = 8/4 = 2",
@@ -558,10 +582,12 @@ export const quizQuestions: QuizQuestion[] = [
     question: "What is the y-intercept of the line y = 3x - 7?",
     options: ["3", "-3", "7", "-7"],
     correct: 3,
-    explanation: "In the form y = mx + c, the y-intercept is c = -7. This is where the line crosses the y-axis.",
+    explanation:
+      "In the form y = mx + c, the y-intercept is c = -7. This is where the line crosses the y-axis.",
   },
   {
-    question: "For the quadratic y = x² - 6x + 8, what is the x-coordinate of the vertex?",
+    question:
+      "For the quadratic y = x² - 6x + 8, what is the x-coordinate of the vertex?",
     options: ["2", "3", "4", "6"],
     correct: 1,
     explanation: "x-coordinate of vertex = -b/(2a) = -(-6)/(2×1) = 6/2 = 3",
@@ -576,30 +602,47 @@ export const quizQuestions: QuizQuestion[] = [
     question: "If f(x) = 3x - 1, what is f⁻¹(x)?",
     options: ["(x + 1)/3", "(x - 1)/3", "3x + 1", "1/(3x - 1)"],
     correct: 0,
-    explanation: "Let y = 3x - 1, swap variables: x = 3y - 1, solve for y: y = (x + 1)/3, so f⁻¹(x) = (x + 1)/3",
+    explanation:
+      "Let y = 3x - 1, swap variables: x = 3y - 1, solve for y: y = (x + 1)/3, so f⁻¹(x) = (x + 1)/3",
   },
   {
-    question: "On a distance-time graph, what does a horizontal line represent?",
-    options: ["Increasing speed", "Decreasing speed", "Constant speed", "Object at rest"],
+    question:
+      "On a distance-time graph, what does a horizontal line represent?",
+    options: [
+      "Increasing speed",
+      "Decreasing speed",
+      "Constant speed",
+      "Object at rest",
+    ],
     correct: 3,
-    explanation: "A horizontal line on a distance-time graph means no change in distance over time, so the object is at rest (speed = 0).",
+    explanation:
+      "A horizontal line on a distance-time graph means no change in distance over time, so the object is at rest (speed = 0).",
   },
   {
     question: "What does the gradient of a velocity-time graph represent?",
     options: ["Distance", "Speed", "Acceleration", "Displacement"],
     correct: 2,
-    explanation: "The gradient (slope) of a velocity-time graph represents acceleration, which is the rate of change of velocity.",
+    explanation:
+      "The gradient (slope) of a velocity-time graph represents acceleration, which is the rate of change of velocity.",
   },
   {
     question: "How do you find the distance traveled from a speed-time graph?",
-    options: ["Find the gradient", "Find the y-intercept", "Find the area under the curve", "Find the x-intercept"],
+    options: [
+      "Find the gradient",
+      "Find the y-intercept",
+      "Find the area under the curve",
+      "Find the x-intercept",
+    ],
     correct: 2,
-    explanation: "Distance traveled equals the area under the speed-time graph. This can be calculated using geometric shapes.",
+    explanation:
+      "Distance traveled equals the area under the speed-time graph. This can be calculated using geometric shapes.",
   },
   {
-    question: "On a displacement-time graph, what does a negative gradient indicate?",
+    question:
+      "On a displacement-time graph, what does a negative gradient indicate?",
     options: ["Moving forward", "Moving backward", "At rest", "Accelerating"],
     correct: 1,
-    explanation: "A negative gradient on a displacement-time graph means negative velocity, indicating the object is moving backward (toward the starting point).",
+    explanation:
+      "A negative gradient on a displacement-time graph means negative velocity, indicating the object is moving backward (toward the starting point).",
   },
 ];

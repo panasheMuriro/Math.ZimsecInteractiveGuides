@@ -65,6 +65,7 @@ import QuadraticGraphs from "../interactive/Topic5/Topic5.1/QuadraticGraphs";
 import CubicFunctions from "../interactive/Topic5/Topic5.1/CubicFunctions";
 import InverseFunctions from "../interactive/Topic5/Topic5.1/InverseFunctions";
 import DistanceTime from "../interactive/Topic5/Topic5.2/ DistanceTime";
+import VelocityTime from "../interactive/Topic5/Topic5.2/VelocityTime";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -199,7 +200,8 @@ const StudyView = () => {
         return <InverseFunctions/>
       case "distance-time":
         return <DistanceTime/>
-
+      case "velocity-time":
+        return <VelocityTime/>
       default:
         return null;
     }

@@ -1,40 +1,40 @@
-// components/DistanceTimeGraphs/DistanceTimeExampleViewer.tsx
-import ExampleViewer from "../GraphViewers/ExampleViewer";
-import type { Segment } from "../GraphViewers/ExampleViewer";
+// components/VelocityTimeGraphs/VelocityTimeExampleViewer.tsx
+import ExampleViewer from "./ExampleViewer";
+import type { Segment } from "./ExampleViewer";
 
-export default function DistanceTimeExampleViewer({ showCalculations = false }) {
+export default function VelocityTimeExampleViewer({ showCalculations = false }) {
   const segments: Segment[] = [
     {
       points: [[0, 0], [2, 5]] as [[number, number], [number, number]],
       color: "#3498db",
-      label: "0-2s: Moving away",
+      label: "0-2s: Accelerating",
       speedCalculation: showCalculations 
-        ? "Speed = (5m - 0m)/(2s - 0s) = 2.5 m/s" 
+        ? "Acceleration = (5m/s - 0m/s)/(2s - 0s) = 2.5 m/s²" 
         : undefined
     },
     {
       points: [[2, 5], [4, 5]] as [[number, number], [number, number]],
       color: "#e74c3c",
-      label: "2-4s: Stationary",
+      label: "2-4s: Constant velocity",
       speedCalculation: showCalculations 
-        ? "Speed = (5m - 5m)/(4s - 2s) = 0 m/s" 
+        ? "Acceleration = (5m/s - 5m/s)/(4s - 2s) = 0 m/s²" 
         : undefined
     },
     {
       points: [[4, 5], [6, 0]] as [[number, number], [number, number]],
       color: "#27ae60",
-      label: "4-6s: Returning",
+      label: "4-6s: Decelerating",
       speedCalculation: showCalculations 
-        ? "Speed = (0m - 5m)/(6s - 4s) = -2.5 m/s" 
+        ? "Acceleration = (0m/s - 5m/s)/(6s - 4s) = -2.5 m/s²" 
         : undefined
     }
   ];
 
   return (
     <ExampleViewer
-      title="Distance-Time Graph Example"
+      title="Velocity-Time Graph Example (Matched to Distance-Time)"
       xLabel="Time (s)"
-      yLabel="Distance (m)"
+      yLabel="Velocity (m/s)"
       segments={segments}
       showCalculations={showCalculations}
     />
