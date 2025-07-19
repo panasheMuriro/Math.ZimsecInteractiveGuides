@@ -242,7 +242,7 @@ Features:
 - Starts at origin (for basic form)
 - Increases gradually
 - Only defined for x ≥ 0
-
+e
 **Exponential Functions:**
 y = aˣ (where a > 0, a ≠ 1)
 
@@ -333,6 +333,16 @@ Distance-time graphs show how distance changes over time:
 
 **Key Features:**
 
+
+\`\`\`distance-time-features
+{
+  "showLegend": true,
+  "title": ""
+}
+\`\`\`
+
+
+
 **Horizontal Line:**
 - No change in distance
 - Object is stationary
@@ -355,6 +365,13 @@ Speed = gradient of distance-time graph
 
 **Types of Motion:**
 
+\`\`\`distance-time-motion
+{
+  "showLegend": true,
+  "title": ""
+}
+\`\`\`
+
 **Uniform Motion:**
 - Straight line with constant gradient
 - Constant speed
@@ -372,10 +389,18 @@ Speed = gradient of distance-time graph
 - Zero gradient, zero speed
 
 **Example Interpretation:**
+
+\`\`\`examplegraph
+{
+  "showSpeedCalculations": true
+}
+\`\`\`
+
+
 A distance-time graph showing:
-- 0-2s: Straight line from (0,0) to (2,10) - constant speed of 5 m/s
-- 2-4s: Horizontal line at 10m - stationary
-- 4-6s: Straight line from (4,10) to (6,0) - constant speed of 5 m/s back to start`,
+- 0-2s: Straight line from (0,0) to (2,5) - constant speed of 5 m/s
+- 2-4s: Horizontal line at 5m - stationary
+- 4-6s: Straight line from (4,5) to (6,0) - constant speed of 5 m/s back to start`,
         interactive: "distance-time",
       },
       {

@@ -48,10 +48,14 @@
 
 // components/GraphCodeRenderer.tsx
 import React from 'react';
-import JSXGraphViewer from './JSXGraphViewer';
-import LinearGraphViewer from './LinearGraphViewer';
-import GradientViewer from './GradientViewer';
-import QuadraticGraphViewer from './QuadraticGraphViewer';
+import JSXGraphViewer from './Topic5.1/GraphViewers/JSXGraphViewer';
+import LinearGraphViewer from './Topic5.1/GraphViewers/LinearGraphViewer';
+import GradientViewer from './Topic5.1/GraphViewers/GradientViewer';
+import QuadraticGraphViewer from './Topic5.1/GraphViewers/QuadraticGraphViewer';
+import DistanceTimeMotionTypesViewer from './Topic5.2/GraphViewers/DistanceTimeMotionTypesViewer';
+import DistanceTimeKeyFeaturesViewer from './Topic5.2/GraphViewers/DistanceTimeKeyFeaturesViewer';
+import KeyFeaturesGraphViewer from './Topic5.2/GraphViewers/KeyFeaturesGraphViewer';
+import DistanceTimeExampleViewer from './Topic5.2/GraphViewers/DistanceTimeExampleViewer';
 
 interface CodeProps extends React.HTMLAttributes<HTMLElement> {
   className?: string;
@@ -59,6 +63,9 @@ interface CodeProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 const GraphCodeRenderer: React.FC<CodeProps> = ({ className, children, ...props }) => {
+
+
+
   if (className === "language-graph") {
     try {
       const data = JSON.parse(children as string);
@@ -94,6 +101,42 @@ const GraphCodeRenderer: React.FC<CodeProps> = ({ className, children, ...props 
       return <pre>Invalid quadratic data</pre>;
     }
   }
+
+    if (className === "language-distance-time-features") {
+    try {
+      const data = JSON.parse(children as string);
+      return <DistanceTimeKeyFeaturesViewer data={data} />;
+    } catch {
+      return <pre>Invalid distance-time features data</pre>;
+    }
+  }
+
+  if (className === "language-distance-time-motion") {
+    try {
+      const data = JSON.parse(children as string);
+      return <DistanceTimeMotionTypesViewer data={data} />;
+    } catch {
+      return <pre>Invalid distance-time motion data</pre>;
+    }
+  }
+
+    if (className === "language-keyfeatures") {
+    try {
+      const data = JSON.parse(children as string);
+      return <KeyFeaturesGraphViewer data={data} />;
+    } catch {
+      return <pre>Invalid key features graph data</pre>;
+    }
+  }
+
+  if (className === "language-examplegraph") {
+  try {
+    const data = JSON.parse(children as string);
+    return <DistanceTimeExampleViewer data={data} />;
+  } catch {
+    return <pre>Invalid example graph data</pre>;
+  }
+}
 
   return (
     <code className={className} {...props}>

@@ -59,11 +59,12 @@ import { VolumeCylinders } from "../interactive/Topic4/Topic4.2/VolumeCylinders"
 import SurfaceAreas from "../interactive/Topic4/Topic4.2/SurfaceAreas";
 import { VolumeDensity } from "../interactive/Topic4/Topic4.2/VolumeDensity";
 import CartesianPlane from "../interactive/Topic5/Topic5.1/CartesianPlane";
-import GraphCodeRenderer from "../interactive/Topic5/Topic5.1/GraphViewers/GraphCodeRenderer";
+import GraphCodeRenderer from "../interactive/Topic5/GraphCodeRenderer";
 import LinearGraphInteractive from "../interactive/Topic5/Topic5.1/LinearGraphs";
 import QuadraticGraphs from "../interactive/Topic5/Topic5.1/QuadraticGraphs";
 import CubicFunctions from "../interactive/Topic5/Topic5.1/CubicFunctions";
 import InverseFunctions from "../interactive/Topic5/Topic5.1/InverseFunctions";
+import DistanceTime from "../interactive/Topic5/Topic5.2/ DistanceTime";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -196,6 +197,8 @@ const StudyView = () => {
         return <CubicFunctions/>
       case "inverse-functions":
         return <InverseFunctions/>
+      case "distance-time":
+        return <DistanceTime/>
 
       default:
         return null;
