@@ -58,6 +58,8 @@ import VolumeCuboids from "../interactive/Topic4/Topic4.2/VolumeCuboids";
 import { VolumeCylinders } from "../interactive/Topic4/Topic4.2/VolumeCylinders";
 import SurfaceAreas from "../interactive/Topic4/Topic4.2/SurfaceAreas";
 import { VolumeDensity } from "../interactive/Topic4/Topic4.2/VolumeDensity";
+import JSXGraphViewer from "../interactive/Topic5/JSXGraphViewer";
+import CartesianPlane from "../interactive/Topic5/Topic5.1/CartesianPlane";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -175,6 +177,15 @@ const StudyView = () => {
         return <SurfaceAreas/>
       case "volume-density":
         return <VolumeDensity/>
+
+
+
+      // Topic 5
+
+      case "cartesian-plane":
+        return <CartesianPlane/>
+
+
       default:
         return null;
     }
@@ -219,6 +230,20 @@ const StudyView = () => {
             <ReactMarkdown
               remarkPlugins={[remarkMath, remarkGfm]}
               rehypePlugins={[rehypeKatex]}
+              components={{
+    code({ className, children }) {
+      if (className === "language-graph") {
+        try {
+          const data = JSON.parse(children as string);
+          return <JSXGraphViewer data={data} />;
+        } catch {
+          return <pre>Invalid graph data</pre>;
+        }
+      }
+      return <code className={className}>{children}</code>;
+    },
+  }}
+
             >
               {currentContent.content}
             </ReactMarkdown>

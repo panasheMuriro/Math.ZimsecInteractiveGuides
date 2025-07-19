@@ -16,6 +16,7 @@
     "bootstrap": "^5.3.3",
     "d3": "^7.9.0",
     "framer-motion": "^12.23.3",
+    "jsxgraph": "^1.11.1",
     "katex": "^0.16.22",
     "lucide-react": "^0.525.0",
     "react": "^19.0.0",

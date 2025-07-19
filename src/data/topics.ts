@@ -4,6 +4,7 @@ import { sections as topic1Sections, quizQuestions as topic1Quiz } from './topic
 import { sections as topic2Sections, quizQuestions as topic2Quiz } from './topic2';
 import { sections as topic3Sections, quizQuestions as topic3Quiz } from './topic3';
 import { sections as topic4Sections, quizQuestions as topic4Quiz } from './topic4';
+import { sections as topic5Sections, quizQuestions as topic5Quiz } from './topic5';
 
 export const topics: TopicData[] = [
   {
@@ -39,6 +40,26 @@ export const topics: TopicData[] = [
     sections: topic4Sections,
     quizQuestions: topic4Quiz
   },
+
+
+    {
+    id: 4,
+    title: "Measures and Mensuration",
+    description: "Units of measurement, perimeter, area, volume, and surface area",
+    icon: "📏",
+    sections: topic4Sections,
+    quizQuestions: topic4Quiz
+  },
+
+  {
+    id:5,
+    title: "Graphs",
+    description:"Functional graphs, travel graphs",
+    icon: "📊",
+    sections: topic5Sections,
+    quizQuestions: topic5Quiz
+  }
+
 
 
 
