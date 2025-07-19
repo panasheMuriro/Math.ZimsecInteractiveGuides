@@ -144,6 +144,17 @@ Where:
 - **b**: Coefficient of x
 - **c**: Constant term (y-intercept)
 
+**Example Quadratic Graph:**
+
+\`\`\`quadratic
+{
+  "a": 1,
+  "b": -4,
+  "c": 0,
+  "domain": [0, 4]
+}
+\`\`\`
+
 **Key Features:**
 - **Parabola**: U-shaped or inverted U-shaped curve
 - **Axis of symmetry**: Vertical line through vertex
@@ -174,9 +185,28 @@ Graph y = x² - 4x + 3:
 - Vertex: (2, -1)
 - y-intercept: (0, 3)
 
-Table of values:
-x: 0, 1, 2, 3, 4
-y: 3, 0, -1, 0, 3`,
+**Table of values**
+  $$
+  \\begin{array}{|c|c|c|c|c|c|}
+  \\hline
+  x & 0 & 1 & 2 & 3 & 4 \\\\
+  \\hline
+  y & 3 & 0 & -1 & 0 & 3 \\\\
+  \\hline
+  \\end{array}
+  $$
+
+  **Graph**
+
+  \`\`\`quadratic
+{
+  "a": 1,
+  "b": -4,
+  "c": 3,
+  "domain": [0, 4]
+}
+\`\`\`
+`,
         interactive: "quadratic-graphs",
       },
       {

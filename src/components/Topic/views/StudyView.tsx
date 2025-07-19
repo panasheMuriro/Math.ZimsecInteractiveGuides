@@ -59,7 +59,7 @@ import { VolumeCylinders } from "../interactive/Topic4/Topic4.2/VolumeCylinders"
 import SurfaceAreas from "../interactive/Topic4/Topic4.2/SurfaceAreas";
 import { VolumeDensity } from "../interactive/Topic4/Topic4.2/VolumeDensity";
 import CartesianPlane from "../interactive/Topic5/Topic5.1/CartesianPlane";
-import GraphCodeRenderer from "../interactive/Topic5/Topic5.1/GraphViewers/MarkdownGraphViewers";
+import GraphCodeRenderer from "../interactive/Topic5/Topic5.1/GraphViewers/GraphCodeRenderer";
 import LinearGraphInteractive from "../interactive/Topic5/Topic5.1/LinearGraphs";
 
 const StudyView = () => {
