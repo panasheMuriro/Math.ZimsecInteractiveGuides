@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactNode } from 'react';
 import { RefreshCw, Eye, EyeOff, Check, X } from 'lucide-react';
 
 interface ShapeDimensions {
@@ -79,7 +79,7 @@ const ShapeCalculator: React.FC<ShapeCalculatorProps> = ({
     }
   };
 
-  const renderShape = (): JSX.Element | null => {
+  const renderShape = (): ReactNode | null => {
     if (!currentShape) return null;
 
     const { type, dimensions, color } = currentShape;

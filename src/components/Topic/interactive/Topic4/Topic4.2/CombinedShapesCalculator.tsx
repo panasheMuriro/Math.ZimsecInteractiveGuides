@@ -589,7 +589,7 @@ const CombinedShapesCalculator: React.FC = () => {
     }
   };
 
-  const renderStepByStep = (): JSX.Element => {
+  const renderStepByStep = (): ReactNode => {
     if (!currentShape || !showBreakdown) return <></>;
 
     return (
