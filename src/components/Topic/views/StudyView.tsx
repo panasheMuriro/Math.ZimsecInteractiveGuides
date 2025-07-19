@@ -43,14 +43,21 @@ import CompoundInterest from "../interactive/Topic3/CompoundInterest";
 import HirePurchaseCalculator from "../interactive/Topic3/HirePurchaseCalculator";
 import CommissionTaxCalculator from "../interactive/Topic3/CommissionTaxCalculator";
 import ForeignExchange from "../interactive/Topic3/ForeignExchange";
-import TimeUnitsInteractive from "../interactive/Topic4/Topic4.1/TimeUnits";
-import MassUnitsInteractive from "../interactive/Topic4/Topic4.1/MassUnits";
 import LengthUnits from "../interactive/Topic4/Topic4.1/LengthUnits";
 import TemperatureUnits from "../interactive/Topic4/Topic4.1/TemperatureUnits";
 import CapacityUnits from "../interactive/Topic4/Topic4.1/CapacityUnits";
-import AreaUnits from "../interactive/Topic4/Topic4.1/AreaUnits";
 import VolumeUnits from "../interactive/Topic4/Topic4.1/VolumeUnits";
-import AreaUnits2 from "../interactive/Topic4/Topic4.1/AreaUnits2";
+import AreaUnits from "../interactive/Topic4/Topic4.1/AreaUnits";
+import DensityUnits from "../interactive/Topic4/Topic4.1/DensityUnits";
+import MassUnits from "../interactive/Topic4/Topic4.1/MassUnits";
+import TimeUnits from "../interactive/Topic4/Topic4.1/TimeUnits";
+import PerimeterChallenge from "../interactive/Topic4/Topic4.2/Perimeter";
+import AreaChallenge from "../interactive/Topic4/Topic4.2/Area";
+import CombinedShapesCalculator from "../interactive/Topic4/Topic4.2/CombinedShapesCalculator";
+import VolumeCuboids from "../interactive/Topic4/Topic4.2/VolumeCuboids";
+import { VolumeCylinders } from "../interactive/Topic4/Topic4.2/VolumeCylinders";
+import SurfaceAreas from "../interactive/Topic4/Topic4.2/SurfaceAreas";
+import { VolumeDensity } from "../interactive/Topic4/Topic4.2/VolumeDensity";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -139,9 +146,9 @@ const StudyView = () => {
       // Topic4
 
       case "time-units":
-        return <TimeUnitsInteractive/>
+        return <TimeUnits/>
       case "mass-units":
-        return <MassUnitsInteractive/>
+        return <MassUnits/>
       case "length-units":
         return <LengthUnits/>
       case "temperature-units":
@@ -149,10 +156,25 @@ const StudyView = () => {
       case "capacity-units":
         return <CapacityUnits/>
       case "area-units":
-        return <AreaUnits2/>
+        return <AreaUnits/>
       case "volume-units":
         return <VolumeUnits/>
-
+      case "density":
+        return <DensityUnits/>
+      case "perimeter":
+        return <PerimeterChallenge/>
+      case "area":
+        return <AreaChallenge/>
+      case "combined-shapes":
+        return <CombinedShapesCalculator/>
+      case "volume-cuboids":
+        return <VolumeCuboids/>
+      case "volume-cylinders":
+        return <VolumeCylinders/>
+      case "surface-area":
+        return <SurfaceAreas/>
+      case "volume-density":
+        return <VolumeDensity/>
       default:
         return null;
     }

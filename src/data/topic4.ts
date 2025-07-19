@@ -360,7 +360,7 @@ Area = ½ × perimeter × apothem
 **Example:**
 Find the area of a triangle with base 10 cm and height 6 cm:
 Area = ½ × 10 × 6 = 30 cm²`,
-        interactive: "area-shapes",
+        interactive: "area",
       },
       {
         title: "Combined Shapes",
@@ -527,6 +527,8 @@ Volume = (4/3)π × 3³ = 36π cm³
 Mass = 7.8 × 36π ≈ 882.5 g`,
         interactive: "volume-density",
       },
+
+      
     ],
   },
 ];
