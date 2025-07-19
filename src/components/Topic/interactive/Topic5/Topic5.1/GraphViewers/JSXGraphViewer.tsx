@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import JXG from "jsxgraph";
-import "../../../../assets/jsxgraph.css";
+import "../../../../../../assets/jsxgraph.css"
 
 interface JSXGraphViewerProps {
   data: {

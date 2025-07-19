@@ -79,6 +79,14 @@ Where:
 - **x**: Independent variable
 - **y**: Dependent variable
 
+\`\`\`linear
+{
+  "m": 2,
+  "c": -1,
+  "domain": [-3, 3]
+}
+\`\`\`
+
 **Key Features:**
 - Straight line
 - Constant rate of change
@@ -88,11 +96,18 @@ Where:
 $m = \\frac{\\text{rise}}{\\text{run}} = \\frac{y_2 - y_1}{x_2 - x_1}$
 
 **Types of Gradients:**
-- **Positive**: Line slopes upward (m > 0)
-- **Negative**: Line slopes downward (m < 0)
-- **Zero**: Horizontal line (m = 0)
-- **Undefined**: Vertical line
+- **Positive**: Line slopes upward (m > 0) - blue
+- **Negative**: Line slopes downward (m < 0) - orange
+- **Zero**: Horizontal line (m = 0) - green
+- **Undefined**: Vertical line - red
 
+
+\`\`\`gradient
+{
+  "types": ["positive", "negative", "zero", "undefined"],
+  "examples": true
+}
+\`\`\`
 **Creating Linear Graphs:**
 1. Create table of values
 2. Choose x-values
