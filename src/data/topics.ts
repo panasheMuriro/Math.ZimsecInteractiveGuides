@@ -42,16 +42,6 @@ export const topics: TopicData[] = [
     quizQuestions: topic4Quiz
   },
 
-
-    {
-    id: 4,
-    title: "Measures and Mensuration",
-    description: "Units of measurement, perimeter, area, volume, and surface area",
-    icon: "📏",
-    sections: topic4Sections,
-    quizQuestions: topic4Quiz
-  },
-
   {
     id:5,
     title: "Graphs",
