@@ -67,6 +67,7 @@ import InverseFunctions from "../interactive/Topic5/Topic5.1/InverseFunctions";
 import VelocityTime from "../interactive/Topic5/Topic5.2/Practice/VelocityTime";
 import DistanceTime from "../interactive/Topic5/Topic5.2/Practice/DistanceTime";
 import DisplacementTimeQuiz from "../interactive/Topic5/Topic5.2/Practice/Displacement";
+import DirectVariation from "../interactive/Topic6/DirectVariation";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -205,6 +206,12 @@ const StudyView = () => {
         return <VelocityTime/>
       case "displacement-time":
         return <DisplacementTimeQuiz/>
+
+
+      // Topic 6
+
+      case "direct-variation":
+        return <DirectVariation/>
 
       default:
         return null;

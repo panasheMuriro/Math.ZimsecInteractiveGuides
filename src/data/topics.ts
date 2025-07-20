@@ -5,6 +5,7 @@ import { sections as topic2Sections, quizQuestions as topic2Quiz } from './topic
 import { sections as topic3Sections, quizQuestions as topic3Quiz } from './topic3';
 import { sections as topic4Sections, quizQuestions as topic4Quiz } from './topic4';
 import { sections as topic5Sections, quizQuestions as topic5Quiz } from './topic5';
+import { sections as topic6Sections, quizQuestions as topic6Quiz } from './topic6';
 
 export const topics: TopicData[] = [
   {
@@ -58,10 +59,14 @@ export const topics: TopicData[] = [
     icon: "📊",
     sections: topic5Sections,
     quizQuestions: topic5Quiz
+  },
+
+  {
+    id:6,
+    title: "Variation",
+    description:"Direct, Partial, Inverse, Joint, Combined",
+    icon: "📈",
+    sections: topic6Sections,
+    quizQuestions: topic6Quiz
   }
-
-
-
-
-
 ];
