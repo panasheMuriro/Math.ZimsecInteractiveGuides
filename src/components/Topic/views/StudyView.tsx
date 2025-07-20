@@ -68,6 +68,11 @@ import VelocityTime from "../interactive/Topic5/Topic5.2/Practice/VelocityTime";
 import DistanceTime from "../interactive/Topic5/Topic5.2/Practice/DistanceTime";
 import DisplacementTimeQuiz from "../interactive/Topic5/Topic5.2/Practice/Displacement";
 import DirectVariation from "../interactive/Topic6/DirectVariation";
+import InverseVariation from "../interactive/Topic6/InverseVariation";
+import PartialVariation from "../interactive/Topic6/PartialVariation";
+import JointVariation from "../interactive/Topic6/ JointVariation";
+import VariationComparison from "../interactive/Topic6/VariationComparison";
+import VariationProblemQuiz from "../interactive/Topic6/VariationProblemQuiz";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -212,6 +217,18 @@ const StudyView = () => {
 
       case "direct-variation":
         return <DirectVariation/>
+      case "inverse-variation":
+        return <InverseVariation/>
+      case "partial-variation":
+        return <PartialVariation/>
+      case "joint-variation":
+        return <JointVariation/>
+      case "variation-comparison":
+        return <VariationComparison/>
+      case "variation-graphs":
+        return <VariationComparison/>
+      case "variation-problems":
+        return <VariationProblemQuiz/>
 
       default:
         return null;
