@@ -64,8 +64,9 @@ import LinearGraphInteractive from "../interactive/Topic5/Topic5.1/LinearGraphs"
 import QuadraticGraphs from "../interactive/Topic5/Topic5.1/QuadraticGraphs";
 import CubicFunctions from "../interactive/Topic5/Topic5.1/CubicFunctions";
 import InverseFunctions from "../interactive/Topic5/Topic5.1/InverseFunctions";
-import DistanceTime from "../interactive/Topic5/Topic5.2/ DistanceTime";
-import VelocityTime from "../interactive/Topic5/Topic5.2/VelocityTime";
+import VelocityTime from "../interactive/Topic5/Topic5.2/Practice/VelocityTime";
+import DistanceTime from "../interactive/Topic5/Topic5.2/Practice/DistanceTime";
+import DisplacementTimeQuiz from "../interactive/Topic5/Topic5.2/Practice/Displacement";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -202,6 +203,9 @@ const StudyView = () => {
         return <DistanceTime/>
       case "velocity-time":
         return <VelocityTime/>
+      case "displacement-time":
+        return <DisplacementTimeQuiz/>
+
       default:
         return null;
     }

@@ -509,6 +509,9 @@ Displacement-time graphs show position relative to a starting point:
 
 **Key Features:**
 
+\`\`\`displacement-features
+\`\`\`
+
 **Positive Displacement:**
 - Above x-axis
 - Object is ahead of starting position
@@ -526,6 +529,9 @@ Displacement-time graphs show position relative to a starting point:
 - Positive gradient = moving forward
 - Negative gradient = moving backward
 - Zero gradient = stationary
+
+\`\`\`displacement-gradient
+\`\`\`
 
 **Curved Lines:**
 - Show acceleration
@@ -552,6 +558,10 @@ Velocity = gradient of displacement-time graph
 $v = \\frac{\\Delta s}{\\Delta t}$
 
 **Example:**
+
+\`\`\`displacement-example
+\`\`\`
+
 A ball thrown upward:
 - 0-2s: Curved line from (0,0) to (2,20) - upward motion, decreasing velocity
 - 2-4s: Curved line from (2,20) to (4,0) - downward motion, increasing speed

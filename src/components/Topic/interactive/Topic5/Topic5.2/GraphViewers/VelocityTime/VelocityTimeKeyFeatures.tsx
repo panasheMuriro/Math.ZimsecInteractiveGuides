@@ -1,6 +1,6 @@
 // components/VelocityTimeGraphs/VelocityTimeKeyFeatures.tsx
-import KeyFeaturesViewer from "./KeyFeaturesViewer";
-import type { Feature } from "./KeyFeaturesViewer";
+import KeyFeaturesViewer from "../KeyFeaturesViewer";
+import type { Feature } from "../KeyFeaturesViewer";
 
 export default function VelocityTimeKeyFeatures({ showLegend = true, title = "" }) {
   const features: Feature[] = [

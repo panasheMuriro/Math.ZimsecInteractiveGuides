@@ -1,6 +1,6 @@
 // components/VelocityTimeGraphs/VelocityTimeExampleViewer.tsx
-import ExampleViewer from "./ExampleViewer";
-import type { Segment } from "./ExampleViewer";
+import ExampleViewer from "../ExampleViewer";
+import type { Segment } from "../ExampleViewer";
 
 export default function VelocityTimeExampleViewer({ showCalculations = false }) {
   const segments: Segment[] = [

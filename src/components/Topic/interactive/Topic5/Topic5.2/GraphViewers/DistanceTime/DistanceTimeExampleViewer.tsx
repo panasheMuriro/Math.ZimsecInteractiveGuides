@@ -1,6 +1,6 @@
 // components/DistanceTimeGraphs/DistanceTimeExampleViewer.tsx
-import ExampleViewer from "../GraphViewers/ExampleViewer";
-import type { Segment } from "../GraphViewers/ExampleViewer";
+import ExampleViewer from "../ExampleViewer";
+import type { Segment } from "../ExampleViewer";
 
 export default function DistanceTimeExampleViewer({ showCalculations = false }) {
   const segments: Segment[] = [

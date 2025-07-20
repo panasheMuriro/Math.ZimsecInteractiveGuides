@@ -1,7 +1,7 @@
 // components/DistanceTimeMotionTypesViewer.tsx
 import { useEffect, useRef } from "react";
 import JXG from "jsxgraph";
-import "../../../../../../assets/jsxgraph.css";
+import "../../../../../../../assets/jsxgraph.css";
 
 interface Props {
   data: {

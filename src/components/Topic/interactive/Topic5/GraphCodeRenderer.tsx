@@ -1,24 +1,28 @@
 // components/GraphCodeRenderer.tsx
-import React from 'react';
-import JSXGraphViewer from './Topic5.1/GraphViewers/JSXGraphViewer';
-import LinearGraphViewer from './Topic5.1/GraphViewers/LinearGraphViewer';
-import GradientViewer from './Topic5.1/GraphViewers/GradientViewer';
-import QuadraticGraphViewer from './Topic5.1/GraphViewers/QuadraticGraphViewer';
-import DistanceTimeMotionTypesViewer from './Topic5.2/GraphViewers/DistanceTimeMotionTypesViewer';
-import DistanceTimeExampleViewer from './Topic5.2/GraphViewers/DistanceTimeExampleViewer';
-import DistanceTimeKeyFeatures from './Topic5.2/GraphViewers/DistanceTimeKeyFeatures';
-import VelocityTimeKeyFeatures from './Topic5.2/GraphViewers/VelocityTimeKeyFeatures';
-import VelocityTimeExampleViewer from './Topic5.2/GraphViewers/VelocityTimeExampleViewer';
+import React from "react";
+import JSXGraphViewer from "./Topic5.1/GraphViewers/JSXGraphViewer";
+import LinearGraphViewer from "./Topic5.1/GraphViewers/LinearGraphViewer";
+import GradientViewer from "./Topic5.1/GraphViewers/GradientViewer";
+import QuadraticGraphViewer from "./Topic5.1/GraphViewers/QuadraticGraphViewer";
+import DistanceTimeMotionTypesViewer from "./Topic5.2/GraphViewers/DistanceTime/DistanceTimeMotionTypesViewer";
+import DistanceTimeExampleViewer from "./Topic5.2/GraphViewers/DistanceTime/DistanceTimeExampleViewer";
+import DistanceTimeKeyFeatures from "./Topic5.2/GraphViewers/DistanceTime/DistanceTimeKeyFeatures";
+import VelocityTimeKeyFeatures from "./Topic5.2/GraphViewers/VelocityTime/VelocityTimeKeyFeatures";
+import VelocityTimeExampleViewer from "./Topic5.2/GraphViewers/VelocityTime/VelocityTimeExampleViewer";
+import DisplacementKeyFeaturesViewer from "./Topic5.2/GraphViewers/Displacement/DisplacementKeyFeaturesViewer";
+import DisplacementGradientViewer from "./Topic5.2/GraphViewers/Displacement/DisplacementGradientViewer";
+import DisplacementExampleViewer from "./Topic5.2/GraphViewers/Displacement/DisplacementExampleViewer";
 
 interface CodeProps extends React.HTMLAttributes<HTMLElement> {
   className?: string;
   children?: React.ReactNode;
 }
 
-const GraphCodeRenderer: React.FC<CodeProps> = ({ className, children, ...props }) => {
-
-
-
+const GraphCodeRenderer: React.FC<CodeProps> = ({
+  className,
+  children,
+  ...props
+}) => {
   if (className === "language-graph") {
     try {
       const data = JSON.parse(children as string);
@@ -27,7 +31,7 @@ const GraphCodeRenderer: React.FC<CodeProps> = ({ className, children, ...props 
       return <pre>Invalid graph data</pre>;
     }
   }
-  
+
   if (className === "language-linear") {
     try {
       const data = JSON.parse(children as string);
@@ -55,10 +59,10 @@ const GraphCodeRenderer: React.FC<CodeProps> = ({ className, children, ...props 
     }
   }
 
-    if (className === "language-distance-time-features") {
+  if (className === "language-distance-time-features") {
     try {
       const data = JSON.parse(children as string);
-      return <DistanceTimeKeyFeatures  {...data} />;
+      return <DistanceTimeKeyFeatures {...data} />;
     } catch {
       return <pre>Invalid distance-time features data</pre>;
     }
@@ -74,14 +78,13 @@ const GraphCodeRenderer: React.FC<CodeProps> = ({ className, children, ...props 
   }
 
   if (className === "language-distance-time-example") {
-  try {
-    const data = JSON.parse(children as string);
-    return <DistanceTimeExampleViewer {...data} />;
-  } catch {
-    return <pre>Invalid example graph data</pre>;
+    try {
+      const data = JSON.parse(children as string);
+      return <DistanceTimeExampleViewer {...data} />;
+    } catch {
+      return <pre>Invalid example graph data</pre>;
+    }
   }
-}
-
 
   if (className === "language-velocity-time-features") {
     try {
@@ -92,15 +95,26 @@ const GraphCodeRenderer: React.FC<CodeProps> = ({ className, children, ...props 
     }
   }
 
-
   if (className === "language-velocity-time-example") {
-  try {
-    const data = JSON.parse(children as string);
-    return <VelocityTimeExampleViewer {...data} />;
-  } catch {
-    return <pre>Invalid example graph data</pre>;
+    try {
+      const data = JSON.parse(children as string);
+      return <VelocityTimeExampleViewer {...data} />;
+    } catch {
+      return <pre>Invalid example graph data</pre>;
+    }
   }
-}
+
+  if (className === "language-displacement-features") {
+    return <DisplacementKeyFeaturesViewer />;
+  }
+
+  if (className === "language-displacement-gradient") {
+    return <DisplacementGradientViewer />;
+  }
+
+  if (className === "language-displacement-example") {
+    return <DisplacementExampleViewer />;
+  }
 
   return (
     <code className={className} {...props}>

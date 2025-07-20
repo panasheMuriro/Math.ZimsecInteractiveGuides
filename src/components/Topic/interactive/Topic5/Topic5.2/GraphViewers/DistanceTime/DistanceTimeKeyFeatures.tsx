@@ -36,8 +36,8 @@
 
 
 // components/DistanceTimeGraphs/DistanceTimeKeyFeatures.tsx
-import KeyFeaturesViewer from "./KeyFeaturesViewer";
-import type { Feature } from "./KeyFeaturesViewer";
+import KeyFeaturesViewer from "../KeyFeaturesViewer";
+import type { Feature } from "../KeyFeaturesViewer";
 
 export default function DistanceTimeKeyFeatures({ showLegend = true, title = "" }) {
   const features: Feature[] = [
