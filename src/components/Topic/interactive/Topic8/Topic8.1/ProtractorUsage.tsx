@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useRef, useEffect } from "react";
 import { RotateCcw, Target, CheckCircle, XCircle, Award } from "lucide-react";
 
@@ -9,7 +10,7 @@ interface Position {
 interface Feedback {
   type: "success" | "error";
   message: string;
-  accuracy:number;
+  accuracy: number;
 }
 
 const ProtractorMeasurementTool: React.FC = () => {
@@ -31,12 +32,16 @@ const ProtractorMeasurementTool: React.FC = () => {
   // Updated to accept a position
   const isWellPositioned = (pos: Position): boolean => {
     const center: Position = { x: pos.x + 80, y: pos.y + 60 };
-    const distance = Math.hypot(center.x - angleCenter.x, center.y - angleCenter.y);
+    const distance = Math.hypot(
+      center.x - angleCenter.x,
+      center.y - angleCenter.y
+    );
     return distance < 20;
   };
 
   const generateNewAngle = (): void => {
-    const newAngle = validAngles[Math.floor(Math.random() * validAngles.length)];
+    const newAngle =
+      validAngles[Math.floor(Math.random() * validAngles.length)];
     setCurrentAngle(newAngle);
     setFeedback(null);
   };
@@ -128,7 +133,10 @@ const ProtractorMeasurementTool: React.FC = () => {
     } else {
       setProtractorPos(nextPos);
 
-      if (isWellPositioned(nextPos) && feedback?.message === "Good! Now release to check your measurement") {
+      if (
+        isWellPositioned(nextPos) &&
+        feedback?.message === "Good! Now release to check your measurement"
+      ) {
         setFeedback(null);
       }
     }
@@ -179,7 +187,9 @@ const ProtractorMeasurementTool: React.FC = () => {
     if (isDragging) {
       document.addEventListener("mousemove", handleMouseMove);
       document.addEventListener("mouseup", handleMouseUp);
-      document.addEventListener("touchmove", handleTouchMove, { passive: false });
+      document.addEventListener("touchmove", handleTouchMove, {
+        passive: false,
+      });
       document.addEventListener("touchend", handleTouchEnd);
     }
     return () => {
@@ -227,7 +237,9 @@ const ProtractorMeasurementTool: React.FC = () => {
         {/* Current Challenge */}
         <div className="text-center mb-4">
           <Target className="w-6 h-6 mx-auto mb-2 text-red-500" />
-          <p className="text-lg font-semibold text-gray-800">Measure This Angle</p>
+          <p className="text-lg font-semibold text-gray-800">
+            Measure This Angle
+          </p>
         </div>
 
         {/* The Angle to Measure */}
@@ -265,7 +277,9 @@ const ProtractorMeasurementTool: React.FC = () => {
             d={`
               M ${angleCenter.x - 25} ${angleCenter.y}
               A 25 25 0 0 1 
-                ${angleCenter.x - 25 * Math.cos((currentAngle * Math.PI) / 180)} 
+                ${
+                  angleCenter.x - 25 * Math.cos((currentAngle * Math.PI) / 180)
+                } 
                 ${angleCenter.y - 25 * Math.sin((currentAngle * Math.PI) / 180)}
             `}
             fill="none"
@@ -298,7 +312,7 @@ const ProtractorMeasurementTool: React.FC = () => {
                 stroke="#3b82f6"
                 strokeWidth="2"
               />
-              
+
               {/* Degree markings */}
               {Array.from({ length: 13 }, (_, i) => i * 15).map((angle) => {
                 const rad = (angle * Math.PI) / 180;
@@ -392,7 +406,10 @@ const ProtractorMeasurementTool: React.FC = () => {
       {/* Control Buttons */}
       <div className="p-4 bg-gray-50 flex gap-2">
         <button
-          onClick={()=> {generateNewAngle();  setProtractorPos({ x: 150, y: 200 });}}
+          onClick={() => {
+            generateNewAngle();
+            setProtractorPos({ x: 150, y: 200 });
+          }}
           className="flex-1 flex items-center justify-center gap-2 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
         >
           <Target className="w-4 h-4" />
@@ -415,7 +432,9 @@ const ProtractorMeasurementTool: React.FC = () => {
         <div className="p-4 bg-yellow-50 border-t border-yellow-200">
           <div className="flex items-center justify-center gap-2 text-yellow-800">
             <Award className="w-5 h-5" />
-            <span className="font-medium">Excellent work! Keep practicing!</span>
+            <span className="font-medium">
+              Excellent work! Keep practicing!
+            </span>
           </div>
         </div>
       )}

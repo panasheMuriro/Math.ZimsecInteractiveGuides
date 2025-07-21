@@ -78,10 +78,13 @@ import HCFLCM from "../interactive/Topic7/Topic7.1/HCFLCM";
 import Factorization from "../interactive/Topic7/Topic7.1/Factorization";
 import AngleTypesVisualizer from "../interactive/Topic8/Topic8.1/AngleTypesVisualizer";
 import ProtractorMeasurementTool from "../interactive/Topic8/Topic8.1/ProtractorUsage";
+import SVGCodeRenderer from "../interactive/Topic8/SVGCodeRenderer";
+import LinearAngles from "../interactive/Topic8/Topic8.1/LinearAngles";
+import AnglesAroundPointQuiz from "../interactive/Topic8/Topic8.2/AnglesAroundPointQuiz";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
-  const { sectionIndex } = useParams();
+  const { sectionIndex , topicId} = useParams();
   const navigate = useNavigate();
   const [currentSubsection, setCurrentSubsection] = useState(0);
 
@@ -251,6 +254,10 @@ const StudyView = () => {
         return <AngleTypesVisualizer/>
       case "protractor-usage":
         return <ProtractorMeasurementTool/>
+      case "straight-line-angles":
+        return <LinearAngles/>
+      case "angles-around-point":
+        return <AnglesAroundPointQuiz/>
 
       default:
         return null;
@@ -296,7 +303,7 @@ const StudyView = () => {
               remarkPlugins={[remarkMath, remarkGfm]}
               rehypePlugins={[rehypeKatex]}
               components={{
-                code:GraphCodeRenderer
+                code:topicId == "8" ? SVGCodeRenderer: GraphCodeRenderer
               }}
             >
               {currentContent.content}

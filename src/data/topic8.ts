@@ -60,12 +60,20 @@ export const sections: Section[] = [
 Angles on a straight line sum to $180°$
 
 **Mathematical Expression:**
-If angles $\\alpha$, $\\beta$, $\\gamma$ are on a straight line:
-$\\alpha + \\beta + \\gamma = 180°$
+If angles $A$, $B$, $C$ are on a straight line: 
+$A + B + C = 180°$
+
+\`\`\`svg-viewer
+type: straight-line
+\`\`\`
 
 **Linear Pair:**
 Two adjacent angles forming a straight line are called a linear pair
 - $\\angle AOB + \\angle BOC = 180°$ (where points are collinear)
+
+\`\`\`svg-viewer
+type: collinear-angles
+\`\`\`
 
 **Applications:**
 - Finding unknown angles when others are known
@@ -74,7 +82,12 @@ Two adjacent angles forming a straight line are called a linear pair
 
 **Example:**
 If $\\angle A = 65°$ and $\\angle B = 40°$ are on a straight line with $\\angle C$:
-$\\angle C = 180° - 65° - 40° = 75°$`,
+$\\angle C = 180° - 65° - 40° = 75°$
+
+\`\`\`svg-viewer
+type: line-angles-examples
+\`\`\`
+`,
         interactive: "straight-line-angles",
       },
       {
@@ -87,10 +100,18 @@ All angles around a point sum to $360°$
 **Mathematical Expression:**
 $\\angle_1 + \\angle_2 + \\angle_3 + ... + \\angle_n = 360°$
 
+\`\`\`svg-viewer-8-2
+type: angles-around-point
+\`\`\`
+
 **Vertically Opposite Angles:**
 When two lines intersect, they form four angles:
 - Opposite angles are equal: $\\angle a = \\angle c$, $\\angle b = \\angle d$
 - Adjacent angles are supplementary: $\\angle a + \\angle b = 180°$
+
+\`\`\`svg-viewer-8-2
+type: vertically-opposite-angles
+\`\`\`
 
 **Applications:**
 - Clock problems (each hour = $30°$)
