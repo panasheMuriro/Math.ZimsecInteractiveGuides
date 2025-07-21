@@ -76,6 +76,7 @@ import VariationProblemQuiz from "../interactive/Topic6/VariationProblemQuiz";
 import AlgebraicSimplification from "../interactive/Topic7/Topic7.1/AlgebraicSimplification";
 import HCFLCM from "../interactive/Topic7/Topic7.1/HCFLCM";
 import Factorization from "../interactive/Topic7/Topic7.1/Factorization";
+import AngleTypesVisualizer from "../interactive/Topic8/Topic8.1/AngleTypesVisualizer";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -242,6 +243,11 @@ const StudyView = () => {
         return <HCFLCM/>
       case "factorization":
         return <Factorization/>
+
+      //  Topic 8
+
+      case "angle-types":
+        return <AngleTypesVisualizer/>
 
       default:
         return null;
