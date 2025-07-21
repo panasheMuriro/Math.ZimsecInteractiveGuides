@@ -77,6 +77,7 @@ import AlgebraicSimplification from "../interactive/Topic7/Topic7.1/AlgebraicSim
 import HCFLCM from "../interactive/Topic7/Topic7.1/HCFLCM";
 import Factorization from "../interactive/Topic7/Topic7.1/Factorization";
 import AngleTypesVisualizer from "../interactive/Topic8/Topic8.1/AngleTypesVisualizer";
+import ProtractorMeasurementTool from "../interactive/Topic8/Topic8.1/ProtractorUsage";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -248,6 +249,8 @@ const StudyView = () => {
 
       case "angle-types":
         return <AngleTypesVisualizer/>
+      case "protractor-usage":
+        return <ProtractorMeasurementTool/>
 
       default:
         return null;
