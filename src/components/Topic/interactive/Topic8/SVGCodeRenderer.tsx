@@ -1,6 +1,5 @@
 // components/EquationCodeRenderer.tsx
-import { CollinearAngles, LineAnglesExamples, StraightLineSVG } from "./Topic8.1/Viewers/SVGViewer";
-import  { AnglesAroundPoint, VerticallyOppositeAngles } from "./Topic8.2/SVGViewer82";
+import { AngleOfDepression, AngleOfElevation, AnglesAroundPoint, CollinearAngles, LineAnglesExamples, StraightLineSVG, VerticallyOppositeAngles } from "./Topic8.1/Viewers/SVGViewer";
 
 interface CodeProps extends React.HTMLAttributes<HTMLElement> {
   className?: string;
@@ -33,18 +32,18 @@ const SVGCodeRenderer: React.FC<CodeProps> = ({
   }
 
 
-    if (className === "language-svg-viewer-8-2") {
-    const options = content.split('\n').reduce((acc, line) => {
-      const [key, value] = line.split(':').map(s => s.trim());
-      if (key && value) acc[key] = value;
+//     if (className === "language-svg-viewer-8-2") {
+//     const options = content.split('\n').reduce((acc, line) => {
+//       const [key, value] = line.split(':').map(s => s.trim());
+//       if (key && value) acc[key] = value;
 
-      return acc;
-    }, {} as Record<string, string>);
+//       return acc;
+//     }, {} as Record<string, string>);
 
-    console.log(options)
+//     console.log(options)
     
-    return renderSVGBasedOnOptions(options);
-  }
+//     return renderSVGBasedOnOptions(options);
+//   }
 
 
   
@@ -73,9 +72,12 @@ function renderSVGBasedOnOptions(options: Record<string, string>) {
 
     case "angles-around-point":
         return <AnglesAroundPoint/>
-
     case "vertically-opposite-angles":
         return <VerticallyOppositeAngles/>
+    case "elevation":
+        return <AngleOfElevation/>
+    case "depression":
+        return <AngleOfDepression/>
     default:
       return <>nothing to show</>;
   }

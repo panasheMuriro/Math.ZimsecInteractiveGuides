@@ -80,7 +80,7 @@ import AngleTypesVisualizer from "../interactive/Topic8/Topic8.1/AngleTypesVisua
 import ProtractorMeasurementTool from "../interactive/Topic8/Topic8.1/ProtractorUsage";
 import SVGCodeRenderer from "../interactive/Topic8/SVGCodeRenderer";
 import LinearAngles from "../interactive/Topic8/Topic8.1/LinearAngles";
-import AnglesAroundPointQuiz from "../interactive/Topic8/Topic8.2/AnglesAroundPointQuiz";
+import AnglesAroundPointQuiz from "../interactive/Topic8/Topic8.1/AnglesAroundPointQuiz";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();

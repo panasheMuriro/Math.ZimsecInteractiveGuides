@@ -100,7 +100,7 @@ All angles around a point sum to $360°$
 **Mathematical Expression:**
 $\\angle_1 + \\angle_2 + \\angle_3 + ... + \\angle_n = 360°$
 
-\`\`\`svg-viewer-8-2
+\`\`\`svg-viewer
 type: angles-around-point
 \`\`\`
 
@@ -109,7 +109,7 @@ When two lines intersect, they form four angles:
 - Opposite angles are equal: $\\angle a = \\angle c$, $\\angle b = \\angle d$
 - Adjacent angles are supplementary: $\\angle a + \\angle b = 180°$
 
-\`\`\`svg-viewer-8-2
+\`\`\`svg-viewer
 type: vertically-opposite-angles
 \`\`\`
 
@@ -155,10 +155,18 @@ When a transversal cuts two parallel lines, it creates eight angles with special
 - Always between $0°$ and $90°$
 - Used when looking up at an object
 
+\`\`\`svg-viewer
+type: elevation
+\`\`\`
+
 **Angle of Depression:**
 - Measured downward from horizontal to line of sight  
 - Always between $0°$ and $90°$
 - Used when looking down at an object
+
+\`\`\`svg-viewer
+type: depression
+\`\`\`
 
 **Key Relationships:**
 - Angle of elevation from point A to B = Angle of depression from point B to A
