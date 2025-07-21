@@ -73,6 +73,9 @@ import PartialVariation from "../interactive/Topic6/PartialVariation";
 import JointVariation from "../interactive/Topic6/ JointVariation";
 import VariationComparison from "../interactive/Topic6/VariationComparison";
 import VariationProblemQuiz from "../interactive/Topic6/VariationProblemQuiz";
+import AlgebraicSimplification from "../interactive/Topic7/Topic7.1/AlgebraicSimplification";
+import HCFLCM from "../interactive/Topic7/Topic7.1/HCFLCM";
+import Factorization from "../interactive/Topic7/Topic7.1/Factorization";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -211,6 +214,7 @@ const StudyView = () => {
         return <VelocityTime/>
       case "displacement-time":
         return <DisplacementTimeQuiz/>
+      
 
 
       // Topic 6
@@ -229,6 +233,15 @@ const StudyView = () => {
         return <VariationComparison/>
       case "variation-problems":
         return <VariationProblemQuiz/>
+
+
+      // Topic 7
+      case "algebraic-simplification":
+        return <AlgebraicSimplification/>
+      case "hcf-lcm-algebra":
+        return <HCFLCM/>
+      case "factorization":
+        return <Factorization/>
 
       default:
         return null;
@@ -274,7 +287,7 @@ const StudyView = () => {
               remarkPlugins={[remarkMath, remarkGfm]}
               rehypePlugins={[rehypeKatex]}
               components={{
-                code: GraphCodeRenderer
+                code:GraphCodeRenderer
               }}
             >
               {currentContent.content}

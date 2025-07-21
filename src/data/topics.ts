@@ -6,6 +6,8 @@ import { sections as topic3Sections, quizQuestions as topic3Quiz } from './topic
 import { sections as topic4Sections, quizQuestions as topic4Quiz } from './topic4';
 import { sections as topic5Sections, quizQuestions as topic5Quiz } from './topic5';
 import { sections as topic6Sections, quizQuestions as topic6Quiz } from './topic6';
+import { sections as topic7Sections, quizQuestions as topic7Quiz } from './topic7';
+import { sections as topic8Sections, quizQuestions as topic8Quiz } from './topic8';
 
 export const topics: TopicData[] = [
   {
@@ -58,5 +60,21 @@ export const topics: TopicData[] = [
     icon: "📈",
     sections: topic6Sections,
     quizQuestions: topic6Quiz
+  },
+    {
+    id:7,
+    title: "Algebra",
+    description:"Algebraic manipulation, Equations, Inequalities, and Indices and logarithms",
+    icon: "𝒳",
+    sections: topic7Sections,
+    quizQuestions: topic7Quiz
+  },
+   {
+    id:8,
+    title: "Geometry",
+    description:"Points, lines, angles, bearings, polygons, circles, loci, symmetry",
+    icon: "📐",
+    sections: topic8Sections,
+    quizQuestions: topic8Quiz
   }
 ];
