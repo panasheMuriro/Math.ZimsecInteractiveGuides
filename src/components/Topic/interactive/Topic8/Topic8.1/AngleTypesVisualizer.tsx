@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import  { useState, useEffect } from 'react';
 import { Play, Pause, RotateCcw } from 'lucide-react';
 
@@ -7,7 +8,7 @@ const AngleTypesVisualizer = () => {
 
   // Animation effect
   useEffect(() => {
-    let interval: string | number | NodeJS.Timeout | undefined;
+    let interval: any
     if (isAnimating) {
       interval = setInterval(() => {
         setAngle(prev => {
