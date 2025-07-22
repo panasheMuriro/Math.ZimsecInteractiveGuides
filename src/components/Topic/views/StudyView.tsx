@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { CheckCircle, ChevronLeft, ChevronRight } from "lucide-react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { ChevronLeft, ChevronRight} from "lucide-react";
+import {  useNavigate, useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
@@ -85,6 +85,12 @@ import CardinalBearings from "../interactive/Topic8/Topic8.2/CardinalBearings";
 import CompassBearings from "../interactive/Topic8/Topic8.2/CompassBearings";
 import ThreeFigureBearings from "../interactive/Topic8/Topic8.2/ThreeFigureBearings";
 import BearingProblems from "../interactive/Topic8/Topic8.2/BearingProblems";
+import PolygonClassification from "../interactive/Topic8/Topic8.3/PolygonClassification";
+import TriangleProperties from "../interactive/Topic8/Topic8.3/TriangleProperties";
+import QuadrilateralProperties from "../interactive/Topic8/Topic8.3/QuadrilateralProperties";
+import PolygonAngleCalculations from "../interactive/Topic8/Topic8.3/PolygonAngleCalculations";
+import CircleTheorems from "../interactive/Topic8/Topic8.3/CircleTheorems";
+import SimilarityCongruency from "../interactive/Topic8/Topic8.4/SimilarityCongruency";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -270,6 +276,18 @@ const StudyView = () => {
         return <ThreeFigureBearings/>
       case "bearing-problems":
         return <BearingProblems/>
+      case "polygon-classification":
+        return <PolygonClassification/>
+      case "triangle-properties":
+        return <TriangleProperties/>
+      case "quadrilateral-properties":
+        return <QuadrilateralProperties/>
+      case "polygon-angles":
+        return <PolygonAngleCalculations/>
+      case "circle-theorems":
+        return <CircleTheorems/>
+      case "similarity-congruency":
+        return <SimilarityCongruency/>
 
       default:
         return null;
@@ -359,13 +377,13 @@ const StudyView = () => {
           </div>
         )}
 
-        <Link
+        {/* <Link
           to={`/topics/${topicData.id}`}
           className="w-full mt-6 bg-[#4A9782] text-white font-bold py-4 px-6 rounded-2xl hover:bg-[#f9c77c] transition-all duration-300 hover:scale-[1.02] flex items-center justify-center space-x-2 shadow-md mt-10"
         >
           <CheckCircle className="w-5 h-5" />
           <span>Mark as Complete</span>
-        </Link>
+        </Link> */}
       </div>
     </div>
   );
