@@ -1,0 +1,554 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { ReactNode, useState } from "react";
+
+const LineSymmetry: React.FC = () => {
+  const [shape, setShape] = useState<
+    "equilateral-triangle" | "square" | "pentagon" | "rectangle" | "rhombus" | "isosceles-triangle" | "circle"
+  >("equilateral-triangle");
+  const [step, setStep] = useState<number>(0);
+
+  const shapes: {
+    [key: string]: { steps: string[]; symmetryLines: number; center: { x: number; y: number }; size: number };
+  } = {
+    "equilateral-triangle": {
+      steps: [
+        "Draw an equilateral triangle.",
+        "Show the first symmetry line through a vertex and opposite side midpoint.",
+        "Show the second symmetry line.",
+        "Show the third symmetry line and corresponding points."
+      ],
+      symmetryLines: 3,
+      center: { x: 150, y: 100 },
+      size: 50
+    },
+    square: {
+      steps: [
+        "Draw a square.",
+        "Show the vertical symmetry line.",
+        "Show the horizontal symmetry line.",
+        "Show both diagonal symmetry lines."
+      ],
+      symmetryLines: 4,
+      center: { x: 150, y: 100 },
+      size: 50
+    },
+    pentagon: {
+      steps: [
+        "Draw a regular pentagon.",
+        "Show the first symmetry line through a vertex and opposite side midpoint.",
+        "Show the second and third symmetry lines.",
+        "Show all five symmetry lines and corresponding points."
+      ],
+      symmetryLines: 5,
+      center: { x: 150, y: 100 },
+      size: 50
+    },
+    rectangle: {
+      steps: [
+        "Draw a rectangle.",
+        "Show the vertical symmetry line.",
+        "Show the horizontal symmetry line."
+      ],
+      symmetryLines: 2,
+      center: { x: 150, y: 100 },
+      size: 60 // Width, height is 40
+    },
+    rhombus: {
+      steps: [
+        "Draw a rhombus.",
+        "Show the first diagonal symmetry line.",
+        "Show the second diagonal symmetry line."
+      ],
+      symmetryLines: 2,
+      center: { x: 150, y: 100 },
+      size: 50
+    },
+    "isosceles-triangle": {
+      steps: [
+        "Draw an isosceles triangle.",
+        "Show the symmetry line through the vertex and base midpoint."
+      ],
+      symmetryLines: 1,
+      center: { x: 150, y: 100 },
+      size: 50
+    },
+    circle: {
+      steps: [
+        "Draw a circle.",
+        "Show a vertical symmetry line.",
+        "Show additional representative symmetry lines."
+      ],
+      symmetryLines: Infinity,
+      center: { x: 150, y: 100 },
+      size: 50
+    }
+  };
+
+  // Helper function to calculate vertices of a regular polygon
+  const getPolygonVertices = (center: { x: number; y: number }, sides: number, radius: number) => {
+    const vertices: { x: number; y: number }[] = [];
+    for (let i = 0; i < sides; i++) {
+      const angle = (i * 360) / sides - 90; // Start at top (90° offset)
+      vertices.push({
+        x: center.x + radius * Math.cos((angle * Math.PI) / 180),
+        y: center.y + radius * Math.sin((angle * Math.PI) / 180)
+      });
+    }
+    return vertices;
+  };
+
+  // Helper function to calculate reflection point across a symmetry line
+  const getReflectionPoint = (
+    point: { x: number; y: number },
+    lineStart: { x: number; y: number },
+    lineEnd: { x: number; y: number }
+  ) => {
+    const dx = lineEnd.x - lineStart.x;
+    const dy = lineEnd.y - lineStart.y;
+    const t = ((point.x - lineStart.x) * dx + (point.y - lineStart.y) * dy) / (dx * dx + dy * dy);
+    const nearest = {
+      x: lineStart.x + t * dx,
+      y: lineStart.y + t * dy
+    };
+    const offset = { x: point.x - nearest.x, y: point.y - nearest.y };
+    return {
+      x: nearest.x - offset.x,
+      y: nearest.y - offset.y
+    };
+  };
+
+  // Helper function to get symmetry lines for regular polygons
+  const getSymmetryLines = (
+    center: { x: number; y: number },
+    sides: number,
+    radius: number,
+    step: number
+  ) => {
+    const lines: { p1: { x: number; y: number }; p2: { x: number; y: number } }[] = [];
+    const vertices = getPolygonVertices(center, sides, radius);
+
+    for (let i = 0; i < sides && i <= step; i++) {
+      const vertex = vertices[i];
+      let p1, p2;
+
+      if (sides % 2 === 1) {
+        // For odd-sided polygons, connect vertex to opposite side midpoint
+        const oppositeSideIndex = (i + Math.floor(sides / 2)) % sides;
+        const nextSideIndex = (oppositeSideIndex + 1) % sides;
+        const sideMidpoint = {
+          x: (vertices[oppositeSideIndex].x + vertices[nextSideIndex].x) / 2,
+          y: (vertices[oppositeSideIndex].y + vertices[nextSideIndex].y) / 2
+        };
+        p1 = vertex;
+        p2 = sideMidpoint;
+      } else {
+        // For even-sided polygons, connect opposite vertices
+        const oppositeVertexIndex = (i + sides / 2) % sides;
+        p1 = vertex;
+        p2 = vertices[oppositeVertexIndex];
+      }
+
+      // Extend lines slightly beyond shape for visibility
+      const extendedP1 = {
+        x: p1.x + (p1.x - p2.x) * 0.2,
+        y: p1.y + (p1.y - p2.y) * 0.2
+      };
+      const extendedP2 = {
+        x: p2.x + (p2.x - p1.x) * 0.2,
+        y: p2.y + (p2.y - p1.y) * 0.2
+      };
+      lines.push({ p1: extendedP1, p2: extendedP2 });
+    }
+
+    return lines;
+  };
+
+  const renderShape = () => {
+    const { center, size } = shapes[shape];
+    switch (shape) {
+      case "equilateral-triangle": {
+        const vertices = getPolygonVertices(center, 3, size);
+        const pathData = `M${vertices[0].x},${vertices[0].y} L${vertices[1].x},${vertices[1].y} L${vertices[2].x},${vertices[2].y} Z`;
+        return <path d={pathData} stroke="black" strokeWidth="2" fill="none" />;
+      }
+      case "square": {
+        const vertices = getPolygonVertices(center, 4, size);
+        const pathData = `M${vertices[0].x},${vertices[0].y} L${vertices[1].x},${vertices[1].y} L${vertices[2].x},${vertices[2].y} L${vertices[3].x},${vertices[3].y} Z`;
+        return <path d={pathData} stroke="black" strokeWidth="2" fill="none" />;
+      }
+      case "pentagon": {
+        const vertices = getPolygonVertices(center, 5, size);
+        const pathData = `M${vertices[0].x},${vertices[0].y} L${vertices[1].x},${vertices[1].y} L${vertices[2].x},${vertices[2].y} L${vertices[3].x},${vertices[3].y} L${vertices[4].x},${vertices[4].y} Z`;
+        return <path d={pathData} stroke="black" strokeWidth="2" fill="none" />;
+      }
+      case "rectangle":
+        return (
+          <>
+            <line x1={center.x - size} y1={center.y - 20} x2={center.x + size} y2={center.y - 20} stroke="black" strokeWidth="2" />
+            <line x1={center.x + size} y1={center.y - 20} x2={center.x + size} y2={center.y + 20} stroke="black" strokeWidth="2" />
+            <line x1={center.x + size} y1={center.y + 20} x2={center.x - size} y2={center.y + 20} stroke="black" strokeWidth="2" />
+            <line x1={center.x - size} y1={center.y + 20} x2={center.x - size} y2={center.y - 20} stroke="black" strokeWidth="2" />
+          </>
+        );
+      case "rhombus":
+        return (
+          <>
+            <line x1={center.x - size} y1={center.y} x2={center.x} y2={center.y - size} stroke="black" strokeWidth="2" />
+            <line x1={center.x} y1={center.y - size} x2={center.x + size} y2={center.y} stroke="black" strokeWidth="2" />
+            <line x1={center.x + size} y1={center.y} x2={center.x} y2={center.y + size} stroke="black" strokeWidth="2" />
+            <line x1={center.x} y1={center.y + size} x2={center.x - size} y2={center.y} stroke="black" strokeWidth="2" />
+          </>
+        );
+      case "isosceles-triangle":
+        return (
+          <>
+            <line x1={center.x - size} y1={center.y + 50} x2={center.x + size} y2={center.y + 50} stroke="black" strokeWidth="2" />
+            <line x1={center.x + size} y1={center.y + 50} x2={center.x} y2={center.y - 50} stroke="black" strokeWidth="2" />
+            <line x1={center.x} y1={center.y - 50} x2={center.x - size} y2={center.y + 50} stroke="black" strokeWidth="2" />
+          </>
+        );
+      case "circle":
+        return <circle cx={center.x} cy={center.y} r={size} stroke="black" strokeWidth="2" fill="none" />;
+      default:
+        return null;
+    }
+  };
+
+  const renderSymmetryLines = () => {
+    const { center, size } = shapes[shape];
+    const lines: JSX.Element[] = [];
+
+    if (shape === "equilateral-triangle" && step >= 1) {
+      const vertices = getPolygonVertices(center, 3, size);
+      const symmetryLinesData = getSymmetryLines(center, 3, size, step - 1);
+      symmetryLinesData.forEach(({ p1, p2 }, index) => {
+        lines.push(
+          <line
+            key={index}
+            x1={p1.x}
+            y1={p1.y}
+            x2={p2.x}
+            y2={p2.y}
+            stroke="red"
+            strokeWidth="1"
+            strokeDasharray="5"
+          />
+        );
+      });
+      if (step >= 3) {
+        const point = vertices[0]; // Top vertex
+        const reflection = getReflectionPoint(point, symmetryLinesData[0].p1, symmetryLinesData[0].p2);
+        lines.push(
+          <circle key="point1" cx={point.x} cy={point.y} r="3" fill="blue" />,
+          <circle key="point2" cx={reflection.x} cy={reflection.y} r="3" fill="blue" />
+        );
+      }
+    } else if (shape === "square" && step >= 1) {
+      if (step >= 1) {
+        lines.push(
+          <line
+            x1={center.x}
+            y1={center.y - size}
+            x2={center.x}
+            y2={center.y + size}
+            stroke="red"
+            strokeWidth="1"
+            strokeDasharray="5"
+          />
+        );
+      }
+      if (step >= 2) {
+        lines.push(
+          <line
+            x1={center.x - size}
+            y1={center.y}
+            x2={center.x + size}
+            y2={center.y}
+            stroke="red"
+            strokeWidth="1"
+            strokeDasharray="5"
+          />
+        );
+      }
+      if (step >= 3) {
+        lines.push(
+          <line
+            x1={center.x - size}
+            y1={center.y - size}
+            x2={center.x + size}
+            y2={center.y + size}
+            stroke="red"
+            strokeWidth="1"
+            strokeDasharray="5"
+          />,
+          <line
+            x1={center.x - size}
+            y1={center.y + size}
+            x2={center.x + size}
+            y2={center.y - size}
+            stroke="red"
+            strokeWidth="1"
+            strokeDasharray="5"
+          />
+        );
+        const point = { x: center.x + size, y: center.y - size }; // Top-right corner
+        const reflection = getReflectionPoint(point, { x: center.x, y: center.y - size }, { x: center.x, y: center.y + size });
+        lines.push(
+          <circle key="point1" cx={point.x} cy={point.y} r="3" fill="blue" />,
+          <circle key="point2" cx={reflection.x} cy={reflection.y} r="3" fill="blue" />
+        );
+      }
+    } else if (shape === "pentagon" && step >= 1) {
+      const vertices = getPolygonVertices(center, 5, size);
+      const symmetryLinesData = getSymmetryLines(center, 5, size, step - 1);
+      symmetryLinesData.forEach(({ p1, p2 }, index) => {
+        lines.push(
+          <line
+            key={index}
+            x1={p1.x}
+            y1={p1.y}
+            x2={p2.x}
+            y2={p2.y}
+            stroke="red"
+            strokeWidth="1"
+            strokeDasharray="5"
+          />
+        );
+      });
+      if (step >= 3) {
+        const point = vertices[0]; // Top vertex
+        const reflection = getReflectionPoint(point, symmetryLinesData[0].p1, symmetryLinesData[0].p2);
+        lines.push(
+          <circle key="point1" cx={point.x} cy={point.y} r="3" fill="blue" />,
+          <circle key="point2" cx={reflection.x} cy={reflection.y} r="3" fill="blue" />
+        );
+      }
+    } else if (shape === "rectangle" && step >= 1) {
+      if (step >= 1) {
+        lines.push(
+          <line
+            x1={center.x}
+            y1={center.y - 20}
+            x2={center.x}
+            y2={center.y + 20}
+            stroke="red"
+            strokeWidth="1"
+            strokeDasharray="5"
+          />
+        );
+      }
+      if (step >= 2) {
+        lines.push(
+          <line
+            x1={center.x - size}
+            y1={center.y}
+            x2={center.x + size}
+            y2={center.y}
+            stroke="red"
+            strokeWidth="1"
+            strokeDasharray="5"
+          />
+        );
+        const point = { x: center.x + size, y: center.y - 20 }; // Top-right corner
+        const reflection = getReflectionPoint(point, { x: center.x, y: center.y - 20 }, { x: center.x, y: center.y + 20 });
+        lines.push(
+          <circle key="point1" cx={point.x} cy={point.y} r="3" fill="blue" />,
+          <circle key="point2" cx={reflection.x} cy={reflection.y} r="3" fill="blue" />
+        );
+      }
+    } else if (shape === "rhombus" && step >= 1) {
+      if (step >= 1) {
+        lines.push(
+          <line
+            x1={center.x - size}
+            y1={center.y}
+            x2={center.x + size}
+            y2={center.y}
+            stroke="red"
+            strokeWidth="1"
+            strokeDasharray="5"
+          />
+        );
+      }
+      if (step >= 2) {
+        lines.push(
+          <line
+            x1={center.x}
+            y1={center.y - size}
+            x2={center.x}
+            y2={center.y + size}
+            stroke="red"
+            strokeWidth="1"
+            strokeDasharray="5"
+          />
+        );
+        const point = { x: center.x + size, y: center.y }; // Right vertex
+        const reflection = getReflectionPoint(point, { x: center.x - size, y: center.y }, { x: center.x + size, y: center.y });
+        lines.push(
+          <circle key="point1" cx={point.x} cy={point.y} r="3" fill="blue" />,
+          <circle key="point2" cx={reflection.x} cy={reflection.y} r="3" fill="blue" />
+        );
+      }
+    } else if (shape === "isosceles-triangle" && step >= 1) {
+      lines.push(
+        <line
+          x1={center.x}
+          y1={center.y - 50}
+          x2={center.x}
+          y2={center.y + 50}
+          stroke="red"
+          strokeWidth="1"
+          strokeDasharray="5"
+        />
+      );
+      const point = { x: center.x + size, y: center.y + 50 }; // Right base vertex
+      const reflection = getReflectionPoint(point, { x: center.x, y: center.y - 50 }, { x: center.x, y: center.y + 50 });
+      lines.push(
+        <circle key="point1" cx={point.x} cy={point.y} r="3" fill="blue" />,
+        <circle key="point2" cx={reflection.x} cy={reflection.y} r="3" fill="blue" />
+      );
+    } else if (shape === "circle" && step >= 1) {
+      if (step >= 1) {
+        lines.push(
+          <line
+            x1={center.x}
+            y1={center.y - size}
+            x2={center.x}
+            y2={center.y + size}
+            stroke="red"
+            strokeWidth="1"
+            strokeDasharray="5"
+          />
+        );
+      }
+      if (step >= 2) {
+        lines.push(
+          <line
+            x1={center.x - size}
+            y1={center.y}
+            x2={center.x + size}
+            y2={center.y}
+            stroke="red"
+            strokeWidth="1"
+            strokeDasharray="5"
+          />,
+          <line
+            x1={center.x - size * 0.707}
+            y1={center.y - size * 0.707}
+            x2={center.x + size * 0.707}
+            y2={center.y + size * 0.707}
+            stroke="red"
+            strokeWidth="1"
+            strokeDasharray="5"
+          />
+        );
+        const point = { x: center.x + size * 0.707, y: center.y - size * 0.707 }; // Point on circle
+        const reflection = getReflectionPoint(point, { x: center.x, y: center.y - size }, { x: center.x, y: center.y + size });
+        lines.push(
+          <circle key="point1" cx={point.x} cy={point.y} r="3" fill="blue" />,
+          <circle key="point2" cx={reflection.x} cy={reflection.y} r="3" fill="blue" />
+        );
+      }
+    }
+    return lines;
+  };
+
+  const handleShapeChange = (
+    newShape: "equilateral-triangle" | "square" | "pentagon" | "rectangle" | "rhombus" | "isosceles-triangle" | "circle"
+  ) => {
+    setShape(newShape);
+    setStep(0);
+  };
+
+  const handleNextStep = () => {
+    if (step < shapes[shape].steps.length - 1) {
+      setStep(step + 1);
+    }
+  };
+
+  const handlePrevStep = () => {
+    if (step > 0) {
+      setStep(step - 1);
+    }
+  };
+
+  return (
+    <div className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-md">
+      <h3 className="text-lg font-semibold mb-4 text-center text-gray-700">
+        Line Symmetry Visualizer
+      </h3>
+      <p className="text-sm text-gray-600 mb-4 text-center">
+        Select a shape and step through to see its lines of symmetry.
+      </p>
+
+      {/* Shape Selector */}
+      <div className="flex flex-wrap justify-center gap-2 mb-6">
+        {[
+          { id: "equilateral-triangle", label: "Equilateral Triangle" },
+          { id: "square", label: "Square" },
+          { id: "pentagon", label: "Regular Pentagon" },
+          { id: "rectangle", label: "Rectangle" },
+          { id: "rhombus", label: "Rhombus" },
+          { id: "isosceles-triangle", label: "Isosceles Triangle" },
+          { id: "circle", label: "Circle" }
+        ].map(({ id, label }) => (
+          <button
+            key={id}
+            onClick={() => handleShapeChange(id as any)}
+            className={`px-3 py-1 text-sm font-medium rounded-md ${
+              shape === id
+                ? "bg-blue-500 text-white"
+                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {/* Visualization */}
+      <div className="flex justify-center">
+        <svg width="100%" height="200" viewBox="0 0 300 200" className="max-w-full">
+          {renderShape()}
+          {renderSymmetryLines() as ReactNode}
+        </svg>
+      </div>
+
+      {/* Step Navigation */}
+      <div className="flex justify-between mt-4">
+        <button
+          onClick={handlePrevStep}
+          disabled={step === 0}
+          className={`px-4 py-2 text-sm font-medium rounded-md ${
+            step === 0 ? "bg-gray-300 cursor-not-allowed" : "bg-blue-500 text-white hover:bg-blue-600"
+          }`}
+        >
+          Previous
+        </button>
+        <button
+          onClick={handleNextStep}
+          disabled={step === shapes[shape].steps.length - 1}
+          className={`px-4 py-2 text-sm font-medium rounded-md ${
+            step === shapes[shape].steps.length - 1
+              ? "bg-gray-300 cursor-not-allowed"
+              : "bg-blue-500 text-white hover:bg-blue-600"
+          }`}
+        >
+          Next
+        </button>
+      </div>
+
+      {/* Feedback */}
+      <div className="text-sm text-gray-600 mt-4">
+        <p>
+          <strong>Step {step + 1}:</strong> {shapes[shape].steps[step]}
+        </p>
+        <p className="mt-2">
+          This shape has {shapes[shape].symmetryLines === Infinity ? "infinite" : shapes[shape].symmetryLines} line(s) of symmetry. Corresponding points are equidistant from the mirror line.
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default LineSymmetry;

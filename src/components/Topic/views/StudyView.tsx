@@ -96,6 +96,9 @@ import ScaleFactors from "../interactive/Topic8/Topic8.4/ScaleFactors";
 import SimilarShapesProblems from "../interactive/Topic8/Topic8.4/SimilarShapesProblems";
 import BasicConstructions from "../interactive/Topic8/Topic8.5/BasicConstructions";
 import ShapeConstructions from "../interactive/Topic8/Topic8.5/ShapeConstructions";
+import LineSymmetry from "../interactive/Topic8/Topic8.5/Linesymmetry";
+import RotationalSymmetry from "../interactive/Topic8/Topic8.5/RotationalSymmetry";
+
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -303,6 +306,12 @@ const StudyView = () => {
         return <BasicConstructions/>
       case "shape-constructions":
         return <ShapeConstructions/>
+
+      case "line-symmetry":
+        return <LineSymmetry/>
+
+      case "rotational-symmetry":
+        return <RotationalSymmetry/>
 
       default:
         return null;
