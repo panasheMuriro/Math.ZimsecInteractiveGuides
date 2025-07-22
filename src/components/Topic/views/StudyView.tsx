@@ -101,6 +101,10 @@ import DataCollectionQuiz from "../interactive/Topic9/Topic9.1/DataCollection";
 import DataClassificationQuiz from "../interactive/Topic9/Topic9.1/DataClassification";
 import DataRepresentationViz from "../interactive/Topic9/Topic9.1/DataRepresentation";
 import LineSymmetry from "../interactive/Topic8/Topic8.5/LineSymmetry";
+import MeanQuiz from "../interactive/Topic9/Topic9.2/MeanQuiz";
+import MedianQuiz from "../interactive/Topic9/Topic9.2/Median";
+import ModeQuiz from "../interactive/Topic9/Topic9.2/Mode";
+import MeasureSelectionQuiz from "../interactive/Topic9/Topic9.2/MeasureSelectionQuiz";
 
 
 const StudyView = () => {
@@ -323,6 +327,14 @@ const StudyView = () => {
         return <DataClassificationQuiz/>
       case "data-representation":
         return <DataRepresentationViz/>
+      case "mean-calculations":
+        return <MeanQuiz/>
+      case "median-calculations":
+        return <MedianQuiz/>
+      case "mode-identification":
+        return <ModeQuiz/>
+      case "measure-selection":
+        return <MeasureSelectionQuiz/>
 
       default:
         return null;

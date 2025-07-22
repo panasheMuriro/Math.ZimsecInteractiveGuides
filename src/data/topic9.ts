@@ -4,7 +4,15 @@ export const sections: Section[] = [
   {
     title: "Data Collection & Representation",
     icon: "📊",
-    content: `Data collection and representation form the foundation of statistics, involving gathering raw data and presenting it in meaningful visual and tabular formats.`,
+    content: `Data collection and representation form the foundation of statistics, involving gathering raw data and presenting it in meaningful visual and tabular formats.
+
+**Syllabus Objectives**:
+- Recognize and apply statistical symbols, terms, and definitions (e.g., frequency, cumulative frequency, relative frequency).
+- Draw tables, graphs, charts, and diagrams accurately to represent data.
+- Interpret tables, graphs, charts, and diagrams to summarize and communicate data trends.
+- Make effective use of ICT tools (e.g., spreadsheets, graphing software) to organize and display data.
+- Apply mathematical reasoning to describe data patterns and communicate findings clearly.`,
+   
     subsections: [
       {
         title: "Data Collection Methods",
@@ -33,7 +41,13 @@ export const sections: Section[] = [
 - **Random sampling:** Every member has equal chance
 - **Systematic sampling:** Every nth member selected
 - **Stratified sampling:** Population divided into groups
-- **Cluster sampling:** Groups selected randomly`,
+- **Cluster sampling:** Groups selected randomly
+
+**Syllabus Objectives**:
+- Collect and organize data accurately using appropriate methods (e.g., surveys, sampling).
+- Recognize statistical terms related to data collection (e.g., sample, population, bias).
+- Conduct simple research projects involving data collection, ensuring accuracy and validity.
+- Use ICT tools to record and manage collected data efficiently.`,
         interactive: "data-collection",
       },
       {
@@ -62,7 +76,13 @@ export const sections: Section[] = [
 - **Equal width:** All classes same size
 - **Unequal width:** Classes different sizes
 - **Open-ended:** No upper or lower limit
-- Class boundaries, midpoints, and widths`,
+- Class boundaries, midpoints, and widths
+
+**Syllabus Objectives**:
+- Recognize and apply statistical terms (e.g., discrete, continuous, class interval, midpoint).
+- Organize data into appropriate classification systems (grouped/ungrouped, discrete/continuous).
+- Use ICT tools to create and manage data classifications for analysis.
+- Interpret classified data to identify patterns and communicate findings.`,
         interactive: "data-classification",
       },
       {
@@ -94,7 +114,13 @@ export const sections: Section[] = [
 - Bar chart: Comparing categories
 - Histogram: Distribution shape
 - Pie chart: Parts of whole
-- Ogive: Quartiles and percentiles`,
+- Ogive: Quartiles and percentiles
+
+**Syllabus Objectives**:
+- Draw tables, charts, and graphs (e.g., bar charts, pie charts, histograms, ogives) accurately.
+- Interpret statistical diagrams to deduce trends and communicate mathematical ideas clearly.
+- Use a suitable degree of accuracy in constructing graphical representations.
+- Apply ICT tools to create and analyze statistical diagrams for effective presentation.`,
         interactive: "data-representation",
       },
     ],
@@ -102,7 +128,14 @@ export const sections: Section[] = [
   {
     title: "Measures of Central Tendency",
     icon: "🎯",
-    content: `Central tendency measures identify the typical or middle value in a dataset, providing insight into where data tends to cluster.`,
+    content: `Central tendency measures identify the typical or middle value in a dataset, providing insight into where data tends to cluster.
+
+**Syllabus Objectives**:
+- Recognize and apply statistical terms (e.g., mean, median, mode) accurately.
+- Carry out calculations for measures of central tendency with precision.
+- Interpret measures of central tendency to summarize data and communicate findings.
+- Solve routine and non-routine problems using appropriate central tendency measures.
+- Use ICT tools to compute and analyze central tendency measures.`,
     subsections: [
       {
         title: "Mean Calculations",
@@ -133,7 +166,13 @@ Where: $A$ = assumed mean, $d = x - A$
 **When to Use:**
 - Symmetric distributions
 - No extreme outliers present
-- Need for further statistical analysis`,
+- Need for further statistical analysis
+
+**Syllabus Objectives**:
+- Calculate the mean accurately for ungrouped and grouped data.
+- Apply mathematical reasoning to interpret the mean in context.
+- Solve problems involving the mean using appropriate methods.
+- Use ICT tools (e.g., spreadsheets) to compute the mean efficiently.`,
         interactive: "mean-calculations",
       },
       {
@@ -167,7 +206,13 @@ Where:
 **When to Use:**
 - Skewed distributions
 - Presence of outliers
-- Ordinal data analysis`,
+- Ordinal data analysis
+
+**Syllabus Objectives**:
+- Calculate the median accurately for ungrouped and grouped data.
+- Use ogives to determine the median and interpret results.
+- Apply the median to analyze skewed data sets and communicate findings.
+- Use ICT tools to compute and visualize medians.`,
         interactive: "median-calculations",
       },
       {
@@ -205,7 +250,13 @@ Where:
 **When to Use:**
 - Categorical data
 - Identifying most common value
-- Business applications (most popular product)`,
+- Business applications (most popular product)
+
+**Syllabus Objectives**:
+- Identify and calculate the mode accurately for ungrouped and grouped data.
+- Interpret the mode to describe data frequency patterns.
+- Solve problems involving the mode in categorical and numerical data sets.
+- Use ICT tools to identify and analyze modal values.`,
         interactive: "mode-identification",
       },
       {
@@ -216,29 +267,35 @@ Where:
 - **Symmetric distribution:** Mean = Median = Mode
 - **Positively skewed:** Mean > Median > Mode
 - **Negatively skewed:** Mode > Median > Mean
-
+---
 **Data Type:**
 - **Numerical (continuous):** All three measures applicable
 - **Ordinal:** Median and mode appropriate
 - **Nominal:** Only mode applicable
-
+---
 **Presence of Outliers:**
 - **With outliers:** Use median (robust measure)
 - **Without outliers:** Mean preferred for calculations
-
+---
 **Purpose of Analysis:**
 - **Descriptive summary:** Mean for symmetric data
 - **Typical value:** Median for skewed data
 - **Most common value:** Mode for frequency analysis
-
+---
 **Practical Applications:**
 - **Income data:** Median (due to high earners)
 - **Test scores:** Mean (normally distributed)
 - **Product sales:** Mode (most popular item)
 - **House prices:** Median (skewed by expensive properties)
-
+---
 **Combined Interpretation:**
-Use multiple measures together for complete understanding of data distribution`,
+Use multiple measures together for complete understanding of data distribution
+---
+**Syllabus Objectives**:
+- Select and justify appropriate measures of central tendency based on data type and distribution.
+- Interpret multiple measures to provide a comprehensive data analysis.
+- Solve routine and non-routine problems by choosing suitable measures.
+- Communicate mathematical ideas clearly when justifying measure selection.`,
         interactive: "measure-selection",
       },
     ],
@@ -246,7 +303,14 @@ Use multiple measures together for complete understanding of data distribution`,
   {
     title: "Measures of Dispersion",
     icon: "📏",
-    content: `Dispersion measures quantify the spread or variability of data, indicating how much individual values deviate from the central tendency.`,
+    content: `Dispersion measures quantify the spread or variability of data, indicating how much individual values deviate from the central tendency.
+
+**Syllabus Objectives**:
+- Recognize and apply statistical terms (e.g., range, interquartile range, quartile deviation).
+- Calculate measures of dispersion accurately to describe data variability.
+- Interpret dispersion measures to analyze data spread and communicate findings.
+- Deduce and draw inferences through manipulation of statistical data.
+- Use ICT tools to compute and visualize dispersion measures.`,
     subsections: [
       {
         title: "Range Calculations",
@@ -263,7 +327,7 @@ $$Range = Highest\\ Value - Lowest\\ Value$$
 **Disadvantages:**
 - Only considers two extreme values
 - Heavily influenced by outliers
-- Doesn't show distribution of middle values
+- Doesn’t show distribution of middle values
 - Not suitable for grouped data with open classes
 
 **Applications:**
@@ -279,7 +343,13 @@ Where: $H$ = highest value, $L$ = lowest value
 **Interpretation:**
 - Larger range indicates greater variability
 - Smaller range suggests more consistent data
-- Compare ranges between similar datasets`,
+- Compare ranges between similar datasets
+
+**Syllabus Objectives**:
+- Calculate the range accurately for ungrouped data sets.
+- Interpret the range to describe data variability.
+- Solve problems involving the range in practical contexts.
+- Use ICT tools to compute and compare ranges across data sets.`,
         interactive: "range-calculations",
       },
       {
@@ -308,7 +378,13 @@ $$IQR = Q_3 - Q_1$$
 - Useful for identifying outliers: values beyond $Q_1 - 1.5 \\times IQR$ or $Q_3 + 1.5 \\times IQR$
 
 **Box Plot Components:**
-- Median line, quartile boxes, whiskers, outliers`,
+- Median line, quartile boxes, whiskers, outliers
+
+**Syllabus Objectives**:
+- Calculate quartiles and IQR accurately for ungrouped and grouped data.
+- Use box plots to visualize and interpret data spread.
+- Deduce outliers and data distribution patterns using IQR.
+- Apply ICT tools to compute and display quartiles and IQR.`,
         interactive: "quartiles-iqr",
       },
       {
@@ -344,7 +420,13 @@ $$Semi\\text{-}IQR = \\frac{IQR}{2} = \\frac{Q_3 - Q_1}{2}$$
 **Interpretation:**
 - Smaller values indicate data clustered around median
 - Larger values suggest greater spread
-- Use with median for complete dispersion picture`,
+- Use with median for complete dispersion picture
+
+**Syllabus Objectives**:
+- Calculate the semi-interquartile range accurately.
+- Interpret the semi-IQR to describe data spread around the median.
+- Apply the semi-IQR in contexts with skewed distributions.
+- Use ICT tools to compute and analyze semi-IQR values.`,
         interactive: "semi-iqr",
       },
       {
@@ -382,22 +464,24 @@ $$Semi\\text{-}IQR = \\frac{IQR}{2} = \\frac{Q_3 - Q_1}{2}$$
 **Accuracy Considerations:**
 - Smooth curve assumption
 - Interpolation between points
-- More accurate with larger sample sizes`,
+- More accurate with larger sample sizes
+
+**Syllabus Objectives**:
+- Construct and interpret ogives accurately to determine quartiles.
+- Use ogives to estimate percentiles and analyze data distribution.
+- Apply mathematical reasoning to deduce statistical inferences from ogives.
+- Use ICT tools to create and analyze cumulative frequency curves.`,
         interactive: "ogive-quartiles",
       },
     ],
   },
 ];
 
-
 export const quizQuestions: QuizQuestion[] = [
   {
-    question:
-      "Coming soon",
+    question: "Coming soon",
     options: ["Coming soon"],
     correct: 1,
-    explanation:
-      "",
+    explanation: "",
   },
-
 ];
