@@ -105,6 +105,10 @@ import MeanQuiz from "../interactive/Topic9/Topic9.2/MeanQuiz";
 import MedianQuiz from "../interactive/Topic9/Topic9.2/Median";
 import ModeQuiz from "../interactive/Topic9/Topic9.2/Mode";
 import MeasureSelectionQuiz from "../interactive/Topic9/Topic9.2/MeasureSelectionQuiz";
+import RangeQuiz from "../interactive/Topic9/Topic9.3/RangeQuiz";
+import QuartileIQRQuiz from "../interactive/Topic9/Topic9.3/QuartileIQRQuiz";
+import SemiIQRQuiz from "../interactive/Topic9/Topic9.3/SemiIQRQuiz";
+import OgiveQuartilesQuiz from "../interactive/Topic9/Topic9.3/OgiveQuartilesQuiz";
 
 
 const StudyView = () => {
@@ -335,6 +339,14 @@ const StudyView = () => {
         return <ModeQuiz/>
       case "measure-selection":
         return <MeasureSelectionQuiz/>
+      case "range-calculations":
+        return <RangeQuiz/>
+      case "quartiles-iqr":
+        return <QuartileIQRQuiz/>
+      case "semi-iqr":
+        return <SemiIQRQuiz/>
+      case "ogive-quartiles":
+        return <OgiveQuartilesQuiz/>
 
       default:
         return null;
