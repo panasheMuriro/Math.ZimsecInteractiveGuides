@@ -91,6 +91,9 @@ import QuadrilateralProperties from "../interactive/Topic8/Topic8.3/Quadrilatera
 import PolygonAngleCalculations from "../interactive/Topic8/Topic8.3/PolygonAngleCalculations";
 import CircleTheorems from "../interactive/Topic8/Topic8.3/CircleTheorems";
 import SimilarityCongruency from "../interactive/Topic8/Topic8.4/SimilarityCongruency";
+import CongruencyTests from "../interactive/Topic8/Topic8.4/CongruencyTests";
+import ScaleFactors from "../interactive/Topic8/Topic8.4/ScaleFactors";
+import SimilarShapesProblems from "../interactive/Topic8/Topic8.4/SimilarShapesProblems";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -288,6 +291,12 @@ const StudyView = () => {
         return <CircleTheorems/>
       case "similarity-congruency":
         return <SimilarityCongruency/>
+      case "congruence-tests":
+        return <CongruencyTests/>
+      case "scale-factors":
+        return <ScaleFactors/>
+      case "similar-shapes-problems":
+        return <SimilarShapesProblems/>
 
       default:
         return null;
