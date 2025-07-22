@@ -81,6 +81,10 @@ import ProtractorMeasurementTool from "../interactive/Topic8/Topic8.1/Protractor
 import SVGCodeRenderer from "../interactive/Topic8/SVGCodeRenderer";
 import LinearAngles from "../interactive/Topic8/Topic8.1/LinearAngles";
 import AnglesAroundPointQuiz from "../interactive/Topic8/Topic8.1/AnglesAroundPointQuiz";
+import CardinalBearings from "../interactive/Topic8/Topic8.2/CardinalBearings";
+import CompassBearings from "../interactive/Topic8/Topic8.2/CompassBearings";
+import ThreeFigureBearings from "../interactive/Topic8/Topic8.2/ThreeFigureBearings";
+import BearingProblems from "../interactive/Topic8/Topic8.2/BearingProblems";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -258,6 +262,14 @@ const StudyView = () => {
         return <LinearAngles/>
       case "angles-around-point":
         return <AnglesAroundPointQuiz/>
+      case "cardinal-directions":
+        return <CardinalBearings/>
+      case "compass-bearings":
+        return <CompassBearings/>
+      case "three-figure-bearings":
+        return <ThreeFigureBearings/>
+      case "bearing-problems":
+        return <BearingProblems/>
 
       default:
         return null;
