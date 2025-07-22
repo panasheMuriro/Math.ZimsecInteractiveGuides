@@ -95,6 +95,7 @@ import CongruencyTests from "../interactive/Topic8/Topic8.4/CongruencyTests";
 import ScaleFactors from "../interactive/Topic8/Topic8.4/ScaleFactors";
 import SimilarShapesProblems from "../interactive/Topic8/Topic8.4/SimilarShapesProblems";
 import BasicConstructions from "../interactive/Topic8/Topic8.5/BasicConstructions";
+import ShapeConstructions from "../interactive/Topic8/Topic8.5/ShapeConstructions";
 
 const StudyView = () => {
   const { topicData } = useTopicContext();
@@ -300,6 +301,8 @@ const StudyView = () => {
         return <SimilarShapesProblems/>
       case "basic-constructions":
         return <BasicConstructions/>
+      case "shape-constructions":
+        return <ShapeConstructions/>
 
       default:
         return null;
