@@ -96,8 +96,11 @@ import ScaleFactors from "../interactive/Topic8/Topic8.4/ScaleFactors";
 import SimilarShapesProblems from "../interactive/Topic8/Topic8.4/SimilarShapesProblems";
 import BasicConstructions from "../interactive/Topic8/Topic8.5/BasicConstructions";
 import ShapeConstructions from "../interactive/Topic8/Topic8.5/ShapeConstructions";
-import LineSymmetry from "../interactive/Topic8/Topic8.5/Linesymmetry";
 import RotationalSymmetry from "../interactive/Topic8/Topic8.5/RotationalSymmetry";
+import DataCollectionQuiz from "../interactive/Topic9/Topic9.1/DataCollection";
+import DataClassificationQuiz from "../interactive/Topic9/Topic9.1/DataClassification";
+import DataRepresentationViz from "../interactive/Topic9/Topic9.1/DataRepresentation";
+import LineSymmetry from "../interactive/Topic8/Topic8.5/LineSymmetry";
 
 
 const StudyView = () => {
@@ -306,12 +309,20 @@ const StudyView = () => {
         return <BasicConstructions/>
       case "shape-constructions":
         return <ShapeConstructions/>
-
       case "line-symmetry":
         return <LineSymmetry/>
-
       case "rotational-symmetry":
         return <RotationalSymmetry/>
+
+
+      // Topic 9
+
+      case "data-collection":
+        return <DataCollectionQuiz/>
+      case "data-classification":
+        return <DataClassificationQuiz/>
+      case "data-representation":
+        return <DataRepresentationViz/>
 
       default:
         return null;

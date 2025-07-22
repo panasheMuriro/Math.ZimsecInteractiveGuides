@@ -16,19 +16,19 @@ export const sections: Section[] = [
 - **Observations:** Recording natural phenomena, behaviors
 - **Census:** Complete enumeration of population
 - **Sampling:** Representative subset selection
-
+---
 **Secondary Data Collection:**
 - Government statistics, published reports
 - Research papers, databases
 - Historical records, archives
-
+---
 **Data Quality Considerations:**
 - **Accuracy:** Minimize measurement errors
 - **Reliability:** Consistent results over time
 - **Validity:** Measures what it claims to measure
 - **Bias:** Avoid systematic errors in collection
 - **Sample size:** Adequate for reliable conclusions
-
+---
 **Sampling Methods:**
 - **Random sampling:** Every member has equal chance
 - **Systematic sampling:** Every nth member selected
