@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { ReactNode, useState } from 'react';
 
 interface Step {
   label: string;
   description: string;
-  svgContent: JSX.Element;
+  svgContent: any;
 }
 
 const BearingProblems: React.FC = () => {

@@ -110,6 +110,8 @@ import QuartileIQRQuiz from "../interactive/Topic9/Topic9.3/QuartileIQRQuiz";
 import SemiIQRQuiz from "../interactive/Topic9/Topic9.3/SemiIQRQuiz";
 import OgiveQuartilesQuiz from "../interactive/Topic9/Topic9.3/OgiveQuartilesQuiz";
 import PythagorasTheorem from "../interactive/Topic10/PythagorasTheorem";
+import PythagoreanTriples from "../interactive/Topic10/PythagoreanTriples";
+import AcuteAngleRatios from "../interactive/Topic10/AcuteAngleRatios";
 
 
 const StudyView = () => {
@@ -353,6 +355,10 @@ const StudyView = () => {
       // Topic 10
       case "pythagoras-theorem":
         return <PythagorasTheorem/>
+      case "pythagorean-triples":
+        return <PythagoreanTriples/>
+      case "acute-angle-ratios":
+        return <AcuteAngleRatios/>
 
       default:
         return null;

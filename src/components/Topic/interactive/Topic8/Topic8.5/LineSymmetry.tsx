@@ -216,7 +216,7 @@ const LineSymmetry: React.FC = () => {
 
   const renderSymmetryLines = () => {
     const { center, size } = shapes[shape];
-    const lines: JSX.Element[] = [];
+    const lines: any[] = [];
 
     if (shape === "equilateral-triangle" && step >= 1) {
       const vertices = getPolygonVertices(center, 3, size);

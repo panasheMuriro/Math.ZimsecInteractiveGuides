@@ -83,7 +83,7 @@ const RotationalSymmetry: React.FC = () => {
   // Render the visualization based on the current step
   const renderVisualization = () => {
     const { center, order, angle, sides, size } = shapes[shape];
-    const elements: JSX.Element[] = [];
+    const elements:any[] = [];
 
     // Step 0: Original shape
     if (step >= 0) {

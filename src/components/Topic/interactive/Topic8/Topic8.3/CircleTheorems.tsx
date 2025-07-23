@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { ReactNode, useState } from 'react';
 
 interface Theorem {
   name: string;
   description: string;
-  renderDiagram: (svgSize: number, centerX: number, centerY: number, radius: number) => JSX.Element;
+  renderDiagram: (svgSize: number, centerX: number, centerY: number, radius: number) => any;
 }
 
 const CircleTheorems: React.FC = () => {
