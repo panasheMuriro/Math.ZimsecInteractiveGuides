@@ -37,6 +37,11 @@ import {
   quizQuestions as topic9Quiz,
 } from "./topic9";
 
+import {
+  sections as topic10Sections,
+  quizQuestions as topic10Quiz,
+} from "./topic10";
+
 export const topics: TopicData[] = [
   {
     id: 1,
@@ -119,4 +124,17 @@ export const topics: TopicData[] = [
     sections: topic9Sections,
     quizQuestions: topic9Quiz,
   },
+
+  {
+    id: 10,
+    title: "Trigonometry",
+    description:
+      "Pythgoras Theorem, Trigonometry ratios",
+    icon: "📐",
+    sections: topic10Sections,
+    quizQuestions: topic10Quiz,
+  },
+
+
+
 ];

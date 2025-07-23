@@ -109,6 +109,7 @@ import RangeQuiz from "../interactive/Topic9/Topic9.3/RangeQuiz";
 import QuartileIQRQuiz from "../interactive/Topic9/Topic9.3/QuartileIQRQuiz";
 import SemiIQRQuiz from "../interactive/Topic9/Topic9.3/SemiIQRQuiz";
 import OgiveQuartilesQuiz from "../interactive/Topic9/Topic9.3/OgiveQuartilesQuiz";
+import PythagorasTheorem from "../interactive/Topic10/PythagorasTheorem";
 
 
 const StudyView = () => {
@@ -347,6 +348,11 @@ const StudyView = () => {
         return <SemiIQRQuiz/>
       case "ogive-quartiles":
         return <OgiveQuartilesQuiz/>
+
+
+      // Topic 10
+      case "pythagoras-theorem":
+        return <PythagorasTheorem/>
 
       default:
         return null;
