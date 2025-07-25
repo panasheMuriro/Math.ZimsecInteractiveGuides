@@ -109,9 +109,13 @@ import RangeQuiz from "../interactive/Topic9/Topic9.3/RangeQuiz";
 import QuartileIQRQuiz from "../interactive/Topic9/Topic9.3/QuartileIQRQuiz";
 import SemiIQRQuiz from "../interactive/Topic9/Topic9.3/SemiIQRQuiz";
 import OgiveQuartilesQuiz from "../interactive/Topic9/Topic9.3/OgiveQuartilesQuiz";
-import PythagorasTheorem from "../interactive/Topic10/PythagorasTheorem";
-import PythagoreanTriples from "../interactive/Topic10/PythagoreanTriples";
-import AcuteAngleRatios from "../interactive/Topic10/AcuteAngleRatios";
+import PythagorasTheorem from "../interactive/Topic10/Topic10.1/PythagorasTheorem";
+import PythagoreanTriples from "../interactive/Topic10/Topic10.1/PythagoreanTriples";
+import AcuteAngleRatios from "../interactive/Topic10/Topic10.2/AcuteAngleRatios";
+import SineRuleVisualizer from "../interactive/Topic10/Topic10.3/SineRule";
+import CosineRuleVisualizer from "../interactive/Topic10/Topic10.3/CosineRule";
+import TriangleAreaVisualizer from "../interactive/Topic10/Topic10.3/TriangleAreaVisualizer";
+import ThreeDTrigVisualizer from "../interactive/Topic10/Topic10.3/ThreeDTrigVisualizer";
 
 
 const StudyView = () => {
@@ -359,7 +363,14 @@ const StudyView = () => {
         return <PythagoreanTriples/>
       case "acute-angle-ratios":
         return <AcuteAngleRatios/>
-
+      case "sine-rule":
+        return <SineRuleVisualizer/>
+      case "cosine-rule":
+        return <CosineRuleVisualizer/>
+      case "triangle-area":
+        return <TriangleAreaVisualizer/>
+      case"3d-trig-problems":
+      return <ThreeDTrigVisualizer/>
       default:
         return null;
     }
