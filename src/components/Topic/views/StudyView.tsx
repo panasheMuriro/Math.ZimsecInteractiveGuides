@@ -128,6 +128,8 @@ import MatrixTypesVisualizer from "../interactive/Topic12/Topic12.1/MatrixTypesV
 import MatrixAddSubtractVisualizer from "../interactive/Topic12/Topic12.2/MatrixAddSubtractVisualizer";
 import ScalarMultiplicationVisualizer from "../interactive/Topic12/Topic12.2/ScalarMultiplicationVisualizer";
 import MatrixMultiplicationVisualizer from "../interactive/Topic12/Topic12.2/MatrixMultiplicationVisualizer";
+import DeterminantCalculator from "../interactive/Topic12/Topic12.3/DeterminantCalculator";
+import SingularMatrixChecker from "../interactive/Topic12/Topic12.3/SingularMatrixChecker";
 
 
 const StudyView = () => {
@@ -412,8 +414,12 @@ const StudyView = () => {
         return <ScalarMultiplicationVisualizer/>
       case "matrix-multiplication":
         return <MatrixMultiplicationVisualizer/>
+      case "determinant-calculation":
+        return <DeterminantCalculator/>
+      case "singular-non-singular":
+        return <SingularMatrixChecker/>
 
-  
+
       default:
         return null;
     }
