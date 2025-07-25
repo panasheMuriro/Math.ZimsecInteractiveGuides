@@ -123,6 +123,7 @@ import PositionVectors from "../interactive/Topic11/Topic11.2/PositionVectors";
 import VectorAddSubtract from "../interactive/Topic11/Topic11.3/VectorAddSubtract";
 import ScalarMultiplicationMagnitude from "../interactive/Topic11/Topic11.3/ScalarMultiplicationMagnitude";
 import PlaneShapeVectors from "../interactive/Topic11/Topic11.3/PlaneShapeVectors";
+import MatrixOrderVisualizer from "../interactive/Topic12/Topic12.1/MatrixOrderVisualizer";
 
 
 const StudyView = () => {
@@ -395,6 +396,8 @@ const StudyView = () => {
         return <ScalarMultiplicationMagnitude/>
       case "plane-shape-vectors":
         return <PlaneShapeVectors/>
+      case "matrix-order":
+        return <MatrixOrderVisualizer/>
       default:
         return null;
     }
