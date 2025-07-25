@@ -48,6 +48,11 @@ import {
   quizQuestions as topic11Quiz,
 } from "./topic11";
 
+import {
+  sections as topic12Sections,
+  quizQuestions as topic12Quiz,
+} from "./topic12";
+
 export const topics: TopicData[] = [
   {
     id: 1,
@@ -147,9 +152,20 @@ export const topics: TopicData[] = [
     title: "Vectors",
     description:
       "Definition, types, and operations of vectors",
-    icon: "📐",
+    icon: "𝓧",
     sections: topic11Sections,
     quizQuestions: topic11Quiz,
+  },
+
+
+    {
+    id: 12,
+    title: "Matrices",
+    description:
+      "Order, operations, determinants, inverses of matrices",
+    icon: "🔢",
+    sections: topic12Sections,
+    quizQuestions: topic12Quiz,
   },
 
 
