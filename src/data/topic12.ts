@@ -107,7 +107,7 @@ export const sections: Section[] = [
 - Multiply a matrix by a scalar accurately.
 - Solve problems involving scalar multiplication.
 - Use ICT tools to visualize scalar multiplication of matrices.`,
-        interactive: "scalar-multiplication",
+        interactive: "matrix-scalar-multiplication",
       },
       {
         title: "Matrix Multiplication",
@@ -116,8 +116,9 @@ export const sections: Section[] = [
 **Rules:**
 - Two matrices $ A $ (order $ m \\times n $) and $ B $ (order $ n \\times p $) can be multiplied if the number of columns of $ A $ equals the number of rows of $ B $. The result is an $ m \\times p $ matrix.
 - Element $ c_{ij} $ of the product matrix is the sum of products of corresponding elements from row $ i $ of $ A $ and column $ j $ of $ B $.
-- Example: For $$27:17
-- \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix} \\times \\begin{pmatrix} 5 & 6 \\\\ 7 & 8 \\end{pmatrix} $$, compute:
+- **Example: Given**
+
+- $$\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix} \\times \\begin{pmatrix} 5 & 6 \\\\ 7 & 8 \\end{pmatrix} $$, compute:
   - $ c_{11} = 1 \\cdot 5 + 2 \\cdot 7 = 19 $, $ c_{12} = 1 \\cdot 6 + 2 \\cdot 8 = 22 $,
   - $ c_{21} = 3 \\cdot 5 + 4 \\cdot 7 = 43 $, $ c_{22} = 3 \\cdot 6 + 4 \\cdot 8 = 50 $.
   - Result: $$ \\begin{pmatrix} 19 & 22 \\\\ 43 & 50 \\end{pmatrix} $$.
