@@ -120,6 +120,9 @@ import VectorDefinition from "../interactive/Topic11/Topic11.1/VectorDefinition"
 import VectorNotation from "../interactive/Topic11/Topic11.1/VectorNotation";
 import VectorTypes from "../interactive/Topic11/Topic11.2/VectorTypes";
 import PositionVectors from "../interactive/Topic11/Topic11.2/PositionVectors";
+import VectorAddSubtract from "../interactive/Topic11/Topic11.3/VectorAddSubtract";
+import ScalarMultiplicationMagnitude from "../interactive/Topic11/Topic11.3/ScalarMultiplicationMagnitude";
+import PlaneShapeVectors from "../interactive/Topic11/Topic11.3/PlaneShapeVectors";
 
 
 const StudyView = () => {
@@ -386,6 +389,12 @@ const StudyView = () => {
         return <VectorTypes/>
       case "position-vectors":
         return <PositionVectors/>
+      case "vector-add-subtract":
+        return <VectorAddSubtract/>
+      case "scalar-magnitude":
+        return <ScalarMultiplicationMagnitude/>
+      case "plane-shape-vectors":
+        return <PlaneShapeVectors/>
       default:
         return null;
     }
