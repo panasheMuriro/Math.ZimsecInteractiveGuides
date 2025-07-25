@@ -130,6 +130,8 @@ import ScalarMultiplicationVisualizer from "../interactive/Topic12/Topic12.2/Sca
 import MatrixMultiplicationVisualizer from "../interactive/Topic12/Topic12.2/MatrixMultiplicationVisualizer";
 import DeterminantCalculator from "../interactive/Topic12/Topic12.3/DeterminantCalculator";
 import SingularMatrixChecker from "../interactive/Topic12/Topic12.3/SingularMatrixChecker";
+import MatrixInverseCalculator from "../interactive/Topic12/Topic12.4/MatrixInverseCalculator";
+import SimultaneousEquationsSolver from "../interactive/Topic12/Topic12.4/SimultaneousEquationsSolver";
 
 
 const StudyView = () => {
@@ -418,6 +420,10 @@ const StudyView = () => {
         return <DeterminantCalculator/>
       case "singular-non-singular":
         return <SingularMatrixChecker/>
+      case "matrix-inverse":
+        return <MatrixInverseCalculator/>
+      case "simultaneous-equations":
+        return <SimultaneousEquationsSolver/>
 
 
       default:
