@@ -116,6 +116,8 @@ import SineRuleVisualizer from "../interactive/Topic10/Topic10.3/SineRule";
 import CosineRuleVisualizer from "../interactive/Topic10/Topic10.3/CosineRule";
 import TriangleAreaVisualizer from "../interactive/Topic10/Topic10.3/TriangleAreaVisualizer";
 import ThreeDTrigVisualizer from "../interactive/Topic10/Topic10.3/ThreeDTrigVisualizer";
+import VectorDefinition from "../interactive/Topic11/Topic11.1/VectorDefinition";
+import VectorNotation from "../interactive/Topic11/Topic11.1/VectorNotation";
 
 
 const StudyView = () => {
@@ -371,6 +373,13 @@ const StudyView = () => {
         return <TriangleAreaVisualizer/>
       case"3d-trig-problems":
       return <ThreeDTrigVisualizer/>
+
+
+      // Topic 11
+      case "vector-definition":
+        return <VectorDefinition/>
+      case "vector-notation":
+        return <VectorNotation/>
       default:
         return null;
     }
