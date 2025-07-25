@@ -118,6 +118,8 @@ import TriangleAreaVisualizer from "../interactive/Topic10/Topic10.3/TriangleAre
 import ThreeDTrigVisualizer from "../interactive/Topic10/Topic10.3/ThreeDTrigVisualizer";
 import VectorDefinition from "../interactive/Topic11/Topic11.1/VectorDefinition";
 import VectorNotation from "../interactive/Topic11/Topic11.1/VectorNotation";
+import VectorTypes from "../interactive/Topic11/Topic11.2/VectorTypes";
+import PositionVectors from "../interactive/Topic11/Topic11.2/PositionVectors";
 
 
 const StudyView = () => {
@@ -380,6 +382,10 @@ const StudyView = () => {
         return <VectorDefinition/>
       case "vector-notation":
         return <VectorNotation/>
+      case "basic-vector-types":
+        return <VectorTypes/>
+      case "position-vectors":
+        return <PositionVectors/>
       default:
         return null;
     }
