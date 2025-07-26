@@ -134,6 +134,9 @@ import MatrixInverseCalculator from "../interactive/Topic12/Topic12.4/MatrixInve
 import SimultaneousEquationsSolver from "../interactive/Topic12/Topic12.4/SimultaneousEquationsSolver";
 import TranslationVisualizer from "../interactive/Topic13/Topic13.1/TranslationVisualizer";
 import VectorTranslationVisualizer from "../interactive/Topic13/Topic13.1/VectorTranslationVisualizer";
+import ReflectionVisualizer from "../interactive/Topic13/Topic13.2/ReflectionVisualizer";
+import RotationVisualizer from "../interactive/Topic13/Topic13.2/RotationVisualizer";
+import EnlargementVisualizer from "../interactive/Topic13/Topic13.3/EnlargementVisualizer";
 
 
 const StudyView = () => {
@@ -432,6 +435,12 @@ const StudyView = () => {
         return <TranslationVisualizer/>
       case "vector-translation":
         return <VectorTranslationVisualizer/>
+      case "reflection":
+        return <ReflectionVisualizer/>
+      case "rotation":
+        return <RotationVisualizer/>
+      case "enlargement":
+        return <EnlargementVisualizer/>
 
       default:
         return null;
