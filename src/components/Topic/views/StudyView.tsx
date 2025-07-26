@@ -137,6 +137,8 @@ import VectorTranslationVisualizer from "../interactive/Topic13/Topic13.1/Vector
 import ReflectionVisualizer from "../interactive/Topic13/Topic13.2/ReflectionVisualizer";
 import RotationVisualizer from "../interactive/Topic13/Topic13.2/RotationVisualizer";
 import EnlargementVisualizer from "../interactive/Topic13/Topic13.3/EnlargementVisualizer";
+import StretchVisualizer from "../interactive/Topic13/Topic13.4/StretchVisualizer";
+import ShearVisualizer from "../interactive/Topic13/Topic13.4/ShearVisualizer";
 
 
 const StudyView = () => {
@@ -441,6 +443,10 @@ const StudyView = () => {
         return <RotationVisualizer/>
       case "enlargement":
         return <EnlargementVisualizer/>
+      case "stretch":
+        return <StretchVisualizer/>
+      case "shear":
+        return <ShearVisualizer/>
 
       default:
         return null;
