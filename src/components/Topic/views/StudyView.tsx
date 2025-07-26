@@ -156,6 +156,9 @@ import HCFPractice from "../interactive/Topic7/Topic7.2/HCFPractice";
 import LCMPractice from "../interactive/Topic7/Topic7.2/LCMPractice";
 import CommonFactorTool from "../interactive/Topic7/Topic7.3/CommonFactorTool";
 import DifferenceOfSquaresTool from "../interactive/Topic7/Topic7.3/DifferenceOfSquaresTool";
+import QuadraticA1Tool from "../interactive/Topic7/Topic7.3/QuadraticA1Tool";
+import QuadraticANot1Tool from "../interactive/Topic7/Topic7.3/QuadraticANot1Tool";
+import PerfectSquareTrinomialTool from "../interactive/Topic7/Topic7.3/PerfectSquareTrinomialTool";
 
 
 const StudyView = () => {
@@ -342,6 +345,12 @@ const StudyView = () => {
         return <CommonFactorTool/>
       case "difference-squares":
         return <DifferenceOfSquaresTool/>
+      case "quadratic-a1":
+        return <QuadraticA1Tool/>
+      case "quadratic-anot1":
+        return <QuadraticANot1Tool/>
+      case "perfect-square":
+        return <PerfectSquareTrinomialTool/>
 
       //  Topic 8
 

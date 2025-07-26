@@ -61,7 +61,7 @@ Simplify $4x + 3y - 2x + y$
 - Step 3: Combine $y$ terms: $3y + 1y = 4y$.
 - Step 4: Write the result: $2x + 4y$.
 
-**Tip for Slow Learners:**
+**Tips:**
 - Always group terms with the same variable and power together before combining.
 - Double-check by writing down each step to avoid mistakes.
 - Think of coefficients as the number of items (like 3 apples + 5 apples = 8 apples).
@@ -102,7 +102,7 @@ Simplify $2xy \\times 3x^2y$
 - Step 3: Combine $y$ variables: $y^1 \\times y^1 = y^{1+1} = y^2$.
 - Step 4: Result: $6x^3y^2$.
 
-**Tip for Slow Learners:**
+**Tips:**
 - Break it down: first handle the numbers, then each variable one by one.
 - Write out the exponents clearly to avoid confusion.
 - Practice with small numbers first, then try bigger ones.
@@ -144,7 +144,7 @@ Simplify $\\frac{20a^4b^2}{4a^2b}$
 - Step 3: Divide $b$ variables: $b^2 \\div b^1 = b^{2-1} = b^1$.
 - Step 4: Result: $5a^2b$.
 
-**Tip for Slow Learners:**
+**Tips:**
 - Always divide the numbers first to keep it simple.
 - Handle each variable separately to avoid mistakes.
 - Remember: $y^0 = 1$, so if exponents cancel out, you get 1 for that variable.
@@ -190,7 +190,7 @@ Evaluate $x^2 - 2xy + y^2$ when $x = 2$ and $y = 1$
 - Step 4: Subtract and add: $4 - 4 = 0$, $0 + 1 = 1$.
 - Step 5: Result: $1$.
 
-**Tip for Slow Learners:**
+**Tips:**
 - Write down each step clearly to avoid skipping parts.
 - Use parentheses when substituting to keep things organized.
 - Double-check calculations, especially with negative numbers.
@@ -240,7 +240,7 @@ Find the HCF of 24 and 36
 - Step 3: Lowest powers: $2^2$, $3^1$.
 - Step 4: HCF = $2^2 \\times 3 = 12$.
 
-**Tip for Slow Learners:**
+**Tips:**
 - Break down each number and variable separately.
 - Write out all factors clearly to avoid missing any.
 - Check by dividing the original expressions by the HCF to ensure it works.
@@ -280,7 +280,7 @@ Find the LCM of 15 and 20
 - Step 2: Highest powers: $2^2$, $3^1$, $5^1$.
 - Step 3: LCM = $2^2 \\times 3 \\times 5 = 60$.
 
-**Tip for Slow Learners:**
+**Tips:**
 - List all factors carefully, including numbers and variables.
 - The LCM will always be larger than or equal to the largest expression.
 - Check by ensuring both expressions divide evenly into the LCM.
@@ -329,7 +329,7 @@ Factor $12x^3y - 8x^2y^2$
 - Step 5: Result: $4x^2y(3x - 2y)$.
 - Step 6: Check: $4x^2y(3x - 2y) = 12x^3y - 8x^2y^2$ ✓.
 
-**Tip for Slow Learners:**
+**Tips:**
 - Start with the numbers (coefficients) to find the GCD.
 - Then check each variable one by one for the lowest power.
 - Always expand your answer to check it matches the original.
@@ -365,7 +365,7 @@ Factor $4x^2 - 25y^2$
 - Step 3: Apply formula: $a = 2x$, $b = 5y$. Result: $(2x + 5y)(2x - 5y)$.
 - Step 4: Check: $(2x + 5y)(2x - 5y) = 4x^2 - 25y^2$ ✓.
 
-**Tip for Slow Learners:**
+**Tips:**
 - Look for numbers or terms that are squares (like 4, 9, 16, or $x^2$, $y^4$).
 - Always check for a minus sign between them.
 - Practice recognizing squares like $16 = 4^2$ or $9x^2 = (3x)^2$.
@@ -401,7 +401,7 @@ Factor $x^2 - 5x + 6$
 - Step 3: Factors: $(x - 2)(x - 3)$.
 - Step 4: Check: $(x - 2)(x - 3) = x^2 - 5x + 6$ ✓.
 
-**Tip for Slow Learners:**
+**Tips:**
 - List all factor pairs of $c$ and test their sums.
 - If $c$ is positive, the signs of the numbers are either both positive or both negative.
 - If $c$ is negative, one number is positive, one is negative.
@@ -434,7 +434,7 @@ Factor $2x^2 + 7x + 3$
 - Step 5: Factor: $(2x + 1)(x + 3)$.
 - Step 6: Check: $(2x + 1)(x + 3) = 2x^2 + 7x + 3$ ✓.
 
-**Tip for Slow Learners:**
+**Tips:**
 - Focus on finding the right numbers for $a \\times c$.
 - Write out each step carefully, especially the grouping part.
 - Always check your work by multiplying back.
@@ -470,7 +470,7 @@ Factor $4x^2 - 12x + 9$
 - Step 3: Factor: $(2x - 3)^2$.
 - Step 4: Check: $(2x - 3)^2 = 4x^2 - 12x + 9$ ✓.
 
-**Tip for Slow Learners:**
+**Tips:**
 - Look for perfect squares like $1, 4, 9, 16$, or $x^2, x^4$.
 - Check the middle term carefully—it must match exactly.
 - Practice expanding the factored form to build confidence.
@@ -513,7 +513,7 @@ Expand $-2x(3x - 4)$
 - Step 3: Result: $-6x^2 + 8x$.
 - Step 4: No further simplification.
 
-**Tip for Slow Learners:**
+**Tips:**
 - Write each multiplication step separately.
 - Be careful with negative signs—they affect the result.
 - Check by substituting a number to see if the original and expanded forms give the same value.
@@ -552,7 +552,7 @@ Expand $(2x - 1)(x + 4)$
 - Step 4: Last: $-1 \\times 4 = -4$.
 - Step 5: Combine: $2x^2 + 8x - x - 4 = 2x^2 + 7x - 4$.
 
-**Tip for Slow Learners:**
+**Tips:**
 - Write “F, O, I, L” to remind yourself of the steps.
 - Draw arrows between terms to visualize the multiplications.
 - Combine like terms carefully, watching signs.
@@ -591,7 +591,7 @@ Expand $(2x - 5)(2x + 5)$
 - Step 3: No simplification needed.
 - Step 4: Check: $(2x - 5)(2x + 5) = 4x^2 - 25$ ✓.
 
-**Tip for Slow Learners:**
+**Tips:**
 - Memorize the three patterns—they save time!
 - Practice each pattern with numbers first (e.g., $(2 + 3)^2$).
 - Always verify with FOIL to build confidence.
@@ -631,7 +631,7 @@ Simplify $\\frac{x^2 - 4}{x + 2}$
 - Step 2: Cancel: $\\frac{(x + 2)(x - 2)}{x + 2} = x - 2$.
 - Step 3: Result: $x - 2$ (note: $x \\neq -2$ to avoid division by zero).
 
-**Tip for Slow Learners:**
+**Tips:**
 - Always factor first—it makes canceling easier.
 - Check for restrictions (values that make the denominator zero).
 - Practice with numbers first (e.g., $\\frac{6}{9} = \\frac{2}{3}$).
@@ -668,7 +668,7 @@ Simplify $\\frac{x+1}{x-2} - \\frac{x-3}{x+1}$
 - Step 4: Expand numerator: $(x+1)^2 = x^2 + 2x + 1$, $(x-3)(x-2) = x^2 - 5x + 6$. Subtract: $(x^2 + 2x + 1) - (x^2 - 5x + 6) = 7x - 5$.
 - Step 5: Result: $\\frac{7x - 5}{(x-2)(x+1)}$.
 
-**Tip for Slow Learners:**
+**Tips:**
 - Find the LCM carefully—it’s the key to combining fractions.
 - Write out each step to avoid losing track.
 - Practice with numerical fractions first to understand the process.
@@ -709,7 +709,7 @@ Simplify $\\frac{x^2}{3} \\div \\frac{x}{6}$
 - Step 2: Multiply: Numerators: $x^2 \\times 6 = 6x^2$. Denominators: $3 \\times x = 3x$.
 - Step 3: Fraction: $\\frac{6x^2}{3x}$. Cancel: $6 \\div 3 = 2$, $x^2 \\div x = x$. Result: $2x$.
 
-**Tip for Slow Learners:**
+**Tips:**
 - For division, flip the second fraction and treat it as multiplication.
 - Cancel common factors before multiplying to make it easier.
 - Check your work by substituting values.
@@ -748,7 +748,7 @@ Complete the square for $x^2 + 6x + 5$
 - Step 5: Simplify: $(x + 3)^2 - 9 + 5 = (x + 3)^2 - 4$.
 - Result: $(x + 3)^2 - 4$.
 
-**Tip for Slow Learners:**
+**Tips:**
 - Focus on the number in front of $x$ (the $b$ term).
 - Practice finding half and squaring it with numbers first.
 - Check by expanding the perfect square to match the original.
@@ -778,7 +778,7 @@ Complete the square for $2x^2 + 12x + 10$
 - Step 4: Distribute: $2(x + 3)^2 - 18 + 10$.
 - Step 5: Result: $2(x + 3)^2 - 8$.
 
-**Tip for Slow Learners:**
+**Tips:**
 - Factor out the leading coefficient carefully.
 - Work inside the brackets first, then handle the outside terms.
 - Check by expanding to ensure it matches.
@@ -830,7 +830,7 @@ Solve $\\frac{x}{2} + 4 = 7$
 - Step 2: Isolate $x$: Subtract 8: $x + 8 - 8 = 14 - 8$, so $x = 6$.
 - Step 3: Check: $\\frac{6}{2} + 4 = 3 + 4 = 7$ ✓.
 
-**Tip for Slow Learners:**
+**Tips:**
 - Write down each step to avoid skipping anything.
 - Use a balance analogy: whatever you do to one side, do to the other.
 - Practice with small numbers first, then try equations with fractions or parentheses.
@@ -889,7 +889,7 @@ $x = y + 2$
 - Step 4: Substitute: $x = 1 + 2 = 3$.
 - Step 5: Check: $3(3) + 2(1) = 9 + 2 = 11$ ✓, $3 = 1 + 2$ ✓. Solution: $x = 3$, $y = 1$.
 
-**Tip for Slow Learners:**
+**Tips:**
 - Try elimination when coefficients are easy to align, substitution when one equation is simple.
 - Write each step clearly and double-check substitutions.
 - Use graph paper to visualize the lines intersecting if it helps.
@@ -958,7 +958,7 @@ Solve $2x^2 - 4x - 6 = 0$
 - Step 3: Simplify: $x = \\frac{4 \\pm \\sqrt{16 + 48}}{4} = \\frac{4 \\pm \\sqrt{64}}{4} = \\frac{4 \\pm 8}{4}$. So, $x = \\frac{12}{4} = 3$ or $x = \\frac{-4}{4} = -1$.
 - Step 4: Check: For $x = 3$: $2(3^2) - 4(3) - 6 = 18 - 12 - 6 = 0$ ✓. For $x = -1$: $2(-1^2) - 4(-1) - 6 = 2 + 4 - 6 = 0$ ✓.
 
-**Tip for Slow Learners:**
+**Tips:**
 - Try factoring first if the numbers are simple.
 - Use the quadratic formula when factoring is hard—it always works!
 - Write out each step and double-check calculations, especially with square roots.
@@ -1017,7 +1017,7 @@ Solve $\\frac{x}{3} - 2 ≤ 1$
 - Step 4: Check: Test $x = 6$: $\\frac{6}{3} - 2 = 2 - 2 = 0 ≤ 1$ ✓.
 - Step 5: Graph: Closed circle at 9, arrow left.
 
-**Tip for Slow Learners:**
+**Tips:**
 - Treat inequalities like equations, but watch for negative numbers when dividing or multiplying.
 - Always test a value to confirm your solution works.
 - Draw the number line step-by-step to visualize the solution range.
@@ -1080,7 +1080,7 @@ Solve $2x^2 + 3x - 2 < 0$
 - Step 5: Solution: $-2 < x < \\frac{1}{2}$ (open since strict inequality).
 - Step 6: Check: Test $x = 0$: $2(0^2) + 3(0) - 2 = -2 < 0$ ✓.
 
-**Tip for Slow Learners:**
+**Tips:**
 - Draw the number line and mark roots clearly to see the intervals.
 - Test one point at a time and write down whether the product is positive or negative.
 - Practice factoring first to make finding roots easier.
@@ -1125,7 +1125,7 @@ Graph $x^2 - 4x + 3 ≤ 0$
 - Step 3: Sketch parabola opening upward, crossing $x$-axis at 1 and 3.
 - Step 4: Shade between $x = 1$ and $x = 3$, including roots (solid line for $≤$).
 
-**Tip for Slow Learners:**
+**Tips:**
 - Practice drawing number lines for linear inequalities first—they’re simpler.
 - For quadratics, sketch the parabola step-by-step: roots, vertex, then shape.
 - Test points on the graph to confirm the shaded region.
@@ -1186,7 +1186,7 @@ Simplify $(2^3)^{1/2}$
 - Step 3: Fractional exponent: $2^{3/2} = (2^{1/2})^3 = (\\sqrt{2})^3$.
 - Step 4: Check: $2^3 = 8$, $8^{1/2} = \\sqrt{8} = 2\\sqrt{2} \\approx 2.828$. Also, $(\\sqrt{2})^3 \\approx (1.414)^3 \\approx 2.828$ ✓.
 
-**Tip for Slow Learners:**
+**Tips:**
 - Memorize one law at a time and practice with numbers (e.g., $2^2 \\times 2^3$).
 - Write out each step to avoid mixing up exponents.
 - Use a calculator to verify results for confidence.
@@ -1229,7 +1229,7 @@ Solve $5^{x-1} = \\frac{1}{25}$
 - Step 2: Equate: $x - 1 = -2$, so $x = -1$.
 - Step 3: Check: $5^{-1-1} = 5^{-2} = \\frac{1}{25}$ ✓.
 
-**Tip for Slow Learners:**
+**Tips:**
 - Practice rewriting numbers as powers (e.g., $8 = 2^3$, $9 = 3^2$).
 - Write down each step to keep track of bases and exponents.
 - If bases don’t match easily, try small numbers for $x$ to guess and check.
@@ -1280,7 +1280,7 @@ Simplify $2 \\log_5(3)$
 - Step 2: Cannot simplify further without a calculator.
 - Step 3: Check: $3^2 = 9$, so $\\log_5(9)$ is correct form.
 
-**Tip for Slow Learners:**
+**Tips:**
 - Think of logs as "undoing" exponents.
 - Practice converting logs to exponential form to understand the relationship.
 - Memorize properties one at a time with simple examples.
@@ -1326,7 +1326,7 @@ Solve $\\log_5(2x) - \\log_5(x - 1) = 1$
 - Step 3: Solve: $2x = 5x - 5$, $5 = 3x$, $x = \\frac{5}{3}$.
 - Step 4: Check: $\\log_5(2 \\cdot \\frac{5}{3}) - \\log_5(\\frac{5}{3} - 1) = \\log_5(\\frac{10}{3}) - \\log_5(\\frac{2}{3}) = \\log_5(\\frac{10/3}{2/3}) = \\log_5(5) = 1$ ✓.
 
-**Tip for Slow Learners:**
+**Tips:**
 - Always convert logs to exponential form to make solving easier.
 - Check for undefined logs ($x > 0$ inside logs).
 - Practice with simple logs before combining with properties.
