@@ -141,6 +141,12 @@ import StretchVisualizer from "../interactive/Topic13/Topic13.4/StretchVisualize
 import ShearVisualizer from "../interactive/Topic13/Topic13.4/ShearVisualizer";
 import ProbabilityVisualizer from "../interactive/Topic14/Topic14.1/ProbabilityVisualizer";
 import ExperimentalProbabilityVisualizer from "../interactive/Topic14/Topic14.1/ExperimentalProbabilityVisualizer";
+import TheoreticalProbabilityVisualizer from "../interactive/Topic14/Topic14.2/TheoreticalProbabilityVisualizer";
+import SingleEventsVisualizer from "../interactive/Topic14/Topic14.2/SingleEventsVisualizer";
+import CombinedEventsVisualizer from "../interactive/Topic14/Topic14.3/CombinedEventsVisualizer";
+import TreeDiagramVisualizer from "../interactive/Topic14/Topic14.3/TreeDiagramVisualizer";
+import ProbabilityRulesVisualizer from "../interactive/Topic14/Topic14.3/ProbabilityRulesVisualizer";
+import ProbabilityApplicationsVisualizer from "../interactive/Topic14/Topic14.3/ProbabilityApplicationsVisualizer";
 
 
 const StudyView = () => {
@@ -457,6 +463,18 @@ const StudyView = () => {
         return <ProbabilityVisualizer/>
       case "experimental-probability":
         return <ExperimentalProbabilityVisualizer/>
+      case "theoretical-probability":
+        return <TheoreticalProbabilityVisualizer/>
+      case "single-events":
+        return <SingleEventsVisualizer/>
+      case "combined-events-tables":
+        return <CombinedEventsVisualizer/>
+      case "tree-diagrams":
+        return <TreeDiagramVisualizer/>
+      case "probability-rules":
+        return <ProbabilityRulesVisualizer/>
+      case "probability-applications":
+        return <ProbabilityApplicationsVisualizer/>
 
       default:
         return null;
