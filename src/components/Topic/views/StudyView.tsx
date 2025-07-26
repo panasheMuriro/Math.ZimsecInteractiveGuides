@@ -132,6 +132,8 @@ import DeterminantCalculator from "../interactive/Topic12/Topic12.3/DeterminantC
 import SingularMatrixChecker from "../interactive/Topic12/Topic12.3/SingularMatrixChecker";
 import MatrixInverseCalculator from "../interactive/Topic12/Topic12.4/MatrixInverseCalculator";
 import SimultaneousEquationsSolver from "../interactive/Topic12/Topic12.4/SimultaneousEquationsSolver";
+import TranslationVisualizer from "../interactive/Topic13/Topic13.1/TranslationVisualizer";
+import VectorTranslationVisualizer from "../interactive/Topic13/Topic13.1/VectorTranslationVisualizer";
 
 
 const StudyView = () => {
@@ -388,7 +390,6 @@ const StudyView = () => {
       case"3d-trig-problems":
       return <ThreeDTrigVisualizer/>
 
-
       // Topic 11
       case "vector-definition":
         return <VectorDefinition/>
@@ -425,6 +426,12 @@ const StudyView = () => {
       case "simultaneous-equations":
         return <SimultaneousEquationsSolver/>
 
+      // Topic 13
+
+      case "basic-translation":
+        return <TranslationVisualizer/>
+      case "vector-translation":
+        return <VectorTranslationVisualizer/>
 
       default:
         return null;
