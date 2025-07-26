@@ -53,6 +53,11 @@ import {
   quizQuestions as topic12Quiz,
 } from "./topic12";
 
+import {
+  sections as topic13Sections,
+  quizQuestions as topic13Quiz,
+} from "./topic13";
+
 export const topics: TopicData[] = [
   {
     id: 1,
@@ -120,7 +125,7 @@ export const topics: TopicData[] = [
     id: 8,
     title: "Geometry",
     description:
-      "Points, lines, angles, bearings, polygons, circles, loci, symmetry",
+      "Points, Lines, Angles, bearings, polygons, circles, loci, symmetry",
     icon: "📐",
     sections: topic8Sections,
     quizQuestions: topic8Quiz,
@@ -151,7 +156,7 @@ export const topics: TopicData[] = [
     id: 11,
     title: "Vectors",
     description:
-      "Definition, types, and operations of vectors",
+      "Definition, Types, and Operations of vectors",
     icon: "𝓧",
     sections: topic11Sections,
     quizQuestions: topic11Quiz,
@@ -162,11 +167,24 @@ export const topics: TopicData[] = [
     id: 12,
     title: "Matrices",
     description:
-      "Order, operations, determinants, inverses of matrices",
+      "Order, operations, Determinants, Inverses of matrices",
     icon: "🔢",
     sections: topic12Sections,
     quizQuestions: topic12Quiz,
   },
+
+
+   {
+    id: 13,
+    title: "Transformations",
+    description:
+      "Translation, Reflection, Rotation, Stretch, Shear",
+    icon: "➡️",
+    sections: topic13Sections,
+    quizQuestions: topic13Quiz,
+  },
+
+  
 
 
 
