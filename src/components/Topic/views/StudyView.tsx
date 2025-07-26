@@ -152,6 +152,10 @@ import AddSubtractTermsPractice from "../interactive/Topic7/Topic7.1/AddSubtract
 import MultiplyTermsPractice from "../interactive/Topic7/Topic7.1/MultiplyTermsPractice";
 import DivideTermsPractice from "../interactive/Topic7/Topic7.1/DivideTermsPractice";
 import SubstitutionPractice from "../interactive/Topic7/Topic7.1/SubstitutionPractice";
+import HCFPractice from "../interactive/Topic7/Topic7.2/HCFPractice";
+import LCMPractice from "../interactive/Topic7/Topic7.2/LCMPractice";
+import CommonFactorTool from "../interactive/Topic7/Topic7.3/CommonFactorTool";
+import DifferenceOfSquaresTool from "../interactive/Topic7/Topic7.3/DifferenceOfSquaresTool";
 
 
 const StudyView = () => {
@@ -330,6 +334,14 @@ const StudyView = () => {
         return <DivideTermsPractice/>
       case "substitution":
         return <SubstitutionPractice/>
+      case 'hcf':
+        return <HCFPractice/>
+      case "lcm":
+        return <LCMPractice/>
+      case "common-factor":
+        return <CommonFactorTool/>
+      case "difference-squares":
+        return <DifferenceOfSquaresTool/>
 
       //  Topic 8
 

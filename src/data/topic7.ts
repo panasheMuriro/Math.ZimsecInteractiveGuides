@@ -247,7 +247,7 @@ Find the HCF of 24 and 36
 
 **Practice Example:**
 Find the HCF of $16a^4b$ and $24a^2b^3$
-- Answer: Factorize: $16a^4b = 2^4 \\times a^4 \\times b$, $24a^2b^3 = 2^3 \\times 3 \\times a^2 \\times b^3$. Common factors: $2$, $a$, $b$. Lowest powers: $2^3$, $a^2$, $b^1$. HCF = $2^3 \\times a^2 \\times b = 8a^2b.`,
+- Answer: Factorize: $16a^4b = 2^4 \\times a^4 \\times b$, $24a^2b^3 = 2^3 \\times 3 \\times a^2 \\times b^3$. Common factors: $2$, $a$, $b$. Lowest powers: $2^3$, $a^2$, $b^1$. HCF = $2^3 \\times a^2 \\times b = 8a^2b.$`,
         interactive: "hcf"
       },
       {

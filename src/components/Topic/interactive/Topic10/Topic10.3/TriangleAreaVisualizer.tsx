@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useRef, useEffect } from 'react';
 import { Calculator, Info, Eye, EyeOff, ChevronRight, CheckCircle, XCircle, RotateCcw } from 'lucide-react';
 
@@ -333,7 +334,7 @@ const TriangleAreaVisualizer: React.FC = () => {
       <div className="mb-6">
         <h3 className="font-semibold text-gray-700 mb-3">Practice Problems:</h3>
         <div className="grid grid-cols-2 gap-2">
-          {problems.map((problem, index) => (
+          {problems.map((_, index) => (
             <button
               key={index}
               onClick={() => startNewProblem(index)}
