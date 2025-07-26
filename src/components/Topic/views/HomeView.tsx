@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { ChevronRight, CheckCircle, Trophy } from 'lucide-react'
+import { ChevronRight, CheckCircle} from 'lucide-react'
 import { useTopicContext } from '../hooks/useTopicContext'
 import Header from '../../Global/Header'
 
@@ -48,14 +48,14 @@ const HomeView = () => {
             </Link>
           ))}
         </div>
-
+{/* 
         <Link
           to="quiz"
           className="w-full mt-6 bg-[#ffd28f] text-[#4b3f2f] font-bold py-4 px-6 rounded-2xl hover:bg-[#f9c77c] transition-all duration-300 hover:scale-[1.02] flex items-center justify-center space-x-2 shadow-md"
         >
           <Trophy className="w-5 h-5" />
           <span>Take Quiz Challenge!</span>
-        </Link>
+        </Link> */}
       </div>
     </div>
   )
