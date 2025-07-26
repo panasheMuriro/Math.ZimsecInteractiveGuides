@@ -159,6 +159,9 @@ import DifferenceOfSquaresTool from "../interactive/Topic7/Topic7.3/DifferenceOf
 import QuadraticA1Tool from "../interactive/Topic7/Topic7.3/QuadraticA1Tool";
 import QuadraticANot1Tool from "../interactive/Topic7/Topic7.3/QuadraticANot1Tool";
 import PerfectSquareTrinomialTool from "../interactive/Topic7/Topic7.3/PerfectSquareTrinomialTool";
+import ExpandingSingleBracketsTool from "../interactive/Topic7/Topic7.4/ExpandingSingleBracketsTool";
+import FoilMethodTool from "../interactive/Topic7/Topic7.4/FoilMethodTool";
+import SpecialProductsTool from "../interactive/Topic7/Topic7.4/SpecialProductsTool";
 
 
 const StudyView = () => {
@@ -327,6 +330,7 @@ const StudyView = () => {
       case "factorization":
         return <Factorization/>
 
+
       case "like-terms":
         return <LikeTermsPractice/>
       case "add-subtract-terms":
@@ -351,6 +355,12 @@ const StudyView = () => {
         return <QuadraticANot1Tool/>
       case "perfect-square":
         return <PerfectSquareTrinomialTool/>
+      case "single-brackets":
+        return <ExpandingSingleBracketsTool/>
+      case "foil-method":
+        return <FoilMethodTool/>
+      case "special-products":
+        return <SpecialProductsTool/>
 
       //  Topic 8
 
