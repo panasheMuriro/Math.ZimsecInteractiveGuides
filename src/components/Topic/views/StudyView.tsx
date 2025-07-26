@@ -139,6 +139,8 @@ import RotationVisualizer from "../interactive/Topic13/Topic13.2/RotationVisuali
 import EnlargementVisualizer from "../interactive/Topic13/Topic13.3/EnlargementVisualizer";
 import StretchVisualizer from "../interactive/Topic13/Topic13.4/StretchVisualizer";
 import ShearVisualizer from "../interactive/Topic13/Topic13.4/ShearVisualizer";
+import ProbabilityVisualizer from "../interactive/Topic14/Topic14.1/ProbabilityVisualizer";
+import ExperimentalProbabilityVisualizer from "../interactive/Topic14/Topic14.1/ExperimentalProbabilityVisualizer";
 
 
 const StudyView = () => {
@@ -447,6 +449,14 @@ const StudyView = () => {
         return <StretchVisualizer/>
       case "shear":
         return <ShearVisualizer/>
+
+
+      // Topic 14
+
+      case "probability-definition":
+        return <ProbabilityVisualizer/>
+      case "experimental-probability":
+        return <ExperimentalProbabilityVisualizer/>
 
       default:
         return null;
