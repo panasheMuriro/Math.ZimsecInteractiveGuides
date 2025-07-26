@@ -73,9 +73,9 @@ import PartialVariation from "../interactive/Topic6/PartialVariation";
 import JointVariation from "../interactive/Topic6/ JointVariation";
 import VariationComparison from "../interactive/Topic6/VariationComparison";
 import VariationProblemQuiz from "../interactive/Topic6/VariationProblemQuiz";
-import AlgebraicSimplification from "../interactive/Topic7/Topic7.1/AlgebraicSimplification";
-import HCFLCM from "../interactive/Topic7/Topic7.1/HCFLCM";
-import Factorization from "../interactive/Topic7/Topic7.1/Factorization";
+import AlgebraicSimplification from "../interactive/Topic7/TopicBackup/AlgebraicSimplification";
+import HCFLCM from "../interactive/Topic7/TopicBackup/HCFLCM";
+import Factorization from "../interactive/Topic7/TopicBackup/Factorization";
 import AngleTypesVisualizer from "../interactive/Topic8/Topic8.1/AngleTypesVisualizer";
 import ProtractorMeasurementTool from "../interactive/Topic8/Topic8.1/ProtractorUsage";
 import SVGCodeRenderer from "../interactive/Topic8/SVGCodeRenderer";
@@ -147,6 +147,11 @@ import CombinedEventsVisualizer from "../interactive/Topic14/Topic14.3/CombinedE
 import TreeDiagramVisualizer from "../interactive/Topic14/Topic14.3/TreeDiagramVisualizer";
 import ProbabilityRulesVisualizer from "../interactive/Topic14/Topic14.3/ProbabilityRulesVisualizer";
 import ProbabilityApplicationsVisualizer from "../interactive/Topic14/Topic14.3/ProbabilityApplicationsVisualizer";
+import LikeTermsPractice from "../interactive/Topic7/Topic7.1/LikeTermsPractice";
+import AddSubtractTermsPractice from "../interactive/Topic7/Topic7.1/AddSubtractTermsPractice";
+import MultiplyTermsPractice from "../interactive/Topic7/Topic7.1/MultiplyTermsPractice";
+import DivideTermsPractice from "../interactive/Topic7/Topic7.1/DivideTermsPractice";
+import SubstitutionPractice from "../interactive/Topic7/Topic7.1/SubstitutionPractice";
 
 
 const StudyView = () => {
@@ -314,6 +319,17 @@ const StudyView = () => {
         return <HCFLCM/>
       case "factorization":
         return <Factorization/>
+
+      case "like-terms":
+        return <LikeTermsPractice/>
+      case "add-subtract-terms":
+        return <AddSubtractTermsPractice/>
+      case "multiply-terms":
+        return <MultiplyTermsPractice/>
+      case "divide-terms":
+        return <DivideTermsPractice/>
+      case "substitution":
+        return <SubstitutionPractice/>
 
       //  Topic 8
 

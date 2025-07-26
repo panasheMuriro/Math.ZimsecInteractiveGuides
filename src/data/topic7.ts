@@ -68,7 +68,7 @@ Simplify $4x + 3y - 2x + y$
 
 **Practice Example:**
 Simplify $6a + 2b - 3a + 4b$
-- Answer: Combine $a$ terms: $6a - 3a = 3a$. Combine $b$ terms: $2b + 4b = 6b$. Result: $3a + 6b`,
+- Answer: Combine $a$ terms: $6a - 3a = 3a$. Combine $b$ terms: $2b + 4b = 6b$. Result: $3a + 6b$`,
         interactive: "add-subtract-terms"
       },
       {
@@ -109,7 +109,7 @@ Simplify $2xy \\times 3x^2y$
 
 **Practice Example:**
 Simplify $4a^2 \\times 3a$
-- Answer: Coefficients: $4 \\times 3 = 12$. Variables: $a^2 \\times a^1 = a^{2+1} = a^3$. Result: $12a^3`,
+- Answer: Coefficients: $4 \\times 3 = 12$. Variables: $a^2 \\times a^1 = a^{2+1} = a^3$. Result: $12a^3$`,
         interactive: "multiply-terms"
       },
       {
@@ -151,7 +151,7 @@ Simplify $\\frac{20a^4b^2}{4a^2b}$
 
 **Practice Example:**
 Simplify $\\frac{18m^5}{6m^2}$
-- Answer: Coefficients: $18 \\div 6 = 3$. Variables: $m^5 \\div m^2 = m^{5-2} = m^3$. Result: $3m^3`,
+- Answer: Coefficients: $18 \\div 6 = 3$. Variables: $m^5 \\div m^2 = m^{5-2} = m^3$. Result: $3m^3$`,
         interactive: "divide-terms"
       },
       {
@@ -197,7 +197,7 @@ Evaluate $x^2 - 2xy + y^2$ when $x = 2$ and $y = 1$
 
 **Practice Example:**
 Evaluate $3a^2 - 2b$ when $a = 2$ and $b = 3$
-- Answer: Replace: $3(2^2) - 2(3)$. Exponents: $2^2 = 4$. Multiply: $3(4) - 2(3) = 12 - 6$. Subtract: $12 - 6 = 6$. Result: $6.`,
+- Answer: Replace: $3(2^2) - 2(3)$. Exponents: $2^2 = 4$. Multiply: $3(4) - 2(3) = 12 - 6$. Subtract: $12 - 6 = 6$. Result: $6.$`,
         interactive: "substitution"
       }
     ]
