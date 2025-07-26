@@ -1,4 +1,4 @@
-// /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect, ReactNode } from 'react';
 import { Book, CheckCircle } from 'lucide-react';
 import { InlineMath, BlockMath } from 'react-katex';
@@ -148,7 +148,7 @@ const DifferenceOfSquaresTool: React.FC = () => {
     }));
   };
 
-  const renderQuestion = (): JSX.Element => {
+  const renderQuestion = (): ReactNode => {
     const termsString: string = question
       .map(term => {
         const coef: number = term.coefficient;
@@ -163,7 +163,7 @@ const DifferenceOfSquaresTool: React.FC = () => {
     return <BlockMath math={termsString} />;
   };
 
-  const steps: { title: string; content: string; input: JSX.Element }[] = [
+  const steps: { title: string; content: string; input: ReactNode }[] = [
     {
       title: 'Step 1: Identify First Perfect Square',
       content: 'Enter the base of the first perfect square (e.g., for 9x^2, enter 3x; for 81a^4, enter 9a^2).',
