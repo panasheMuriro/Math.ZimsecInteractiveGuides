@@ -58,6 +58,11 @@ import {
   quizQuestions as topic13Quiz,
 } from "./topic13";
 
+import {
+  sections as topic14Sections,
+  quizQuestions as topic14Quiz,
+} from "./topic14";
+
 export const topics: TopicData[] = [
   {
     id: 1,
@@ -182,6 +187,16 @@ export const topics: TopicData[] = [
     icon: "➡️",
     sections: topic13Sections,
     quizQuestions: topic13Quiz,
+  },
+
+    {
+    id: 14,
+    title: "Probability",
+    description:
+      "Probability of events",
+    icon: "➡️",
+    sections: topic14Sections,
+    quizQuestions: topic14Quiz,
   },
 
   
