@@ -147,20 +147,8 @@ import CombinedEventsVisualizer from "../interactive/Topic14/Topic14.3/CombinedE
 import TreeDiagramVisualizer from "../interactive/Topic14/Topic14.3/TreeDiagramVisualizer";
 import ProbabilityRulesVisualizer from "../interactive/Topic14/Topic14.3/ProbabilityRulesVisualizer";
 import ProbabilityApplicationsVisualizer from "../interactive/Topic14/Topic14.3/ProbabilityApplicationsVisualizer";
-import LikeTermsPractice from "../interactive/Topic7/Topic7.1/LikeTermsPractice";
-import AddSubtractTermsPractice from "../interactive/Topic7/Topic7.1/AddSubtractTermsPractice";
-import MultiplyTermsPractice from "../interactive/Topic7/Topic7.1/MultiplyTermsPractice";
-import DivideTermsPractice from "../interactive/Topic7/Topic7.1/DivideTermsPractice";
-import SubstitutionPractice from "../interactive/Topic7/Topic7.1/SubstitutionPractice";
-import HCFPractice from "../interactive/Topic7/Topic7.2/HCFPractice";
-import LCMPractice from "../interactive/Topic7/Topic7.2/LCMPractice";
-import CommonFactorTool from "../interactive/Topic7/Topic7.3/CommonFactorTool";
-import DifferenceOfSquaresTool from "../interactive/Topic7/Topic7.3/DifferenceOfSquaresTool";
-import QuadraticA1Tool from "../interactive/Topic7/Topic7.3/QuadraticA1Tool";
-import QuadraticANot1Tool from "../interactive/Topic7/Topic7.3/QuadraticANot1Tool";
-import PerfectSquareTrinomialTool from "../interactive/Topic7/Topic7.3/PerfectSquareTrinomialTool";
+import LikeTermsPractice from "../interactive/Topic7/Topic7.1/LikeTermsInteractive";
 import ExpandingSingleBracketsTool from "../interactive/Topic7/Topic7.4/ExpandingSingleBracketsTool";
-import FoilMethodTool from "../interactive/Topic7/Topic7.4/FoilMethodTool";
 import SpecialProductsTool from "../interactive/Topic7/Topic7.4/SpecialProductsTool";
 import SimplifyingFractionsTool from "../interactive/Topic7/Topic7.5/SimplifyingFractionsTool";
 import AddSubtractFractionsTool from "../interactive/Topic7/Topic7.5/AddSubtractFractionsTool";
@@ -175,6 +163,23 @@ import SolvingQuadraticEquationsCompletingSquareTool from "../interactive/Topic7
 import SolvingQuadraticEquationsFormulaTool from "../interactive/Topic7/Topic7.7/SolvingQuadraticEquationsFormulaTool";
 import SolvingLinearInequalitiesTool from "../interactive/Topic7/Topic7.8/SolvingLinearInequalitiesTool";
 import SolvingQuadraticInequalitiesTool from "../interactive/Topic7/Topic7.8/SolvingQuadraticInequalitiesTool";
+import LawsOfIndicesTool from "../interactive/Topic7/Topic7.9/LawsOfIndicesTool";
+import SolvingExponentialEquationsTool from "../interactive/Topic7/Topic7.9/SolvingExponentialEquationsTool";
+import IntroductionToLogarithmsTool from "../interactive/Topic7/Topic7.9/IntroductionToLogarithmsTool";
+import SolvingLogarithmicEquationsTool from "../interactive/Topic7/Topic7.9/SolvingLogarithmicEquationsTool";
+import ExpandingTwoBracketsFOILTool from "../interactive/Topic7/Topic7.4/ExpandingTwoBracketsFOILTool";
+import CommonFactorMethodTool from "../interactive/Topic7/Topic7.3/CommonFactorMethodTool";
+import DifferenceOfTwoSquaresTool from "../interactive/Topic7/Topic7.3/DifferenceOfTwoSquaresTool";
+import QuadraticFactoringA1Tool from "../interactive/Topic7/Topic7.3/QuadraticFactoringA1Tool";
+import QuadraticFactoringANot1Tool from "../interactive/Topic7/Topic7.3/QuadraticFactoringANot1Tool";
+import PerfectSquareTrinomialsTool from "../interactive/Topic7/Topic7.3/PerfectSquareTrinomialsTool";
+import UnderstandingLCMTool from "../interactive/Topic7/Topic7.2/UnderstandingLCMTool";
+import UnderstandingHCFTool from "../interactive/Topic7/Topic7.2/UnderstandingHCFTool";
+import AddingSubtractingLikeTermsTool from "../interactive/Topic7/Topic7.1/AddingSubtractingLikeTermsTool";
+import MultiplyingAlgebraicTermsTool from "../interactive/Topic7/Topic7.1/MultiplyingAlgebraicTermsTool";
+import DividingAlgebraicTermsTool from "../interactive/Topic7/Topic7.1/DividingAlgebraicTermsTool";
+import SubstitutionInExpressionsTool from "../interactive/Topic7/Topic7.1/SubstitutionInExpressionsTool";
+import LikeTermsInteractive from "../interactive/Topic7/Topic7.1/LikeTermsInteractive";
 
 
 const StudyView = () => {
@@ -345,33 +350,33 @@ const StudyView = () => {
 
 
       case "like-terms":
-        return <LikeTermsPractice/>
+        return <LikeTermsInteractive/>
       case "add-subtract-terms":
-        return <AddSubtractTermsPractice/>
+        return <AddingSubtractingLikeTermsTool/>
       case "multiply-terms":
-        return <MultiplyTermsPractice/>
+        return <MultiplyingAlgebraicTermsTool/>
       case "divide-terms":
-        return <DivideTermsPractice/>
+        return <DividingAlgebraicTermsTool/>
       case "substitution":
-        return <SubstitutionPractice/>
+        return <SubstitutionInExpressionsTool/>
       case 'hcf':
-        return <HCFPractice/>
+        return <UnderstandingHCFTool/>
       case "lcm":
-        return <LCMPractice/>
+        return <UnderstandingLCMTool/>
       case "common-factor":
-        return <CommonFactorTool/>
+        return <CommonFactorMethodTool/>
       case "difference-squares":
-        return <DifferenceOfSquaresTool/>
+        return <DifferenceOfTwoSquaresTool/>
       case "quadratic-a1":
-        return <QuadraticA1Tool/>
+        return <QuadraticFactoringA1Tool/>
       case "quadratic-anot1":
-        return <QuadraticANot1Tool/>
+        return <QuadraticFactoringANot1Tool/>
       case "perfect-square":
-        return <PerfectSquareTrinomialTool/>
+        return <PerfectSquareTrinomialsTool/>
       case "single-brackets":
         return <ExpandingSingleBracketsTool/>
       case "foil-method":
-        return <FoilMethodTool/>
+        return <ExpandingTwoBracketsFOILTool/>
       case "special-products":
         return <SpecialProductsTool/>
       case "simplify-fractions":
@@ -400,6 +405,14 @@ const StudyView = () => {
         return <SolvingLinearInequalitiesTool/>
       case "quadratic-inequalities":
         return <SolvingQuadraticInequalitiesTool/>
+      case "indices-laws":
+        return <LawsOfIndicesTool/>
+      case "exponential-equations":
+        return <SolvingExponentialEquationsTool/>
+      case "logarithms-intro":
+        return <IntroductionToLogarithmsTool/>
+      case "log-equations":
+        return <SolvingLogarithmicEquationsTool/>
 
       //  Topic 8
 

@@ -287,7 +287,7 @@ Find the LCM of 15 and 20
 
 **Practice Example:**
 Find the LCM of $10m^2n$ and $15m^3n^2$
-- Answer: Factorize: $10m^2n = 2 \\times 5 \\times m^2 \\times n$, $15m^3n^2 = 3 \\times 5 \\times m^3 \\times n^2$. Highest powers: $2^1$, $3^1$, $5^1$, $m^3$, $n^2$. LCM = $2 \\times 3 \\times 5 \\times m^3 \\times n^2 = 30m^3n^2.`,
+- Answer: Factorize: $10m^2n = 2 \\times 5 \\times m^2 \\times n$, $15m^3n^2 = 3 \\times 5 \\times m^3 \\times n^2$. Highest powers: $2^1$, $3^1$, $5^1$, $m^3$, $n^2$. LCM = $2 \\times 3 \\times 5 \\times m^3 \\times n^2 = 30m^3n^2.$`,
         interactive: "lcm"
       }
     ]
