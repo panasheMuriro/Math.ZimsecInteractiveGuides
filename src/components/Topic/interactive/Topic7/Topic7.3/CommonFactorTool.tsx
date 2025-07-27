@@ -2,7 +2,7 @@ import React, { useState, ReactNode } from 'react';
 import { ChevronRight, Check, RotateCcw, Lightbulb, BookOpen, ArrowRight, Eye, X, AlertCircle } from 'lucide-react';
 import 'katex/dist/katex.min.css';
 import { InlineMath, BlockMath } from 'react-katex';
-
+// TODO: should shuffle the options, make a template 
 // Define the structure for a practice problem
 interface PracticeProblem {
   expression: string; // The expression to factor
