@@ -173,6 +173,8 @@ import SolvingSimultaneousEquationsSubstitutionTool from "../interactive/Topic7/
 import SolvingQuadraticEquationsFactoringTool from "../interactive/Topic7/Topic7.7/SolvingQuadraticEquationsFactoringTool";
 import SolvingQuadraticEquationsCompletingSquareTool from "../interactive/Topic7/Topic7.7/SolvingQuadraticEquationsCompletingSquareTool";
 import SolvingQuadraticEquationsFormulaTool from "../interactive/Topic7/Topic7.7/SolvingQuadraticEquationsFormulaTool";
+import SolvingLinearInequalitiesTool from "../interactive/Topic7/Topic7.8/SolvingLinearInequalitiesTool";
+import SolvingQuadraticInequalitiesTool from "../interactive/Topic7/Topic7.8/SolvingQuadraticInequalitiesTool";
 
 
 const StudyView = () => {
@@ -394,6 +396,10 @@ const StudyView = () => {
         return <SolvingQuadraticEquationsCompletingSquareTool/>
       case "quadratic-equations-formula":
         return <SolvingQuadraticEquationsFormulaTool/>
+      case "linear-inequalities":
+        return <SolvingLinearInequalitiesTool/>
+      case "quadratic-inequalities":
+        return <SolvingQuadraticInequalitiesTool/>
 
       //  Topic 8
 
