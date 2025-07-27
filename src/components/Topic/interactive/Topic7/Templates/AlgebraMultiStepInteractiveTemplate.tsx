@@ -158,10 +158,33 @@ const AlgebraMultiStepInteractiveTemplate: React.FC<AlgebraMultiStepInteractiveT
         buttonBg: 'bg-purple-600',
         buttonHover: 'hover:bg-purple-700',
         progressBar: 'bg-gradient-to-r from-indigo-500 to-purple-600'
+      },
+      // --- New Themes ---
+      amber: {
+        bgGradientFrom: 'from-amber-50',
+        bgGradientTo: 'to-orange-100', // or yellow-100
+        buttonBg: 'bg-amber-600', // or orange-600
+        buttonHover: 'hover:bg-amber-700', // or orange-700
+        progressBar: 'bg-gradient-to-r from-amber-500 to-orange-600' // or amber-600 to yellow-600
+      },
+      rose: {
+        bgGradientFrom: 'from-rose-50',
+        bgGradientTo: 'to-pink-100', // or red-100
+        buttonBg: 'bg-rose-600', // or pink-600
+        buttonHover: 'hover:bg-rose-700', // or pink-700
+        progressBar: 'bg-gradient-to-r from-rose-500 to-pink-600' // or rose-600 to red-600
+      },
+      teal: {
+        bgGradientFrom: 'from-teal-50',
+        bgGradientTo: 'to-cyan-100', // or emerald-100
+        buttonBg: 'bg-teal-600', // or cyan-600
+        buttonHover: 'hover:bg-teal-700', // or cyan-700
+        progressBar: 'bg-gradient-to-r from-teal-500 to-cyan-600' // or teal-600 to emerald-600
       }
+      // --- End New Themes ---
     };
 
-    return colorMap[primaryColor] || colorMap['purple'];
+    return colorMap[primaryColor] || colorMap['purple']; // Fallback to purple if primaryColor not found
   };
 
   const themeClasses = getThemeClasses();
@@ -402,9 +425,14 @@ const AlgebraMultiStepInteractiveTemplate: React.FC<AlgebraMultiStepInteractiveT
     <div className={`min-h-screen bg-gradient-to-br ${themeClasses.bgGradientFrom} ${themeClasses.bgGradientTo} p-4`}>
       <div className="max-w-md mx-auto">
         {/* Header */}
-        <div className="text-center mb-6 pt-6">
+           <div className="text-center mb-6 pt-6">
           <h1 className="text-2xl font-bold text-gray-800 mb-2">{toolData.title}</h1>
-          {toolData.description && <p className="text-gray-600 text-sm">{toolData.description}</p>}
+          {toolData.description && (
+            <p className="text-gray-600 text-sm">
+              {/* Use renderTextWithMath to handle potential KaTeX in the description */}
+              {renderTextWithMath(toolData.description)} 
+            </p>
+          )}
         </div>
 
         {/* Progress */}

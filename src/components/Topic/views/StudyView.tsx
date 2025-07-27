@@ -165,6 +165,8 @@ import SpecialProductsTool from "../interactive/Topic7/Topic7.4/SpecialProductsT
 import SimplifyingFractionsTool from "../interactive/Topic7/Topic7.5/SimplifyingFractionsTool";
 import AddSubtractFractionsTool from "../interactive/Topic7/Topic7.5/AddSubtractFractionsTool";
 import MultiplyDivideFractionsTool from "../interactive/Topic7/Topic7.5/MultiplyDivideFractionsTool";
+import CompleteSquareA1Tool from "../interactive/Topic7/Topic7.6/CompleteSquareA1Tool";
+import CompleteSquareANot1Tool from "../interactive/Topic7/Topic7.6/CompleteSquareANot1Tool";
 
 
 const StudyView = () => {
@@ -370,6 +372,10 @@ const StudyView = () => {
         return <AddSubtractFractionsTool/>
       case "multiply-divide-fractions":
         return <MultiplyDivideFractionsTool/>
+      case "complete-square-a1":
+        return <CompleteSquareA1Tool/>
+      case "complete-square-anot1":
+        return <CompleteSquareANot1Tool/>
 
       //  Topic 8
 
