@@ -840,16 +840,15 @@ Solve $4x - 5 = 11$
 - Answer: Add 5: $4x = 16$. Divide by 4: $x = 4$. Check: $4(4) - 5 = 16 - 5 = 11$ ✓.`,
         interactive: "linear-equations"
       },
-      {
-        title: "Solving Simultaneous Equations",
-        content: `**What are Simultaneous Equations?**
-
+{
+    "title": "Solving Simultaneous Equations - Elimination Method",
+    "content": `**What are Simultaneous Equations?**
 These are two or more equations with the same variables, solved together to find values that work for all equations. Think of it as finding the point where two lines meet.
 
 **Why it Matters:**
-They’re used in problems with multiple unknowns, like mixing ingredients or solving geometry problems.
+They're used in problems with multiple unknowns, like mixing ingredients or solving geometry problems.
 
-**Method 1: Elimination**
+**The Elimination Method**
 Add or subtract equations to eliminate one variable, then solve for the other.
 
 **Steps for Elimination:**
@@ -859,17 +858,42 @@ Add or subtract equations to eliminate one variable, then solve for the other.
 4. **Substitute back** to find the other variable.
 5. **Check** both equations.
 
-**Example 1: Elimination**
+**Example: Elimination Method**
 Solve:
 $2x + y = 8$
 $x - y = 1$
+
 - Step 1: Coefficients of $y$ are 1 and -1, already suitable.
 - Step 2: Add equations: $(2x + y) + (x - y) = 8 + 1$, so $3x = 9$.
 - Step 3: Solve: $x = 3$.
 - Step 4: Substitute into second equation: $3 - y = 1$, so $y = 2$.
-- Step 5: Check: $2(3) + 2 = 6 + 2 = 8$ ✓, $3 - 2 = 1$ ✓. Solution: $x = 3$, $y = 2$.
+- Step 5: Check: $2(3) + 2 = 6 + 2 = 8$ ✓, $3 - 2 = 1$ ✓. 
 
-**Method 2: Substitution**
+**Solution: $x = 3$, $y = 2$**
+
+**Practice Example:**
+Solve using elimination:
+$4x + y = 10$
+$2x - y = 2$
+
+**Answer:** Add equations: $6x = 12$, so $x = 2$. Substitute: $2(2) - y = 2$, so $4 - y = 2$, $y = 2$. Check: $4(2) + 2 = 10$ ✓, $2(2) - 2 = 2$ ✓. **Solution: $x = 2$, $y = 2$**
+
+**Tips for Elimination:**
+- Use elimination when coefficients are easy to align or make equal
+- Write each step clearly and double-check your arithmetic
+- Look for opportunities where one variable already has opposite coefficients
+- Use graph paper to visualize the lines intersecting if it helps`,
+    "interactive": "simultaneous-equations-elimination"
+  },
+  {
+    "title": "Solving Simultaneous Equations - Substitution Method",
+    "content": `**What are Simultaneous Equations?**
+These are two or more equations with the same variables, solved together to find values that work for all equations. Think of it as finding the point where two lines meet.
+
+**Why it Matters:**
+They're used in problems with multiple unknowns, like mixing ingredients or solving geometry problems.
+
+**The Substitution Method**
 Solve one equation for one variable and substitute into the other.
 
 **Steps for Substitution:**
@@ -879,95 +903,167 @@ Solve one equation for one variable and substitute into the other.
 4. **Substitute back** to find the other variable.
 5. **Check** both equations.
 
-**Example 2: Substitution**
+**Example: Substitution Method**
 Solve:
 $3x + 2y = 11$
 $x = y + 2$
+
 - Step 1: Second equation is already solved: $x = y + 2$.
 - Step 2: Substitute into first: $3(y + 2) + 2y = 11$.
 - Step 3: Expand and solve: $3y + 6 + 2y = 11$, so $5y + 6 = 11$, $5y = 5$, $y = 1$.
 - Step 4: Substitute: $x = 1 + 2 = 3$.
-- Step 5: Check: $3(3) + 2(1) = 9 + 2 = 11$ ✓, $3 = 1 + 2$ ✓. Solution: $x = 3$, $y = 1$.
+- Step 5: Check: $3(3) + 2(1) = 9 + 2 = 11$ ✓, $3 = 1 + 2$ ✓. 
 
-**Tips:**
-- Try elimination when coefficients are easy to align, substitution when one equation is simple.
-- Write each step clearly and double-check substitutions.
-- Use graph paper to visualize the lines intersecting if it helps.
+**Solution: $x = 3$, $y = 1$**
 
 **Practice Example:**
-Solve:
+Try solving this system using substitution:
 $4x + y = 10$
 $2x - y = 2$
-- Answer: Add equations: $6x = 12$, so $x = 2$. Substitute: $2(2) - y = 2$, so $4 - y = 2$, $y = 2$. Check: $4(2) + 2 = 10$ ✓, $2(2) - 2 = 2$ ✓. Solution: $x = 2$, $y = 2$.`,
-        interactive: "simultaneous-equations"
-      },
-      {
-        title: "Solving Quadratic Equations",
-        content: `**What are Quadratic Equations?**
 
-A quadratic equation is of the form $ax^2 + bx + c = 0$, where $a \\neq 0$. It often has two solutions because it represents a parabola.
+**Hint:** From the second equation: $y = 2x - 2$. Substitute this into the first equation.
+
+**Answer:** From $2x - y = 2$, we get $y = 2x - 2$. Substitute into first equation: $4x + (2x - 2) = 10$, so $6x - 2 = 10$, $6x = 12$, $x = 2$. Then $y = 2(2) - 2 = 2$. **Solution: $x = 2$, $y = 2$**
+
+**Tips for Substitution:**
+- Use substitution when one equation is simple or already solved for a variable
+- Choose the equation that's easiest to solve for one variable
+- Be careful with signs when substituting expressions
+- Write each step clearly and double-check substitutions
+- Use graph paper to visualize the lines intersecting if it helps`,
+    "interactive": "simultaneous-equations-substitution"
+  },
+     
+ {
+    "title": "Solving Quadratic Equations - Factoring Method",
+    "content": `**What are Quadratic Equations?**
+Quadratic equations are polynomial equations of degree 2, written in the form $ax^2 + bx + c = 0$ where $a ≠ 0$. They represent parabolas when graphed and have at most two real solutions.
 
 **Why it Matters:**
-Quadratics model curved paths, like projectile motion or profit calculations.
+Quadratic equations appear in physics (projectile motion), economics (profit maximization), and geometry (area problems). Understanding different solution methods helps you choose the most efficient approach.
 
-**Method 1: Factoring**
-Factor the quadratic and set each factor to zero.
+**The Factoring Method**
+Express the quadratic as a product of two binomials, then use the zero product property to find solutions.
 
 **Steps for Factoring:**
 1. **Write in standard form**: $ax^2 + bx + c = 0$.
-2. **Factor the quadratic**.
-3. **Set each factor to zero** and solve.
-4. **Check** solutions.
+2. **Factor the quadratic expression** into $(px + q)(rx + s) = 0$.
+3. **Apply zero product property**: If $AB = 0$, then $A = 0$ or $B = 0$.
+4. **Solve each linear equation**.
+5. **Check** your solutions in the original equation.
 
-**Example 1: Factoring**
-Solve $x^2 + 5x + 6 = 0$
+**Example: Factoring Method**
+Solve: $x^2 + 5x + 6 = 0$
+
 - Step 1: Already in standard form.
-- Step 2: Factor: Find numbers that multiply to 6 and add to 5: $2 \\times 3 = 6$, $2 + 3 = 5$. So, $(x + 2)(x + 3) = 0$.
-- Step 3: Solve: $x + 2 = 0$, $x = -2$; $x + 3 = 0$, $x = -3$.
-- Step 4: Check: For $x = -2$: $(-2)^2 + 5(-2) + 6 = 4 - 10 + 6 = 0$ ✓. For $x = -3$: $(-3)^2 + 5(-3) + 6 = 9 - 15 + 6 = 0$ ✓.
+- Step 2: Factor: $(x + 2)(x + 3) = 0$.
+- Step 3: Set each factor to zero: $x + 2 = 0$ or $x + 3 = 0$.
+- Step 4: Solve: $x = -2$ or $x = -3$.
+- Step 5: Check: $(-2)^2 + 5(-2) + 6 = 4 - 10 + 6 = 0$ ✓, $(-3)^2 + 5(-3) + 6 = 9 - 15 + 6 = 0$ ✓.
 
-**Method 2: Completing the Square**
-Rewrite the quadratic as a perfect square.
-
-**Steps:**
-1. **Isolate $x^2 + bx$**.
-2. **Complete the square** by adding $(\\frac{b}{2})^2$.
-3. **Solve** by taking the square root.
-4. **Check** solutions.
-
-**Example 2: Completing the Square**
-Solve $x^2 + 4x - 5 = 0$
-- Step 1: Move constant: $x^2 + 4x = 5$.
-- Step 2: Half of 4 is 2, $2^2 = 4$. Add 4: $x^2 + 4x + 4 = 5 + 4$, so $(x + 2)^2 = 9$.
-- Step 3: Square root: $x + 2 = \\pm 3$. Solve: $x = 1$ or $x = -5$.
-- Step 4: Check: For $x = 1$: $1^2 + 4(1) - 5 = 1 + 4 - 5 = 0$ ✓. For $x = -5$: $(-5)^2 + 4(-5) - 5 = 25 - 20 - 5 = 0$ ✓.
-
-**Method 3: Quadratic Formula**
-Use $x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$ for $ax^2 + bx + c = 0$.
-
-**Steps:**
-1. **Identify $a$, $b$, $c$**.
-2. **Plug into the formula**.
-3. **Simplify** the expression.
-4. **Check** solutions.
-
-**Example 3: Quadratic Formula**
-Solve $2x^2 - 4x - 6 = 0$
-- Step 1: $a = 2$, $b = -4$, $c = -6$.
-- Step 2: Formula: $x = \\frac{-(-4) \\pm \\sqrt{(-4)^2 - 4(2)(-6)}}{2(2)}$.
-- Step 3: Simplify: $x = \\frac{4 \\pm \\sqrt{16 + 48}}{4} = \\frac{4 \\pm \\sqrt{64}}{4} = \\frac{4 \\pm 8}{4}$. So, $x = \\frac{12}{4} = 3$ or $x = \\frac{-4}{4} = -1$.
-- Step 4: Check: For $x = 3$: $2(3^2) - 4(3) - 6 = 18 - 12 - 6 = 0$ ✓. For $x = -1$: $2(-1^2) - 4(-1) - 6 = 2 + 4 - 6 = 0$ ✓.
-
-**Tips:**
-- Try factoring first if the numbers are simple.
-- Use the quadratic formula when factoring is hard—it always works!
-- Write out each step and double-check calculations, especially with square roots.
+**Solution: $x = -2$ or $x = -3$**
 
 **Practice Example:**
-Solve $x^2 - 2x - 8 = 0$ by factoring
-- Answer: Factor: Numbers for $-8$ and $-2$: $-4 \\times 2 = -8$, $-4 + 2 = -2$. So, $(x - 4)(x + 2) = 0$. Solve: $x = 4$, $x = -2$. Check: For $x = 4$: $4^2 - 2(4) - 8 = 16 - 8 - 8 = 0$ ✓. For $x = -2$: $(-2)^2 - 2(-2) - 8 = 4 + 4 - 8 = 0$ ✓.`,
-        interactive: "quadratic-equations"
-      }
+Solve: $x^2 - 7x + 12 = 0$
+
+**Answer:** Factor: $(x - 3)(x - 4) = 0$. So $x = 3$ or $x = 4$.
+
+**Tips for Factoring:**
+- Works best when the quadratic factors nicely with integer roots
+- Look for two numbers that multiply to $c$ and add to $b$
+- If $a ≠ 1$, consider factoring by grouping or using the ac method
+- Not all quadratics can be factored over the integers`,
+    "interactive": "quadratic-equations-factoring"
+  },
+{
+    "title": "Solving Quadratic Equations - Completing the Square",
+    "content": `**What are Quadratic Equations?**
+Quadratic equations are polynomial equations of degree 2, written in the form $ax^2 + bx + c = 0$ where $a ≠ 0$. They represent parabolas when graphed and have at most two real solutions.
+
+**Why it Matters:**
+Quadratic equations appear in physics (projectile motion), economics (profit maximization), and geometry (area problems). Understanding different solution methods helps you choose the most efficient approach.
+
+**Completing the Square Method**
+Transform the quadratic into perfect square form, then solve by taking square roots.
+
+**Steps for Completing the Square:**
+1. **Write in standard form**: $ax^2 + bx + c = 0$.
+2. **Make coefficient of $x^2$ equal to 1** (divide by $a$ if needed).
+3. **Move constant to right side**.
+4. **Complete the square**: Add $(\\frac{b}{2})^2$ to both sides.
+5. **Factor the perfect square** and solve by taking square roots.
+6. **Check** your solutions.
+
+**Example: Completing the Square**
+Solve: $x^2 + 6x + 5 = 0$
+
+- Step 1: Already in standard form with $a = 1$.
+- Step 2: Coefficient of $x^2$ is already 1.
+- Step 3: $x^2 + 6x = -5$.
+- Step 4: Add $(\\frac{6}{2})^2 = 9$ to both sides: $x^2 + 6x + 9 = -5 + 9 = 4$.
+- Step 5: Factor: $(x + 3)^2 = 4$. Take square roots: $x + 3 = ±2$.
+- Step 6: Solve: $x = -3 + 2 = -1$ or $x = -3 - 2 = -5$.
+
+**Solution: $x = -1$ or $x = -5$**
+
+**Practice Example:**
+Solve: $x^2 - 4x - 5 = 0$
+
+**Answer:** $x^2 - 4x = 5$. Add $(\\frac{-4}{2})^2 = 4$: $x^2 - 4x + 4 = 9$. So $(x - 2)^2 = 9$, $x - 2 = ±3$, giving $x = 5$ or $x = -1$.
+
+**Tips for Completing the Square:**
+- Always works, even when factoring is difficult
+- Useful for converting to vertex form of a parabola
+- Be careful with signs when adding $(\\frac{b}{2})^2$
+- This method reveals the vertex of the parabola`,
+    "interactive": "quadratic-equations-completing-square"
+  },
+{
+    "title": "Solving Quadratic Equations - Quadratic Formula",
+    "content": `**What are Quadratic Equations?**
+Quadratic equations are polynomial equations of degree 2, written in the form $ax^2 + bx + c = 0$ where $a ≠ 0$. They represent parabolas when graphed and have at most two real solutions.
+
+**Why it Matters:**
+Quadratic equations appear in physics (projectile motion), economics (profit maximization), and geometry (area problems). Understanding different solution methods helps you choose the most efficient approach.
+
+**The Quadratic Formula Method**
+Use the universal formula that works for any quadratic equation: $x = \\frac{-b ± \\sqrt{b^2 - 4ac}}{2a}$.
+
+**Steps for Quadratic Formula:**
+1. **Write in standard form**: $ax^2 + bx + c = 0$.
+2. **Identify coefficients**: $a$, $b$, and $c$.
+3. **Calculate the discriminant**: $\\Delta = b^2 - 4ac$.
+4. **Apply the formula**: $x = \\frac{-b ± \\sqrt{b^2 - 4ac}}{2a}$.
+5. **Simplify** and **check** your solutions.
+
+**Example: Quadratic Formula**
+Solve: $2x^2 + 3x - 2 = 0$
+
+- Step 1: Already in standard form.
+- Step 2: $a = 2$, $b = 3$, $c = -2$.
+- Step 3: $\\Delta = 3^2 - 4(2)(-2) = 9 + 16 = 25$.
+- Step 4: $x = \\frac{-3 ± \\sqrt{25}}{2(2)} = \\frac{-3 ± 5}{4}$.
+- Step 5: $x = \\frac{-3 + 5}{4} = \\frac{2}{4} = \\frac{1}{2}$ or $x = \\frac{-3 - 5}{4} = \\frac{-8}{4} = -2$.
+
+**Solution: $x = \\frac{1}{2}$ or $x = -2$**
+
+**Understanding the Discriminant:**
+- If $\\Delta > 0$: Two distinct real solutions
+- If $\\Delta = 0$: One repeated real solution
+- If $\\Delta < 0$: No real solutions (two complex solutions)
+
+**Practice Example:**
+Solve: $x^2 - 6x + 9 = 0$
+
+**Answer:** $a = 1$, $b = -6$, $c = 9$. $\\Delta = 36 - 36 = 0$. $x = \\frac{6 ± 0}{2} = 3$ (repeated root).
+
+**Tips for Quadratic Formula:**
+- Always works for any quadratic equation
+- Pay attention to signs when substituting values
+- The discriminant tells you about the nature of solutions
+- Memorize the formula: $x = \\frac{-b ± \\sqrt{b^2 - 4ac}}{2a}$`,
+    "interactive": "quadratic-equations-formula"
+  }
     ]
   },
    {

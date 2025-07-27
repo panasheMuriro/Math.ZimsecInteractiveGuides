@@ -422,7 +422,7 @@ const AlgebraMultiStepInteractiveTemplate: React.FC<AlgebraMultiStepInteractiveT
   // --- Render Logic ---
   return (
     // Apply dynamic background gradient classes
-    <div className={`min-h-screen bg-gradient-to-br ${themeClasses.bgGradientFrom} ${themeClasses.bgGradientTo} p-4`}>
+    <div className={`min-h-screen bg-gradient-to-br rounded-2xl ${themeClasses.bgGradientFrom} ${themeClasses.bgGradientTo} p-4`}>
       <div className="max-w-md mx-auto">
         {/* Header */}
            <div className="text-center mb-6 pt-6">

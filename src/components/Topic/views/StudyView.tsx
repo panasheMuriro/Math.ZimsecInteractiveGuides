@@ -167,6 +167,12 @@ import AddSubtractFractionsTool from "../interactive/Topic7/Topic7.5/AddSubtract
 import MultiplyDivideFractionsTool from "../interactive/Topic7/Topic7.5/MultiplyDivideFractionsTool";
 import CompleteSquareA1Tool from "../interactive/Topic7/Topic7.6/CompleteSquareA1Tool";
 import CompleteSquareANot1Tool from "../interactive/Topic7/Topic7.6/CompleteSquareANot1Tool";
+import SolvingLinearEquationsTool from "../interactive/Topic7/Topic7.7/SolvingLinearEquationsTool";
+import SolvingSimultaneousEquationsEliminationTool from "../interactive/Topic7/Topic7.7/SolvingSimultaneousEquationsEliminationTool";
+import SolvingSimultaneousEquationsSubstitutionTool from "../interactive/Topic7/Topic7.7/SolvingSimultaneousEquationsSubstitutionTool";
+import SolvingQuadraticEquationsFactoringTool from "../interactive/Topic7/Topic7.7/SolvingQuadraticEquationsFactoringTool";
+import SolvingQuadraticEquationsCompletingSquareTool from "../interactive/Topic7/Topic7.7/SolvingQuadraticEquationsCompletingSquareTool";
+import SolvingQuadraticEquationsFormulaTool from "../interactive/Topic7/Topic7.7/SolvingQuadraticEquationsFormulaTool";
 
 
 const StudyView = () => {
@@ -376,6 +382,18 @@ const StudyView = () => {
         return <CompleteSquareA1Tool/>
       case "complete-square-anot1":
         return <CompleteSquareANot1Tool/>
+      case "linear-equations":
+        return <SolvingLinearEquationsTool/>
+      case "simultaneous-equations-elimination":
+        return <SolvingSimultaneousEquationsEliminationTool/>
+      case "simultaneous-equations-substitution":
+        return <SolvingSimultaneousEquationsSubstitutionTool/>
+      case "quadratic-equations-factoring":
+        return <SolvingQuadraticEquationsFactoringTool/>
+      case "quadratic-equations-completing-square":
+        return <SolvingQuadraticEquationsCompletingSquareTool/>
+      case "quadratic-equations-formula":
+        return <SolvingQuadraticEquationsFormulaTool/>
 
       //  Topic 8
 
@@ -549,7 +567,7 @@ const StudyView = () => {
       currentSubsection < section.subsections.length - 1
     ) {
       setCurrentSubsection(currentSubsection + 1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      // window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -557,7 +575,7 @@ const StudyView = () => {
     if (currentSubsection > 0) {
       setCurrentSubsection(currentSubsection - 1);
     }
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
