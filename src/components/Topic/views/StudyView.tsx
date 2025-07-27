@@ -164,6 +164,7 @@ import FoilMethodTool from "../interactive/Topic7/Topic7.4/FoilMethodTool";
 import SpecialProductsTool from "../interactive/Topic7/Topic7.4/SpecialProductsTool";
 import SimplifyingFractionsTool from "../interactive/Topic7/Topic7.5/SimplifyingFractionsTool";
 import AddSubtractFractionsTool from "../interactive/Topic7/Topic7.5/AddSubtractFractionsTool";
+import MultiplyDivideFractionsTool from "../interactive/Topic7/Topic7.5/MultiplyDivideFractionsTool";
 
 
 const StudyView = () => {
@@ -367,6 +368,8 @@ const StudyView = () => {
         return <SimplifyingFractionsTool/>
       case "add-subtract-fractions":
         return <AddSubtractFractionsTool/>
+      case "multiply-divide-fractions":
+        return <MultiplyDivideFractionsTool/>
 
       //  Topic 8
 
