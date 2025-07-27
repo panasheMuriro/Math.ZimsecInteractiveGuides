@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.1.11",
     "@upsetjs/venn.js": "^1.4.2",
     "better-react-mathjax": "^2.3.0",

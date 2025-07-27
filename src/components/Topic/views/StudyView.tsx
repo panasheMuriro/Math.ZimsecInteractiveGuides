@@ -162,6 +162,8 @@ import PerfectSquareTrinomialTool from "../interactive/Topic7/Topic7.3/PerfectSq
 import ExpandingSingleBracketsTool from "../interactive/Topic7/Topic7.4/ExpandingSingleBracketsTool";
 import FoilMethodTool from "../interactive/Topic7/Topic7.4/FoilMethodTool";
 import SpecialProductsTool from "../interactive/Topic7/Topic7.4/SpecialProductsTool";
+import SimplifyingFractionsTool from "../interactive/Topic7/Topic7.5/SimplifyingFractionsTool";
+import AddSubtractFractionsTool from "../interactive/Topic7/Topic7.5/AddSubtractFractionsTool";
 
 
 const StudyView = () => {
@@ -361,6 +363,10 @@ const StudyView = () => {
         return <FoilMethodTool/>
       case "special-products":
         return <SpecialProductsTool/>
+      case "simplify-fractions":
+        return <SimplifyingFractionsTool/>
+      case "add-subtract-fractions":
+        return <AddSubtractFractionsTool/>
 
       //  Topic 8
 
@@ -560,9 +566,8 @@ const StudyView = () => {
             {currentContent.title}
           </h3>
         )}
-
         <div className="bg-[#fffef9] shadow-lg border border-[#e4ded4] rounded-2xl p-6 mb-6 prose max-w-none">
-          <div className="prose max-w-none text-gray-900 leading-[30px]">
+          <div className="prose max-w-none text-gray-900 leading-[30px] list-disc">
             <ReactMarkdown
               remarkPlugins={[remarkMath, remarkGfm]}
               rehypePlugins={[rehypeKatex]}
