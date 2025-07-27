@@ -147,7 +147,6 @@ import CombinedEventsVisualizer from "../interactive/Topic14/Topic14.3/CombinedE
 import TreeDiagramVisualizer from "../interactive/Topic14/Topic14.3/TreeDiagramVisualizer";
 import ProbabilityRulesVisualizer from "../interactive/Topic14/Topic14.3/ProbabilityRulesVisualizer";
 import ProbabilityApplicationsVisualizer from "../interactive/Topic14/Topic14.3/ProbabilityApplicationsVisualizer";
-import LikeTermsPractice from "../interactive/Topic7/Topic7.1/LikeTermsInteractive";
 import ExpandingSingleBracketsTool from "../interactive/Topic7/Topic7.4/ExpandingSingleBracketsTool";
 import SpecialProductsTool from "../interactive/Topic7/Topic7.4/SpecialProductsTool";
 import SimplifyingFractionsTool from "../interactive/Topic7/Topic7.5/SimplifyingFractionsTool";
@@ -180,6 +179,7 @@ import MultiplyingAlgebraicTermsTool from "../interactive/Topic7/Topic7.1/Multip
 import DividingAlgebraicTermsTool from "../interactive/Topic7/Topic7.1/DividingAlgebraicTermsTool";
 import SubstitutionInExpressionsTool from "../interactive/Topic7/Topic7.1/SubstitutionInExpressionsTool";
 import LikeTermsInteractive from "../interactive/Topic7/Topic7.1/LikeTermsInteractive";
+import GraphInequalities from "../interactive/Topic7/Topic7.8/GraphInequalities";
 
 
 const StudyView = () => {
@@ -413,6 +413,8 @@ const StudyView = () => {
         return <IntroductionToLogarithmsTool/>
       case "log-equations":
         return <SolvingLogarithmicEquationsTool/>
+      case "graph-inequalities":
+        return <GraphInequalities/>
 
       //  Topic 8
 
