@@ -1,101 +1,93 @@
-import { useState } from "react";
-import { MathJax } from "better-react-mathjax";
-import { Target, CheckCircle, XCircle } from "lucide-react";
+import { useState, useEffect } from "react";
+import { InlineMath } from "react-katex";
+import { QuizTemplate, themes } from "./QuizTemplate";
 
 const RoundingGame = () => {
   const [number, setNumber] = useState<number>(3.6789);
   const [decimalPlaces, setDecimalPlaces] = useState<number>(2);
-  const [userAnswer, setUserAnswer] = useState<string>("");
+  const [choices, setChoices] = useState<string[]>([]);
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showResult, setShowResult] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
   const [attempts, setAttempts] = useState<number>(0);
+  const [theme, setTheme] = useState<string>("blue");
 
-  const correctAnswer = parseFloat(number.toFixed(decimalPlaces));
+  const correctAnswer = parseFloat(number.toFixed(decimalPlaces)).toString();
+
+  useEffect(() => {
+    generateChoices();
+  }, [number, decimalPlaces]);
+
+  const generateChoices = () => {
+    const correct = parseFloat(number.toFixed(decimalPlaces));
+    const wrongChoices = new Set<string>();
+    wrongChoices.add(correct.toString());
+    
+    let attempts = 0;
+    while (wrongChoices.size < 4 && attempts < 20) {
+      const variation = (Math.random() > 0.5 ? 1 : -1) * Math.pow(10, -decimalPlaces);
+      const wrong = parseFloat((correct + variation).toFixed(decimalPlaces));
+      if (wrong >= 0) {
+        wrongChoices.add(wrong.toString());
+      }
+      attempts++;
+    }
+    
+    while (wrongChoices.size < 4) {
+      const randomAdd = Math.random() * 10;
+      const wrong = parseFloat((correct + randomAdd).toFixed(decimalPlaces));
+      wrongChoices.add(wrong.toString());
+    }
+    
+    const shuffled = Array.from(wrongChoices).sort(() => Math.random() - 0.5);
+    setChoices(shuffled);
+    setSelectedAnswer(null);
+    setShowResult(false);
+  };
 
   const checkAnswer = () => {
-    const answer = parseFloat(userAnswer);
-    const correct = Math.abs(answer - correctAnswer) < 0.001;
+    if (selectedAnswer === null) return;
+    const correct = selectedAnswer === correctAnswer;
     setIsCorrect(correct);
     setShowResult(true);
-    setAttempts(attempts + 1);
-    if (correct) setScore(score + 1);
+    setAttempts(prev => prev + 1);
+    if (correct) setScore(prev => prev + 1);
   };
 
   const newQuestion = () => {
     setNumber(parseFloat((Math.random() * 100 + 1).toFixed(4)));
     setDecimalPlaces(Math.floor(Math.random() * 3) + 1);
-    setUserAnswer("");
-    setShowResult(false);
+    setTheme(Object.keys(themes)[Math.floor(Math.random() * Object.keys(themes).length)]);
   };
 
   return (
-    <div className="bg-gradient-to-br from-blue-500 to-cyan-500 p-6 rounded-2xl text-white">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-xl font-bold flex items-center">
-          <Target className="mr-2" /> Rounding Practice
-        </h3>
-        <div className="text-sm bg-white/20 px-3 py-1 rounded-full">
-          Score: {score}/{attempts}
-        </div>
-      </div>
-
-      <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 mb-4">
-        <p className="text-lg mb-2">
-          Round <MathJax inline>{`\\(${number}\\)`}</MathJax> to{" "}
-          <MathJax inline>{`\\(${decimalPlaces}\\)`}</MathJax> decimal places
-        </p>
-
-        <input
-          type="number"
-          step="0.01"
-          value={userAnswer}
-          onChange={(e) => setUserAnswer(e.target.value)}
-          placeholder="Your answer..."
-          className="w-full bg-white/20 border-2 border-white/30 rounded-lg p-3 text-white placeholder-white/70 font-mono text-lg"
-        />
-      </div>
-
-      <div className="flex gap-2 mb-4">
-        <button
-          onClick={checkAnswer}
-          disabled={!userAnswer || showResult}
-          className="flex-1 bg-white/30 hover:bg-white/50 disabled:bg-gray-400/30 rounded-lg p-3 font-bold transition-all duration-200 hover:scale-105 disabled:scale-100"
-        >
-          Check Answer
-        </button>
-
-        <button
-          onClick={newQuestion}
-          className="flex-1 bg-white/20 hover:bg-white/40 rounded-lg p-3 font-bold transition-all duration-200 hover:scale-105"
-        >
-          New Question
-        </button>
-      </div>
-
-      {showResult && (
-        <div
-          className={`bg-white/20 backdrop-blur-sm rounded-xl p-4 ${
-            isCorrect ? "ring-2 ring-green-400" : "ring-2 ring-red-400"
-          }`}
-        >
-          <div className="flex items-center mb-2">
-            {isCorrect ? (
-              <CheckCircle className="w-5 h-5 mr-2 text-green-300" />
-            ) : (
-              <XCircle className="w-5 h-5 mr-2 text-red-300" />
-            )}
-            <span className="font-bold">
-              {isCorrect ? "Correct!" : "Incorrect"}
-            </span>
-          </div>
-          <p>
-            Correct answer: <MathJax inline>{`\\(${correctAnswer}\\)`}</MathJax>
-          </p>
-        </div>
-      )}
-    </div>
+    <QuizTemplate<string>
+      title="Rounding Practice"
+      theme={theme}
+      question={
+        <>
+          Round <InlineMath math={number.toString()} /> to <InlineMath math={decimalPlaces.toString()} /> decimal places
+        </>
+      }
+      choices={choices}
+      selectedAnswer={selectedAnswer}
+      onSelectAnswer={setSelectedAnswer}
+      showResult={showResult}
+      isCorrect={isCorrect}
+      correctAnswer={correctAnswer}
+      explanation={
+        <>
+          Correct answer: <InlineMath math={correctAnswer} />
+        </>
+      }
+      score={score}
+      attempts={attempts}
+      onCheckAnswer={checkAnswer}
+      onNewQuestion={newQuestion}
+    />
   );
 };
+
 
 export default RoundingGame;

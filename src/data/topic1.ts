@@ -305,57 +305,183 @@ Each term is sum of previous two: $1, 1, 2, 3, 5, 8, 13, 21, \\ldots$
     }
   ]
 },
-  {
-    title: "Approximations and Estimations",
-    icon: "📏",
-    content: `Approximations help us work with numbers that are easier to handle while maintaining reasonable accuracy.`,
-    subsections: [
-      {
-        title: "Rounding Off Numbers",
-        content: `**ROUNDING OFF NUMBERS**
 
-Rules for rounding:
+  {
+  "title": "Approximations and Estimations",
+  "icon": "📏",
+  "content": "Approximations help us work with numbers that are easier to handle while maintaining reasonable accuracy.",
+  "subsections": [
+    {
+      "title": "Rounding Off Numbers",
+      "content": `**ROUNDING OFF NUMBERS**
+
+**Rules for Rounding:**
 - Look at the digit to the right of the place you're rounding to
 - If it's $\\geq 5$, round up
 - If it's $< 5$, round down
-- Examples: $3.67 \\rightarrow 3.7$ (to 1 d.p.), $245 \\rightarrow 250$ (to nearest 10)`,
-        interactive: "rounding-game"
-      },
-      {
-        title: "Decimal Places and Significant Figures",
-        content: `**DECIMAL PLACES (d.p.)**
+
+**Rounding to Decimal Places:**
+- $3.67 \\rightarrow 3.7$ (to 1 d.p.)
+- $2.834 \\rightarrow 2.83$ (to 2 d.p.)
+- $0.0476 \\rightarrow 0.05$ (to 2 d.p.)
+
+**Rounding to Nearest Whole Numbers:**
+- $7.3 \\rightarrow 7$ (round down)
+- $8.6 \\rightarrow 9$ (round up)
+- $5.5 \\rightarrow 6$ (round up when exactly halfway)
+
+**Rounding to Powers of 10:**
+- $245 \\rightarrow 250$ (to nearest 10)
+- $1,847 \\rightarrow 1,800$ (to nearest 100)
+- $23,456 \\rightarrow 20,000$ (to nearest 10,000)
+
+**Special Case - The Number 5:**
+When the digit is exactly 5, always round up:
+- $2.5 \\rightarrow 3$
+- $14.5 \\rightarrow 15$
+- $0.25 \\rightarrow 0.3$ (to 1 d.p.)
+
+**Practical Applications:**
+- Money calculations (rounding to nearest cent)
+- Measurements in construction
+- Population statistics
+- Scientific data presentation`,
+      "interactive": "rounding-game"
+    },
+    {
+      "title": "Decimal Places and Significant Figures",
+      "content": `**DECIMAL PLACES (d.p.)**
 Count digits after the decimal point:
 - $3.456$ has 3 decimal places
 - $0.2$ has 1 decimal place
 - $15.0$ has 1 decimal place
+- $7$ has 0 decimal places
+
+**Examples of Rounding to Decimal Places:**
+- $15.679$ to 2 d.p. = $15.68$
+- $0.0054$ to 3 d.p. = $0.005$
+- $123.456789$ to 1 d.p. = $123.5$
 
 **SIGNIFICANT FIGURES (s.f.)**
 Count meaningful digits from the first non-zero digit:
-- $3.456$ has 4 significant figures
-- $0.00456$ has 3 significant figures
-- $3400$ has 2 significant figures (assuming trailing zeros aren't significant)`,
-        interactive: "decimal-places"
-      },
-      {
-        title: "Estimations",
-        content: `**ESTIMATIONS**
-Make quick calculations easier:
+
+**Rules for Counting Significant Figures:**
+1. All non-zero digits are significant: $3.456$ has 4 s.f.
+2. Zeros between non-zero digits are significant: $105$ has 3 s.f.
+3. Leading zeros are not significant: $0.00456$ has 3 s.f.
+4. Trailing zeros after decimal point are significant: $3.400$ has 4 s.f.
+5. Trailing zeros in whole numbers may or may not be significant: $3400$ could have 2, 3, or 4 s.f.
+
+**Examples of Significant Figures:**
+- $0.00456$ has 3 s.f. (4, 5, 6)
+- $105.0$ has 4 s.f. (1, 0, 5, 0)
+- $2.300$ has 4 s.f. (2, 3, 0, 0)
+- $5000$ has 1 s.f. (unless specified otherwise)
+
+**Rounding to Significant Figures:**
+- $15.679$ to 3 s.f. = $15.7$
+- $0.004561$ to 2 s.f. = $0.0046$
+- $12345$ to 2 s.f. = $12000$
+
+**When to Use Each:**
+- Decimal places: Precise measurements, money
+- Significant figures: Scientific calculations, large numbers`,
+      "interactive": "decimal-places"
+    },
+    {
+      "title": "Estimations",
+      "content": `**ESTIMATIONS**
+Make quick calculations easier by rounding numbers first:
+
+**Basic Estimation Strategies:**
+1. Round numbers to convenient values
+2. Use mental math shortcuts
+3. Check if your answer is reasonable
+
+**Multiplication Estimations:**
 - $19.8 \\times 4.2 \\approx 20 \\times 4 = 80$
+- $7.8 \\times 12.1 \\approx 8 \\times 12 = 96$
+- $49 \\times 21 \\approx 50 \\times 20 = 1000$
+
+**Division Estimations:**
 - $297 \\div 3.1 \\approx 300 \\div 3 = 100$
-- Always round to make calculations simpler`,
-        interactive: "estimation-game"
-      },
-      {
-        title: "Limits of Accuracy",
-        content: `**LIMITS OF ACCURACY**
-Understanding the range of possible values:
-- $5.2$ cm (to 1 d.p.) means the actual value is between $5.15$ and $5.25$ cm
-- This is written as $5.15 \\leq x < 5.25$
-- Upper bound: $5.25$, Lower bound: $5.15$`,
-        interactive: "limits-accuracy"
-      }
-    ]
-  },
+- $487 \\div 23 \\approx 500 \\div 25 = 20$
+- $156 \\div 7.8 \\approx 160 \\div 8 = 20$
+
+**Addition and Subtraction Estimations:**
+- $23.7 + 45.2 + 31.8 \\approx 24 + 45 + 32 = 101$
+- $198 - 47 \\approx 200 - 50 = 150$
+
+**Complex Calculations:**
+- $\\frac{19.8 \\times 4.2}{3.1} \\approx \\frac{20 \\times 4}{3} = \\frac{80}{3} \\approx 27$
+- $\\sqrt{48} \\approx \\sqrt{49} = 7$
+
+**Real-World Applications:**
+- Shopping: Estimating total cost
+- Travel: Calculating journey time and distance
+- Cooking: Adjusting recipe quantities
+- Construction: Material estimates
+- Science: Quick checks of experimental results
+
+**Checking Calculator Results:**
+Always estimate first to catch errors:
+- If $23 \\times 45$ gives you $10,035$, estimate: $20 \\times 50 = 1,000$ (calculator error!)
+- If $\\frac{144}{12}$ gives you $1.2$, estimate: $\\frac{120}{12} = 10$ (decimal point error!)`,
+      "interactive": "estimation-game"
+    },
+    {
+      "title": "Limits of Accuracy",
+      "content": `**LIMITS OF ACCURACY**
+Understanding the range of possible values for rounded numbers:
+
+**Basic Concept:**
+When a number is rounded, the actual value lies within a specific range.
+
+**For Decimal Places:**
+- $5.2$ cm (to 1 d.p.) means: $5.15 \\leq x < 5.25$
+- $3.45$ m (to 2 d.p.) means: $3.445 \\leq x < 3.455$
+- $12.0$ kg (to 1 d.p.) means: $11.95 \\leq x < 12.05$
+
+**For Significant Figures:**
+- $3400$ (to 2 s.f.) means: $3350 \\leq x < 3450$
+- $0.056$ (to 2 s.f.) means: $0.0555 \\leq x < 0.0565$
+- $1.2$ (to 2 s.f.) means: $1.15 \\leq x < 1.25$
+
+**For Whole Numbers:**
+- $25$ (to nearest 10) means: $20 \\leq x < 30$
+- $140$ (to nearest 10) means: $135 \\leq x < 145$
+- $2000$ (to nearest 1000) means: $1500 \\leq x < 2500$
+
+**Key Terms:**
+- **Lower bound**: The smallest possible value
+- **Upper bound**: The largest possible value (exclusive)
+- **Error interval**: The range between lower and upper bounds
+
+**Maximum Error:**
+- For $5.2$ (to 1 d.p.): maximum error = $\\pm 0.05$
+- For $340$ (to 2 s.f.): maximum error = $\\pm 50$
+
+**Applications in Calculations:**
+When combining measurements, errors can compound:
+- If length = $5.2$ cm and width = $3.1$ cm (both to 1 d.p.)
+- Area range: $(5.15 \\times 3.05)$ to $(5.25 \\times 3.15)$
+- Area range: $15.7075$ to $16.5375$ cm²
+
+**Real-World Examples:**
+- Speed cameras: "$70$ mph" could be $69.5$ to $70.5$ mph
+- Medical dosages: Safety margins account for measurement limits
+- Engineering: Tolerance levels in manufacturing
+- Scientific experiments: Understanding measurement uncertainty
+
+**Problem-Solving Tips:**
+1. Identify what the number is rounded to
+2. Find the halfway point below and above
+3. Write the inequality correctly
+4. Remember upper bound is exclusive (<, not ≤)`,
+      "interactive": "limits-accuracy"
+    }
+  ]
+},
   {
     title: "Ratios, Rates and Proportions",
     icon: "⚖️",

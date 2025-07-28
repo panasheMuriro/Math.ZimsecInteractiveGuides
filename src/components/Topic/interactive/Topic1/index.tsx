@@ -3,15 +3,14 @@ import CubesCubeRootsQuiz from "./Topic1.1/CubesCubeRootsQuiz";
 import DirectedNumbersQuiz from "./Topic1.1/DirectedNumbersQuiz";
 import FactorsHCF from "./Topic1.1/FactorsHCF";
 import { FractionsPercentagesQuiz } from "./Topic1.1/FractionsPercentagesQuiz";
-// import FractionsPercentagesQuiz from "./Topic1.1/FractionsPercentagesQuiz";
 import MultiplesLCM from "./Topic1.1/MultiplesLCM";
 import NumberPatternsQuiz from "./Topic1.1/NumberPatternsQuiz";
 import NumberTypesQuiz from "./Topic1.1/NumberTypesQuiz";
 import OrderOfOperationsQuiz from "./Topic1.1/OrderOfOperationsQuiz";
 import SquaresSquareRootsQuiz from "./Topic1.1/SquaresSquareRootsQuiz";
-import DecimalPlacesVisualizer from "./Topic1.2/DecimalPlacesVisualizer";
+import DecimalPlacesGame from "./Topic1.2/DecimalPlacesGame";
 import EstimationGame from "./Topic1.2/EstimationGame";
-import LimitsOfAccuracy from "./Topic1.2/LimitsOfAccuracy";
+import LimitsOfAccuracyGame from "./Topic1.2/LimitsOfAccuracyGame";
 import RoundingGame from "./Topic1.2/RoundingGame";
 import ProportionSolver from "./Topic1.3/ProportionSolver";
 import RateCalculator from "./Topic1.3/RateCalculator";
@@ -39,9 +38,9 @@ export const topic1Components: Record<string, React.ComponentType> = {
 "number-patterns": NumberPatternsQuiz,
 
 
-  "decimal-places": DecimalPlacesVisualizer,
+  "decimal-places": DecimalPlacesGame,
   "estimation-game": EstimationGame,
-  "limits-accuracy": LimitsOfAccuracy,
+  "limits-accuracy": LimitsOfAccuracyGame,
   "large-numbers": LargeNumbers,
   "small-numbers": SmallNumbers,
   "ratio-simplifier": RatioSimplifier,
