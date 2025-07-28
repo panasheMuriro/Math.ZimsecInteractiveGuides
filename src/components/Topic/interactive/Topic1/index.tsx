@@ -12,9 +12,10 @@ import DecimalPlacesGame from "./Topic1.2/DecimalPlacesGame";
 import EstimationGame from "./Topic1.2/EstimationGame";
 import LimitsOfAccuracyGame from "./Topic1.2/LimitsOfAccuracyGame";
 import RoundingGame from "./Topic1.2/RoundingGame";
-import ProportionSolver from "./Topic1.3/ProportionSolver";
+import DirectProportion from "./Topic1.3/DirectProportion";
+import InverseProportion from "./Topic1.3/InverseProportion";
 import RateCalculator from "./Topic1.3/RateCalculator";
-import RatioSimplifier from "./Topic1.3/RatioSimplifier";
+import RatioQuiz from "./Topic1.3/RatioQuiz";
 import LargeNumbers from "./Topic1.4/LargeNumbers";
 import SmallNumbers from "./Topic1.4/SmallNumbers";
 import StandardFormConverter from "./Topic1.4/StandardFormConverter";
@@ -43,9 +44,10 @@ export const topic1Components: Record<string, React.ComponentType> = {
   "limits-accuracy": LimitsOfAccuracyGame,
   "large-numbers": LargeNumbers,
   "small-numbers": SmallNumbers,
-  "ratio-simplifier": RatioSimplifier,
+  "ratio-quiz": RatioQuiz,
   "rate-calculator": RateCalculator,
-  "proportion-solver": ProportionSolver,
+  "direct-proportion": DirectProportion,
+  "inverse-proportion": InverseProportion,
   "base-10": Base10Explorer,
   "base-2": BinaryExplorer,
   "base-converter": BaseConverter,

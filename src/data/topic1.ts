@@ -482,58 +482,250 @@ When combining measurements, errors can compound:
     }
   ]
 },
-  {
-    title: "Ratios, Rates and Proportions",
-    icon: "⚖️",
-    content: `Ratios and proportions help us compare quantities and solve real-world problems.`,
-    subsections: [
-      {
-        title: "Ratios",
-        content: `**RATIOS**
-Compare quantities of the same type:
-- $3:4$ means "3 to 4" or "3 parts to 4 parts"
-- Can be simplified like fractions: $6:8 = 3:4$
-- Used for mixing, sharing, scaling
-- Example: mixing paint colors, sharing pizza slices`,
-        interactive: "ratio-simplifier"
-      },
-      {
-        title: "Rates",
-        content: `**RATES**
-Compare quantities of different types:
-- Speed: $60\\text{ km/h}$ (distance per time)
-- Density: $2.5\\text{ g/cm}^3$ (mass per volume)
-- Price: $\\$5\\text{ per kg}$ (cost per weight)
-- Always have units that are different`,
-        interactive: "rate-calculator"
-      },
-      {
-        title: "Proportions and Direct Proportion",
-        content: `**PROPORTIONS**
-When two ratios are equal:
-- $3:4 = 6:8$ (this is a proportion)
-- Cross multiplication: $3 \\times 8 = 4 \\times 6$
-- Used for scaling recipes, maps, currency conversion
+{
+  "title": "Ratios, Rates and Proportions",
+  "icon": "⚖️",
+  "content": "Ratios and proportions help us compare quantities and solve real-world problems.",
+  "subsections": [
+    {
+      "title": "Ratios",
+      "content": `**RATIOS**
+Compare quantities of the same type (same units):
 
-**DIRECT PROPORTION**
-As one quantity increases, the other increases proportionally:
-- $\\text{Cost} \\propto \\text{quantity}$ (more items cost more)
-- $\\text{Distance} \\propto \\text{time}$ (at constant speed)
-- Formula: $y = kx$ (where $k$ is constant)`,
-        interactive: "proportion-solver"
-      },
-      {
-        title: "Inverse Proportion",
-        content: `**INVERSE PROPORTION**
+**Definition:**
+A ratio compares quantities of the same type
+- Written as $a:b$ (read as "a to b")
+- Can also be written as $\\frac{a}{b}$
+- Both quantities must have the same units
+
+**Basic Examples:**
+- $3:4$ means "3 parts to 4 parts"
+- In a class of $12$ boys and $15$ girls: ratio = $12:15 = 4:5$
+- Mixing $2$ cups flour to $3$ cups sugar = $2:3$
+
+**Simplifying Ratios:**
+Like fractions, ratios can be simplified by dividing by the H.C.F.
+- $6:8 = 3:4$ (dividing both by $2$)
+- $15:25 = 3:5$ (dividing both by $5$)
+- $12:18:24 = 2:3:4$ (dividing all by $6$)
+
+**Three-Part Ratios:**
+- Red:Blue:Green = $2:3:5$
+- If total parts = $2+3+5 = 10$ parts
+- Red gets $\\frac{2}{10}$, Blue gets $\\frac{3}{10}$, Green gets $\\frac{5}{10}$
+
+**Finding Quantities from Ratios:**
+If the ratio of boys to girls is $3:4$ and there are $21$ students total:
+- Total parts = $3+4 = 7$ parts
+- Each part = $\\frac{21}{7} = 3$ students
+- Boys = $3 \\times 3 = 9$, Girls = $4 \\times 3 = 12$
+
+**Equivalent Ratios:**
+- $1:2 = 2:4 = 3:6 = 5:10$
+- $2:3 = 4:6 = 6:9 = 10:15$
+
+**Applications:**
+- Recipe scaling (ingredients in cooking)
+- Mixing paint colors or concrete
+- Sharing money or resources
+- Map scales and architectural drawings
+- Gear ratios in machines
+- Investment portfolio allocation
+
+**Problem-Solving Steps:**
+1. Identify what quantities are being compared
+2. Write the ratio in simplest form
+3. Use the ratio to find unknown quantities
+4. Check your answer makes sense`,
+      "interactive": "ratio-quiz"
+    },
+    {
+      "title": "Rates",
+      "content": `**RATES**
+
+Compare quantities of different types with different units:
+
+**Definition:**
+A rate compares two quantities with different units
+- Always expressed as "quantity per unit"
+- Units are always different (e.g., km/h, per kg, people/m²)
+
+**Common Examples:**
+- **Speed**: $60 \\text{ km/h}$ (distance per time)
+- **Density**: $2.5 \\text{ g/cm}^3$ (mass per volume)
+- **Price**: 5 per kg (cost per weight)
+- **Population density**: $150 \\text{ people/km}^2$
+- **Fuel consumption**: $8 \\text{ L/100km}$
+- **Heart rate**: $72 \\text{ beats/min}$
+
+**Unit Rates:**
+When the second quantity is 1 unit:
+- 3 per kg means 3 for every 1 kg
+- $25 \\text{ km/L}$ means $25$ km for every $1$ liter
+
+**Calculating Rates:**
+Rate = $\\frac{\\text{First quantity}}{\\text{Second quantity}}$
+
+**Examples:**
+- If 300 km takes 4 hours: Speed = $\\frac{300 \\text{ km}}{4 \\text{ h}} = 75 \\text{ km/h}$
+- If 24 for 3 kg: Rate = $\\frac{24}{3 \\text{ kg}} = 8 \\text{ per kg}$
+- If 500 people in 2 km²: Density = $\\frac{500 \\text{ people}}{2 \\text{ km}^2} = 250 \\text{ people/km}^2$
+
+**Converting Rates:**
+- $72 \\text{ km/h}$ to m/s: $72 \\times \\frac{1000}{3600} = 20 \\text{ m/s}$
+- 15 per hour for 8 hours = 120
+
+**Applications:**
+- Comparing prices at different stores
+- Calculating travel time and fuel costs
+- Determining work productivity
+- Analyzing sports performance statistics`,
+      "interactive": "rate-calculator"
+    },
+    {
+      "title": "Direct Proportion",
+      "content": `**DIRECT PROPORTION**
+As one quantity increases, the other increases at the same rate:
+
+**Definition:**
+Two quantities are in direct proportion when they increase or decrease together at the same rate
+- Symbol: $y \\propto x$ (read as "y is proportional to x")
+- Formula: $y = kx$ (where $k$ is the constant of proportionality)
+
+**Characteristics:**
+- When one doubles, the other doubles
+- When one halves, the other halves
+- When one becomes zero, the other becomes zero
+- Graph is a straight line passing through origin $(0,0)$
+- Ratio $\\frac{y}{x}$ remains constant
+
+**Examples:**
+- **Cost and quantity**: More items cost more money
+  - 2 kg costs 6, so 5 kg costs 15
+  - Constant: $k = \\frac{6}{2\\text{ kg}} = 3\\text{ per kg}$
+
+- **Distance and time** (at constant speed):
+  - Travel $60$ km in $1$ hour, so $180$ km in $3$ hours
+  - Constant: $k = 60\\text{ km/h}$
+
+- **Wages and hours worked**:
+  - 4 hours earns 60, so 10 hours earns 150
+  - Constant: $k = 15\\text{ per hour}$
+
+**Finding the Constant of Proportionality:**
+If $y \\propto x$, then $y = kx$
+- Given: When $x = 4$, $y = 12$
+- Find $k$: $12 = k \\times 4$, so $k = 3$
+- Formula: $y = 3x$
+- When $x = 7$: $y = 3 \\times 7 = 21$
+
+**Solving Direct Proportion Problems:**
+**Method 1: Using the constant**
+1. Find the constant: $k = \\frac{y}{x}$
+2. Use $y = kx$ to find unknown values
+
+**Method 2: Using proportions**
+1. Set up the proportion: $\\frac{y_1}{x_1} = \\frac{y_2}{x_2}$
+2. Cross multiply: $y_1 \\times x_2 = y_2 \\times x_1$
+3. Solve for the unknown
+
+**Worked Example:**
+If 5 pencils cost 2.50, how much do 12 pencils cost?
+- Method 1: $k = \\frac{2.50}{5} = 0.50$ per pencil
+  - Cost of 12 pencils = $12 \\times 0.50 = 6.00$
+- Method 2: $\\frac{2.50}{5} = \\frac{x}{12}$
+  - $2.50 \\times 12 = 5x$
+  - $30 = 5x$, so $x = 6.00$
+
+**Real-World Applications:**
+- Currency conversion
+- Recipe scaling
+- Speed calculations
+- Salary calculations
+- Material costs in construction
+- Fuel consumption calculations`,
+      "interactive": "direct-proportion"
+    },
+    {
+      "title": "Inverse Proportion",
+      "content": `**INVERSE PROPORTION**
 As one quantity increases, the other decreases proportionally:
-- $\\text{Time} \\propto \\frac{1}{\\text{speed}}$ (faster speed means less time)
-- $\\text{Workers} \\propto \\frac{1}{\\text{time}}$ (more workers means less time)
-- Formula: $y = \\frac{k}{x}$ (where $k$ is constant)`,
-        interactive: "inverse-proportion"
-      }
-    ]
-  },
-  {
+
+**Definition:**
+Two quantities are in inverse proportion when one increases as the other decreases, such that their product remains constant
+- Symbol: $y \\propto \\frac{1}{x}$ (read as "y is inversely proportional to x")
+- Formula: $y = \\frac{k}{x}$ or $xy = k$ (where $k$ is constant)
+
+**Characteristics:**
+- When one doubles, the other halves
+- When one triples, the other becomes one-third
+- Product $xy$ remains constant
+- Graph is a hyperbola (curved line)
+- As $x$ approaches zero, $y$ approaches infinity
+- As $x$ increases, $y$ approaches zero
+
+**Examples:**
+- **Speed and time** (for fixed distance):
+  - To travel $120$ km: $60$ km/h takes $2$ hours, $120$ km/h takes $1$ hour
+  - Constant: $k = 120$ km (the distance)
+
+- **Workers and time** (for same job):
+  - $4$ workers take $6$ days, $12$ workers take $2$ days
+  - Constant: $k = 24$ worker-days
+
+- **Pressure and volume** (for fixed temperature):
+  - Higher pressure means lower volume
+  - $k =$ constant (pressure × volume)
+
+**Finding the Constant:**
+If $y \\propto \\frac{1}{x}$, then $y = \\frac{k}{x}$ or $xy = k$
+- Given: When $x = 6$, $y = 8$
+- Find $k$: $k = x \\times y = 6 \\times 8 = 48$
+- Formula: $y = \\frac{48}{x}$ or $xy = 48$
+- When $x = 12$: $y = \\frac{48}{12} = 4$
+
+**Solving Inverse Proportion Problems:**
+**Method 1: Using the constant**
+1. Find the constant: $k = x \\times y$
+2. Use $y = \\frac{k}{x}$ to find unknown values
+
+**Method 2: Using the relationship**
+1. Set up: $x_1 \\times y_1 = x_2 \\times y_2$
+2. Solve for the unknown
+
+**Worked Example:**
+If $8$ machines can complete a job in $15$ days, how long will it take $12$ machines?
+- Method 1: $k = 8 \\times 15 = 120$ machine-days
+  - Time for $12$ machines = $\\frac{120}{12} = 10$ days
+- Method 2: $8 \\times 15 = 12 \\times t$
+  - $120 = 12t$, so $t = 10$ days
+
+**More Examples:**
+- **Brightness and distance**: Light appears dimmer as you move away
+  - If brightness is $100$ units at $2$ m, it's $25$ units at $4$ m
+  - $k = 100 \\times 2^2 = 400$ (using inverse square law)
+
+- **Pipe filling**: More pipes fill a tank faster
+  - $3$ pipes fill tank in $4$ hours, $6$ pipes fill it in $2$ hours
+  - $k = 3 \\times 4 = 12$ pipe-hours
+
+**Distinguishing Direct vs Inverse:**
+- **Direct**: Both increase/decrease together
+- **Inverse**: One increases while other decreases
+- **Direct**: $\\frac{y}{x} =$ constant
+- **Inverse**: $x \\times y =$ constant
+
+**Real-World Applications:**
+- Work scheduling (workers vs time)
+- Travel planning (speed vs time)
+- Economics (supply vs demand)
+- Physics (gas laws, light intensity)
+- Engineering (gear ratios, lever systems)`,
+      "interactive": "inverse-proportion"
+    }
+  ]
+}
+,  {
     title: "Ordinary and Standard Form",
     icon: "🔬",
     content: `Standard form helps us write very large or very small numbers in a manageable way.`,
