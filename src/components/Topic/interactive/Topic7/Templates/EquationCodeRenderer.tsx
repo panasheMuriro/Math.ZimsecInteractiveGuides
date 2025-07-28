@@ -1,6 +1,6 @@
 // components/EqautionCodeRenderer.tsx
 import React from "react";
-import CommonFactorPractice from "./TopicBackup/Viewers/CommonFactorPractice";
+import CommonFactorPractice from "../TopicBackup/Viewers/CommonFactorPractice";
 
 interface CodeProps extends React.HTMLAttributes<HTMLElement> {
   className?: string;

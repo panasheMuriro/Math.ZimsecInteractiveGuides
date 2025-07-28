@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const VennTwoSets: React.FC = () => {
+const VennTwoSets = () => {
   const [setAInput, setSetAInput] = useState<string>('1,2,3');
   const [setBInput, setSetBInput] = useState<string>('3,4,5');
 

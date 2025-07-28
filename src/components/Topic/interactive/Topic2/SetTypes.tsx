@@ -46,7 +46,7 @@ interface DragDropExercise {
 
 type Exercise = ClassificationExercise | SubsetExercise | DragDropExercise;
 
-const SetTypes: React.FC = () => {
+const SetTypes = () => {
   const [currentExercise, setCurrentExercise] = useState<number>(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showFeedback, setShowFeedback] = useState<boolean>(false);
