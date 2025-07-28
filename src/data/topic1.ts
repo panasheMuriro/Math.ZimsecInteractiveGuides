@@ -3,63 +3,308 @@
 import {Section, QuizQuestion} from "../types"
 
 export const sections: Section[] = [
-  {
-    title: "Number Concepts and Operations",
-    icon: "🔢",
-    content: `Number types are the foundation of mathematics. Let's explore the different families of numbers step by step.`,
-    subsections: [
-      {
-        title: "Natural Numbers",
-        content: `**NATURAL NUMBERS** ($\\mathbb{N}$)
+{
+  "title": "Number Concepts and Operations",
+  "icon": "🔢",
+  "content": "Number types are the foundation of mathematics. Let's explore the different families of numbers and operations step by step.",
+  "subsections": [
+    {
+      "title": "Number Types",
+      "content": `**NATURAL NUMBERS** ($\\mathbb{N}$)
 These are counting numbers: $1, 2, 3, 4, 5, \\ldots$
 - Used for counting objects
 - Always positive
 - Start from 1 and go to infinity
-- Examples: number of students in a class, pages in a book, apples in a basket`,
-        interactive: "natural-numbers"
-      },
-      {
-        title: "Whole Numbers",
-        content: `**WHOLE NUMBERS** ($\\mathbb{W}$)
+- Examples: number of students in a class, pages in a book
+
+**WHOLE NUMBERS** ($\\mathbb{W}$)
 Natural numbers plus zero: $0, 1, 2, 3, 4, 5, \\ldots$
 - Include zero (representing "nothing")
 - All non-negative integers
 - Foundation for basic arithmetic
-- Examples: score in a game (can be 0), temperature above absolute zero`,
-        interactive: "whole-numbers"
-      },
-      {
-        title: "Integers",
-        content: `**INTEGERS** ($\\mathbb{Z}$)
+
+**INTEGERS** ($\\mathbb{Z}$)
 All whole numbers and their negatives: $\\ldots, -3, -2, -1, 0, 1, 2, 3, \\ldots$
 - Include positive, negative, and zero
 - Represent opposites (temperature, debt/credit)
 - Form a complete number line
-- Examples: temperature in Celsius, floors in a building (basement = negative)`,
-        interactive: "integers"
-      },
-      {
-        title: "Rational Numbers",
-        content: `**RATIONAL NUMBERS** ($\\mathbb{Q}$)
+
+**RATIONAL NUMBERS** ($\\mathbb{Q}$)
 Numbers that can be expressed as fractions: $\\frac{1}{2}, \\frac{3}{4}, -\\frac{2}{3}, 0.25, 0.\\overline{3}$
 - Can be written as $\\frac{p}{q}$ where $p$ and $q$ are integers ($q \\neq 0$)
 - Include terminating and repeating decimals
 - All integers are rational numbers
-- Examples: half a pizza, 0.5 seconds, 33.33% (which is $\\frac{1}{3}$)`,
-        interactive: "rational-numbers"
-      },
-      {
-        title: "Real Numbers",
-        content: `**REAL NUMBERS** ($\\mathbb{R}$)
-All rational and irrational numbers combined
-- Include everything on the number line
-- Foundation for advanced mathematics
-- Used in real-world measurements
-- Examples: $\\pi$ (circumference to diameter ratio), $\\sqrt{2}$ (diagonal of unit square)`,
-        interactive: "number-classifier"
-      }
-    ]
-  },
+
+**IRRATIONAL NUMBERS** ($\\mathbb{I}$)
+Numbers that cannot be expressed as fractions: $\\pi, e, \\sqrt{2}, \\sqrt{3}$
+- Have non-terminating, non-repeating decimal expansions
+- Include most square roots of non-perfect squares
+- Examples: $\\pi \\approx 3.14159...$, $\\sqrt{2} \\approx 1.41421...$
+
+**REAL NUMBERS** ($\\mathbb{R}$)
+All rational and irrational numbers combined - everything on the number line`,
+      "interactive": "number-types"
+    },
+    {
+      "title": "Factors and H.C.F.",
+      "content": `**FACTORS**
+Numbers that divide evenly into another number
+- Factors of 12: $1, 2, 3, 4, 6, 12$
+- Factors of 18: $1, 2, 3, 6, 9, 18$
+- Every number has at least two factors: 1 and itself
+- Prime numbers have exactly two factors
+
+**HIGHEST COMMON FACTOR (H.C.F.)**
+The largest number that divides two or more numbers
+- Also called Greatest Common Divisor (G.C.D.)
+
+**Methods to Find H.C.F.**
+
+**1. Listing Method:**
+Find H.C.F. of 12 and 18:
+- Factors of 12: $1, 2, 3, 4, 6, 12$
+- Factors of 18: $1, 2, 3, 6, 9, 18$
+- Common factors: $1, 2, 3, 6$
+- H.C.F. = $6$ (largest common factor)
+
+**2. Prime Factorization Method:**
+Find H.C.F. of 24 and 36:
+- $24 = 2^3 \\times 3^1$
+- $36 = 2^2 \\times 3^2$
+- H.C.F. = $2^2 \\times 3^1 = 4 \\times 3 = 12$
+
+**3. Division Method (Euclidean Algorithm):**
+Find H.C.F. of 48 and 18:
+- $48 \\div 18 = 2$ remainder $12$
+- $18 \\div 12 = 1$ remainder $6$
+- $12 \\div 6 = 2$ remainder $0$
+- H.C.F. = $6$ (last non-zero remainder)
+
+**Applications:**
+- Simplifying fractions to lowest terms
+- Sharing items equally among groups
+- Finding common measurements`,
+      "interactive": "factors-hcf"
+    },
+    {
+      "title": "Multiples and L.C.M.",
+      "content": `**MULTIPLES**
+Results of multiplying a number by integers
+- Multiples of 3: $3, 6, 9, 12, 15, 18, 21, 24, \\ldots$
+- Multiples of 4: $4, 8, 12, 16, 20, 24, 28, 32, \\ldots$
+- Every number has infinitely many multiples
+
+**LOWEST COMMON MULTIPLE (L.C.M.)**
+The smallest positive number that is a multiple of two or more numbers
+- Used for adding fractions with different denominators
+- Finding common time intervals
+
+**Methods to Find L.C.M.**
+
+**1. Listing Method:**
+Find L.C.M. of 4 and 6:
+- Multiples of 4: $4, 8, 12, 16, 20, 24, \\ldots$
+- Multiples of 6: $6, 12, 18, 24, 30, \\ldots$
+- Common multiples: $12, 24, 36, \\ldots$
+- L.C.M. = $12$ (smallest common multiple)
+
+**2. Prime Factorization Method:**
+Find L.C.M. of 12 and 18:
+- $12 = 2^2 \\times 3^1$
+- $18 = 2^1 \\times 3^2$
+- L.C.M. = $2^2 \\times 3^2 = 4 \\times 9 = 36$
+
+**3. Division Method:**
+Find L.C.M. of 15, 20, and 25:
+\\
+$\\begin{array}{c|ccc}
+2 & 15 & 20 & 25 \\\\
+2 & 15 & 10 & 25 \\\\
+5 & 15 & 5 & 25 \\\\
+5 & 3 & 1 & 5 \\\\
+3 & 3 & 1 & 1 \\\\
+& 1 & 1 & 1
+\\end{array}$
+
+L.C.M. = $2 \\times 2 \\times 5 \\times 5 \\times 3 = 300$
+
+**Relationship between H.C.F. and L.C.M.:**
+For any two numbers $a$ and $b$:
+$H.C.F.(a,b) \\times L.C.M.(a,b) = a \\times b$
+
+**Applications:**
+- Adding fractions with different denominators
+- Finding when events repeat together
+- Scheduling problems`,
+      "interactive": "multiples-lcm"
+    },
+    {
+      "title": "Directed Numbers",
+      "content": `**DIRECTED NUMBERS**
+Numbers with direction (positive or negative)
+- Positive numbers: $+5, +10, +3.2$ (above zero)
+- Negative numbers: $-3, -7, -1.5$ (below zero)
+- Zero is neither positive nor negative
+
+**OPERATIONS WITH DIRECTED NUMBERS**
+
+**Addition Rules:**
+- Same signs: Add and keep the sign $(+3) + (+5) = +8$
+- Different signs: Subtract and take sign of larger $(-7) + (+3) = -4$
+
+**Subtraction Rules:**
+- Change subtraction to addition of opposite
+- $5 - (-3) = 5 + 3 = 8$
+- $-4 - 6 = -4 + (-6) = -10$
+
+**Multiplication and Division Rules:**
+- Same signs give positive result: $(-3) \\times (-4) = +12$
+- Different signs give negative result: $(+6) \\div (-2) = -3$
+
+**Practical Applications:**
+- Temperature changes, bank transactions, elevation changes
+- Using number lines to visualize operations`,
+      "interactive": "directed-numbers"
+    },
+    {
+      "title": "Fractions and Percentages",
+      "content": `**FRACTIONS**
+Parts of a whole: $\\frac{numerator}{denominator}$
+- Proper fractions: $\\frac{3}{4}, \\frac{2}{5}$ (numerator < denominator)
+- Improper fractions: $\\frac{7}{4}, \\frac{9}{5}$ (numerator ≥ denominator)
+- Mixed numbers: $1\\frac{3}{4}, 2\\frac{1}{2}$
+
+**OPERATIONS WITH FRACTIONS**
+- Addition/Subtraction: Find common denominator
+- Multiplication: Multiply numerators and denominators
+- Division: Multiply by reciprocal
+
+**CONVERTING FRACTIONS TO DECIMALS**
+- Divide numerator by denominator
+- $\\frac{1}{4} = 1 \\div 4 = 0.25$
+- $\\frac{1}{3} = 0.\\overline{3}$ (repeating decimal)
+
+**PERCENTAGES**
+Fractions out of 100: $\\frac{x}{100} = x\\%$
+- $\\frac{1}{2} = \\frac{50}{100} = 50\\%$
+- $0.75 = \\frac{75}{100} = 75\\%$
+
+**PERCENTAGE CALCULATIONS**
+- Finding percentage of a number: $25\\% \\text{ of } 80 = \\frac{25}{100} \\times 80 = 20$
+- Finding percentage increase/decrease
+- Practical applications: discounts, tax, interest`,
+      "interactive": "fractions-percentages"
+    },
+    {
+      "title": "Order of Operations",
+      "content": `**ORDER OF OPERATIONS (BODMAS/PEMDAS)**
+Rules for evaluating mathematical expressions
+
+**B - Brackets** (Parentheses)
+Do operations inside brackets first
+
+**O - Orders** (Exponents/Powers)
+Calculate powers and roots
+
+**DM - Division and Multiplication**
+From left to right
+
+**AS - Addition and Subtraction** 
+From left to right
+
+**Examples:**
+$2 + 3 \\times 4 = 2 + 12 = 14$ (not 20)
+$(2 + 3) \\times 4 = 5 \\times 4 = 20$
+$2^3 + 4 \\times 5 = 8 + 20 = 28$
+
+**Mixed Operations with Different Number Types:**
+- Combining integers, fractions, and decimals
+- Following order of operations consistently
+- Real-world problem solving applications`,
+      "interactive": "order-operations"
+    },
+    {
+      "title": "Squares and Square Roots",
+      "content": `**SQUARES**
+A number multiplied by itself: $n^2 = n \\times n$
+- $3^2 = 3 \\times 3 = 9$
+- $(-4)^2 = (-4) \\times (-4) = 16$
+- Perfect squares: $1, 4, 9, 16, 25, 36, 49, 64, 81, 100, \\ldots$
+
+**SQUARE ROOTS**
+The opposite of squaring: $\\sqrt{n^2} = n$
+- $\\sqrt{25} = 5$ because $5^2 = 25$
+- $\\sqrt{64} = 8$ because $8^2 = 64$
+- Every positive number has two square roots: $\\pm\\sqrt{16} = \\pm 4$
+
+**CALCULATING SQUARE ROOTS**
+- Perfect squares: memorize common ones
+- Estimation: $\\sqrt{50}$ is between 7 and 8 (since $7^2 = 49$ and $8^2 = 64$)
+- Calculator for non-perfect squares
+
+**APPLICATIONS**
+- Area problems: finding side length of squares
+- Pythagorean theorem in right triangles
+- Distance calculations`,
+      "interactive": "squares-square-roots"
+    },
+    {
+      "title": "Cubes and Cube Roots",
+      "content": `**CUBES**
+A number multiplied by itself three times: $n^3 = n \\times n \\times n$
+- $2^3 = 2 \\times 2 \\times 2 = 8$
+- $(-3)^3 = (-3) \\times (-3) \\times (-3) = -27$
+- Perfect cubes: $1, 8, 27, 64, 125, 216, 343, 512, 729, \\ldots$
+
+**CUBE ROOTS**
+The opposite of cubing: $\\sqrt[3]{n^3} = n$
+- $\\sqrt[3]{27} = 3$ because $3^3 = 27$
+- $\\sqrt[3]{-8} = -2$ because $(-2)^3 = -8$
+- Unlike square roots, cube roots of negative numbers are negative
+
+**CALCULATING CUBE ROOTS**
+- Perfect cubes: memorize common ones
+- Estimation: $\\sqrt[3]{50}$ is between 3 and 4 (since $3^3 = 27$ and $4^3 = 64$)
+- Calculator for non-perfect cubes
+
+**APPLICATIONS**
+- Volume problems: finding side length of cubes
+- Scaling in three dimensions
+- Real-world applications in engineering and physics`,
+      "interactive": "cubes-cube-roots"
+    },
+    {
+      "title": "Number Patterns",
+      "content": `**ARITHMETIC SEQUENCES**
+Patterns with constant difference between terms
+- Example: $2, 5, 8, 11, 14, \\ldots$ (difference = 3)
+- $n^{th}$ term formula: $a_n = a_1 + (n-1)d$
+
+**GEOMETRIC SEQUENCES**
+Patterns with constant ratio between terms
+- Example: $3, 6, 12, 24, 48, \\ldots$ (ratio = 2)
+- $n^{th}$ term formula: $a_n = a_1 \\times r^{n-1}$
+
+**SQUARE NUMBER PATTERNS**
+- $1, 4, 9, 16, 25, \\ldots$ (differences: $3, 5, 7, 9, \\ldots$)
+- $n^{th}$ square number: $n^2$
+
+**TRIANGULAR NUMBER PATTERNS**
+- $1, 3, 6, 10, 15, \\ldots$ (adding consecutive integers)
+- $n^{th}$ triangular number: $\\frac{n(n+1)}{2}$
+
+**FIBONACCI SEQUENCE**
+Each term is sum of previous two: $1, 1, 2, 3, 5, 8, 13, 21, \\ldots$
+
+**FINDING PATTERNS**
+- Look for differences between consecutive terms
+- Check for multiplication/division relationships
+- Identify the rule and predict next terms
+- Real-world applications in nature, art, and science`,
+      "interactive": "number-patterns"
+    }
+  ]
+},
   {
     title: "Approximations and Estimations",
     icon: "📏",

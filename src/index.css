@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+.katex-display {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}

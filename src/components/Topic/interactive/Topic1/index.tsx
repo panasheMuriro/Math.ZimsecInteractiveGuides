@@ -1,9 +1,14 @@
 import ScaleCalculator from "../ScaleCalculator";
-import Integers from "./Topic1.1/Integers";
-import NaturalNumbers from "./Topic1.1/NaturalNumbers";
-import NumberClassifier from "./Topic1.1/NumberClassifier";
-import RationalNumbers from "./Topic1.1/RationalNumbers";
-import WholeNumbers from "./Topic1.1/WholeNumbers";
+import CubesCubeRootsQuiz from "./Topic1.1/CubesCubeRootsQuiz";
+import DirectedNumbersQuiz from "./Topic1.1/DirectedNumbersQuiz";
+import FactorsHCF from "./Topic1.1/FactorsHCF";
+import { FractionsPercentagesQuiz } from "./Topic1.1/FractionsPercentagesQuiz";
+// import FractionsPercentagesQuiz from "./Topic1.1/FractionsPercentagesQuiz";
+import MultiplesLCM from "./Topic1.1/MultiplesLCM";
+import NumberPatternsQuiz from "./Topic1.1/NumberPatternsQuiz";
+import NumberTypesQuiz from "./Topic1.1/NumberTypesQuiz";
+import OrderOfOperationsQuiz from "./Topic1.1/OrderOfOperationsQuiz";
+import SquaresSquareRootsQuiz from "./Topic1.1/SquaresSquareRootsQuiz";
 import DecimalPlacesVisualizer from "./Topic1.2/DecimalPlacesVisualizer";
 import EstimationGame from "./Topic1.2/EstimationGame";
 import LimitsOfAccuracy from "./Topic1.2/LimitsOfAccuracy";
@@ -20,14 +25,20 @@ import BinaryExplorer from "./Topic1.5/BinaryExplorer";
 
 
 export const topic1Components: Record<string, React.ComponentType> = {
-  "number-classifier": NumberClassifier,
   "rounding-game": RoundingGame,
   "standard-form-converter": StandardFormConverter,
   "scale-calculator": ScaleCalculator,
-  "natural-numbers": NaturalNumbers,
-  "whole-numbers": WholeNumbers,
-  "integers": Integers,
-  "rational-numbers": RationalNumbers,
+"number-types": NumberTypesQuiz,
+"factors-hcf":FactorsHCF,
+"multiples-lcm": MultiplesLCM,
+"directed-numbers":DirectedNumbersQuiz,
+"fractions-percentages": FractionsPercentagesQuiz,
+"squares-square-roots":SquaresSquareRootsQuiz,
+"cubes-cube-roots":CubesCubeRootsQuiz,
+"order-operations": OrderOfOperationsQuiz,
+"number-patterns": NumberPatternsQuiz,
+
+
   "decimal-places": DecimalPlacesVisualizer,
   "estimation-game": EstimationGame,
   "limits-accuracy": LimitsOfAccuracy,
