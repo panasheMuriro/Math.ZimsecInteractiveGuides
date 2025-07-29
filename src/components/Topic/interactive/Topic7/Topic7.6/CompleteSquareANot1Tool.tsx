@@ -1,5 +1,5 @@
 // CompleteSquareANot1Tool.tsx
-import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Completing the Square (a ≠ 1)
 const completeSquareANot1Data: InteractiveToolData = {

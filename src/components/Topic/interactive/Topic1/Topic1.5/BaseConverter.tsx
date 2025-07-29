@@ -1,4 +1,4 @@
-import MultiStepInteractiveComponent, { InteractiveToolData, McqOptions, PracticeProblem, Step } from '../../Topic7/Templates/MultiStepInteractiveComponent';
+import MultiStepInteractiveComponent, { InteractiveToolData, McqOptions, PracticeProblem, Step } from '../../Templates/MultiStepInteractiveComponent';
 
 // Define the generic steps for the conversion process
 const conversionSteps: Step[] = [

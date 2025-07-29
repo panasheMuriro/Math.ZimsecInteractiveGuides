@@ -1,4 +1,4 @@
-import MultiStepInteractiveComponent, { InteractiveToolData, McqOptions, PracticeProblem, Step } from '../../Topic7/Templates/MultiStepInteractiveComponent'; // Adjust path
+import MultiStepInteractiveComponent, { InteractiveToolData, McqOptions, PracticeProblem, Step } from '../../Templates/MultiStepInteractiveComponent'; // Adjust path
 
 
 const baseArithmeticSteps: Step[] = [

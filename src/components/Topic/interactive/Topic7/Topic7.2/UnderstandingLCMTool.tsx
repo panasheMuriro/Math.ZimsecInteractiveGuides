@@ -1,5 +1,5 @@
 // UnderstandingLCMTool.tsx
-import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Understanding LCM
 const understandingLCMData: InteractiveToolData = {

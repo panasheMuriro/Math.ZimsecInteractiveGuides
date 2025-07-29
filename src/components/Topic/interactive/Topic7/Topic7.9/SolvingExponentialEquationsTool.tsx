@@ -1,6 +1,6 @@
 
 // SolvingExponentialEquationsTool.tsx
-import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Solving Exponential Equations
 const solvingExponentialEquationsData: InteractiveToolData = {

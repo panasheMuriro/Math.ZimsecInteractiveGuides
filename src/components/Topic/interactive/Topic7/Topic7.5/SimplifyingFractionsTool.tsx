@@ -1,4 +1,4 @@
-import MultiStepInteractiveComponent, { InteractiveToolData } from "../Templates/MultiStepInteractiveComponent";
+import MultiStepInteractiveComponent, { InteractiveToolData } from "../../Templates/MultiStepInteractiveComponent";
 
   // Define data for Add/Subtract Fractions
 const simplifyingFractionsData: InteractiveToolData = {

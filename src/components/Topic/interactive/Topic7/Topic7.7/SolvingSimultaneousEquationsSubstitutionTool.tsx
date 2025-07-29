@@ -1,5 +1,5 @@
 // SolvingSimultaneousEquationsSubstitutionTool.tsx
-import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Solving Simultaneous Equations (Substitution Method)
 const solvingSimultaneousEquationsSubstitutionData: InteractiveToolData = {

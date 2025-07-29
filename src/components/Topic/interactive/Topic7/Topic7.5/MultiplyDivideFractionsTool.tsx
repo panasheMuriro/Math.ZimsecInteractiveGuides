@@ -1,5 +1,5 @@
 // MultiplyDivideFractionsTool.tsx
-import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Multiplying and Dividing Fractions
 const multiplyDivideFractionsData: InteractiveToolData = {

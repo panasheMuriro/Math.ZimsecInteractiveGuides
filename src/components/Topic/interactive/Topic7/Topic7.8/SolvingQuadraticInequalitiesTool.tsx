@@ -1,5 +1,5 @@
 // SolvingQuadraticInequalitiesTool.tsx
-import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Solving Quadratic Inequalities
 const solvingQuadraticInequalitiesData: InteractiveToolData = {

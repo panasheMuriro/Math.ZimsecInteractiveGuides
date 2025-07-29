@@ -1,4 +1,4 @@
-import MultiStepInteractiveComponent, { InteractiveToolData } from "../../Topic7/Templates/MultiStepInteractiveComponent";
+import MultiStepInteractiveComponent, { InteractiveToolData } from "../../Templates/MultiStepInteractiveComponent";
 
 // Define data for Multiplying Numbers in Standard Form
 const standardFormMultiplicationData: InteractiveToolData = {

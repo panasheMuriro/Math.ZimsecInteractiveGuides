@@ -1,5 +1,5 @@
 // PerfectSquareTrinomialsTool.tsx
-import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Perfect Square Trinomials
 const perfectSquareTrinomialsData: InteractiveToolData = {

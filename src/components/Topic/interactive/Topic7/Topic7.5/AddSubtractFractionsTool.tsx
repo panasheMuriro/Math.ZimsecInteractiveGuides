@@ -188,7 +188,7 @@ const addSubtractFractionsData: InteractiveToolData = {
   ]
 };
 
-import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent';
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../../Templates/MultiStepInteractiveComponent';
 export default function AddSubtractFractionsTool() {
   return <MultiStepInteractiveComponent toolData={addSubtractFractionsData} />
 }

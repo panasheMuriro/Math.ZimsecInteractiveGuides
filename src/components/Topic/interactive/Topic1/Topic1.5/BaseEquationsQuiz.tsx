@@ -1,5 +1,5 @@
 // BaseEquationsData.ts
-import MultiStepInteractiveComponent, { InteractiveToolData, PracticeProblem, McqOptions, Step } from '../../Topic7/Templates/MultiStepInteractiveComponent'; // Adjust path
+import MultiStepInteractiveComponent, { InteractiveToolData, PracticeProblem, McqOptions, Step } from '../../Templates/MultiStepInteractiveComponent'; // Adjust path
 
 // --- Generic Steps for Solving Base Equations ---
 const baseEquationsSteps: Step[] = [

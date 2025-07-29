@@ -1,5 +1,5 @@
 // SolvingQuadraticEquationsCompletingSquareTool.tsx
-import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Solving Quadratic Equations (Completing the Square Method)
 const solvingQuadraticEquationsCompletingSquareData: InteractiveToolData = {

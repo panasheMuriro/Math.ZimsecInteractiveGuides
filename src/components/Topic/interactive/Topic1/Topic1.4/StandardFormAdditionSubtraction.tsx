@@ -1,4 +1,4 @@
-import MultiStepInteractiveComponent, { InteractiveToolData } from "../../Topic7/Templates/MultiStepInteractiveComponent";
+import MultiStepInteractiveComponent, { InteractiveToolData } from "../../Templates/MultiStepInteractiveComponent";
 
 // Define data for Adding and Subtracting Numbers in Standard Form (Method 1: Convert to Ordinary)
 const standardFormAddSubData: InteractiveToolData = {

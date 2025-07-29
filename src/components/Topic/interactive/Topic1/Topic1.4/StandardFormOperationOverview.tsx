@@ -1,4 +1,4 @@
-import MultiStepInteractiveComponent, { InteractiveToolData } from "../../Topic7/Templates/MultiStepInteractiveComponent";
+import MultiStepInteractiveComponent, { InteractiveToolData } from "../../Templates/MultiStepInteractiveComponent";
 
 // Define data for Operations in Standard Form Overview
 const standardFormOperationsOverviewData: InteractiveToolData = {

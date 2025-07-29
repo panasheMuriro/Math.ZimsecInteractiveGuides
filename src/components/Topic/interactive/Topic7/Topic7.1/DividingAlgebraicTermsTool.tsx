@@ -1,4 +1,4 @@
-import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Dividing Algebraic Terms
 const dividingAlgebraicTermsData: InteractiveToolData = {
