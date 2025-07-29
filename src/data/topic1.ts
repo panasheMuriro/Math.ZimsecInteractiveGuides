@@ -1349,35 +1349,155 @@ Method:
   ]
 },
 
-  {
-    title: "Scales and Simple Map Problems",
-    icon: "🗺️",
-    content: `Scales help us represent large real-world distances on manageable maps and drawings.`,
-    subsections: [
-      {
-        title: "Scale Ratios",
-        content: `**SCALE RATIOS**
-A scale shows the relationship between map distance and real distance:
-- $1:50,000$ means $1\\text{ cm}$ on map $= 50,000\\text{ cm}$ in reality
-- $1:100$ means $1\\text{ cm}$ on drawing $= 100\\text{ cm}$ in reality
-- Always written as map distance : real distance`,
-        interactive: "scale-ratios"
-      },
-      {
-        title: "Scale Calculations",
-        content: `**SCALE CALCULATIONS**
-Finding real distance:
-- If map distance $= 5\\text{ cm}$ and scale $= 1:20,000$
-- Real distance $= 5 \\times 20,000 = 100,000\\text{ cm} = 1\\text{ km}$
+//   {
+//     title: "Scales and Simple Map Problems",
+//     icon: "🗺️",
+//     content: `Scales help us represent large real-world distances on manageable maps and drawings.`,
+//     subsections: [
+//       {
+//         title: "Scale Ratios",
+//         content: `**SCALE RATIOS**
+// A scale shows the relationship between map distance and real distance:
+// - $1:50,000$ means $1\\text{ cm}$ on map $= 50,000\\text{ cm}$ in reality
+// - $1:100$ means $1\\text{ cm}$ on drawing $= 100\\text{ cm}$ in reality
+// - Always written as map distance : real distance`,
+//         interactive: "scale-ratios"
+//       },
+//       {
+//         title: "Scale Calculations",
+//         content: `**SCALE CALCULATIONS**
+// Finding real distance:
+// - If map distance $= 5\\text{ cm}$ and scale $= 1:20,000$
+// - Real distance $= 5 \\times 20,000 = 100,000\\text{ cm} = 1\\text{ km}$
 
-Finding map distance:
-- If real distance $= 3\\text{ km}$ and scale $= 1:50,000$
-- Convert: $3\\text{ km} = 300,000\\text{ cm}$
-- Map distance $= 300,000 \\div 50,000 = 6\\text{ cm}$`,
-        interactive: "scale-calculator"
-      }
-    ]
-  }
+// Finding map distance:
+// - If real distance $= 3\\text{ km}$ and scale $= 1:50,000$
+// - Convert: $3\\text{ km} = 300,000\\text{ cm}$
+// - Map distance $= 300,000 \\div 50,000 = 6\\text{ cm}$`,
+//         interactive: "scale-calculator"
+//       }
+//     ]
+//   }
+
+{
+ title: "Scales and Simple Map Problems",
+ icon: "🗺️",
+ content: `Scales help us represent large real-world distances on manageable maps and drawings. They are essential tools for navigation, construction, and design work.`,
+ subsections: [
+   {
+     title: "Types of Scales",
+     content: `**TYPES OF SCALES**
+
+**Representative Fraction (RF):**
+- Written as a fraction: $\\frac{1}{50,000}$ or $1:50,000$
+- The numerator is always 1
+- Denominator shows how many real units are represented by 1 map unit
+- Example: $1:25,000$ means 1 cm on map = 25,000 cm in reality
+
+**Ratio Scale:**
+- Expressed as a ratio between map distance and ground distance
+- Can be written as $1:n$ where $n$ is the scale factor
+- Example: $1:100,000$ means the real distance is 100,000 times larger
+
+**Linear Scale:**
+- Shows actual measurements on a graduated line
+- Commonly found on maps as a bar scale
+- Allows direct measurement without calculations
+
+**IDENTIFYING SCALES FROM GIVEN INFORMATION:**
+If 2 cm on a map represents 5 km in reality:
+- Convert to same units: 5 km = 500,000 cm
+- Scale = $2:500,000 = 1:250,000$`,
+     interactive: "scale-types"
+   },
+   {
+     title: "Scale Measurements and Calculations",
+     content: `**MEASURING WITH SCALES**
+
+**Finding Real Distance:**
+- Map distance = 8 cm, Scale = $1:50,000$
+- Real distance = $8 \\times 50,000 = 400,000$ cm = 4 km
+
+**Finding Map Distance:**
+- Real distance = 12 km, Scale = $1:200,000$
+- Convert: 12 km = 1,200,000 cm
+- Map distance = $1,200,000 \\div 200,000 = 6$ cm
+
+**Finding Scale:**
+- Map distance = 3 cm, Real distance = 15 km
+- Convert: 15 km = 1,500,000 cm
+- Scale = $3:1,500,000 = 1:500,000$
+
+**DRAWING TO SCALE:**
+To draw a 50m building using scale $1:1000$:
+- Convert: 50 m = 5,000 cm
+- Drawing length = $5,000 \\div 1,000 = 5$ cm`,
+     interactive: "scale-calculator"
+   },
+   {
+     title: "Scale Factor and Area Calculations",
+     content: `**SCALE FACTOR**
+The ratio by which all linear dimensions are multiplied:
+- If scale = $1:500$, then scale factor = $\\frac{1}{500}$
+- Linear scale factor = $k$
+- Area scale factor = $k^2$
+
+**AREA CALCULATIONS WITH SCALES**
+When scale factor = $1:n$:
+- Linear measurements are reduced by factor $n$
+- Areas are reduced by factor $n^2$
+
+**Example:**
+- Map scale = $1:10,000$
+- Area on map = 4 cm²
+- Real area = $4 \\times (10,000)^2 = 4 \\times 100,000,000$ cm²
+- Real area = $400,000,000$ cm² = 40 m²
+
+**FINDING AREA FACTOR:**
+- Given scale factor = $1:2000$
+- Area factor = $(2000)^2 = 4,000,000$
+
+**FINDING SCALE FACTOR FROM AREA FACTOR:**
+- Given area factor = 250,000
+- Scale factor = $\\sqrt{250,000} = 500$
+- Therefore scale = $1:500$`,
+     interactive: "area-scale"
+   },
+   {
+     title: "Real-World Applications",
+     content: `**PRACTICAL APPLICATIONS**
+
+**Construction and Architecture:**
+- Building plans typically use scales like $1:100$ or $1:50$
+- Site plans often use $1:500$ or $1:1000$
+- Detail drawings may use $1:5$ or $1:10$
+
+**Map Reading:**
+- Ordnance Survey maps commonly use $1:25,000$ or $1:50,000$
+- Road atlases typically use $1:200,000$
+- City maps often use $1:10,000$
+
+**PROBLEM-SOLVING STRATEGIES:**
+1. Identify what information is given
+2. Determine what needs to be found
+3. Convert all units to be consistent
+4. Apply the appropriate scale formula
+5. Check your answer makes sense
+
+**COMMON CONVERSIONS:**
+- 1 km = 1,000 m = 100,000 cm
+- 1 m = 100 cm
+- When working with areas: remember to square the scale factor
+
+**Example Problem:**
+A rectangular field measures 8 cm by 6 cm on a map with scale $1:5,000$.
+- Real length = $8 \\times 5,000 = 40,000$ cm = 400 m
+- Real width = $6 \\times 5,000 = 30,000$ cm = 300 m  
+- Real area = $400 \\times 300 = 120,000$ m² = 12 hectares`,
+     interactive: "scale-problems"
+   }
+ ]
+}
 ];
 
 
