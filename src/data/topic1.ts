@@ -725,34 +725,70 @@ If $8$ machines can complete a job in $15$ days, how long will it take $12$ mach
     }
   ]
 }
-,  {
-    title: "Ordinary and Standard Form",
-    icon: "🔬",
-    content: `Standard form helps us write very large or very small numbers in a manageable way.`,
-    subsections: [
-      {
-        title: "Large Numbers in Standard Form",
-        content: `**LARGE NUMBERS**
+,
+ {
+  title: "Ordinary and Standard Form",
+  icon: "🔬",
+  content: `Standard form helps us write very large or very small numbers in a manageable way.`,
+  subsections: [
+    {
+      title: "Large Numbers in Standard Form",
+      content: `**LARGE NUMBERS**
 - $5,000,000 = 5 \\times 10^6$
 - $340,000,000 = 3.4 \\times 10^8$
 - $7,200,000,000 = 7.2 \\times 10^9$
 
-For large numbers, count how many places you move the decimal point to the left.`,
-        interactive: "large-numbers"
-      },
-      {
-        title: "Small Numbers in Standard Form",
-        content: `**SMALL NUMBERS**
+For large numbers, count how many places you move the decimal point to the left.
+
+**KEY POINTS:**
+- The power of 10 tells us how many zeros follow the first significant digit
+- Moving decimal left = positive exponent
+- Always write the coefficient between 1 and 10
+- Useful for expressing distances in space, population sizes, and large measurements
+
+**STEP-BY-STEP METHOD:**
+1. Identify the first non-zero digit
+2. Place decimal point immediately after it
+3. Count positions moved from original decimal place
+4. This count becomes your positive exponent
+
+**REAL-WORLD EXAMPLES:**
+- Earth's mass: $5.97 \\times 10^{24}$ kg
+- Speed of light: $3 \\times 10^8$ m/s
+- World population: approximately $8 \\times 10^9$ people`,
+      interactive: "large-numbers"
+    },
+    {
+      title: "Small Numbers in Standard Form",
+      content: `**SMALL NUMBERS**
 - $0.005 = 5 \\times 10^{-3}$
 - $0.00034 = 3.4 \\times 10^{-4}$
 - $0.000000072 = 7.2 \\times 10^{-8}$
 
-For small numbers, count how many places you move the decimal point to the right.`,
-        interactive: "small-numbers"
-      },
-      {
-        title: "Standard Form Converter",
-        content: `**STANDARD FORM RULES**
+For small numbers, count how many places you move the decimal point to the right.
+
+**KEY POINTS:**
+- The negative exponent shows how many decimal places the number has
+- Moving decimal right = negative exponent
+- Coefficient still stays between 1 and 10
+- Essential for microscopic measurements, probabilities, and precision values
+
+**STEP-BY-STEP METHOD:**
+1. Find the first non-zero digit
+2. Place decimal point immediately after it
+3. Count positions moved from original decimal place
+4. This count becomes your negative exponent
+
+**REAL-WORLD EXAMPLES:**
+- Size of an atom: approximately $1 \\times 10^{-10}$ meters
+- Mass of an electron: $9.11 \\times 10^{-31}$ kg
+- Thickness of human hair: $7 \\times 10^{-5}$ meters
+- Probability of winning lottery: approximately $1.4 \\times 10^{-8}$`,
+      interactive: "small-numbers"
+    },
+    {
+      title: "Standard Form Converter",
+      content: `**STANDARD FORM RULES**
 A number in standard form is written as: $a \\times 10^n$
 - Where $1 \\leq a < 10$
 - $n$ is an integer (positive for large numbers, negative for small numbers)
@@ -766,11 +802,157 @@ For large numbers:
 For small numbers:
 1. Move decimal point to after first non-zero digit
 2. Count places moved (this is your power)
-3. Power is negative`,
-        interactive: "standard-form-converter"
-      }
-    ]
-  },
+3. Power is negative
+
+**ADDITIONAL CONVERSION TIPS:**
+- Numbers between 1 and 10 have exponent 0 (e.g., $5.7 = 5.7 \\times 10^0$)
+- When multiplying in standard form: add exponents
+- When dividing in standard form: subtract exponents
+- Calculator display often shows 'E' notation (e.g., 2.5E+08 = $2.5 \\times 10^8$)
+
+**COMMON MISTAKES TO AVOID:**
+- Don't forget the coefficient must be between 1 and 10
+- Don't confuse the direction: left movement = positive exponent, right = negative
+- Remember to count ALL decimal places moved, not just zeros
+- When converting back, move decimal in opposite direction
+
+**PRACTICE STRATEGY:**
+1. Start with simple whole numbers and decimals
+2. Practice identifying the first significant digit
+3. Count carefully - use your finger to track decimal movement
+4. Check your answer by converting back to ordinary form`,
+      interactive: "standard-form-converter"
+    },
+    {
+      title: "Operations in Standard Form",
+      content: `**PERFORMING OPERATIONS WITH STANDARD FORM**
+When working with numbers in standard form, we can perform arithmetic operations efficiently by using the laws of indices.
+
+**GENERAL PRINCIPLES:**
+- Keep numbers in standard form throughout calculations
+- Use index laws for powers of 10
+- Ensure final answer is in proper standard form
+- Check reasonableness of your result
+
+**REMEMBER:**
+- $10^a \\times 10^b = 10^{a+b}$
+- $10^a \\div 10^b = 10^{a-b}$
+- $(10^a)^b = 10^{ab}$`,
+      interactive: "standard-form-operations-overview"
+    },
+    {
+      title: "Adding and Subtracting Numbers in Standard Form",
+      content: `**ADDING AND SUBTRACTING IN STANDARD FORM**
+
+**METHOD 1: Convert to Ordinary Form**
+$3.2 \\times 10^5 + 4.7 \\times 10^4$
+= $320,000 + 47,000$
+= $367,000$
+= $3.67 \\times 10^5$
+
+**METHOD 2: Same Powers of 10**
+When powers are the same:
+$(2.3 \\times 10^6) + (1.4 \\times 10^6) = (2.3 + 1.4) \\times 10^6 = 3.7 \\times 10^6$
+
+**METHOD 3: Make Powers Equal**
+$5.2 \\times 10^7 + 3.1 \\times 10^6$
+= $5.2 \\times 10^7 + 0.31 \\times 10^7$
+= $(5.2 + 0.31) \\times 10^7$
+= $5.51 \\times 10^7$
+
+**KEY STEPS:**
+1. Check if powers of 10 are the same
+2. If not, convert one number to match the other's power
+3. Add or subtract the coefficients
+4. Keep the same power of 10
+5. Convert back to proper standard form if needed
+
+**WORKED EXAMPLES:**
+- $(7.3 \\times 10^4) - (2.8 \\times 10^3)$
+  = $7.3 \\times 10^4 - 0.28 \\times 10^4$
+  = $7.02 \\times 10^4$
+
+- $(1.5 \\times 10^{-3}) + (4.2 \\times 10^{-4})$
+  = $1.5 \\times 10^{-3} + 0.42 \\times 10^{-3}$
+  = $1.92 \\times 10^{-3}$`,
+      interactive: "standard-form-addition-subtraction"
+    },
+    {
+      title: "Multiplying Numbers in Standard Form",
+      content: `**MULTIPLYING IN STANDARD FORM**
+
+**BASIC RULE:**
+$(a \\times 10^m) \\times (b \\times 10^n) = (a \\times b) \\times 10^{m+n}$
+
+**STEP-BY-STEP METHOD:**
+1. Multiply the coefficients (a × b)
+2. Add the powers of 10 (m + n)
+3. Ensure result is in proper standard form
+
+**WORKED EXAMPLES:**
+$(3.2 \\times 10^5) \\times (2.1 \\times 10^3)$
+= $(3.2 \\times 2.1) \\times 10^{5+3}$
+= $6.72 \\times 10^8$
+
+$(4.5 \\times 10^{-2}) \\times (3.0 \\times 10^6)$
+= $(4.5 \\times 3.0) \\times 10^{-2+6}$
+= $13.5 \\times 10^4$
+= $1.35 \\times 10^5$ (converting to proper standard form)
+
+**MORE COMPLEX EXAMPLES:**
+$(2.4 \\times 10^7) \\times (5.0 \\times 10^{-3}) \\times (1.2 \\times 10^2)$
+= $(2.4 \\times 5.0 \\times 1.2) \\times 10^{7+(-3)+2}$
+= $14.4 \\times 10^6$
+= $1.44 \\times 10^7$
+
+**IMPORTANT NOTES:**
+- Always check if your coefficient is between 1 and 10
+- If coefficient ≥ 10, adjust by increasing the power
+- Practice mental arithmetic with the coefficients`,
+      interactive: "standard-form-multiplication"
+    },
+    {
+      title: "Dividing Numbers in Standard Form",
+      content: `**DIVIDING IN STANDARD FORM**
+
+**BASIC RULE:**
+$(a \\times 10^m) \\div (b \\times 10^n) = \\frac{a}{b} \\times 10^{m-n}$
+
+**STEP-BY-STEP METHOD:**
+1. Divide the coefficients (a ÷ b)
+2. Subtract the powers of 10 (m - n)
+3. Ensure result is in proper standard form
+
+**WORKED EXAMPLES:**
+$(8.4 \\times 10^7) \\div (2.1 \\times 10^3)$
+= $\\frac{8.4}{2.1} \\times 10^{7-3}$
+= $4.0 \\times 10^4$
+
+$(6.3 \\times 10^{-2}) \\div (9.0 \\times 10^4)$
+= $\\frac{6.3}{9.0} \\times 10^{-2-4}$
+= $0.7 \\times 10^{-6}$
+= $7.0 \\times 10^{-7}$ (converting to proper standard form)
+
+**NEGATIVE EXPONENT EXAMPLES:**
+$(1.8 \\times 10^5) \\div (3.6 \\times 10^{-2})$
+= $\\frac{1.8}{3.6} \\times 10^{5-(-2)}$
+= $0.5 \\times 10^7$
+= $5.0 \\times 10^6$
+
+**FRACTION RESULTS:**
+$(7.5 \\times 10^4) \\div (2.0 \\times 10^6)$
+= $\\frac{7.5}{2.0} \\times 10^{4-6}$
+= $3.75 \\times 10^{-2}$
+
+**COMMON MISTAKES:**
+- Forgetting to subtract exponents (not add)
+- Sign errors with negative exponents
+- Not converting final answer to proper standard form
+- Calculation errors with coefficient division`,
+      interactive: "standard-form-division"
+    }
+  ]
+},
   {
     title: "Number Bases",
     icon: "💻",

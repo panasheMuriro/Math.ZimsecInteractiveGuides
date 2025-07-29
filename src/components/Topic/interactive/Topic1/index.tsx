@@ -18,7 +18,11 @@ import RateCalculator from "./Topic1.3/RateCalculator";
 import RatioQuiz from "./Topic1.3/RatioQuiz";
 import LargeNumbers from "./Topic1.4/LargeNumbers";
 import SmallNumbers from "./Topic1.4/SmallNumbers";
+import StandardFormAdditionSubtraction from "./Topic1.4/StandardFormAdditionSubtraction";
 import StandardFormConverter from "./Topic1.4/StandardFormConverter";
+import StandardFormDivision from "./Topic1.4/StandardFormDivision";
+import StandardFormMultiplication from "./Topic1.4/StandardFormMultiplication";
+import StandardFormOperationOverview from "./Topic1.4/StandardFormOperationOverview";
 import Base10Explorer from "./Topic1.5/Base10Explorer";
 import BaseConverter from "./Topic1.5/BaseConverter";
 import BinaryExplorer from "./Topic1.5/BinaryExplorer";
@@ -44,6 +48,11 @@ export const topic1Components: Record<string, React.ComponentType> = {
   "limits-accuracy": LimitsOfAccuracyGame,
   "large-numbers": LargeNumbers,
   "small-numbers": SmallNumbers,
+"standard-form-addition-subtraction": StandardFormAdditionSubtraction,
+"standard-form-multiplication": StandardFormMultiplication,
+"standard-form-division": StandardFormDivision,
+"standard-form-operations-overview": StandardFormOperationOverview,
+
   "ratio-quiz": RatioQuiz,
   "rate-calculator": RateCalculator,
   "direct-proportion": DirectProportion,
