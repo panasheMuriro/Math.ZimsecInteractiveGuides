@@ -1,5 +1,5 @@
 // SquaresSquareRootsQuizData.ts
-import Topic1QuizTemplate, { QuizQuestion } from '../Templates/Topic1QuizTemplate';
+import MultipleChoiceInteractiveComponent, { QuizQuestion } from '../../Templates/MultipleChoiceInteractiveComponent';
 
 const squaresSquareRootsQuizData = {
   title: "Squares & Square Roots",
@@ -88,7 +88,7 @@ rules: [
 
 // Optional Wrapper Component
 export const SquaresSquareRootsQuiz: React.FC = () => {
-  return <Topic1QuizTemplate {...squaresSquareRootsQuizData} />;
+  return <MultipleChoiceInteractiveComponent {...squaresSquareRootsQuizData} />;
 };
 
 export default SquaresSquareRootsQuiz;

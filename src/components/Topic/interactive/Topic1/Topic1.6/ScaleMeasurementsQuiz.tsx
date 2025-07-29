@@ -1,5 +1,5 @@
 // ScaleMeasurementsQuizQuestions.ts
-import { QuizQuestion } from '../Templates/Topic1QuizTemplate'; // Adjust the path as needed
+import { QuizQuestion } from '../../Templates/MultipleChoiceInteractiveComponent'; // Adjust the path as needed
 
 
 
@@ -74,7 +74,7 @@ questionType: "text",
 
 // ScaleMeasurementsQuizComponent.tsx
 import React from 'react';
-import Topic1QuizTemplate from '../Templates/Topic1QuizTemplate'; // Adjust the path as needed// Adjust the path as needed
+import MultipleChoiceInteractiveComponent from '../../Templates/MultipleChoiceInteractiveComponent'; // Adjust the path as needed// Adjust the path as needed
 
 const ScaleMeasurementsQuiz: React.FC = () => {
   // Define theme and icon specific to Scale Measurements
@@ -99,7 +99,7 @@ const ScaleMeasurementsQuiz: React.FC = () => {
 
   return (
     <div className="flex justify-center items-center">
-      <Topic1QuizTemplate
+      <MultipleChoiceInteractiveComponent
         title="Scale Measurements Quiz"
         icon={scaleMeasurementsIcon}
         theme={scaleMeasurementsTheme}

@@ -12,10 +12,11 @@ export interface QuizQuestion {
   explanation: string; // KaTeX string for explanation
   explanationType?: 'text' | 'math'; // Controls rendering: 'math' -> BlockMath, 'text' (or undefined) -> InlineMath
   questionType?: 'text' | 'math'
+  optionType?: 'text'| 'math'
 }
 
 // Define the type for the component props
-interface Topic1QuizTemplateProps {
+interface MultipleChoiceInteractiveComponentProps {
   title: string;
   icon: string;
   theme: {
@@ -30,7 +31,7 @@ interface Topic1QuizTemplateProps {
   onReset?: () => void;
 }
 
-const Topic1QuizTemplate: React.FC<Topic1QuizTemplateProps> = ({
+const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComponentProps> = ({
   title,
   icon,
   theme,
@@ -195,7 +196,7 @@ const Topic1QuizTemplate: React.FC<Topic1QuizTemplateProps> = ({
                     : 'bg-white/20 hover:bg-white/30 text-white border-2 border-transparent'
               } ${feedback ? 'cursor-default' : 'hover:scale-[1.03]'}`}
             >
-              <InlineMath math={option} />
+              {currentQuestion.optionType == "text"? renderTextWithMath(option): <InlineMath math={option} /> }
             </button>
           ))}
         </div>
@@ -273,4 +274,4 @@ const Topic1QuizTemplate: React.FC<Topic1QuizTemplateProps> = ({
   );
 };
 
-export default Topic1QuizTemplate;
+export default MultipleChoiceInteractiveComponent;

@@ -1,7 +1,7 @@
 // Base10QuizQuestions.ts
 // Adjust path as needed
 
-import Topic1QuizTemplate, { QuizQuestion } from "../Templates/Topic1QuizTemplate";
+import MultipleChoiceInteractiveComponent, { QuizQuestion } from "../../Templates/MultipleChoiceInteractiveComponent";
 
 const base10QuizQuestions: QuizQuestion[] = [
   // Question 1: Standard -> Expanded (Powers)
@@ -108,7 +108,7 @@ const Base10Quiz: React.FC = () => {
 
   return (
     <div className="flex justify-center items-center">
-      <Topic1QuizTemplate
+      <MultipleChoiceInteractiveComponent
         title="Base 10 Quiz"
         icon={base10Icon}
         theme={base10Theme}

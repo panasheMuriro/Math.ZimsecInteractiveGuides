@@ -1,5 +1,5 @@
 // OtherBasesQuizQuestions.ts
-import Topic1QuizTemplate, { QuizQuestion } from "../Templates/Topic1QuizTemplate"; // Adjust path as needed
+import MultipleChoiceInteractiveComponent, { QuizQuestion } from "../../Templates/MultipleChoiceInteractiveComponent"; // Adjust path as needed
 
 const otherBasesQuizQuestions: QuizQuestion[] = [
   // Question 1: Octal Standard -> Expanded Form (Powers)
@@ -95,7 +95,7 @@ const OtherBasesQuiz: React.FC = () => {
 
   return (
     <div className="flex justify-center items-center">
-      <Topic1QuizTemplate
+      <MultipleChoiceInteractiveComponent
         title="Other Bases Quiz"
         icon={otherBasesIcon}
         theme={otherBasesTheme}

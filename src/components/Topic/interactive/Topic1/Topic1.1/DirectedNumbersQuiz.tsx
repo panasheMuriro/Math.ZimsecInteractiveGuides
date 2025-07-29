@@ -1,5 +1,5 @@
 // DirectedNumbersQuizData.ts
-import Topic1QuizTemplate, { QuizQuestion } from '../Templates/Topic1QuizTemplate';
+import MultipleChoiceInteractiveComponent, { QuizQuestion } from '../../Templates/MultipleChoiceInteractiveComponent';
 const directedNumbersQuizData = {
   title: "Directed Numbers Quiz",
   icon: "⇄",
@@ -69,7 +69,7 @@ const directedNumbersQuizData = {
   ] satisfies QuizQuestion[]
 };
 const DirectedNumbersQuiz: React.FC = () => {
-  return <Topic1QuizTemplate {...directedNumbersQuizData} />;
+  return <MultipleChoiceInteractiveComponent {...directedNumbersQuizData} />;
 };
 
 export default DirectedNumbersQuiz;

@@ -1,5 +1,5 @@
 // FractionsPercentagesQuizData.ts
-import Topic1QuizTemplate, { QuizQuestion } from "../Templates/Topic1QuizTemplate"; // Adjust the import path as needed
+import MultipleChoiceInteractiveComponent, { QuizQuestion } from "../../Templates/MultipleChoiceInteractiveComponent"; // Adjust the import path as needed
 
 const fractionsPercentagesQuizData = {
   title: "Fractions & Percentages",
@@ -104,7 +104,7 @@ const fractionsPercentagesQuizData = {
 
 // Wrapper Component
 export const FractionsPercentagesQuiz: React.FC = () => {
-  return <Topic1QuizTemplate {...fractionsPercentagesQuizData} />;
+  return <MultipleChoiceInteractiveComponent {...fractionsPercentagesQuizData} />;
 };
 
 // Default export if needed directly

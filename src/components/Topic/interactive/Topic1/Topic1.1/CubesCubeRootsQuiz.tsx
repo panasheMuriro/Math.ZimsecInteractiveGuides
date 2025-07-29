@@ -1,5 +1,5 @@
 // CubesCubeRootsQuizData.ts
-import Topic1QuizTemplate, { QuizQuestion } from '../Templates/Topic1QuizTemplate';
+import MultipleChoiceInteractiveComponent, { QuizQuestion } from '../../Templates/MultipleChoiceInteractiveComponent';
 
 const cubesCubeRootsQuizData = {
   title: "Cubes & Cube Roots",
@@ -88,7 +88,7 @@ const cubesCubeRootsQuizData = {
 
 // Optional Wrapper Component
 export const CubesCubeRootsQuiz: React.FC = () => {
-  return <Topic1QuizTemplate {...cubesCubeRootsQuizData} />;
+  return <MultipleChoiceInteractiveComponent {...cubesCubeRootsQuizData} />;
 };
 
 export default CubesCubeRootsQuiz;

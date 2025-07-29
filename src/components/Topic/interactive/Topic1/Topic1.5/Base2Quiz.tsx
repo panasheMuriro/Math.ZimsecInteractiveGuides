@@ -1,5 +1,5 @@
 // Base2QuizQuestions.ts
-import Topic1QuizTemplate, { QuizQuestion } from "../Templates/Topic1QuizTemplate"; // Adjust path as needed
+import MultipleChoiceInteractiveComponent, { QuizQuestion } from "../../Templates/MultipleChoiceInteractiveComponent"; // Adjust path as needed
 
 const base2QuizQuestions: QuizQuestion[] = [
   // Question 1: Standard Binary -> Expanded Form (Powers)
@@ -82,7 +82,7 @@ const Base2Quiz: React.FC = () => {
 
   return (
     <div className="flex justify-center items-center">
-      <Topic1QuizTemplate
+      <MultipleChoiceInteractiveComponent
         title="Base 2 Quiz"
         icon={base2Icon}
         theme={base2Theme}

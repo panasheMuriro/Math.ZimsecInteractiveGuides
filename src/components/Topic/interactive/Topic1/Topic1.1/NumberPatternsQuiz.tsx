@@ -1,7 +1,7 @@
 // NumberPatternsData.ts
  // Assuming QuizQuestion type is available
 
-import Topic1QuizTemplate, { QuizQuestion } from "../Templates/Topic1QuizTemplate";
+import MultipleChoiceInteractiveComponent, { QuizQuestion } from "../../Templates/MultipleChoiceInteractiveComponent";
 
 // Define specific types for Number Pattern questions if needed beyond the standard QuizQuestion
 // For now, we can use QuizQuestion but ensure the 'question' and 'explanation' are KaTeX strings.
@@ -112,7 +112,7 @@ const numberPatternsQuizData = {
 
 // Wrapper Component (Optional)
 export const NumberPatternsQuiz: React.FC = () => {
-  return <Topic1QuizTemplate {...numberPatternsQuizData} />;
+  return <MultipleChoiceInteractiveComponent {...numberPatternsQuizData} />;
 };
 
 export default NumberPatternsQuiz;
