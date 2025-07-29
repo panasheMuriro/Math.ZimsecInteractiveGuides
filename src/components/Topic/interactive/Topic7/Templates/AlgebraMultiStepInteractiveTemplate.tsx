@@ -452,7 +452,7 @@ const AlgebraMultiStepInteractiveTemplate: React.FC<AlgebraMultiStepInteractiveT
 
         {/* Problem Expression */}
         <div className="bg-white rounded-xl shadow-sm p-6 mb-6 text-center">
-          <h2 className="text-lg font-semibold text-gray-800 mb-4">Work on this expression:</h2>
+          <h2 className="text-lg font-semibold text-gray-800 mb-4">Work on this problem:</h2>
           <div className={`text-3xl font-bold text-${primaryColor}-600 mb-6`}>
             <BlockMath math={currentProblem.expression} />
           </div>

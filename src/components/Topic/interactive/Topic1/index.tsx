@@ -23,24 +23,27 @@ import StandardFormConverter from "./Topic1.4/StandardFormConverter";
 import StandardFormDivision from "./Topic1.4/StandardFormDivision";
 import StandardFormMultiplication from "./Topic1.4/StandardFormMultiplication";
 import StandardFormOperationOverview from "./Topic1.4/StandardFormOperationOverview";
-import Base10Explorer from "./Topic1.5/Base10Explorer";
+import Base10Quiz from "./Topic1.5/Base10Quiz";
+import Base2Quiz from "./Topic1.5/Base2Quiz";
+import BaseArithmeticQuiz from "./Topic1.5/BaseArithmeticQuiz";
 import BaseConverter from "./Topic1.5/BaseConverter";
-import BinaryExplorer from "./Topic1.5/BinaryExplorer";
+import BaseEquationsQuiz from "./Topic1.5/BaseEquationsQuiz";
+import OtherBasesQuiz from "./Topic1.5/OtherBasesQuiz";
 
 
 export const topic1Components: Record<string, React.ComponentType> = {
   "rounding-game": RoundingGame,
   "standard-form-converter": StandardFormConverter,
   "scale-calculator": ScaleCalculator,
-"number-types": NumberTypesQuiz,
-"factors-hcf":FactorsHCF,
-"multiples-lcm": MultiplesLCM,
-"directed-numbers":DirectedNumbersQuiz,
-"fractions-percentages": FractionsPercentagesQuiz,
-"squares-square-roots":SquaresSquareRootsQuiz,
-"cubes-cube-roots":CubesCubeRootsQuiz,
-"order-operations": OrderOfOperationsQuiz,
-"number-patterns": NumberPatternsQuiz,
+  "number-types": NumberTypesQuiz,
+  "factors-hcf": FactorsHCF,
+  "multiples-lcm": MultiplesLCM,
+  "directed-numbers": DirectedNumbersQuiz,
+  "fractions-percentages": FractionsPercentagesQuiz,
+  "squares-square-roots": SquaresSquareRootsQuiz,
+  "cubes-cube-roots": CubesCubeRootsQuiz,
+  "order-operations": OrderOfOperationsQuiz,
+  "number-patterns": NumberPatternsQuiz,
 
 
   "decimal-places": DecimalPlacesGame,
@@ -48,16 +51,19 @@ export const topic1Components: Record<string, React.ComponentType> = {
   "limits-accuracy": LimitsOfAccuracyGame,
   "large-numbers": LargeNumbers,
   "small-numbers": SmallNumbers,
-"standard-form-addition-subtraction": StandardFormAdditionSubtraction,
-"standard-form-multiplication": StandardFormMultiplication,
-"standard-form-division": StandardFormDivision,
-"standard-form-operations-overview": StandardFormOperationOverview,
+  "standard-form-addition-subtraction": StandardFormAdditionSubtraction,
+  "standard-form-multiplication": StandardFormMultiplication,
+  "standard-form-division": StandardFormDivision,
+  "standard-form-operations-overview": StandardFormOperationOverview,
 
   "ratio-quiz": RatioQuiz,
   "rate-calculator": RateCalculator,
   "direct-proportion": DirectProportion,
   "inverse-proportion": InverseProportion,
-  "base-10": Base10Explorer,
-  "base-2": BinaryExplorer,
+  "base-10": Base10Quiz,
+  "base-2": Base2Quiz,
+  "other-bases": OtherBasesQuiz,
   "base-converter": BaseConverter,
+  "base-arithmetic": BaseArithmeticQuiz,
+  "base-equations": BaseEquationsQuiz
 };

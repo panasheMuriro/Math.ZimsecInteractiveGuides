@@ -953,32 +953,198 @@ $(7.5 \\times 10^4) \\div (2.0 \\times 10^6)$
     }
   ]
 },
+
   {
-    title: "Number Bases",
-    icon: "💻",
-    content: `Number bases show us different ways to represent numbers, essential for computer science and mathematics.`,
-    subsections: [
-      {
-        title: "Base 10 (Decimal)",
-        content: `**BASE 10 (DECIMAL)**
+  title: "Number Bases",
+  icon: "💻",
+  content: `Number bases show us different ways to represent numbers, essential for computer science and mathematics.`,
+  subsections: [
+{
+  title: "Base 10 (Decimal)",
+  content: `**BASE 10 (DECIMAL)**
 Our everyday number system:
 - Uses digits $0, 1, 2, 3, 4, 5, 6, 7, 8, 9$
 - Each position represents a power of $10$
-- $245_{10} = 2\\times10^2 + 4\\times10^1 + 5\\times10^0 = 200 + 40 + 5$`,
-        interactive: "base-10"
-      },
-      {
-        title: "Base 2 (Binary)",
-        content: `**BASE 2 (BINARY)**
+- $245_{10} = 2 \\times 10^2 + 4 \\times 10^1 + 5 \\times 10^0 = 200 + 40 + 5$
+
+**UNDERSTANDING PLACE VALUES:**
+Each position in a decimal number has a specific place value:
+- Units place: $10^0 = 1$
+- Tens place: $10^1 = 10$
+- Hundreds place: $10^2 = 100$
+- Thousands place: $10^3 = 1000$
+
+**EXPANDED FORM EXAMPLES:**
+- $3,427_{10} = 3 \\times 10^3 + 4 \\times 10^2 + 2 \\times 10^1 + 7 \\times 10^0$
+- $3,427_{10} = 3000 + 400 + 20 + 7$
+- $506_{10} = 5 \\times 10^2 + 0 \\times 10^1 + 6 \\times 10^0 = 500 + 0 + 6$
+
+**EXPANDED FORM USING DIVISION METHOD:**
+To break down a number systematically:
+
+For $3,427_{10}$:
+$$
+\\begin{array}{c|c|c}
+\\text{Division} & \\text{Quotient} & \\text{Remainder} \\\\
+\\hline
+3,427 \\div 10 & 342 & 7 \\\\
+342 \\div 10 & 34 & 2 \\\\
+34 \\div 10 & 3 & 4 \\\\
+3 \\div 10 & 0 & 3
+\\end{array}
+$$
+*Read remainders from bottom to top: 3, 4, 2, 7 → $3,427 = 3000 + 400 + 20 + 7$*
+
+For $1,596_{10}$:
+$$
+\\begin{array}{c|c|c}
+\\text{Division} & \\text{Quotient} & \\text{Remainder} \\\\
+\\hline
+1,596 \\div 10 & 159 & 6 \\\\
+159 \\div 10 & 15 & 9 \\\\
+15 \\div 10 & 1 & 5 \\\\
+1 \\div 10 & 0 & 1
+\\end{array}
+$$
+*Read remainders from bottom to top: 1, 5, 9, 6 → $1,596 = 1000 + 500 + 90 + 6$*
+
+**HOW TO READ THE TABLES:**
+- Perform successive divisions by 10
+- The remainders give you the digits in reverse order
+- Read the remainders from bottom to top to get the original number
+- Each remainder represents a digit in its respective place value
+
+**WHY BASE 10?**
+- Historically developed because humans have 10 fingers
+- Most natural counting system for everyday use
+- Foundation for our decimal system and currency`,
+  interactive: "base-10"
+},
+
+   {
+  title: "Base 2 (Binary)",
+  content: `**BASE 2 (BINARY)**
 Computer language:
 - Uses only digits $0$ and $1$
 - Each position represents a power of $2$
-- $1011_2 = 1\\times2^3 + 0\\times2^2 + 1\\times2^1 + 1\\times2^0 = 8 + 0 + 2 + 1 = 11_{10}$`,
-        interactive: "base-2"
-      },
-      {
-        title: "Base Converter",
-        content: `**CONVERTING BETWEEN BASES**
+- $1011_2 = 1\\times2^3 + 0\\times2^2 + 1\\times2^1 + 1\\times2^0 = 8 + 0 + 2 + 1 = 11_{10}$
+
+**UNDERSTANDING BINARY PLACE VALUES:**
+Each position in a binary number represents a power of 2:
+- $2^0 = 1$ (units)
+- $2^1 = 2$ (twos)
+- $2^2 = 4$ (fours)
+- $2^3 = 8$ (eights)
+- $2^4 = 16$ (sixteens)
+- $2^5 = 32$ (thirty-twos)
+- $2^6 = 64$ (sixty-fours)
+- $2^7 = 128$ (one-hundred-twenty-eights)
+
+**CONVERTING DECIMAL TO BINARY USING DIVISION:**
+To convert decimal to binary, repeatedly divide by 2:
+
+For $11_{10}$:
+$$
+\\begin{array}{c|c|c}
+\\text{Division} & \\text{Quotient} & \\text{Remainder} \\\\
+\\hline
+11 \\div 2 & 5 & 1 \\\\
+5 \\div 2 & 2 & 1 \\\\
+2 \\div 2 & 1 & 0 \\\\
+1 \\div 2 & 0 & 1
+\\end{array}
+$$
+*Read remainders from bottom to top: 1, 0, 1, 1 → $1011_2$*
+
+For $6_{10}$:
+$$
+\\begin{array}{c|c|c}
+\\text{Division} & \\text{Quotient} & \\text{Remainder} \\\\
+\\hline
+6 \\div 2 & 3 & 0 \\\\
+3 \\div 2 & 1 & 1 \\\\
+1 \\div 2 & 0 & 1
+\\end{array}
+$$
+*Read remainders from bottom to top: 1, 1, 0 → $110_2$*
+
+**MORE BINARY EXAMPLES:**
+- $110_2 = 1\\times4 + 1\\times2 + 0\\times1 = 4 + 2 + 0 = 6_{10}$
+- $1000_2 = 1\\times8 + 0\\times4 + 0\\times2 + 0\\times1 = 8_{10}$
+- $1111_2 = 1\\times8 + 1\\times4 + 1\\times2 + 1\\times1 = 8 + 4 + 2 + 1 = 15_{10}$
+
+**HOW TO CONVERT DECIMAL TO BINARY:**
+- Divide the number by 2 repeatedly
+- Record the remainder at each step
+- Continue until the quotient becomes 0
+- Read the remainders from bottom to top to get the binary number
+
+**REAL-WORLD APPLICATIONS:**
+- Computer memory and processing
+- Digital circuits (on/off states)
+- Data storage and transmission
+- Programming and computer science`,
+  interactive: "base-2"
+},
+   {
+  title: "Other Number Bases",
+  content: `**BASE 8 (OCTAL)**
+- Uses digits $0, 1, 2, 3, 4, 5, 6, 7$
+- Each position represents a power of $8$
+- $345_8 = 3\\times8^2 + 4\\times8^1 + 5\\times8^0 = 192 + 32 + 5 = 229_{10}$
+
+**BASE 16 (HEXADECIMAL)**
+- Uses digits $0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F$
+- Where $A=10, B=11, C=12, D=13, E=14, F=15$
+- $2A3_{16} = 2\\times16^2 + 10\\times16^1 + 3\\times16^0 = 512 + 160 + 3 = 675_{10}$
+
+**BASE 5 EXAMPLE:**
+- Uses digits $0, 1, 2, 3, 4$
+- $234_5 = 2\\times5^2 + 3\\times5^1 + 4\\times5^0 = 50 + 15 + 4 = 69_{10}$
+
+**COMMON BASE CONVERSIONS:**
+Decimal to Octal for $229_{10}$:
+$$
+\\begin{array}{c|c|c}
+\\text{Division} & \\text{Quotient} & \\text{Remainder} \\\\
+\\hline
+229 \\div 8 & 28 & 5 \\\\
+28 \\div 8 & 3 & 4 \\\\
+3 \\div 8 & 0 & 3
+\\end{array}
+$$
+*Read remainders from bottom to top: 3, 4, 5 → $345_8$*
+
+Decimal to Hexadecimal for $675_{10}$:
+$$
+\\begin{array}{c|c|c}
+\\text{Division} & \\text{Quotient} & \\text{Remainder} \\\\
+\\hline
+675 \\div 16 & 42 & 3 \\\\
+42 \\div 16 & 2 & 10 (A) \\\\
+2 \\div 16 & 0 & 2
+\\end{array}
+$$
+*Read remainders from bottom to top: 2, A, 3 → $2A3_{16}$*
+
+**HOW TO CONVERT TO OTHER BASES:**
+- Divide the decimal number by the target base
+- Record remainders at each step
+- Continue until quotient becomes 0
+- Read remainders from bottom to top
+
+**GENERAL RULE FOR ANY BASE n:**
+For a number in base $n$, each digit must be less than $n$, and each position represents a power of $n$.
+
+**APPLICATIONS:**
+- Octal: Legacy computer systems
+- Hexadecimal: Color codes, memory addresses
+- Other bases: Mathematical theory, specialized systems`,
+  interactive: "other-bases"
+},
+{
+  title: "Base Converter",
+  content: `**CONVERTING BETWEEN BASES**
 From base $10$ to other bases:
 - Divide by the target base repeatedly
 - Read remainders from bottom to top
@@ -987,11 +1153,202 @@ From base $10$ to other bases:
 
 From other bases to base $10$:
 - Multiply each digit by its place value
-- Add all products together`,
-        interactive: "base-converter"
-      }
-    ]
-  },
+- Add all products together
+
+**DETAILED CONVERSION EXAMPLES:**
+
+**Example 1: $78_{10}$ to base $2$**
+$$
+\\begin{array}{c|c|c}
+\\text{Division} & \\text{Quotient} & \\text{Remainder} \\\\
+\\hline
+78 \\div 2 & 39 & 0 \\\\
+39 \\div 2 & 19 & 1 \\\\
+19 \\div 2 & 9 & 1 \\\\
+9 \\div 2 & 4 & 1 \\\\
+4 \\div 2 & 2 & 0 \\\\
+2 \\div 2 & 1 & 0 \\\\
+1 \\div 2 & 0 & 1
+\\end{array}
+$$
+*Read remainders from bottom to top: 1, 0, 0, 1, 1, 1, 0 → $1001110_2$*
+
+**Example 2: $152_{10}$ to base $8$**
+$$
+\\begin{array}{c|c|c}
+\\text{Division} & \\text{Quotient} & \\text{Remainder} \\\\
+\\hline
+152 \\div 8 & 19 & 0 \\\\
+19 \\div 8 & 2 & 3 \\\\
+2 \\div 8 & 0 & 2
+\\end{array}
+$$
+*Read remainders from bottom to top: 2, 3, 0 → $230_8$*
+
+**Example 3: $1A5_{16}$ to base $10$**
+$1A5_{16} = 1\\times16^2 + 10\\times16^1 + 5\\times16^0$
+$= 1\\times256 + 10\\times16 + 5\\times1$
+$= 256 + 160 + 5 = 421_{10}$
+
+**HOW TO CONVERT FROM ANY BASE TO DECIMAL:**
+- Identify each digit's position (starting from 0 on the right)
+- Multiply each digit by (base)^(position)
+- Sum all the results
+
+**CONVERSION SHORTCUTS:**
+- Binary to Octal: Group binary digits in threes from right
+- Binary to Hexadecimal: Group binary digits in fours from right
+- Use conversion tables for quick reference`,
+  interactive: "base-converter"
+},
+   {
+  title: "Adding and Subtracting in Number Bases",
+  content: `**ADDITION IN DIFFERENT BASES**
+
+**BINARY ADDITION RULES:**
+- $0 + 0 = 0$
+- $0 + 1 = 1$
+- $1 + 0 = 1$
+- $1 + 1 = 10_2$ (carry 1)
+
+**BINARY ADDITION EXAMPLE:**
+$1101_2 + 1011_2 = ?$
+
+Vertical addition:
+$$
+\\begin{array}{r}
+  1101 \\\\
++ 1011 \\\\
+\\hline
+ 11000
+\\end{array}
+$$
+
+Step-by-step process:
+1. Rightmost column: $1 + 1 = 10_2$ (write 0, carry 1)
+2. Next column: $0 + 1 + 1 = 10_2$ (write 0, carry 1)
+3. Next column: $1 + 0 + 1 = 10_2$ (write 0, carry 1)
+4. Leftmost column: $1 + 1 + 1 = 11_2$ (write 1, carry 1)
+5. Final carry: $1$
+
+Result: $11000_2 = 24_{10}$
+
+**BASE 8 ADDITION EXAMPLE:**
+$347_8 + 256_8 = ?$
+
+Vertical addition:
+$$
+\\begin{array}{r}
+  347 \\\\
++ 256 \\\\
+\\hline
+  625
+\\end{array}
+$$
+
+Step-by-step process:
+1. Rightmost: $7 + 6 = 13_{10} = 15_8$ (write 5, carry 1)
+2. Middle: $4 + 5 + 1 = 10_{10} = 12_8$ (write 2, carry 1)
+3. Leftmost: $3 + 2 + 1 = 6_8$
+
+Result: $625_8 = 405_{10}$
+
+**SUBTRACTION IN DIFFERENT BASES:**
+
+**BINARY SUBTRACTION RULES:**
+- $0 - 0 = 0$
+- $1 - 0 = 1$
+- $1 - 1 = 0$
+- $0 - 1 = 1$ (borrow 1, becomes $10_2 - 1 = 1$)
+
+**BINARY SUBTRACTION EXAMPLE:**
+$1101_2 - 1011_2 = ?$
+
+Vertical subtraction:
+$$
+\\begin{array}{r}
+  1101 \\\\
+- 1011 \\\\
+\\hline
+  0010
+\\end{array}
+$$
+
+Result: $0010_2 = 2_{10}$
+
+**KEY TIPS FOR BASE ARITHMETIC:**
+- **Carrying**: When sum ≥ base, divide by base and carry quotient
+- **Borrowing**: Add base value to current digit when borrowing
+- **Always verify**: Check answers by converting to base 10
+- **Digit limits**: Remember valid digits for each base`,
+  interactive: "base-arithmetic"
+},
+{
+  title: "Solving Equations Involving Number Bases",
+  content: `**EQUATIONS WITH UNKNOWN BASES**
+
+**TYPE 1: Finding the Base**
+Solve: $25_b = 17_{10}$
+
+Method:
+1. Convert to polynomial: $25_b = 2b + 5$
+2. Set equal to decimal: $2b + 5 = 17$
+3. Solve: $2b = 12$ → $b = 6$
+4. Check: $25_6 = 2×6 + 5 = 17_{10}$ ✓
+
+**TYPE 2: Finding Unknown Digits**
+Solve: $3x_5 = 23_{10}$
+
+Method:
+1. Convert: $3x_5 = 15 + x$
+2. Set equal: $15 + x = 23$
+3. Solve: $x = 8$
+4. Validate: In base 5, digits must be 0-4
+5. Conclusion: No solution since $8 > 4$
+
+**TYPE 3: Complex Equations**
+Solve: $x23_7 = 156_{10}$
+
+Method:
+1. Convert: $x23_7 = 49x + 14 + 3 = 49x + 17$
+2. Set equal: $49x + 17 = 156$
+3. Solve: $49x = 139$ → $x = 139/49 ≈ 2.84$
+4. Test integer values: Try $x = 2, 3, ...$
+5. Since $x < 7$, valid values are $0, 1, 2, 3, 4, 5, 6$
+
+**WORKED EXAMPLES:**
+
+**Example 1:** Solve $124_b = 40_{10}$
+- Convert: $b^2 + 2b + 4 = 40$
+- Rearrange: $b^2 + 2b - 36 = 0$
+- Factor: $(b + 8)(b - 6) = 0$
+- Solution: $b = 6$ (must be positive and > 4)
+
+**Example 2:** Solve $x1_4 + 23_4 = 120_4$
+- Convert each term:
+  - $x1_4 = 4x + 1$
+  - $23_4 = 11_{10}$
+  - $120_4 = 24_{10}$
+- Set up equation: $(4x + 1) + 11 = 24$
+- Solve: $4x + 12 = 24$ → $4x = 12$ → $x = 3$
+- Verify: $31_4 + 23_4 = 13 + 11 = 24 = 120_4$ ✓
+
+**PROBLEM-SOLVING STRATEGY:**
+1. **Express** the base representation as a polynomial
+2. **Convert** to base 10 equation
+3. **Solve** the resulting equation
+4. **Validate** the solution fits the base constraints
+5. **Verify** by substitution back into original equation
+
+**IMPORTANT REMINDERS:**
+- Valid digits in base $n$: $0$ to $(n-1)$
+- Base must be ≥ 2 and an integer
+- Always check that solutions make sense in context`,
+  interactive: "base-equations"
+}
+  ]
+},
+
   {
     title: "Scales and Simple Map Problems",
     icon: "🗺️",

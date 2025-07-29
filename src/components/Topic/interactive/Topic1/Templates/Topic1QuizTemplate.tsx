@@ -383,6 +383,7 @@ const Topic1QuizTemplate: React.FC<Topic1QuizTemplateProps> = ({
           {/* Question is always a KaTeX string for BlockMath */}
           <BlockMath math={currentQuestion.question} />
         </h4>
+        
         <div className="grid grid-cols-2 gap-3 mb-5">
           {currentQuestion.options.map((option, index) => (
             <button
