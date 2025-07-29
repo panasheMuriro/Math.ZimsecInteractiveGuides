@@ -1,4 +1,4 @@
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData } from "../Templates/AlgebraMultiStepInteractiveTemplate";
+import MultiStepInteractiveComponent, { InteractiveToolData } from "../Templates/MultiStepInteractiveComponent";
 
   // Define data for Add/Subtract Fractions
 const simplifyingFractionsData: InteractiveToolData = {
@@ -185,6 +185,6 @@ const simplifyingFractionsData: InteractiveToolData = {
 
 export default function SimplifyingFractionsTool() {
   return (
-   <AlgebraMultiStepInteractiveTemplate toolData={simplifyingFractionsData} />
+   <MultiStepInteractiveComponent toolData={simplifyingFractionsData} />
   );
 }

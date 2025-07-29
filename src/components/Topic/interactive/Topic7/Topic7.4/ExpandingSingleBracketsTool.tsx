@@ -1,5 +1,5 @@
 // ExpandingSingleBracketsTool.tsx
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData } from '../Templates/AlgebraMultiStepInteractiveTemplate'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Expanding Single Brackets
 const expandingSingleBracketsData: InteractiveToolData = {
@@ -131,6 +131,6 @@ const expandingSingleBracketsData: InteractiveToolData = {
 
 export default function ExpandingSingleBracketsTool() {
   return (
-    <AlgebraMultiStepInteractiveTemplate toolData={expandingSingleBracketsData} />
+    <MultiStepInteractiveComponent toolData={expandingSingleBracketsData} />
   );
 }

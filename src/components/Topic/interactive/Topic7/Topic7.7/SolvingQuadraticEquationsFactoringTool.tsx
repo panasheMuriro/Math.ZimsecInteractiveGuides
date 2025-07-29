@@ -1,5 +1,5 @@
 // SolvingQuadraticEquationsFactoringTool.tsx
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData } from '../Templates/AlgebraMultiStepInteractiveTemplate'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Solving Quadratic Equations (Factoring Method)
 const solvingQuadraticEquationsFactoringData: InteractiveToolData = {
@@ -176,6 +176,6 @@ const solvingQuadraticEquationsFactoringData: InteractiveToolData = {
 
 export default function SolvingQuadraticEquationsFactoringTool() {
   return (
-    <AlgebraMultiStepInteractiveTemplate toolData={solvingQuadraticEquationsFactoringData} />
+    <MultiStepInteractiveComponent toolData={solvingQuadraticEquationsFactoringData} />
   );
 }

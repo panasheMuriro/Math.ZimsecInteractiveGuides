@@ -1,5 +1,5 @@
 // QuadraticFactoringANot1Tool.tsx
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData } from '../Templates/AlgebraMultiStepInteractiveTemplate'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Quadratic Factoring (a ≠ 1)
 const quadraticFactoringANot1Data: InteractiveToolData = {
@@ -162,6 +162,6 @@ eq 1$) by splitting the middle term.",
 
 export default function QuadraticFactoringANot1Tool() {
   return (
-    <AlgebraMultiStepInteractiveTemplate toolData={quadraticFactoringANot1Data} />
+    <MultiStepInteractiveComponent toolData={quadraticFactoringANot1Data} />
   );
 }

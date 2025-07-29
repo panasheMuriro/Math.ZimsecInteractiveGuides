@@ -1,4 +1,4 @@
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData } from '../Templates/AlgebraMultiStepInteractiveTemplate'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Substitution in Expressions
 const substitutionInExpressionsData: InteractiveToolData = {
@@ -175,6 +175,6 @@ const substitutionInExpressionsData: InteractiveToolData = {
 
 export default function SubstitutionInExpressionsTool() {
   return (
-    <AlgebraMultiStepInteractiveTemplate toolData={substitutionInExpressionsData} />
+    <MultiStepInteractiveComponent toolData={substitutionInExpressionsData} />
   );
 }

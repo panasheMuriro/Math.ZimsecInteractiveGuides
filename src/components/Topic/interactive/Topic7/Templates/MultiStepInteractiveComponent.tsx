@@ -1,65 +1,4 @@
-// // --- Example Usage Data (for reference) ---
-
-// // Define data for Add/Subtract Fractions
-// // const addSubtractFractionsData: InteractiveToolData = {
-// //   title: "Adding and Subtracting Fractions",
-// //   description: "Combine algebraic fractions using a common denominator",
-// //   steps: [
-// //     {
-// //       id: "denominators",
-// //       title: "Step 1: Identify Denominators",
-// //       description: "List the denominators of the fractions:",
-// //       type: 'mcq'
-// //     },
-// //     {
-// //       id: "lcm",
-// //       title: "Step 2: Find the Least Common Multiple (LCM)",
-// //       description: "What is the LCM of the denominators?",
-// //       type: 'mcq'
-// //     },
-// //     {
-// //       id: "rewrittenFractions",
-// //       title: "Step 3: Rewrite Fractions with Common Denominator",
-// //       description: "Rewrite each fraction so they all have the LCM as their denominator:",
-// //       type: 'mcq'
-// //     },
-// //     {
-// //       id: "combinedNumerator",
-// //       title: "Step 4: Combine the Numerators",
-// //       description: `Form the new numerator by ${/* You'd need to pass operation dynamically or handle it in data */ 'adding/subtracting'} the numerators of the rewritten fractions:`,
-// //       type: 'mcq'
-// //     },
-// //     {
-// //       id: "expandedNumerator",
-// //       title: "Step 5: Simplify the Numerator",
-// //       description: "Expand and simplify the combined numerator if necessary:",
-// //       type: 'mcq'
-// //     },
-// //     {
-// //       id: "finalSimplified",
-// //       title: "Step 6: Write the Final Fraction",
-// //       description: "Place the simplified numerator over the common denominator:",
-// //       type: 'mcq'
-// //     },
-// //     {
-// //       id: "restrictions",
-// //       title: "Final Check: State Restrictions",
-// //       description: "List any values that would make the original denominators zero:",
-// //       type: 'mcq'
-// //     }
-// //   ],
-// //   mcqOptionsPerProblem: [
-// //     // ... (Your existing mcqOptionsPerProblem data from Pasted_Text_1753626233469.txt)
-// //   ],
-// //   practiceProblems: [
-// //     // ... (Your existing practiceProblems data from Pasted_Text_1753626233469.txt)
-// //   ]
-// // };
-
-// // In your main App component or where you render the tools:
-// // <AlgebraMultiStepInteractiveTemplate toolData={addSubtractFractionsData} />
-
-// AlgebraMultiStepInteractiveTemplate.tsx
+// MultiStepInteractiveComponent.tsx
 import React, { useState } from 'react';
 import { ChevronRight, RotateCcw, Lightbulb, BookOpen, ArrowRight, Eye, X, AlertCircle, Check } from 'lucide-react';
 import 'katex/dist/katex.min.css';
@@ -81,6 +20,8 @@ export interface InteractiveToolData {
     backgroundColorTo?: string; // e.g., "purple-100", "blue-100"
     // You can add more theme properties as needed
   };
+  expressionSize?: 'text-lg' | 'text-xl' | 'text-2xl' | 'text-3xl' | 'text-4xl' | 'text-5xl'; // Define allowed sizes
+  inlineExpression?: boolean
 }
 
 // Define the structure for a practice problem
@@ -112,7 +53,7 @@ export interface AlgebraMultiStepInteractiveTemplateProps {
   toolData: InteractiveToolData;
 }
 
-const AlgebraMultiStepInteractiveTemplate: React.FC<AlgebraMultiStepInteractiveTemplateProps> = ({ toolData }) => {
+const MultiStepInteractiveComponent: React.FC<AlgebraMultiStepInteractiveTemplateProps> = ({ toolData }) => {
   // --- State Management ---
   const [currentProblemIndex, setCurrentProblemIndex] = useState<number>(0);
   const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
@@ -453,8 +394,8 @@ const AlgebraMultiStepInteractiveTemplate: React.FC<AlgebraMultiStepInteractiveT
         {/* Problem Expression */}
         <div className="bg-white rounded-xl shadow-sm p-6 mb-6 text-center">
           <h2 className="text-lg font-semibold text-gray-800 mb-4">Work on this problem:</h2>
-          <div className={`text-3xl font-bold text-${primaryColor}-600 mb-6`}>
-            <BlockMath math={currentProblem.expression} />
+          <div className={`${toolData.expressionSize || 'text-3xl'} font-bold text-${primaryColor}-600 mb-6`}>
+           {toolData.inlineExpression? renderTextWithMath(currentProblem.expression): <BlockMath math={currentProblem.expression} />  }
           </div>
           <div className="flex justify-center space-x-2 mb-4">
             <button
@@ -655,7 +596,7 @@ const AlgebraMultiStepInteractiveTemplate: React.FC<AlgebraMultiStepInteractiveT
   );
 };
 
-export default AlgebraMultiStepInteractiveTemplate;
+export default MultiStepInteractiveComponent;
 
 
 

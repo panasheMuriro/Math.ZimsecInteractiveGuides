@@ -1,5 +1,5 @@
 // SpecialProductsTool.tsx
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData } from '../Templates/AlgebraMultiStepInteractiveTemplate'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Special Products
 const specialProductsData: InteractiveToolData = {
@@ -131,6 +131,6 @@ const specialProductsData: InteractiveToolData = {
 
 export default function SpecialProductsTool() {
   return (
-    <AlgebraMultiStepInteractiveTemplate toolData={specialProductsData} />
+    <MultiStepInteractiveComponent toolData={specialProductsData} />
   );
 }

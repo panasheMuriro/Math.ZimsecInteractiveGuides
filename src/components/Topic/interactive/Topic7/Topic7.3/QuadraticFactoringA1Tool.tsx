@@ -1,5 +1,5 @@
 // QuadraticFactoringA1Tool.tsx
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData } from '../Templates/AlgebraMultiStepInteractiveTemplate'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Quadratic Factoring (a = 1)
 const quadraticFactoringA1Data: InteractiveToolData = {
@@ -131,6 +131,6 @@ const quadraticFactoringA1Data: InteractiveToolData = {
 
 export default function QuadraticFactoringA1Tool() {
   return (
-    <AlgebraMultiStepInteractiveTemplate toolData={quadraticFactoringA1Data} />
+    <MultiStepInteractiveComponent toolData={quadraticFactoringA1Data} />
   );
 }

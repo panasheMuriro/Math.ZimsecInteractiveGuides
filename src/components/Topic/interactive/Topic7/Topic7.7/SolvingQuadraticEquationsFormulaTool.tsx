@@ -1,5 +1,5 @@
 // SolvingQuadraticEquationsFormulaTool.tsx
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData } from '../Templates/AlgebraMultiStepInteractiveTemplate'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Solving Quadratic Equations (Quadratic Formula Method)
 const solvingQuadraticEquationsFormulaData: InteractiveToolData = {
@@ -177,6 +177,6 @@ const solvingQuadraticEquationsFormulaData: InteractiveToolData = {
 
 export default function SolvingQuadraticEquationsFormulaTool() {
   return (
-    <AlgebraMultiStepInteractiveTemplate toolData={solvingQuadraticEquationsFormulaData} />
+    <MultiStepInteractiveComponent toolData={solvingQuadraticEquationsFormulaData} />
   );
 }

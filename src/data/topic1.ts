@@ -1349,36 +1349,6 @@ Method:
   ]
 },
 
-//   {
-//     title: "Scales and Simple Map Problems",
-//     icon: "🗺️",
-//     content: `Scales help us represent large real-world distances on manageable maps and drawings.`,
-//     subsections: [
-//       {
-//         title: "Scale Ratios",
-//         content: `**SCALE RATIOS**
-// A scale shows the relationship between map distance and real distance:
-// - $1:50,000$ means $1\\text{ cm}$ on map $= 50,000\\text{ cm}$ in reality
-// - $1:100$ means $1\\text{ cm}$ on drawing $= 100\\text{ cm}$ in reality
-// - Always written as map distance : real distance`,
-//         interactive: "scale-ratios"
-//       },
-//       {
-//         title: "Scale Calculations",
-//         content: `**SCALE CALCULATIONS**
-// Finding real distance:
-// - If map distance $= 5\\text{ cm}$ and scale $= 1:20,000$
-// - Real distance $= 5 \\times 20,000 = 100,000\\text{ cm} = 1\\text{ km}$
-
-// Finding map distance:
-// - If real distance $= 3\\text{ km}$ and scale $= 1:50,000$
-// - Convert: $3\\text{ km} = 300,000\\text{ cm}$
-// - Map distance $= 300,000 \\div 50,000 = 6\\text{ cm}$`,
-//         interactive: "scale-calculator"
-//       }
-//     ]
-//   }
-
 {
  title: "Scales and Simple Map Problems",
  icon: "🗺️",
@@ -1432,7 +1402,7 @@ If 2 cm on a map represents 5 km in reality:
 To draw a 50m building using scale $1:1000$:
 - Convert: 50 m = 5,000 cm
 - Drawing length = $5,000 \\div 1,000 = 5$ cm`,
-     interactive: "scale-calculator"
+     interactive: "scale-measurements"
    },
    {
      title: "Scale Factor and Area Calculations",

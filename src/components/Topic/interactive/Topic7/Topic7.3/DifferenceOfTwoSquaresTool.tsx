@@ -1,6 +1,6 @@
 
 // DifferenceOfTwoSquaresTool.tsx
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData } from '../Templates/AlgebraMultiStepInteractiveTemplate'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Difference of Two Squares
 const differenceOfTwoSquaresData: InteractiveToolData = {
@@ -132,6 +132,6 @@ const differenceOfTwoSquaresData: InteractiveToolData = {
 
 export default function DifferenceOfTwoSquaresTool() {
   return (
-    <AlgebraMultiStepInteractiveTemplate toolData={differenceOfTwoSquaresData} />
+    <MultiStepInteractiveComponent toolData={differenceOfTwoSquaresData} />
   );
 }

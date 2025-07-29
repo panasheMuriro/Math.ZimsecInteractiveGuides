@@ -1,5 +1,5 @@
 // PerfectSquareTrinomialsTool.tsx
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData } from '../Templates/AlgebraMultiStepInteractiveTemplate'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Perfect Square Trinomials
 const perfectSquareTrinomialsData: InteractiveToolData = {
@@ -131,6 +131,6 @@ const perfectSquareTrinomialsData: InteractiveToolData = {
 
 export default function PerfectSquareTrinomialsTool() {
   return (
-    <AlgebraMultiStepInteractiveTemplate toolData={perfectSquareTrinomialsData} />
+    <MultiStepInteractiveComponent toolData={perfectSquareTrinomialsData} />
   );
 }

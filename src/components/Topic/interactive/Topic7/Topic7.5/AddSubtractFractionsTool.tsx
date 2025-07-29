@@ -188,7 +188,7 @@ const addSubtractFractionsData: InteractiveToolData = {
   ]
 };
 
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData } from '../Templates/AlgebraMultiStepInteractiveTemplate';
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent';
 export default function AddSubtractFractionsTool() {
-  return <AlgebraMultiStepInteractiveTemplate toolData={addSubtractFractionsData} />
+  return <MultiStepInteractiveComponent toolData={addSubtractFractionsData} />
 }

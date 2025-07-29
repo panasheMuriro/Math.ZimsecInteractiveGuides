@@ -1,4 +1,6 @@
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData, McqOptions, PracticeProblem, Step } from '../../Topic7/Templates/AlgebraMultiStepInteractiveTemplate'; // Adjust path
+import MultiStepInteractiveComponent, { InteractiveToolData, McqOptions, PracticeProblem, Step } from '../../Topic7/Templates/MultiStepInteractiveComponent'; // Adjust path
+
+
 const baseArithmeticSteps: Step[] = [
   {
     id: "step1",
@@ -224,18 +226,11 @@ const baseArithmeticAllData: InteractiveToolData = {
   }
 };
 
-export { baseArithmeticAllData };
-
-
-// BaseArithmeticQuizComponent.tsx
-// import React from 'react';
-// import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData, McqOptions, PracticeProblem, Step } from '../../Topic7/Templates/AlgebraMultiStepInteractiveTemplate';
-
 const BaseArithmeticQuiz: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center min-h-screen p-4">
-    <AlgebraMultiStepInteractiveTemplate toolData={baseArithmeticAllData} />
+    <MultiStepInteractiveComponent toolData={baseArithmeticAllData} />
     </div>
   );
 };

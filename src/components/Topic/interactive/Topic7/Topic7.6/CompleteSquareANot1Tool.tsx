@@ -1,5 +1,5 @@
 // CompleteSquareANot1Tool.tsx
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData } from '../Templates/AlgebraMultiStepInteractiveTemplate'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Completing the Square (a ≠ 1)
 const completeSquareANot1Data: InteractiveToolData = {
@@ -165,6 +165,6 @@ eq 1$) into perfect square form $a(x + h)^2 + k$.",
 
 export default function CompleteSquareANot1Tool() {
   return (
-    <AlgebraMultiStepInteractiveTemplate toolData={completeSquareANot1Data} />
+    <MultiStepInteractiveComponent toolData={completeSquareANot1Data} />
   );
 }

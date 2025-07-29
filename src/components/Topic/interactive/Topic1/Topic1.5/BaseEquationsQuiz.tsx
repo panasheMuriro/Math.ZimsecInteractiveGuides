@@ -1,5 +1,5 @@
 // BaseEquationsData.ts
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData, PracticeProblem, McqOptions, Step } from '../../Topic7/Templates/AlgebraMultiStepInteractiveTemplate'; // Adjust path
+import MultiStepInteractiveComponent, { InteractiveToolData, PracticeProblem, McqOptions, Step } from '../../Topic7/Templates/MultiStepInteractiveComponent'; // Adjust path
 
 // --- Generic Steps for Solving Base Equations ---
 const baseEquationsSteps: Step[] = [
@@ -193,17 +193,11 @@ const baseEquationsAllData: InteractiveToolData = {
 };
 
 
-
-
-// BaseEquationsQuizComponent.tsx
-import React from 'react';
-// Import the template component
-
 const BaseEquationsQuiz: React.FC = () => {
   return (
     // Simple container, similar to previous components
     <div className="flex justify-center items-center">
-      <AlgebraMultiStepInteractiveTemplate toolData={baseEquationsAllData} />
+      <MultiStepInteractiveComponent toolData={baseEquationsAllData} />
     </div>
   );
 };

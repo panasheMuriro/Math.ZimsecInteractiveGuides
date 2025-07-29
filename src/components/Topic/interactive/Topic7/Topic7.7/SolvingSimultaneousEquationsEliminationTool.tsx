@@ -1,5 +1,5 @@
 // SolvingSimultaneousEquationsEliminationTool.tsx
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData } from '../Templates/AlgebraMultiStepInteractiveTemplate'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Solving Simultaneous Equations (Elimination Method)
 const solvingSimultaneousEquationsEliminationData: InteractiveToolData = {
@@ -194,6 +194,6 @@ const solvingSimultaneousEquationsEliminationData: InteractiveToolData = {
 
 export default function SolvingSimultaneousEquationsEliminationTool() {
   return (
-    <AlgebraMultiStepInteractiveTemplate toolData={solvingSimultaneousEquationsEliminationData} />
+    <MultiStepInteractiveComponent toolData={solvingSimultaneousEquationsEliminationData} />
   );
 }

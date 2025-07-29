@@ -1,5 +1,5 @@
 // MultiplyingAlgebraicTermsTool.tsx
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData } from '../Templates/AlgebraMultiStepInteractiveTemplate'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Multiplying Algebraic Terms
 const multiplyingAlgebraicTermsData: InteractiveToolData = {
@@ -158,6 +158,6 @@ const multiplyingAlgebraicTermsData: InteractiveToolData = {
 
 export default function MultiplyingAlgebraicTermsTool() {
   return (
-    <AlgebraMultiStepInteractiveTemplate toolData={multiplyingAlgebraicTermsData} />
+    <MultiStepInteractiveComponent toolData={multiplyingAlgebraicTermsData} />
   );
 }

@@ -1,5 +1,5 @@
 // CompleteSquareA1Tool.tsx
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData } from '../Templates/AlgebraMultiStepInteractiveTemplate'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Completing the Square (a=1)
 const completeSquareA1Data: InteractiveToolData = {
@@ -165,6 +165,6 @@ const completeSquareA1Data: InteractiveToolData = {
 
 export default function CompleteSquareA1Tool() {
   return (
-    <AlgebraMultiStepInteractiveTemplate toolData={completeSquareA1Data} />
+    <MultiStepInteractiveComponent toolData={completeSquareA1Data} />
   );
 }

@@ -1,5 +1,5 @@
 // UnderstandingLCMTool.tsx
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData } from '../Templates/AlgebraMultiStepInteractiveTemplate'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Understanding LCM
 const understandingLCMData: InteractiveToolData = {
@@ -146,6 +146,6 @@ const understandingLCMData: InteractiveToolData = {
 
 export default function UnderstandingLCMTool() {
   return (
-    <AlgebraMultiStepInteractiveTemplate toolData={understandingLCMData} />
+    <MultiStepInteractiveComponent toolData={understandingLCMData} />
   );
 }

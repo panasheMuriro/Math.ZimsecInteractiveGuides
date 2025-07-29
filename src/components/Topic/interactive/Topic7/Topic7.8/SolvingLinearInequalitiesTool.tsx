@@ -1,5 +1,5 @@
 // SolvingLinearInequalitiesTool.tsx
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData } from '../Templates/AlgebraMultiStepInteractiveTemplate'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Solving Linear Inequalities
 const solvingLinearInequalitiesData: InteractiveToolData = {
@@ -195,6 +195,6 @@ const solvingLinearInequalitiesData: InteractiveToolData = {
 
 export default function SolvingLinearInequalitiesTool() {
   return (
-    <AlgebraMultiStepInteractiveTemplate toolData={solvingLinearInequalitiesData} />
+    <MultiStepInteractiveComponent toolData={solvingLinearInequalitiesData} />
   );
 }

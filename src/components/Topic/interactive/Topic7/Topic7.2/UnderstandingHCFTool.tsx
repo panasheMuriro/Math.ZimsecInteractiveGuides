@@ -1,6 +1,6 @@
 
 // UnderstandingHCFTool.tsx
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData } from '../Templates/AlgebraMultiStepInteractiveTemplate'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Understanding HCF
 const understandingHCFData: InteractiveToolData = {
@@ -147,6 +147,6 @@ const understandingHCFData: InteractiveToolData = {
 
 export default function UnderstandingHCFTool() {
   return (
-    <AlgebraMultiStepInteractiveTemplate toolData={understandingHCFData} />
+    <MultiStepInteractiveComponent toolData={understandingHCFData} />
   );
 }

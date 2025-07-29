@@ -1,5 +1,5 @@
 // SolvingLinearEquationsTool.tsx
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData } from '../Templates/AlgebraMultiStepInteractiveTemplate'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Solving Linear Equations
 const solvingLinearEquationsData: InteractiveToolData = {
@@ -176,6 +176,6 @@ const solvingLinearEquationsData: InteractiveToolData = {
 
 export default function SolvingLinearEquationsTool() {
   return (
-    <AlgebraMultiStepInteractiveTemplate toolData={solvingLinearEquationsData} />
+    <MultiStepInteractiveComponent toolData={solvingLinearEquationsData} />
   );
 }

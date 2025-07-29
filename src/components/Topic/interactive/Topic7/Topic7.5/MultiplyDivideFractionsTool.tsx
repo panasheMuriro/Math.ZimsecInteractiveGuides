@@ -1,5 +1,5 @@
 // MultiplyDivideFractionsTool.tsx
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData } from '../Templates/AlgebraMultiStepInteractiveTemplate'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Multiplying and Dividing Fractions
 const multiplyDivideFractionsData: InteractiveToolData = {
@@ -180,6 +180,6 @@ const multiplyDivideFractionsData: InteractiveToolData = {
 
 export default function MultiplyDivideFractionsTool() {
   return (
-    <AlgebraMultiStepInteractiveTemplate toolData={multiplyDivideFractionsData} />
+    <MultiStepInteractiveComponent toolData={multiplyDivideFractionsData} />
   );
 }

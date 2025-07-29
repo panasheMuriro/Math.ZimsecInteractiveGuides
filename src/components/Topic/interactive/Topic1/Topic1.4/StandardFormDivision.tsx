@@ -1,4 +1,4 @@
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData } from "../../Topic7/Templates/AlgebraMultiStepInteractiveTemplate";
+import MultiStepInteractiveComponent, { InteractiveToolData } from "../../Topic7/Templates/MultiStepInteractiveComponent";
 
 // Define data for Dividing Numbers in Standard Form
 const standardFormDivisionData: InteractiveToolData = {
@@ -113,8 +113,8 @@ const standardFormDivisionData: InteractiveToolData = {
 
 
 const StandardFormDivision = ()=>{
-    return <AlgebraMultiStepInteractiveTemplate toolData={standardFormDivisionData} />
+    return <MultiStepInteractiveComponent toolData={standardFormDivisionData} />
 }
 export default StandardFormDivision;
 // Then, in your main App component or where you render the tools:
-// <AlgebraMultiStepInteractiveTemplate toolData={standardFormDivisionData} />
+// <MultiStepInteractiveComponent toolData={standardFormDivisionData} />

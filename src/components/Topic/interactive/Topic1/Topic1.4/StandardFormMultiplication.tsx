@@ -1,4 +1,4 @@
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData } from "../../Topic7/Templates/AlgebraMultiStepInteractiveTemplate";
+import MultiStepInteractiveComponent, { InteractiveToolData } from "../../Topic7/Templates/MultiStepInteractiveComponent";
 
 // Define data for Multiplying Numbers in Standard Form
 const standardFormMultiplicationData: InteractiveToolData = {
@@ -112,10 +112,10 @@ const standardFormMultiplicationData: InteractiveToolData = {
 };
 
 // Then, in your main App component or where you render the tools:
-// <AlgebraMultiStepInteractiveTemplate toolData={standardFormMultiplicationData} />
+// <MultiStepInteractiveComponent toolData={standardFormMultiplicationData} />
 
 const StandardFormMultiplication = ()=> {
-  return <AlgebraMultiStepInteractiveTemplate toolData={standardFormMultiplicationData} />
+  return <MultiStepInteractiveComponent toolData={standardFormMultiplicationData} />
 }
 
 

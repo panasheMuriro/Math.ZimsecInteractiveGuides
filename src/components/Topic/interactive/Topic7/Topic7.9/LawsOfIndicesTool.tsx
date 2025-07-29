@@ -1,5 +1,5 @@
 // LawsOfIndicesTool.tsx
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData } from '../Templates/AlgebraMultiStepInteractiveTemplate'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Laws of Indices
 const lawsOfIndicesData: InteractiveToolData = {
@@ -176,6 +176,6 @@ const lawsOfIndicesData: InteractiveToolData = {
 
 export default function LawsOfIndicesTool() {
   return (
-    <AlgebraMultiStepInteractiveTemplate toolData={lawsOfIndicesData} />
+    <MultiStepInteractiveComponent toolData={lawsOfIndicesData} />
   );
 }

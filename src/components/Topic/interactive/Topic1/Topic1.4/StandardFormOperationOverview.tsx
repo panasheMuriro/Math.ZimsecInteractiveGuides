@@ -1,4 +1,4 @@
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData } from "../../Topic7/Templates/AlgebraMultiStepInteractiveTemplate";
+import MultiStepInteractiveComponent, { InteractiveToolData } from "../../Topic7/Templates/MultiStepInteractiveComponent";
 
 // Define data for Operations in Standard Form Overview
 const standardFormOperationsOverviewData: InteractiveToolData = {
@@ -90,7 +90,7 @@ const standardFormOperationsOverviewData: InteractiveToolData = {
 };
 
 const StandardFormOperationOverview = ()=>{
-    return  <AlgebraMultiStepInteractiveTemplate toolData={standardFormOperationsOverviewData} />
+    return  <MultiStepInteractiveComponent toolData={standardFormOperationsOverviewData} />
 }
 
 export default StandardFormOperationOverview;

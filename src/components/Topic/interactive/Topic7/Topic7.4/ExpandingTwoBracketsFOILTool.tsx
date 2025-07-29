@@ -1,6 +1,6 @@
 
 // ExpandingTwoBracketsFOILTool.tsx
-import AlgebraMultiStepInteractiveTemplate, { InteractiveToolData } from '../Templates/AlgebraMultiStepInteractiveTemplate'; // Adjust path as needed
+import MultiStepInteractiveComponent, { InteractiveToolData } from '../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
 
 // Define data for Expanding Two Brackets (FOIL Method)
 const expandingTwoBracketsFOILData: InteractiveToolData = {
@@ -147,6 +147,6 @@ const expandingTwoBracketsFOILData: InteractiveToolData = {
 
 export default function ExpandingTwoBracketsFOILTool() {
   return (
-    <AlgebraMultiStepInteractiveTemplate toolData={expandingTwoBracketsFOILData} />
+    <MultiStepInteractiveComponent toolData={expandingTwoBracketsFOILData} />
   );
 }
