@@ -12,7 +12,7 @@ export interface QuizQuestion {
   explanation: string; // KaTeX string for explanation
   explanationType?: 'text' | 'math'; // Controls rendering: 'math' -> BlockMath, 'text' (or undefined) -> InlineMath
   questionType?: 'text' | 'math'
-  optionType?: 'text'| 'math'
+  optionType?: 'text' | 'math'
 }
 
 // Define the type for the component props
@@ -55,14 +55,14 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
   const getGridColsClass = (options: string[]): string => {
     const longOptionThreshold = 40; // Characters
     const hasLongOption = options.some(option => option.length > longOptionThreshold);
-    
+
     // Consider options with complex KaTeX potentially longer when rendered
     // This is a rough estimate. KaTeX like \frac{very long expression}{another long one} is complex.
     // You could add more sophisticated checks here if needed.
-    const hasComplexKaTeX = options.some(option => 
-      option.includes('\\frac') || 
-      option.includes('\\sqrt') || 
-      option.includes('\\int') || 
+    const hasComplexKaTeX = options.some(option =>
+      option.includes('\\frac') ||
+      option.includes('\\sqrt') ||
+      option.includes('\\int') ||
       option.includes('\\sum') ||
       (option.match(/\$/g) || []).length > 2 // More than one pair of $ delimiters
     );
@@ -184,8 +184,7 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
               key={index}
               onClick={() => setSelectedAnswer(index)}
               disabled={!!feedback}
-              className={`py-3 px-2 rounded-xl font-bold transition-all duration-200 ${
-                selectedAnswer === index
+              className={`py-3 px-2 rounded-xl font-bold transition-all duration-200 ${selectedAnswer === index
                   ? feedback
                     ? index === currentQuestion.correct
                       ? 'bg-green-500 text-white'
@@ -194,9 +193,9 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
                   : feedback && index === currentQuestion.correct
                     ? 'bg-green-500/30 text-white border-2 border-green-400'
                     : 'bg-white/20 hover:bg-white/30 text-white border-2 border-transparent'
-              } ${feedback ? 'cursor-default' : 'hover:scale-[1.03]'}`}
+                } ${feedback ? 'cursor-default' : 'hover:scale-[1.03]'}`}
             >
-              {currentQuestion.optionType == "text"? renderTextWithMath(option): <InlineMath math={option} /> }
+              {currentQuestion.optionType == "text" ? renderTextWithMath(option) : <InlineMath math={option} />}
             </button>
           ))}
         </div>
@@ -263,13 +262,16 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
       <div className="mt-4 bg-white/10 rounded-xl p-3 text-sm">
         <p className="font-bold mb-1">{rulesTitle}</p>
         <ul className="list-disc list-inside space-y-1">
+
+
           {rules.map((rule, index) => (
-            <li key={index}>{rule}</li>
+            <li key={index}>{renderTextWithMath(rule)} </li>
           ))}
+
         </ul>
       </div>
 
-          
+
     </div>
   );
 };
