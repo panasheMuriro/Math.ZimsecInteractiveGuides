@@ -1,22 +1,19 @@
-import CommissionTaxCalculator from "./CommissionTaxCalculator";
-import CompoundInterest from "./CompoundInterest";
-import ForeignExchange from "./ForeignExchange";
-import HirePurchaseCalculator from "./HirePurchaseCalculator";
-// import HouseholdBills from "./HouseholdBills";
-import ProfitLossCalculator from "./ProfitLossCalculator";
-import SimpleInterestCalculator from "./SimpleInterestCalculator";
 import ConsumerArithmeticQuiz from "./Topic3.1/ConsumerArithmeticQuiz";
 import HouseholdBudgetCalculator from "./Topic3.1/HouseholdBudgetCalculator";
 import EnterpriseBudget from "./Topic3.1/EnterpriseBudget";
+import ProfitLoss from "./Topic3.2/ProfitLoss";
+import SimpleInterest from "./Topic3.2/SimpleInterest";
+import CompoundInterest from "./Topic3.2/CompoundInterest";
+import HirePurchase from "./Topic3.2/HirePurchase";
+import Commission from "./Topic3.2/Commission";
 
 export const topic3Components: Record<string, React.ComponentType> = {
   "consumer-arithmetic": ConsumerArithmeticQuiz,
   "household-bills": HouseholdBudgetCalculator,
   "enterprise-budgets": EnterpriseBudget,
-  "profit-loss": ProfitLossCalculator,
-  "simple-interest": SimpleInterestCalculator,
+  "profit-loss": ProfitLoss,
+  "simple-interest": SimpleInterest,
   "compound-interest": CompoundInterest,
-  "hire-purchase": HirePurchaseCalculator,
-  "commission-tax": CommissionTaxCalculator,
-  "foreign-exchange": ForeignExchange,
+  "hire-purchase": HirePurchase,
+  "commission": Commission,
 };

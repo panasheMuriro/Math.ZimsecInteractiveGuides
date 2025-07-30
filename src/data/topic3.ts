@@ -164,86 +164,225 @@ Article bought for $80, sold for $100:
         interactive: "profit-loss",
       },
       {
-        title: "Simple and Compound Interest",
+        title: "Simple Interest",
         content: `**SIMPLE INTEREST (Form 3)**
 
-Interest calculated only on the principal amount:
+Interest calculated only on the principal amount throughout the investment period:
 
-**Formula:**
+**Basic Formula:**
 $I = \\frac{PRT}{100}$
 
 Where:
 - I = Interest earned
 - P = Principal (initial amount)
-- R = Rate of interest per year
+- R = Rate of interest per year (%)
 - T = Time in years
 
 **Amount Formula:**
 $A = P + I = P + \\frac{PRT}{100} = P(1 + \\frac{RT}{100})$
 
-**COMPOUND INTEREST (Form 4)**
+**Finding Other Variables:**
+- Principal: $P = \\frac{100I}{RT}$
+- Rate: $R = \\frac{100I}{PT}$
+- Time: $T = \\frac{100I}{PR}$
 
-Interest calculated on principal plus accumulated interest:
+**Key Characteristics:**
+- Interest remains constant each year
+- Total interest is directly proportional to time
+- Easy to calculate and understand
+- Used for short-term investments and simple loans
 
-**Annual Compounding:**
-$A = P(1 + \\frac{r}{100})^t$
+**Practical Applications:**
+- Bank savings accounts (some types)
+- Government bonds and treasury bills
+- Simple personal loans
+- Short-term investments
+- Lending between individuals
 
-**Different Compounding Periods:**
-- Semi-annually: $A = P(1 + \\frac{r}{200})^{2t}$
-- Quarterly: $A = P(1 + \\frac{r}{400})^{4t}$
-- Monthly: $A = P(1 + \\frac{r}{1200})^{12t}$
+**Worked Example:**
+Principal = $1000, Rate = 5% per year, Time = 3 years
+- Interest = $\\frac{1000 \\times 5 \\times 3}{100} = $150
+- Amount = $1000 + $150 = $1150
 
-**Comparison:**
-- Compound interest grows exponentially
-- Simple interest grows linearly
-- Difference becomes significant over time
-
-**Applications:**
-- Bank savings accounts, fixed deposits
-- Investment planning, loan calculations
-
-**Example:**
-$1000 at 8% compounded annually for 2 years:
-$A = 1000(1.08)^2 = $1166.40$`,
-        interactive: "interest-calculations",
+**Time Period Conversions:**
+- Months to years: Divide by 12
+- Days to years: Divide by 365
+- Example: 8 months = $\\frac{8}{12} = \\frac{2}{3}$ years`,
+        interactive: "simple-interest",
       },
       {
-        title: "Hire Purchase and Commission",
+        title: "Compound Interest",
+        content: `**COMPOUND INTEREST (Form 4)**
+
+Interest calculated on principal plus all previously earned interest:
+
+**Annual Compounding Formula:**
+$A = P(1 + \\frac{r}{100})^t$
+
+Where:
+- A = Final amount
+- P = Principal
+- r = Annual interest rate (%)
+- t = Time in years
+
+**Compound Interest Amount:**
+$CI = A - P = P(1 + \\frac{r}{100})^t - P = P[(1 + \\frac{r}{100})^t - 1]$
+
+**Different Compounding Frequencies:**
+- Semi-annually (twice yearly): $A = P(1 + \\frac{r}{200})^{2t}$
+- Quarterly (4 times yearly): $A = P(1 + \\frac{r}{400})^{4t}$
+- Monthly (12 times yearly): $A = P(1 + \\frac{r}{1200})^{12t}$
+- Daily (365 times yearly): $A = P(1 + \\frac{r}{36500})^{365t}$
+
+**General Compounding Formula:**
+$A = P(1 + \\frac{r}{100n})^{nt}$
+Where n = number of compounding periods per year
+
+**Key Characteristics:**
+- Interest earns interest (compound effect)
+- Growth accelerates over time
+- More frequent compounding = higher returns
+- Exponential growth pattern
+
+**Comparison with Simple Interest:**
+For $1000 at 8% for 5 years:
+- Simple Interest: $1000 + (1000 × 0.08 × 5) = $1400
+- Compound Interest: $1000(1.08)^5 = $1469.33
+- Difference: $69.33 extra with compounding
+
+**Applications:**
+- Bank fixed deposits and savings accounts
+- Investment funds and retirement accounts
+- Mortgage and loan calculations
+- Long-term financial planning
+- Inflation calculations
+
+**Worked Example:**
+$2000 at 6% compounded quarterly for 3 years:
+$A = 2000(1 + \\frac{6}{400})^{4 \\times 3} = 2000(1.015)^{12} = $2391.24$
+$CI = $2391.24 - $2000 = $391.24$
+
+**Rule of 72:**
+Quick way to estimate doubling time:
+Time to double ≈ $\\frac{72}{\\text{interest rate}}$
+At 8%: approximately $\\frac{72}{8} = 9$ years`,
+        interactive: "compound-interest",
+      },
+      {
+        title: "Hire Purchase",
         content: `**HIRE PURCHASE (Forms 3-4)**
 
-System of buying goods through installments:
+System of buying goods through installments over time:
 
 **Key Components:**
 - Cash Price: Full price if paid immediately
-- Down Payment: Initial payment made
-- Monthly Installments: Regular payments
+- Down Payment (Deposit): Initial payment made
+- Monthly Installments: Regular equal payments
 - Total HP Price: Down payment + all installments
+- HP Interest: Extra amount paid above cash price
 
-**Calculations:**
+**Basic Calculations:**
+- Balance after down payment = Cash Price - Down Payment
 - Total HP Price = Down Payment + (Monthly Payment × Number of months)
 - Extra amount paid = Total HP Price - Cash Price
 - HP Interest Rate = $\\frac{\\text{Extra Amount}}{\\text{Cash Price}} \\times 100\\%$
 
-**COMMISSION (Form 4)**
+**Advanced Calculations:**
+- Finding monthly payment: Monthly Payment = $\\frac{\\text{Balance after deposit}}{\\text{Number of months}}$
+- Finding down payment for desired monthly installment
+- Comparing different HP schemes
+- Early settlement calculations and rebates
 
-Payment based on sales performance:
+**Advantages:**
+- Immediate possession of goods
+- Spread payments over time
+- No need for large lump sum
+- Budget-friendly for expensive items
+
+**Disadvantages:**
+- Higher total cost than cash price
+- Interest charges increase total amount
+- Risk of repossession if payments missed
+- Commitment to long-term payments
+
+**Real-world Applications:**
+- Vehicle purchases (cars, motorcycles)
+- Household appliances and furniture
+- Electronics and technology
+- Business equipment
+
+**Worked Example:**
+TV costs $800$ cash or $200$ down + $55/month for 12 months:
+- Total HP = $200 + ($55 × 12) = $200 + $660 = $860
+- Extra paid = $860 - $800 = $60
+- Interest Rate = $\\frac{60}{800} \\times 100\\% = 7.5\\%$
+
+**Comparison Shopping:**
+Always compare:
+- Different deposit amounts
+- Various installment periods
+- Total cost vs cash price
+- Interest rates between providers`,
+        interactive: "hire-purchase",
+      },
+      {
+        title: "Commission and Sales Incentives",
+        content: `**COMMISSION (Form 4)**
+
+Payment system based on sales performance or services rendered:
 
 **Types of Commission:**
-- Flat Rate: Fixed percentage of sales
-- Graduated/Tiered: Different rates for different levels
-- Salary + Commission: Base salary plus commission
+- **Flat Rate Commission:** Fixed percentage of all sales
+- **Graduated/Tiered Commission:** Different rates for different sales levels
+- **Salary + Commission:** Base salary plus commission on sales
+- **Straight Commission:** Payment only through commission (no base salary)
+- **Broker Commission:** For property, insurance, stocks
 
-**Calculations:**
-- Basic Commission = Sales × Commission Rate
-- Graduated Commission: Different rates for different sales levels
+**Basic Commission Calculation:**
+Commission = Sales Amount × Commission Rate
 
-**Example:**
-TV costs $800 cash or $200 down + $55/month for 12 months:
-- Total HP = $200 + ($55 × 12) = $860
-- Extra paid = $860 - $800 = $60
-- Interest = $\\frac{60}{800} \\times 100\\% = 7.5\\%$`,
-        interactive: "hire-purchase-commission",
-      },
+**Graduated Commission System:**
+Different rates apply to different sales brackets:
+- First $1000: 5%
+- Next $2000: 7%
+- Above $3000: 10%
+
+**Advanced Calculations:**
+- Finding total sales from commission earned
+- Calculating commission on net sales (after returns)
+- Pro-rated commission for partial periods
+- Team commission splitting
+
+**Commission vs Salary Comparison:**
+- **Commission Benefits:** Unlimited earning potential, rewards performance
+- **Salary Benefits:** Guaranteed income, financial security
+- **Hybrid Systems:** Combine security with performance incentives
+
+**Professional Applications:**
+- Sales representatives and agents
+- Real estate brokers
+- Insurance agents
+- Stock brokers and financial advisors
+- Travel and tourism agents
+- Car dealership sales
+
+**Worked Examples:**
+
+**Basic Example:**
+Salesperson earns 8% commission on $5000 monthly sales:
+Commission = $5000 × 0.08 = $400
+
+**Graduated Example:**
+Sales of $4000 with tiered rates (5% first $1000, 8% remainder):
+- First $1000: $1000 × 0.05 = $50
+- Remaining $3000: $3000 × 0.08 = $240
+- Total Commission: $50 + $240 = $290
+
+**Mixed Compensation Example:**
+Base salary $500 + 3% commission on $8000 sales:
+Total Pay = $500 + ($8000 × 0.03) = $500 + $240 = $740`,
+        interactive: "commission",
+      }
     ],
   },
   {
@@ -370,8 +509,6 @@ Imported car value $10,000, duty 30%, VAT 15%:
       },
     ],
   },
-
-
 ];
 
 export const quizQuestions: QuizQuestion[] = [

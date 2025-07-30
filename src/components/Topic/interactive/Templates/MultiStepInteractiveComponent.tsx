@@ -21,7 +21,8 @@ export interface InteractiveToolData {
     // You can add more theme properties as needed
   };
   expressionSize?: 'text-lg' | 'text-xl' | 'text-2xl' | 'text-3xl' | 'text-4xl' | 'text-5xl'; // Define allowed sizes
-  inlineExpression?: boolean
+  inlineExpression?: boolean,
+  mcqOptionRenderType?: 'text' | 'math';
 }
 
 // Define the structure for a practice problem
@@ -267,24 +268,54 @@ const MultiStepInteractiveComponent: React.FC<AlgebraMultiStepInteractiveTemplat
 
   // Helper to render option content correctly, using KaTeX for all math content
   // Updated: Removed unused 'stepId' parameter
+  // const renderOptionContent = (option: string | string[]): React.ReactNode => {
+  //   // For array options (e.g., denominators, rewrittenFractions, restrictions)
+  //   if (Array.isArray(option)) {
+  //     return (
+  //       <div className="flex flex-wrap items-center justify-center space-x-1">
+  //         {option.map((term, idx) => (
+  //           <React.Fragment key={idx}>
+  //             {/* Render all terms in these steps with InlineMath */}
+  //             <InlineMath math={String(term)} />
+  //             {idx < option.length - 1 && <span>,</span>}
+  //           </React.Fragment>
+  //         ))}
+  //       </div>
+  //     );
+  //   }
+  //   // For single string options, render with KaTeX
+  //   return <InlineMath math={String(option)} />;
+  // };
+
   const renderOptionContent = (option: string | string[]): React.ReactNode => {
-    // For array options (e.g., denominators, rewrittenFractions, restrictions)
-    if (Array.isArray(option)) {
-      return (
-        <div className="flex flex-wrap items-center justify-center space-x-1">
-          {option.map((term, idx) => (
-            <React.Fragment key={idx}>
-              {/* Render all terms in these steps with InlineMath */}
-              <InlineMath math={String(term)} />
-              {idx < option.length - 1 && <span>,</span>}
-            </React.Fragment>
-          ))}
-        </div>
-      );
-    }
-    // For single string options, render with KaTeX
+  // For array options (e.g., denominators, rewrittenFractions, restrictions)
+  if (Array.isArray(option)) {
+    return (
+      <div className="flex flex-wrap items-center justify-center space-x-1">
+        {option.map((term, idx) => (
+          <React.Fragment key={idx}>
+             {/* Decide renderer for array elements based on mcqOptionRenderType */}
+             {toolData.mcqOptionRenderType === 'text' ? (
+               renderTextWithMath(String(term)) // Use renderTextWithMath for 'text' type
+             ) : (
+               <InlineMath math={String(term)} /> // Default to InlineMath for 'math' or undefined
+             )}
+            {idx < option.length - 1 && <span>,</span>}
+          </React.Fragment>
+        ))}
+      </div>
+    );
+  }
+  // For single string options
+  // Decide renderer based on mcqOptionRenderType
+  if (toolData.mcqOptionRenderType === 'text') {
+    // Use renderTextWithMath for 'text' type
+    return renderTextWithMath(String(option));
+  } else {
+    // Default to InlineMath for 'math' type or if not specified
     return <InlineMath math={String(option)} />;
-  };
+  }
+};
 
   // Helper to render the correct answer, using KaTeX for all math content
   // Updated: Removed unused 'stepId' parameter
@@ -324,7 +355,42 @@ const MultiStepInteractiveComponent: React.FC<AlgebraMultiStepInteractiveTemplat
   };
 
   // Helper to render previous steps summary (generic version)
-  const getCompletedSteps = (): React.ReactNode => {
+  // const getCompletedSteps = (): React.ReactNode => {
+  //   if (currentStepIndex === 0) return <></>;
+  //   return (
+  //     <div className="bg-gray-50 rounded-lg p-3 mb-4">
+  //       <h4 className="text-sm font-medium text-gray-700 mb-2">Previous Steps:</h4>
+  //       <div className="space-y-1 text-sm">
+  //         {steps.slice(0, currentStepIndex).map((step, idx) => {
+  //           const stepSolution = currentProblem.solution[step.id];
+  //           if (stepSolution === undefined) return null; // Skip if no solution data for this step
+
+  //           return (
+  //             <div key={idx} className="flex justify-between">
+  //               <span className="text-gray-600">{renderTextWithMath(step.title.replace("Step", "").replace(/\d+:/, "").trim())}:</span>
+  //               <span className="font-mono">
+  //                 {Array.isArray(stepSolution) ? (
+  //                   <div className="flex flex-wrap space-x-1">
+  //                     {stepSolution.map((term, termIdx) => (
+  //                       <React.Fragment key={termIdx}>
+  //                         <InlineMath math={String(term)} />
+  //                         {termIdx < stepSolution.length - 1 && <span>,</span>}
+  //                       </React.Fragment>
+  //                     ))}
+  //                   </div>
+  //                 ) : (
+  //                   <InlineMath math={String(stepSolution)} />
+  //                 )}
+  //               </span>
+  //             </div>
+  //           );
+  //         })}
+  //       </div>
+  //     </div>
+  //   );
+  // };
+
+   const getCompletedSteps = (): React.ReactNode => {
     if (currentStepIndex === 0) return <></>;
     return (
       <div className="bg-gray-50 rounded-lg p-3 mb-4">
@@ -334,22 +400,38 @@ const MultiStepInteractiveComponent: React.FC<AlgebraMultiStepInteractiveTemplat
             const stepSolution = currentProblem.solution[step.id];
             if (stepSolution === undefined) return null; // Skip if no solution data for this step
 
+            // Determine renderer for the solution based on mcqOptionRenderType
+            const renderSolutionContent = (solution: string | string[]) => {
+              if (Array.isArray(solution)) {
+                return (
+                  <div className="flex flex-wrap space-x-1">
+                    {solution.map((term, termIdx) => (
+                      <React.Fragment key={termIdx}>
+                        {/* Decide renderer for array elements based on mcqOptionRenderType */}
+                        {toolData.mcqOptionRenderType === 'text' ? (
+                          renderTextWithMath(String(term))
+                        ) : (
+                          <InlineMath math={String(term)} />
+                        )}
+                        {termIdx < solution.length - 1 && <span>,</span>}
+                      </React.Fragment>
+                    ))}
+                  </div>
+                );
+              }
+              // Decide renderer for single string solutions based on mcqOptionRenderType
+              if (toolData.mcqOptionRenderType === 'text') {
+                return renderTextWithMath(String(solution));
+              } else {
+                return <InlineMath math={String(solution)} />;
+              }
+            };
+
             return (
               <div key={idx} className="flex justify-between">
                 <span className="text-gray-600">{renderTextWithMath(step.title.replace("Step", "").replace(/\d+:/, "").trim())}:</span>
                 <span className="font-mono">
-                  {Array.isArray(stepSolution) ? (
-                    <div className="flex flex-wrap space-x-1">
-                      {stepSolution.map((term, termIdx) => (
-                        <React.Fragment key={termIdx}>
-                          <InlineMath math={String(term)} />
-                          {termIdx < stepSolution.length - 1 && <span>,</span>}
-                        </React.Fragment>
-                      ))}
-                    </div>
-                  ) : (
-                    <InlineMath math={String(stepSolution)} />
-                  )}
+                  {renderSolutionContent(stepSolution)}
                 </span>
               </div>
             );
@@ -358,7 +440,6 @@ const MultiStepInteractiveComponent: React.FC<AlgebraMultiStepInteractiveTemplat
       </div>
     );
   };
-
 
   // --- Render Logic ---
   return (
