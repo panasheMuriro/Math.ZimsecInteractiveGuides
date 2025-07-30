@@ -6,6 +6,8 @@ import SetBuilderNotation from "./Topic2.1/SetBuilderNotation";
 import InteractiveVennDiagram from "./Topic2.2/VennIntro";
 import ThreeSetVennDiagram from "./Topic2.2/ThreeSetVennDiagram";
 import ThreeSetVennQuiz from "./Topic2.2/ThreeSetVennQuiz";
+import WordTranslationQuiz from "./Topic2.3/WordTranslationQuiz";
+import RealLifeApplications from "./Topic2.3/RealLifeApplications";
 
 export const topic2Components: Record<string, React.ComponentType> = {
   "set-basics": SetBasics,
@@ -16,5 +18,7 @@ export const topic2Components: Record<string, React.ComponentType> = {
   "set-operations": SetOperations,
   "set-builder": SetBuilderNotation,
   "venn-intro": InteractiveVennDiagram,
-  "venn-problem-solving": ThreeSetVennQuiz
+  "venn-problem-solving": ThreeSetVennQuiz,
+  "word-translation": WordTranslationQuiz,
+  "real-applications": RealLifeApplications
 };
