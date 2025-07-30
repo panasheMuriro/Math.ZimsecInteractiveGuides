@@ -5,20 +5,18 @@ import {
   Sun, 
   Snowflake, 
   Flame, 
-  Cloud, 
-  Droplets, 
   Stethoscope,
   Calculator
 } from 'lucide-react';
-import MeasurementUnits from './MeasurementUnits';
+import MeasurementUnitsTemplate from './MeasurementUnitsTemplate';
 
 const temperatureUnitsData = {
   title: "Temperature",
   icon: <Thermometer className="w-10 h-10 mx-auto mb-3 text-yellow-300" />,
   colorScheme: {
-    primary: "bg-[#C41E3A]", // Red-600
-    secondary: "bg-[#991B1B]", // Red-800
-    tertiary: "bg-[#F59E0B]", // Amber-500
+    primary: "bg-[#D96F32]", // Red-600
+    secondary: "bg-[#C75D2C]", // Red-800
+    tertiary: "bg-[#F8B259]", // Amber-500
   },
   scenarios: [
     {
@@ -30,7 +28,9 @@ const temperatureUnitsData = {
       calculation: '°F = (28 × 9/5) + 32 = 50.4 + 32 = 82.4°F',
       answer: 82.4,
       unit: '°F',
-      context: 'Harare has a subtropical highland climate with warm summers'
+      context: 'Harare has a subtropical highland climate with warm summers',
+      // Add options for MCQ
+      options: [78.8, 80.6, 82.4, 84.2],
     },
     {
       id: 'winter-morning',
@@ -41,7 +41,8 @@ const temperatureUnitsData = {
       calculation: 'K = °C + 273.15 = 5 + 273.15 = 278.15 K',
       answer: 278.15,
       unit: 'K',
-      context: 'Zimbabwe winters are dry with cool mornings and warm afternoons'
+      context: 'Zimbabwe winters are dry with cool mornings and warm afternoons',
+      options: [268.15, 273.15, 278.15, 283.15],
     },
     {
       id: 'cooking-sadza',
@@ -52,7 +53,8 @@ const temperatureUnitsData = {
       calculation: '°F = (100 × 9/5) + 32 = 180 + 32 = 212°F',
       answer: 212,
       unit: '°F',
-      context: "Harare's altitude (1,483m) slightly affects boiling point"
+      context: "Harare's altitude (1,483m) slightly affects boiling point",
+      options: [194, 203, 212, 221],
     },
     {
       id: 'fever-check',
@@ -63,30 +65,10 @@ const temperatureUnitsData = {
       calculation: '°C = (102 - 32) × 5/9 = 70 × 5/9 = 38.9°C',
       answer: 38.9,
       unit: '°C',
-      context: 'Normal body temperature is 37°C, so this indicates fever'
+      context: 'Normal body temperature is 37°C, so this indicates fever',
+      options: [37.8, 38.3, 38.9, 39.4],
     },
-    {
-      id: 'hwange-heat',
-      title: 'Hwange Heat',
-      icon: <Cloud className="w-6 h-6 text-amber-600" />,
-      description: 'Hwange National Park reaches 35°C during hot season',
-      question: 'What is this temperature in Fahrenheit?',
-      calculation: '°F = (35 × 9/5) + 32 = 63 + 32 = 95°F',
-      answer: 95,
-      unit: '°F',
-      context: 'Hwange experiences extreme heat during the dry season'
-    },
-    {
-      id: 'vumba-cool',
-      title: 'Vumba Mountains',
-      icon: <Droplets className="w-6 h-6 text-green-500" />,
-      description: 'The cool Vumba Mountains average 15°C in winter',
-      question: 'Convert this to Kelvin',
-      calculation: 'K = °C + 273.15 = 15 + 273.15 = 288.15 K',
-      answer: 288.15,
-      unit: 'K',
-      context: 'The Vumba Mountains are known for their cool, misty climate'
-    }
+
   ],
   systems: {
     temperature: {
@@ -125,6 +107,6 @@ const temperatureUnitsData = {
 
 export default function TemperatureUnits() {
   return (
-    <MeasurementUnits {...temperatureUnitsData} />
+    <MeasurementUnitsTemplate {...temperatureUnitsData} />
   );
 }

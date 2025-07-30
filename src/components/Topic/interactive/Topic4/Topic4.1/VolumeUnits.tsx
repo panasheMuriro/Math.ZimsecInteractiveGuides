@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Box, Building, Container,  FlaskConical, Truck } from 'lucide-react';
+import MeasurementUnitsTemplate from './MeasurementUnitsTemplate';
+
 const volumeUnitsData = {
   title: "Volume Units",
   icon: <Box className="w-10 h-10 mx-auto mb-3 text-purple-100" />,
   colorScheme: {
-    primary: "bg-[#7E22CE]",
-    secondary: "bg-[#5E35B1]",
-    tertiary: "bg-[#9575CD]"
+    primary: "bg-[#7A7A73]",   // Blue-gray
+    secondary: "bg-[#57564F]", // Gray-600
+    tertiary: "bg-[#DDDAD0]",  
   },
   scenarios: [
     {
@@ -17,7 +20,9 @@ const volumeUnitsData = {
       calculation: 'L = m³ × 1000 = 2,500 × 1000 = 2,500,000 L',
       answer: 2500000,
       unit: 'L',
-      context: 'Large volumes of liquids are often measured in cubic meters or liters'
+      context: 'Large volumes of liquids are often measured in cubic meters or liters',
+      // Add options for MCQ
+      options: [2000000, 2250000, 2500000, 3000000],
     },
     {
       id: 'shipping-container',
@@ -28,7 +33,8 @@ const volumeUnitsData = {
       calculation: 'ft³ = m³ × 35.315 = 33.2 × 35.315 ≈ 1,172 ft³',
       answer: 1172,
       unit: 'ft³',
-      context: 'Shipping containers use both metric and imperial measurements'
+      context: 'Shipping containers use both metric and imperial measurements',
+      options: [1100, 1150, 1172, 1200],
     },
     {
       id: 'science-lab',
@@ -39,7 +45,8 @@ const volumeUnitsData = {
       calculation: 'ml = cm³ = 500 ml',
       answer: 500,
       unit: 'ml',
-      context: 'In science, 1 cm³ equals exactly 1 milliliter'
+      context: 'In science, 1 cm³ equals exactly 1 milliliter',
+      options: [400, 450, 500, 550],
     },
     {
       id: 'construction-site',
@@ -50,30 +57,10 @@ const volumeUnitsData = {
       calculation: 'm³ = yd³ × 0.765 = 15 × 0.765 ≈ 11.47 m³',
       answer: 11.47,
       unit: 'm³',
-      context: 'Construction projects often use cubic yards for large volumes'
+      context: 'Construction projects often use cubic yards for large volumes',
+      options: [10.5, 11.0, 11.47, 12.0],
     },
-    {
-      id: 'manufacturing',
-      title: 'Manufacturing',
-      icon: <Factory className="w-6 h-6 text-red-600" />,
-      description: 'A machine part has a volume of 120 cubic inches',
-      question: 'Convert this to cubic centimeters',
-      calculation: 'cm³ = in³ × 16.387 = 120 × 16.387 ≈ 1,966 cm³',
-      answer: 1966,
-      unit: 'cm³',
-      context: 'Precision manufacturing often uses cubic inches or centimeters'
-    },
-    {
-      id: 'warehouse',
-      title: 'Warehouse',
-      icon: <Warehouse className="w-6 h-6 text-brown-600" />,
-      description: 'A warehouse has 50,000 cubic feet of storage space',
-      question: 'Convert this to cubic meters',
-      calculation: 'm³ = ft³ × 0.028 = 50,000 × 0.028 ≈ 1,400 m³',
-      answer: 1400,
-      unit: 'm³',
-      context: 'Warehouse capacities are often measured in cubic feet'
-    }
+
   ],
   systems: {
     metric: {
@@ -94,8 +81,8 @@ const volumeUnitsData = {
         m3: {
           symbol: "m³",
           name: "Cubic Meter",
-          toBase: (value: any) => value,
-          fromBase: (value: any) => value
+          toBase: (value: any) => value, // Note: Should ideally be (value: number) => value
+          fromBase: (value: any) => value, // Note: Should ideally be (value: number) => value
         },
         km3: {
           symbol: "km³",
@@ -143,11 +130,8 @@ const volumeUnitsData = {
   ]
 };
 
-import { Box, Building, Container, Factory, FlaskConical, Truck, Warehouse } from 'lucide-react';
-import MeasurementUnits from './MeasurementUnits';
-
 export default function VolumeUnits() {
   return (
-   <MeasurementUnits  {...volumeUnitsData} />
+    <MeasurementUnitsTemplate {...volumeUnitsData} />
   );
 }

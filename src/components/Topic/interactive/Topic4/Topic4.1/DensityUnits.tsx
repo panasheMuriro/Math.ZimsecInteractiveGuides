@@ -4,18 +4,18 @@ import {
   Droplets,
   Gem,
   IceCream,
-  Soup,
-  FlaskConical,
   TestTube,
 } from "lucide-react";
+
+import MeasurementUnitsTemplate from "./MeasurementUnitsTemplate";
 
 const densityUnitsData = {
   title: "Density",
   icon: <Gauge className="w-10 h-10 mx-auto mb-3 text-blue-100" />,
   colorScheme: {
-    primary: "bg-[#3B82F6]", // Blue-500
-    secondary: "bg-[#2563EB]", // Blue-600
-    tertiary: "bg-[#93C5FD]", // Blue-300
+    primary: "bg-[#456882]", 
+    secondary: "bg-[#1B3C53]", // Darker teal
+    tertiary: "bg-[#D2C1B6]",
   },
   scenarios: [
     {
@@ -28,6 +28,8 @@ const densityUnitsData = {
       answer: 1000,
       unit: "kg/m³",
       context: "Water density varies slightly with temperature",
+      // Add options for MCQ
+      options: [900, 950, 1000, 1100],
     },
     {
       id: "gold-bar",
@@ -39,6 +41,7 @@ const densityUnitsData = {
       answer: 19300,
       unit: "kg/m³",
       context: "Gold is one of the densest common metals",
+      options: [18000, 19000, 19300, 20000],
     },
     {
       id: "ice-float",
@@ -50,6 +53,7 @@ const densityUnitsData = {
       answer: 920,
       unit: "kg/m³",
       context: "Ice floats because it's less dense than liquid water",
+      options: [850, 900, 920, 950],
     },
     {
       id: "aluminum-foil",
@@ -61,29 +65,9 @@ const densityUnitsData = {
       answer: 2700,
       unit: "kg/m³",
       context: "Aluminum's low density makes it useful for aircraft",
+      options: [2500, 2600, 2700, 2800],
     },
-    {
-      id: "oil-density",
-      title: "Cooking Oil",
-      icon: <Soup className="w-6 h-6 text-yellow-600" />,
-      description: "Vegetable oil has density 0.92 g/ml",
-      question: "Convert this to kg/m³",
-      calculation: "kg/m³ = g/ml × 1000 = 0.92 × 1000 = 920 kg/m³",
-      answer: 920,
-      unit: "kg/m³",
-      context: "Oil floats on water because it's less dense",
-    },
-    {
-      id: "chemical-density",
-      title: "Chemical Solution",
-      icon: <FlaskConical className="w-6 h-6 text-purple-500" />,
-      description: "A chemical has density 1.2 g/cm³",
-      question: "Convert this to kg/m³",
-      calculation: "kg/m³ = g/cm³ × 1000 = 1.2 × 1000 = 1,200 kg/m³",
-      answer: 1200,
-      unit: "kg/m³",
-      context: "Chemists often work with density in g/cm³",
-    },
+ 
   ],
   systems: {
     metric: {
@@ -120,9 +104,6 @@ const densityUnitsData = {
   ],
 };
 
-
-import MeasurementUnits from "./MeasurementUnits";
-
 export default function DensityUnits() {
-  return <MeasurementUnits {...densityUnitsData} />;
+  return <MeasurementUnitsTemplate {...densityUnitsData} />;
 }

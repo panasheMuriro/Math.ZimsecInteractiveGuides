@@ -1,23 +1,21 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Clock,
-  Calendar,
-  Sunrise,
   BookOpen,
   Bus,
-  Home,
   Coffee,
   ArrowDownUp,
 } from "lucide-react";
+import MeasurementUnitsTemplate from "./MeasurementUnitsTemplate";
 
 const timeUnitsData = {
   title: "Time",
   icon: <Clock className="w-10 h-10 mx-auto mb-3 text-fuchsia-600" />,
   colorScheme: {
-    primary: "bg-[#78B9B5]", // Teal
-    secondary: "bg-[#4B7B8F]", // Darker teal
-    tertiary: "bg-[#A78BFA]", // Purple-400
+    primary: "bg-[#456882]", 
+    secondary: "bg-[#1B3C53]", // Darker teal
+    tertiary: "bg-[#D2C1B6]", // Purple-400
   },
   scenarios: [
     {
@@ -31,6 +29,7 @@ const timeUnitsData = {
       answer: 9,
       unit: "hours",
       context: "This includes lessons, breaks, and lunch time",
+      options: [7, 8, 9, 10], // Added options for MCQ
     },
     {
       id: "kombi",
@@ -43,6 +42,7 @@ const timeUnitsData = {
       answer: 330,
       unit: "minutes",
       context: "The 430km journey is a common intercity route",
+      options: [300, 315, 330, 360], // Added options for MCQ
     },
     {
       id: "cooking",
@@ -54,40 +54,9 @@ const timeUnitsData = {
       answer: 2700,
       unit: "seconds",
       context: "This includes preparing the fire and cooking time",
+      options: [1800, 2400, 2700, 3000], // Added options for MCQ
     },
-    {
-      id: "rainfall",
-      title: "Rainy Season",
-      icon: <Calendar className="w-6 h-6 text-blue-600" />,
-      description: "Zimbabwe's rainy season lasts from November to March",
-      question: "How many weeks is this approximately?",
-      calculation: "5 months × 4 weeks/month = 20 weeks",
-      answer: 20,
-      unit: "weeks",
-      context: "This is the main agricultural season",
-    },
-    {
-      id: "sunrise",
-      title: "Daylight Hours",
-      icon: <Sunrise className="w-6 h-6 text-orange-500" />,
-      description: "In December, sunrise is at 5:30 AM, sunset at 6:30 PM",
-      question: "How many hours of daylight is this?",
-      calculation: "6:30 PM - 5:30 AM = 18:30 - 5:30 = 13 hours",
-      answer: 13,
-      unit: "hours",
-      context: "Zimbabwe has long summer days",
-    },
-    {
-      id: "work",
-      title: "Working Week",
-      icon: <Home className="w-6 h-6 text-indigo-600" />,
-      description: "A standard working week in Zimbabwe is 40 hours",
-      question: "How many minutes is this?",
-      calculation: "40 hours × 60 minutes/hour = 2400 minutes",
-      answer: 2400,
-      unit: "minutes",
-      context: "This is spread across Monday to Friday",
-    },
+
   ],
   systems: {
     standard: {
@@ -171,8 +140,6 @@ const timeUnitsData = {
   swapIcon: <ArrowDownUp className="w-5 h-5" />,
 };
 
-import MeasurementUnits from "./MeasurementUnits";
-
 export default function TimeUnits() {
-  return <MeasurementUnits {...timeUnitsData} />;
+  return <MeasurementUnitsTemplate {...timeUnitsData} />;
 }

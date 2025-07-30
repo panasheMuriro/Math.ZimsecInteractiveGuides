@@ -4,20 +4,20 @@ import {
   Home, 
   Car, 
   TreePine, 
-  Map, 
-  Mountain, 
 
   ArrowDownUp,
   Landmark
 } from 'lucide-react';
 
+import MeasurementUnitsTemplate from './MeasurementUnitsTemplate';
+
 const lengthUnitsData = {
   title: "Length",
   icon: <Ruler className="w-10 h-10 mx-auto mb-3 text-yellow-400" />,
   colorScheme: {
-    primary: "bg-[#2D5A27]", // Green-800
-    secondary: "bg-[#166534]", // Green-900
-    tertiary: "bg-[#FACC15]", // Yellow-400
+    primary: "bg-[#4A9782]", // Green-800
+    secondary: "bg-[#004030]", // Green-900
+    tertiary: "bg-[#DCD0A8]", // Yellow-400
   },
   scenarios: [
     {
@@ -29,7 +29,9 @@ const lengthUnitsData = {
       calculation: '√300 = 17.32 meters (approximately 17.3m)',
       answer: 17.3,
       unit: 'meters',
-      context: 'Most suburban plots in areas like Avondale or Borrowdale'
+      context: 'Most suburban plots in areas like Avondale or Borrowdale',
+      // Add options for MCQ
+      options: [15.0, 16.5, 17.3, 18.0],
     },
     {
       id: 'kombi',
@@ -40,7 +42,8 @@ const lengthUnitsData = {
       calculation: '30 km × 1000 m/km = 30,000 meters',
       answer: 30000,
       unit: 'meters',
-      context: 'One of the busiest kombi routes in Zimbabwe'
+      context: 'One of the busiest kombi routes in Zimbabwe',
+      options: [25000, 28000, 30000, 35000],
     },
     {
       id: 'msasa',
@@ -51,7 +54,8 @@ const lengthUnitsData = {
       calculation: '25 m × 100 cm/m = 2,500 centimeters',
       answer: 2500,
       unit: 'centimeters',
-      context: 'Msasa trees are common in Zimbabwe\'s miombo woodlands'
+      context: 'Msasa trees are common in Zimbabwe\'s miombo woodlands',
+      options: [2000, 2250, 2500, 3000],
     },
     {
       id: 'great-wall',
@@ -62,30 +66,10 @@ const lengthUnitsData = {
       calculation: '11 m × 1000 mm/m = 11,000 millimeters',
       answer: 11000,
       unit: 'millimeters',
-      context: 'The iconic stone walls of Great Zimbabwe monument'
+      context: 'The iconic stone walls of Great Zimbabwe monument',
+      options: [10000, 10500, 11000, 12000],
     },
-    {
-      id: 'vic-falls',
-      title: 'Victoria Falls',
-      icon: <Mountain className="w-6 h-6 text-cyan-600" />,
-      description: 'Victoria Falls is 1.7 kilometers wide',
-      question: 'How many meters wide is the waterfall?',
-      calculation: '1.7 km × 1000 m/km = 1,700 meters',
-      answer: 1700,
-      unit: 'meters',
-      context: 'One of the Seven Natural Wonders of the World'
-    },
-    {
-      id: 'field',
-      title: 'Maize Field',
-      icon: <Map className="w-6 h-6 text-yellow-600" />,
-      description: 'A communal farming plot is typically 2 hectares',
-      question: 'If rectangular with 200m length, what is the width?',
-      calculation: '2 hectares = 20,000 m². Width = 20,000 ÷ 200 = 100 meters',
-      answer: 100,
-      unit: 'meters',
-      context: 'Common size for communal land farming plots'
-    }
+  
   ],
   systems: {
     metric: {
@@ -106,8 +90,8 @@ const lengthUnitsData = {
         m: {
           symbol: "m",
           name: "Meter",
-          toBase: (value: any) => value,
-          fromBase: (value: any) => value,
+          toBase: (value: any) => value, // Note: Should be (value: number) => value
+          fromBase: (value: any) => value, // Note: Should be (value: number) => value
         },
         km: {
           symbol: "km",
@@ -157,13 +141,8 @@ const lengthUnitsData = {
   swapIcon: <ArrowDownUp className="w-5 h-5" />,
 };
 
-
-import MeasurementUnits from './MeasurementUnits';
-
+// Fix the component return statement
 export default function LengthUnits() {
-  return (
-    <>
-     <MeasurementUnits {...lengthUnitsData} />
-    </>
-  );
+  // Remove the erroneous `<>` and `</>` wrapper
+  return <MeasurementUnitsTemplate {...lengthUnitsData} />;
 }

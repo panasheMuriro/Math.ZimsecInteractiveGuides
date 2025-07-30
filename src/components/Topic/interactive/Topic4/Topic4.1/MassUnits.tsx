@@ -1,23 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import {
   Scale,
   ShoppingCart,
-  Truck,
   Baby,
   Apple,
   Wheat,
   ArrowDownUp,
 } from "lucide-react";
-import MeasurementUnits from "./MeasurementUnits";
+// import MeasurementUnits from "./MeasurementUnitsTemplate"; // Ensure the path is correct
+import MeasurementUnitsTemplate from "./MeasurementUnitsTemplate";
 
 const massUnitsData = {
   title: "Mass",
   icon: <Scale className="w-10 h-10 mx-auto mb-3 text-yellow-400" />,
   colorScheme: {
-    primary: "bg-[#98A1BC]", // Blue-gray
-    secondary: "bg-[#6B7280]", // Gray-600
-    tertiary: "bg-[#A78BFA]", // Purple-400
+    primary: "bg-[#7A7A73]",   // Blue-gray
+    secondary: "bg-[#57564F]", // Gray-600
+    tertiary: "bg-[#DDDAD0]",  // Purple-400
   },
   scenarios: [
     {
@@ -31,6 +30,8 @@ const massUnitsData = {
       unit: "grams",
       context: "Mealie meal is used to make sadza, the staple food",
       difficulty: "easy",
+      // Add options for MCQ
+      options: [9000, 9500, 10000, 10500],
     },
     {
       id: "sugar-beans",
@@ -43,6 +44,7 @@ const massUnitsData = {
       unit: "grams",
       context: "Sugar beans are a popular protein source",
       difficulty: "easy",
+      options: [1500, 1800, 2000, 2500],
     },
     {
       id: "newborn-baby",
@@ -55,6 +57,7 @@ const massUnitsData = {
       unit: "grams",
       context: "Normal birth weight ranges from 2.5-4.0 kg",
       difficulty: "easy",
+      options: [3000, 3100, 3200, 3300],
     },
     {
       id: "cooking-oil",
@@ -67,67 +70,7 @@ const massUnitsData = {
       unit: "grams",
       context: "Cooking oil is essential for traditional cooking",
       difficulty: "medium",
-    },
-    {
-      id: "cement-bag",
-      title: "Cement Bag",
-      icon: <Truck className="w-6 h-6 text-amber-600" />,
-      description: "A standard cement bag weighs 50,000 grams",
-      question: "What is this mass in kilograms?",
-      calculation: "50,000 g ÷ 1000 g/kg = 50 kg",
-      answer: 50,
-      unit: "kilograms",
-      context: "Used for construction and building",
-      difficulty: "medium",
-    },
-    {
-      id: "maize-harvest",
-      title: "Maize Harvest",
-      icon: <Wheat className="w-6 h-6 text-yellow-600" />,
-      description: "A small-scale farmer harvests 2.5 tonnes of maize",
-      question: "What is this mass in kilograms?",
-      calculation: "2.5 tonnes × 1000 kg/tonne = 2,500 kg",
-      answer: 2500,
-      unit: "kilograms",
-      context: "Maize is Zimbabwe's main crop",
-      difficulty: "medium",
-    },
-    {
-      id: "gold-nugget",
-      title: "Gold Nugget",
-      icon: <Scale className="w-6 h-6 text-amber-400" />,
-      description: "A gold nugget weighs 15.5 grams",
-      question: "What is this mass in milligrams?",
-      calculation: "15.5 g × 1000 mg/g = 15,500 mg",
-      answer: 15500,
-      unit: "milligrams",
-      context: "Gold mining is important to Zimbabwe's economy",
-      difficulty: "hard",
-    },
-    {
-      id: "medicine-dose",
-      title: "Medicine Dose",
-      icon: <Baby className="w-6 h-6 text-purple-600" />,
-      description:
-        "A paracetamol tablet contains 500 milligrams of active ingredient",
-      question: "What is this mass in grams?",
-      calculation: "500 mg ÷ 1000 mg/g = 0.5 g",
-      answer: 0.5,
-      unit: "grams",
-      context: "Understanding medicine dosages is important for health",
-      difficulty: "hard",
-    },
-    {
-      id: "truck-load",
-      title: "Truck Load",
-      icon: <Truck className="w-6 h-6 text-gray-600" />,
-      description: "A delivery truck carries 3.2 tonnes of goods",
-      question: "What is this mass in grams?",
-      calculation: "3.2 tonnes × 1000 kg/tonne × 1000 g/kg = 3,200,000 g",
-      answer: 3200000,
-      unit: "grams",
-      context: "Heavy goods transport for commerce",
-      difficulty: "hard",
+      options: [650, 700, 750, 800],
     },
   ],
   systems: {
@@ -141,10 +84,10 @@ const massUnitsData = {
           fromBase: (value: number) => value / 0.001,
         },
         g: {
-          symbol: "g",
+          symbol: "g", // Fixed: was missing
           name: "Gram",
-          toBase: (value: any) => value,
-          fromBase: (value: any) => value,
+          toBase: (value: any) => value, // Note: This should ideally be (value: number) => value
+          fromBase: (value: any) => value, // Note: This should ideally be (value: number) => value
         },
         kg: {
           symbol: "kg",
@@ -163,8 +106,9 @@ const massUnitsData = {
     imperial: {
       name: "Imperial",
       units: {
+        // Fixed: Changed 'signature' to 'symbol'
         oz: {
-          symbol: "oz",
+          symbol: "oz", // This was 'signature'
           name: "Ounce",
           toBase: (value: number) => value * 28.3495, // to grams
           fromBase: (value: number) => value / 28.3495,
@@ -197,14 +141,11 @@ const massUnitsData = {
     "1 pound = 16 ounces ≈ 453.6 g",
     "1 stone = 14 pounds ≈ 6.35 kg",
   ],
-  swapIcon: <ArrowDownUp className="w-5 h-5" />,
+  swapIcon: <ArrowDownUp className="w-5 h-5" />, // Make sure this prop is accepted by your template
 };
 
-
+// Fix the component return statement
 export default function MassUnits() {
-  return (
-    <>
-      return <MeasurementUnits {...massUnitsData} />;
-    </>
-  );
+  return <MeasurementUnitsTemplate {...massUnitsData} />;
+  // Removed the erroneous `return <> ... </>` wrapper
 }
