@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// VolumeDensityQuiz.tsx
 import React from 'react';
-import MultipleStepInteractiveComponent, { MultiStepQuestion } from '../../Templates/MultipleStepInteractiveComponent';
 import { renderTextWithMath } from '../../../../../utils/renderTextWithMath';
+import MultipleStepInteractiveComponent, { MultiStep, MultiStepQuestion } from '../../Templates/MultipleStepInteractiveComponent';
+
 interface SphereVisualizerProps {
-  step: MultiStepQuestion;
+  step: MultiStep;
   sharedValues: { [key: string]: any };
 }
 
@@ -33,7 +33,7 @@ const SphereVisualizer: React.FC<SphereVisualizerProps> = () => {
 };
 
 interface CubeVisualizerProps {
-  step: MultiStepQuestion;
+  step: MultiStep;
   sharedValues: { [key: string]: any };
 }
 
@@ -59,7 +59,7 @@ const CubeVisualizer: React.FC<CubeVisualizerProps> = () => {
   );
 };
 
-const volumeDensitySteps: MultiStepQuestion[] = [
+const volumeDensitySteps: MultiStep[] = [
   {
     id: 'identify_shape',
     question: "Identify the 3D shape described in the problem.",
@@ -144,6 +144,14 @@ const volumeDensitySteps: MultiStepQuestion[] = [
   }
 ];
 
+const questions: MultiStepQuestion[] = [
+  {
+    id: 'volume_density_calculations',
+    title: 'Volume and Density Calculations',
+    steps: volumeDensitySteps
+  }
+];
+
 const initialSharedValues = {
   sphereRadius: 3,
   ironDensity: 7.8,
@@ -182,7 +190,7 @@ const VolumeDensity: React.FC = () => {
         "Density = Mass ÷ Volume",
         "Volume = Mass ÷ Density",
       ]}
-      steps={volumeDensitySteps}
+      questions={questions}
       initialSharedValues={initialSharedValues}
       renderSharedValuesSummary={renderSharedValuesSummary}
     />

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// CombinedShapeAreasQuiz.tsx
 import React from 'react';
-import MultipleStepInteractiveComponent, { MultiStepQuestion } from '../../Templates/MultipleStepInteractiveComponent';
+import MultipleStepInteractiveComponent, { MultiStep, MultiStepQuestion } from '../../Templates/MultipleStepInteractiveComponent';
 
+// --- Visualizer Component ---
 interface CombinedAreaVisualizerProps {
-  step: MultiStepQuestion;
+  step: MultiStep; // Use MultiStep for individual steps
   sharedValues: { [key: string]: any };
 }
 
@@ -34,7 +34,7 @@ const CombinedAreaVisualizer: React.FC<CombinedAreaVisualizerProps> = () => {
   );
 };
 
-const combinedAreaSteps: MultiStepQuestion[] = [
+const combinedAreaSteps: MultiStep[] = [ // Use MultiStep[] for the array of steps
   {
     id: 'identify_shapes',
     question: "Identify the basic shapes that make up this combined figure.",
@@ -66,7 +66,7 @@ const combinedAreaSteps: MultiStepQuestion[] = [
   },
   {
     id: 'semicircle_area',
-    question: "Calculate the area of the semicircular part. Use $ \\pi \\approx 3.14 $ and $ r = 4 \\, \\text{cm} $.",
+    question: "Calculate the area of the semicircular part. Use $\\pi \\approx 3.14$ and $ r = 4 \\, \\text{cm} $.",
     questionType: 'text',
     options: ["25.13 cm²", "50.27 cm²", "12.57 cm²", "16 cm²"],
     optionType: 'text',
@@ -100,6 +100,16 @@ const combinedAreaSteps: MultiStepQuestion[] = [
     correct: 2,
     explanation: `When a shape has a cut-out (a hole), you calculate the area of the main outer shape and then subtract the area of the cut-out shape to get the remaining area.`,
     explanationType: 'text',
+    // No CustomContentComponent for this step as it's conceptual
+  }
+];
+
+
+const questions: MultiStepQuestion[] = [ // Use MultiStepQuestion[] for the array of questions
+  {
+    id: 'combined_area_calculation', // Unique ID for the question group
+    title: 'Calculate Combined Area', // Title for the question group
+    steps: combinedAreaSteps // The array of steps belonging to this question
   }
 ];
 
@@ -118,7 +128,9 @@ const renderSharedValuesSummary = (sharedValues: { [key: string]: any }) => {
     </ul>
   );
 };
+// --- End Shared Values ---
 
+// --- Main Component ---
 const CombinedShapeAreas: React.FC = () => {
   return (
     <MultipleStepInteractiveComponent
@@ -138,7 +150,7 @@ const CombinedShapeAreas: React.FC = () => {
         "For shapes with cut-outs: Subtract the cut-out area.",
         "Use consistent units throughout calculations.",
       ]}
-      steps={combinedAreaSteps}
+      questions={questions} // Use the new 'questions' prop instead of 'steps'
       initialSharedValues={initialSharedValues}
       renderSharedValuesSummary={renderSharedValuesSummary}
     />
@@ -146,3 +158,4 @@ const CombinedShapeAreas: React.FC = () => {
 };
 
 export default CombinedShapeAreas;
+// --- End Main Component ---
