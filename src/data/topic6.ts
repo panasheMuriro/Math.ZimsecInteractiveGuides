@@ -18,6 +18,9 @@ Two quantities vary directly if one increases as the other increases proportiona
 - $y \\propto x$ (y is proportional to x)
 - $\\frac{y}{x} = k$ (constant ratio)
 
+\`\`\`direct-variation
+\`\`\`
+
 **Key Properties:**
 - When $x = 0$, $y = 0$ (passes through origin)
 - Graph is a straight line through the origin
@@ -38,6 +41,10 @@ Two quantities vary inversely if one increases as the other decreases proportion
 - $y = \\frac{k}{x}$ where $k$ is the constant of variation
 - $y \\propto \\frac{1}{x}$ (y is inversely proportional to x)
 - $xy = k$ (constant product)
+
+
+\`\`\`inverse-variation
+\`\`\`
 
 **Key Properties:**
 - Graph is a hyperbola
@@ -61,6 +68,9 @@ Two quantities vary inversely if one increases as the other decreases proportion
 - Both quantities increase/decrease together
 - When one doubles, the other doubles
 
+\`\`\`distinguishing-variation
+\`\`\`
+
 **Inverse Variation ($y = \\frac{k}{x}$):**
 - Product $xy$ is constant
 - Graph: hyperbola (curved)
@@ -77,6 +87,9 @@ Two quantities vary inversely if one increases as the other decreases proportion
         title: "Sketch Graphs of Variation",
         content: `**GRAPHING VARIATION**
 
+
+
+
 **Direct Variation Graph ($y = kx$):**
 - Straight line passing through origin $(0,0)$
 - Slope = constant of variation $k$
@@ -89,6 +102,10 @@ Two quantities vary inversely if one increases as the other decreases proportion
 - If $k > 0$: branches in quadrants I and III
 - If $k < 0$: branches in quadrants II and IV
 - Symmetric about the line $y = x$ when $k > 0$
+
+
+\`\`\`variation-graphs
+\`\`\`
 
 **Key Features:**
 - Direct: linear, passes through origin
@@ -104,6 +121,9 @@ One quantity varies directly with two or more other quantities simultaneously.
 - $z = kxy$ (z varies jointly with x and y)
 - $z = kx^m y^n$ (z varies jointly with powers of x and y)
 - $z \\propto xy$ or $z \\propto x^m y^n$
+
+\`\`\`joint-variation
+\`\`\`
 
 **Finding the Constant:**
 $k = \\frac{z}{xy}$ (for simple joint variation)
@@ -130,6 +150,10 @@ Combines constant and variable parts, often mixing direct and inverse variation.
 - $y = ax + \\frac{b}{x}$ (direct plus inverse)
 
 **Common Types:**
+
+\`\`\`partial-variation
+\`\`\`
+
 1. **Linear Partial:** $y = a + bx$
    - $a$ = fixed cost, $bx$ = variable cost
    

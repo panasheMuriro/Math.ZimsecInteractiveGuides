@@ -27,6 +27,7 @@ import { topic6Components } from "../interactive/Topic6";
 import { topic7Components } from "../interactive/Topic7";
 import { topic8Components } from "../interactive/Topic8";
 import { topic9Components } from "../interactive/Topic9";
+import VariationCodeRenderer from "../interactive/Topic6/VariationCodeRenderer";
 
 
 const StudyView = () => {
@@ -110,7 +111,7 @@ const renderInteractive = (type: string) => {
               remarkPlugins={[remarkMath, remarkGfm]}
               rehypePlugins={[rehypeKatex]}
               components={{
-                code:topicId == "8" ? SVGCodeRenderer: GraphCodeRenderer
+                code:topicId == "8" ? SVGCodeRenderer: topicId == "6"? VariationCodeRenderer: GraphCodeRenderer
               }}
             >
               {currentContent.content}

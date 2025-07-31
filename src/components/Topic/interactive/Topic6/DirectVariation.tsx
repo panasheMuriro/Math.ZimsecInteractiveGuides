@@ -1,330 +1,104 @@
-// import React, { useState, useEffect } from 'react';
-// import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+// src/components/interactives/DirectVariationInteractive.tsx
+import React from 'react';
+import MultipleChoiceInteractiveComponent, { QuizQuestion } from '../Templates/MultipleChoiceInteractiveComponent';
 
-import VariationGraphTemplate from "./VariationGraphTemplate";
+const DirectVariation: React.FC = () => {
+  const questions: QuizQuestion[] = [
+    {
+      question: "Which equation represents direct variation?",
+      options: [
+        "$y = kx$",
+        "$y = kx + b$",
+        "$y = \\frac{k}{x}$",
+        "$y = x^2$"
+      ],
+      correct: 0,
+      explanation: "Direct variation is represented by $y = kx$ where $k$ is the constant of variation. This equation shows that $y$ is directly proportional to $x$.",
+      questionType: "text",
+      optionType: "text",
+      explanationType: "text"
+    },
+    {
+      question: "If $y$ varies directly with $x$ and $y = 12$ when $x = 3$, what is the constant of variation $k$?",
+      options: [
+        "$k = 4$",
+        "$k = 9$",
+        "$k = 36$",
+        "$k = 15$"
+      ],
+      correct: 0,
+      explanation: "Using the direct variation formula $y = kx$, we substitute the given values: $12 = k \\cdot 3$. Solving for $k$: $k = \\frac{12}{3} = 4$.",
+      questionType: "text",
+      optionType: "text",
+      explanationType: "text"
+    },
+    {
+      question: "What is true about the graph of a direct variation?",
+      options: [
+        "It's a straight line passing through the origin",
+        "It's a parabola",
+        "It's a hyperbola",
+        "It's a horizontal line"
+      ],
+      correct: 0,
+      explanation: "The graph of direct variation $y = kx$ is always a straight line that passes through the origin (0,0) since when $x = 0$, $y = 0$.",
+      questionType: "text",
+      optionType: "text",
+      explanationType: "text"
+    },
+    {
+      question: "Which scenario represents direct variation?",
+      options: [
+        "The distance traveled and time at constant speed",
+        "The area of a square and its side length",
+        "The cost per item and number of items bought",
+        "The time to complete a job and number of workers"
+      ],
+      correct: 0,
+      explanation: "Distance and time at constant speed follow the relationship $d = vt$ where $v$ is constant. This is direct variation since distance increases proportionally with time.",
+      questionType: "text",
+      optionType: "text",
+      explanationType: "text"
+    },
+    {
+      question: "In direct variation, what happens to $y$ when $x$ is doubled?",
+      options: [
+        "$y$ is also doubled",
+        "$y$ is halved",
+        "$y$ remains the same",
+        "$y$ is quadrupled"
+      ],
+      correct: 0,
+      explanation: "In direct variation $y = kx$, if $x$ is doubled, then $y = k(2x) = 2(kx) = 2y$. Therefore, $y$ is also doubled when $x$ is doubled.",
+      questionType: "text",
+      optionType: "text",
+      explanationType: "text"
+    }
+  ];
 
-// const DirectVariation = () => {
-//   const [constantK, setConstantK] = useState(2);
-//   const [xValue, setXValue] = useState(5);
-//   const [yValue, setYValue] = useState(10);
-//   const [showCalculation, setShowCalculation] = useState(false);
-//   const [mode, setMode] = useState('explore'); // 'explore' or 'solve'
-//   const [problemX, setProblemX] = useState(3);
-//   const [problemY, setProblemY] = useState(15);
-//   const [findX, setFindX] = useState(8);
-//   const [userAnswer, setUserAnswer] = useState('');
-//   const [showAnswer, setShowAnswer] = useState(false);
+  const rules = [
+    "Direct variation has the form $y = kx$ where $k$ is constant",
+    "The graph is a straight line through the origin (0,0)",
+    "When $x = 0$, $y = 0$",
+    "The ratio $\\frac{y}{x}$ is always constant",
+    "$y$ increases proportionally as $x$ increases"
+  ];
 
-//   // Generate data points for the graph
-//   const generateData = () => {
-//     const data = [];
-//     for (let x = 0; x <= 10; x += 0.5) {
-//       data.push({
-//         x: x,
-//         y: constantK * x
-//       });
-//     }
-//     return data;
-//   };
-
-//   const data = generateData();
-
-//   // Calculate y value when x changes
-//   useEffect(() => {
-//     setYValue(constantK * xValue);
-//   }, [constantK, xValue]);
-
-//   const handleSolveProblem = () => {
-//     const correctAnswer = (problemY / problemX) * findX;
-//     setShowAnswer(true);
-//     return correctAnswer;
-//   };
-
-//   const correctAnswer = (problemY / problemX) * findX;
-//   const isUserCorrect = Math.abs(parseFloat(userAnswer) - correctAnswer) < 0.01;
-
-//   return (
-//     <div className="w-full max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-//       <div className="mb-6">
-//         <h2 className="text-2xl font-bold text-gray-800 mb-4">Direct Variation Interactive</h2>
-        
-//         {/* Mode Toggle */}
-//         <div className="flex mb-6">
-//           <button
-//             onClick={() => setMode('explore')}
-//             className={`px-4 py-2 mr-2 rounded ${
-//               mode === 'explore' 
-//                 ? 'bg-blue-500 text-white' 
-//                 : 'bg-gray-200 text-gray-700'
-//             }`}
-//           >
-//             Explore
-//           </button>
-//           <button
-//             onClick={() => setMode('solve')}
-//             className={`px-4 py-2 rounded ${
-//               mode === 'solve' 
-//                 ? 'bg-blue-500 text-white' 
-//                 : 'bg-gray-200 text-gray-700'
-//             }`}
-//           >
-//             Solve Problems
-//           </button>
-//         </div>
-//       </div>
-
-//       {mode === 'explore' ? (
-//         <div className="grid md:grid-cols-2 gap-6">
-//           {/* Controls */}
-//           <div className="space-y-4">
-//             <div>
-//               <label className="block text-sm font-medium text-gray-700 mb-2">
-//                 Constant of Variation (k)
-//               </label>
-//               <input
-//                 type="range"
-//                 min="0.5"
-//                 max="5"
-//                 step="0.5"
-//                 value={constantK}
-//                 onChange={(e) => setConstantK(parseFloat(e.target.value))}
-//                 className="w-full"
-//               />
-//               <span className="text-sm text-gray-600">k = {constantK}</span>
-//             </div>
-
-//             <div>
-//               <label className="block text-sm font-medium text-gray-700 mb-2">
-//                 x value
-//               </label>
-//               <input
-//                 type="range"
-//                 min="0"
-//                 max="10"
-//                 step="0.5"
-//                 value={xValue}
-//                 onChange={(e) => setXValue(parseFloat(e.target.value))}
-//                 className="w-full"
-//               />
-//               <span className="text-sm text-gray-600">x = {xValue}</span>
-//             </div>
-
-//             <div className="p-4 bg-blue-50 rounded-lg">
-//               <h3 className="font-semibold text-gray-800 mb-2">Current Values:</h3>
-//               <div className="space-y-1 text-sm">
-//                 <p><strong>Equation:</strong> y = {constantK}x</p>
-//                 <p><strong>When x = {xValue}:</strong> y = {constantK} × {xValue} = {yValue}</p>
-//                 <p><strong>Point:</strong> ({xValue}, {yValue})</p>
-//               </div>
-//             </div>
-
-//             <button
-//               onClick={() => setShowCalculation(!showCalculation)}
-//               className="w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
-//             >
-//               {showCalculation ? 'Hide' : 'Show'} Step-by-Step
-//             </button>
-
-//             {showCalculation && (
-//               <div className="p-4 bg-green-50 rounded-lg">
-//                 <h3 className="font-semibold text-gray-800 mb-2">Step-by-Step Calculation:</h3>
-//                 <div className="space-y-1 text-sm">
-//                   <p>1. Direct variation formula: y = kx</p>
-//                   <p>2. Given: k = {constantK}, x = {xValue}</p>
-//                   <p>3. Substitute: y = {constantK} × {xValue}</p>
-//                   <p>4. Calculate: y = {yValue}</p>
-//                   <p className="font-semibold text-green-700">Result: ({xValue}, {yValue})</p>
-//                 </div>
-//               </div>
-//             )}
-
-//             <div className="p-4 bg-yellow-50 rounded-lg">
-//               <h3 className="font-semibold text-gray-800 mb-2">Key Properties:</h3>
-//               <ul className="text-sm space-y-1">
-//                 <li>• Graph passes through origin (0,0)</li>
-//                 <li>• Straight line with slope = k</li>
-//                 <li>• As x increases, y increases proportionally</li>
-//                 <li>• Ratio y/x = k (constant)</li>
-//               </ul>
-//             </div>
-//           </div>
-
-//           {/* Graph */}
-//           <div>
-//             <h3 className="font-semibold text-gray-800 mb-4">Graph: y = {constantK}x</h3>
-//             <div className="h-80">
-//               <ResponsiveContainer width="100%" height="100%">
-//                 <LineChart data={data}>
-//                   <CartesianGrid strokeDasharray="3 3" />
-//                   <XAxis 
-//                     dataKey="x" 
-//                     domain={[0, 10]}
-//                     label={{ value: 'x', position: 'insideBottom', offset: -5 }}
-//                   />
-//                   <YAxis 
-//                     domain={[0, 50]}
-//                     label={{ value: 'y', angle: -90, position: 'insideLeft' }}
-//                   />
-//                   <Tooltip 
-//                     formatter={(value) => [Number(value).toFixed(1), 'y']}
-//                     labelFormatter={(label) => `x: ${label}`}
-//                   />
-//                   <Line 
-//                     type="monotone" 
-//                     dataKey="y" 
-//                     stroke="#2563eb" 
-//                     strokeWidth={3}
-//                     dot={false}
-//                   />
-//                   {/* Highlight current point */}
-//                   <Line
-//                     data={[{x: xValue, y: yValue}]}
-//                     type="monotone"
-//                     dataKey="y"
-//                     stroke="#ef4444"
-//                     strokeWidth={0}
-//                     dot={{ fill: '#ef4444', strokeWidth: 2, r: 6 }}
-//                   />
-//                 </LineChart>
-//               </ResponsiveContainer>
-//             </div>
-//             <p className="text-sm text-gray-600 mt-2 text-center">
-//               Red dot shows current point: ({xValue}, {yValue})
-//             </p>
-//           </div>
-//         </div>
-//       ) : (
-//         /* Problem Solving Mode */
-//         <div className="space-y-6">
-//           <div className="p-6 bg-gray-50 rounded-lg">
-//             <h3 className="font-semibold text-gray-800 mb-4">Practice Problem</h3>
-//             <div className="space-y-4">
-//               <p className="text-gray-700">
-//                 If y varies directly with x, and y = {problemY} when x = {problemX}, 
-//                 find y when x = {findX}.
-//               </p>
-              
-//               <div className="grid md:grid-cols-3 gap-4">
-//                 <div>
-//                   <label className="block text-sm font-medium text-gray-700 mb-1">
-//                     Given: x₁ = {problemX}
-//                   </label>
-//                   <input
-//                     type="number"
-//                     value={problemX}
-//                     onChange={(e) => setProblemX(parseInt(e.target.value) || 3)}
-//                     className="w-full p-2 border border-gray-300 rounded"
-//                   />
-//                 </div>
-//                 <div>
-//                   <label className="block text-sm font-medium text-gray-700 mb-1">
-//                     Given: y₁ = {problemY}
-//                   </label>
-//                   <input
-//                     type="number"
-//                     value={problemY}
-//                     onChange={(e) => setProblemY(parseInt(e.target.value) || 15)}
-//                     className="w-full p-2 border border-gray-300 rounded"
-//                   />
-//                 </div>
-//                 <div>
-//                   <label className="block text-sm font-medium text-gray-700 mb-1">
-//                     Find y when x = {findX}
-//                   </label>
-//                   <input
-//                     type="number"
-//                     value={findX}
-//                     onChange={(e) => setFindX(parseInt(e.target.value) || 8)}
-//                     className="w-full p-2 border border-gray-300 rounded"
-//                   />
-//                 </div>
-//               </div>
-
-//               <div>
-//                 <label className="block text-sm font-medium text-gray-700 mb-1">
-//                   Your Answer:
-//                 </label>
-//                 <input
-//                   type="number"
-//                   value={userAnswer}
-//                   onChange={(e) => setUserAnswer(e.target.value)}
-//                   placeholder="Enter your answer"
-//                   className="w-full p-2 border border-gray-300 rounded"
-//                 />
-//               </div>
-
-//               <button
-//                 onClick={handleSolveProblem}
-//                 className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-//               >
-//                 Check Answer & Show Solution
-//               </button>
-
-//               {showAnswer && (
-//                 <div className={`p-4 rounded-lg ${isUserCorrect ? 'bg-green-50' : 'bg-red-50'}`}>
-//                   <h4 className="font-semibold mb-2">
-//                     {isUserCorrect ? '✅ Correct!' : '❌ Try Again'}
-//                   </h4>
-                  
-//                   <div className="space-y-2 text-sm">
-//                     <p><strong>Solution Steps:</strong></p>
-//                     <p>1. For direct variation: y = kx</p>
-//                     <p>2. Find k using given values: k = y₁/x₁ = {problemY}/{problemX} = {(problemY/problemX).toFixed(2)}</p>
-//                     <p>3. Write equation: y = {(problemY/problemX).toFixed(2)}x</p>
-//                     <p>4. Find y when x = {findX}: y = {(problemY/problemX).toFixed(2)} × {findX} = {correctAnswer.toFixed(2)}</p>
-//                     <p className="font-semibold text-blue-700">Answer: y = {correctAnswer.toFixed(2)}</p>
-//                   </div>
-//                 </div>
-//               )}
-//             </div>
-//           </div>
-
-//           {/* Quick Examples */}
-//           <div className="grid md:grid-cols-2 gap-4">
-//             <div className="p-4 bg-blue-50 rounded-lg">
-//               <h4 className="font-semibold text-gray-800 mb-2">Real-World Example 1</h4>
-//               <p className="text-sm text-gray-700">
-//                 A car travels at constant speed. Distance varies directly with time.
-//                 If it travels 120 km in 2 hours, how far in 5 hours?
-//               </p>
-//               <p className="text-xs text-gray-600 mt-2">
-//                 Solution: d = 60t, so d = 60(5) = 300 km
-//               </p>
-//             </div>
-//             <div className="p-4 bg-green-50 rounded-lg">
-//               <h4 className="font-semibold text-gray-800 mb-2">Real-World Example 2</h4>
-//               <p className="text-sm text-gray-700">
-//                 Cost varies directly with quantity. If 3 items cost $15, 
-//                 what do 7 items cost?
-//               </p>
-//               <p className="text-xs text-gray-600 mt-2">
-//                 Solution: C = 5q, so C = 5(7) = $35
-//               </p>
-//             </div>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default DirectVariation;
-
-
-// components/DirectVariation.tsx
-
-// import VariationGraphTemplate from "./VariationGraphTemplate";
-
-export default function DirectVariation() {
   return (
-    <VariationGraphTemplate
+    <MultipleChoiceInteractiveComponent
       title="Direct Variation"
-      formula="y = kx"
-      type="direct"
-      constantLabels={["Enter the value of k"]}
-      defaultConstants={{ k: 2 }}
-      computeY={(x, { k }) => k * x}
-      lineColor="#10b981"
+      icon="📈"
+      theme={{
+        from: "from-blue-500",
+        to: "to-indigo-600",
+        button: "bg-blue-600 hover:bg-blue-700",
+        buttonHover: "hover:shadow-blue-500/30"
+      }}
+      rules={rules}
+      questions={questions}
+      rulesTitle="Direct Variation Rules:"
     />
   );
-}
+};
+
+export default DirectVariation;
