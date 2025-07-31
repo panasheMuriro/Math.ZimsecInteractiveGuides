@@ -1,9 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// src/components/interactives/VariationProblemsInteractive.tsx
 import React from 'react';
 import MultipleStepInteractiveComponent, { MultiStepQuestion } from '../Templates/MultipleStepInteractiveComponent';
-// import MultipleStepInteractiveComponent, { MultiStepQuestion } from '../../Templates/MultiStepInteractiveComponent';
-// import { renderTextWithMath } from '../../utils/renderTextWithMath';
 
 const VariationProblems: React.FC = () => {
   const questions: MultiStepQuestion[] = [
