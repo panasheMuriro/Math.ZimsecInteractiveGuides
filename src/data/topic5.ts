@@ -30,11 +30,10 @@ Every point has coordinates (x, y):
 - **Quadrant III**: x < 0, y < 0 (bottom-left)
 - **Quadrant IV**: x > 0, y < 0 (bottom-right)
 
-\`\`\`graph
-{
- "points": [[2, 2], [-2, 2], [-2, -2], [2, -2]]
-}
+\`\`\`quadrants
 \`\`\`
+
+
 **Scale:**
 - Choose appropriate units for your data
 - Both axes can have different scales
@@ -56,10 +55,7 @@ Plot the point (3, -2):
 **Example:**
 Let’s plot the point (3, -2):
 
-\`\`\`graph
-{
-  "points": [[3, -2]]
-}
+\`\`\`point-plot
 \`\`\`
 `,
         interactive: "cartesian-plane",
@@ -79,12 +75,7 @@ Where:
 - **x**: Independent variable
 - **y**: Dependent variable
 
-\`\`\`linear
-{
-  "m": 2,
-  "c": -1,
-  "domain": [-3, 3]
-}
+\`\`\`linear-demo
 \`\`\`
 
 **Key Features:**
@@ -102,7 +93,7 @@ $m = \\frac{\\text{rise}}{\\text{run}} = \\frac{y_2 - y_1}{x_2 - x_1}$
 - **Undefined**: Vertical line - red
 
 
-\`\`\`gradient
+\`\`\`gradient-types
 {
   "types": ["positive", "negative", "zero", "undefined"],
   "examples": true
@@ -120,6 +111,8 @@ f(x) = mx + c means "function of x equals mx plus c"
 - f(2) means substitute x = 2 into the function
 - If f(x) = 2x + 1, then f(2) = 2(2) + 1 = 5
 
+
+
 **Example:**
 Graph y = 2x - 1:
 - Gradient = 2 (rises 2 units for every 1 unit right)
@@ -127,7 +120,12 @@ Graph y = 2x - 1:
 
 Table of values:
 x: -1, 0, 1, 2
-y: -3, -1, 1, 3`,
+y: -3, -1, 1, 3
+
+\`\`\`linear-graph-example
+\`\`\`
+
+`,
         interactive: "linear-graphs",
       },
       {
@@ -146,13 +144,7 @@ Where:
 
 **Example Quadratic Graph:**
 
-\`\`\`quadratic
-{
-  "a": 1,
-  "b": -4,
-  "c": 0,
-  "domain": [0, 4]
-}
+\`\`\`quadratic-plot-example
 \`\`\`
 
 **Key Features:**
@@ -166,6 +158,9 @@ Where:
 - If a < 0: Parabola opens downward (∩-shape)
 - Larger |a| makes parabola narrower
 - Smaller |a| makes parabola wider
+
+\`\`\`quadratic-graph-shapes
+\`\`\`
 
 **Finding the Vertex:**
 x-coordinate of vertex: $x = -\\frac{b}{2a}$
@@ -198,7 +193,7 @@ Graph y = x² - 4x + 3:
 
   **Graph**
 
-  \`\`\`quadratic
+  \`\`\`quadratic-plot-example-2
 {
   "a": 1,
   "b": -4,

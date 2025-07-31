@@ -1,9 +1,5 @@
 // components/GraphCodeRenderer.tsx
 import React from "react";
-import JSXGraphViewer from "./Topic5.1/GraphViewers/JSXGraphViewer";
-import LinearGraphViewer from "./Topic5.1/GraphViewers/LinearGraphViewer";
-import GradientViewer from "./Topic5.1/GraphViewers/GradientViewer";
-import QuadraticGraphViewer from "./Topic5.1/GraphViewers/QuadraticGraphViewer";
 import DistanceTimeMotionTypesViewer from "./Topic5.2/GraphViewers/DistanceTime/DistanceTimeMotionTypesViewer";
 import DistanceTimeExampleViewer from "./Topic5.2/GraphViewers/DistanceTime/DistanceTimeExampleViewer";
 import DistanceTimeKeyFeatures from "./Topic5.2/GraphViewers/DistanceTime/DistanceTimeKeyFeatures";
@@ -12,6 +8,12 @@ import VelocityTimeExampleViewer from "./Topic5.2/GraphViewers/VelocityTime/Velo
 import DisplacementKeyFeaturesViewer from "./Topic5.2/GraphViewers/Displacement/DisplacementKeyFeaturesViewer";
 import DisplacementGradientViewer from "./Topic5.2/GraphViewers/Displacement/DisplacementGradientViewer";
 import DisplacementExampleViewer from "./Topic5.2/GraphViewers/Displacement/DisplacementExampleViewer";
+import Quadrants from "./Topic5.1/GraphViewers/Quadrants";
+import PointPlot from "./Topic5.1/GraphViewers/PointPlot";
+import LinearGraphPlot from "./Topic5.1/LinearGraphPlot";
+import GradientTypes from "./Topic5.1/GraphViewers/GradientTypes";
+import QuadraticGraphPlot from "./Topic5.1/GraphViewers/QuadraticGraphPlot";
+import QuadraticShapes from "./Topic5.1/GraphViewers/QuadraticShapes";
 
 interface CodeProps extends React.HTMLAttributes<HTMLElement> {
   className?: string;
@@ -23,41 +25,97 @@ const GraphCodeRenderer: React.FC<CodeProps> = ({
   children,
   ...props
 }) => {
-  if (className === "language-graph") {
+  if (className === "language-quadrants") {
     try {
-      const data = JSON.parse(children as string);
-      return <JSXGraphViewer data={data} />;
+      return <Quadrants/>
     } catch {
-      return <pre>Invalid graph data</pre>;
+      return <></>;
     }
   }
 
-  if (className === "language-linear") {
+
+  if (className === "language-point-plot") {
     try {
-      const data = JSON.parse(children as string);
-      return <LinearGraphViewer data={data} />;
+      return <PointPlot/>
     } catch {
-      return <pre>Invalid linear graph data</pre>;
+      return <></>;
     }
   }
 
-  if (className === "language-gradient") {
+    if (className === "language-linear-demo") {
     try {
-      const data = JSON.parse(children as string);
-      return <GradientViewer data={data} />;
+      return <LinearGraphPlot/>
     } catch {
-      return <pre>Invalid gradient data</pre>;
+      return <></>;
     }
   }
 
-  if (className === "language-quadratic") {
+
+  if (className === "language-gradient-types") {
     try {
-      const data = JSON.parse(children as string);
-      return <QuadraticGraphViewer data={data} />;
+      return <GradientTypes/>
     } catch {
-      return <pre>Invalid quadratic data</pre>;
+      return <></>;
     }
   }
+
+if (className === "language-linear-graph-example") {
+    try {
+      return<LinearGraphPlot 
+  gradient={2} 
+  yIntercept={-1} 
+  xRange={[-1, 2]} 
+/>
+    } catch {
+      return <></>;
+    }
+  }
+
+
+  if (className === "language-quadratic-plot-example") {
+    try {
+      return <QuadraticGraphPlot a={1} b={0} c={0} />
+    } catch {
+      return <></>;
+    }
+  }
+
+
+    if (className === "language-quadratic-plot-example-2") {
+    try {
+      return  <QuadraticGraphPlot
+        a={1}
+        b={-4}
+        c={3}
+        xRange={[-1, 5] as [number, number]}
+        minX={-2}
+        maxX={6}
+        minY={-2}
+        maxY={6}
+        width={400}
+        height={400}
+        unitSize={50}
+      />
+    } catch {
+      return <></>;
+    }
+  }
+
+
+      if (className === "language-quadratic-graph-shapes") {
+    try {
+      return  <QuadraticShapes/>
+    } catch {
+      return <></>;
+    }
+  }
+
+
+// 
+
+
+
+
 
   if (className === "language-distance-time-features") {
     try {

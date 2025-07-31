@@ -1,171 +1,191 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState } from "react";
-import ReactMarkdown from "react-markdown";
-import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
+import MultipleStepInteractiveComponent, { MultiStep, MultiStepQuestion } from "../../Templates/MultipleStepInteractiveComponent";
 
-const InverseFunctions = () => {
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [userAnswer, setUserAnswer] = useState("");
-  const [feedback, setFeedback] = useState("");
-  const [showHint, setShowHint] = useState(false);
-  const [score, setScore] = useState(0);
+// Define the steps for Question 1: Identifying the Steps
+const question1Steps: MultiStep[] = [
+  {
+    id: 'q1_identify_step',
+    question: "Given f(x) = 2x - 5, what is the first step to find its inverse?",
+    questionType: 'text',
+    options: [
+      "Swap x and y",
+      "Solve for y",
+      "Replace f(x) with y",
+      "Replace y with f⁻¹(x)"
+    ],
+    optionType: 'text',
+    correct: 2,
+    explanation: "The first step is to replace the function notation f(x) with the variable y. So, f(x) = 2x - 5 becomes y = 2x - 5.",
+    explanationType: 'text',
+  },
+  {
+    id: 'q2_identify_step_2',
+    question: "After replacing f(x) with y, we have y = 2x - 5. What is the next step?",
+    questionType: 'text',
+    options: [
+      "Replace f(x) with y",
+      "Swap x and y variables",
+      "Solve for y",
+      "Replace y with f⁻¹(x)"
+    ],
+    optionType: 'text',
+    correct: 1,
+    explanation: "The second step is to interchange the variables x and y. So, y = 2x - 5 becomes x = 2y - 5.",
+    explanationType: 'text',
+  },
+  {
+    id: 'q3_identify_step_3',
+    question: "We now have x = 2y - 5. What is the next step to find the inverse function?",
+    questionType: 'text',
+    options: [
+      "Swap x and y variables",
+      "Replace f(x) with y",
+      "Solve for y",
+      "Replace y with f⁻¹(x)"
+    ],
+    optionType: 'text',
+    correct: 2,
+    explanation: "The third step is to solve the equation for y. Starting with x = 2y - 5, add 5 to both sides: x + 5 = 2y. Then divide both sides by 2: (x + 5)/2 = y.",
+    explanationType: 'text',
+  },
+  {
+    id: 'q4_identify_step_4',
+    question: "We have solved for y and found that y = (x + 5)/2. What is the final step?",
+    questionType: 'text',
+    options: [
+      "Replace f(x) with y",
+      "Swap x and y variables",
+      "Solve for y",
+      "Replace y with f⁻¹(x)"
+    ],
+    optionType: 'text',
+    correct: 3,
+    explanation: "The final step is to replace y with the inverse function notation f⁻¹(x). Therefore, the inverse function is f⁻¹(x) = (x + 5)/2.",
+    explanationType: 'text',
+  },
+];
 
-  const questions = [
-    {
-      question: "Find the inverse of $f(x) = 3x - 5$",
-      answer: "$f^{-1}(x) = \\frac{x + 5}{3}$",
-      hint: `
-1. Replace $f(x)$ with $y$  
-2. Swap $x$ and $y$  
-3. Solve for $y$  
-4. Replace $y$ with $f^{-1}(x)$
-      `,
-      steps: [
-        "$y = 3x - 5$",
-        "$x = 3y - 5$",
-        "$x + 5 = 3y$",
-        "$y = \\frac{x + 5}{3}$",
-        "$f^{-1}(x) = \\frac{x + 5}{3}$"
-      ],
-    },
-    {
-      question: "Find the inverse of $g(x) = x^3 + 2$",
-      answer: "$g^{-1}(x) = \\sqrt[3]{x - 2}$",
-      hint: "Remember to use cube root ($\\sqrt[3]{x}$) for cubic functions",
-      steps: [
-        "$y = x^3 + 2$",
-        "$x = y^3 + 2$",
-        "$x - 2 = y^3$",
-        "$y = \\sqrt[3]{x - 2}$",
-        "$g^{-1}(x) = \\sqrt[3]{x - 2}$"
-      ],
-    },
-    {
-      question: "Find the inverse of $h(x) = \\frac{1}{2}x + 4$",
-      answer: "$h^{-1}(x) = 2x - 8$",
-      hint: "Multiply both sides by 2 to eliminate fraction",
-      steps: [
-        "$y = \\frac{1}{2}x + 4$",
-        "$x = \\frac{1}{2}y + 4$",
-        "$x - 4 = \\frac{1}{2}y$",
-        "$2(x - 4) = y$",
-        "$y = 2x - 8$",
-        "$h^{-1}(x) = 2x - 8$"
-      ],
-    },
+// Define the steps for Question 2: Providing the Results
+const question2Steps: MultiStep[] = [
+  {
+    id: 'q5_result_step_1',
+    question: "f(x) = 2x - 5. After Step 1 (Replace f(x) with y), what is the equation?",
+    questionType: 'text',
+    options: [
+      "y = 2x - 5",
+      "x = 2y - 5",
+      "y = (x + 5)/2",
+      "f⁻¹(x) = (x + 5)/2"
+    ],
+    optionType: 'text',
+    correct: 0,
+    explanation: "Step 1 is to replace f(x) with y. So, f(x) = 2x - 5 becomes y = 2x - 5.",
+    explanationType: 'text',
+  },
+  {
+    id: 'q6_result_step_2',
+    question: "y = 2x - 5. After Step 2 (Swap x and y), what is the equation?",
+    questionType: 'text',
+    options: [
+      "y = 2x - 5",
+      "x = 2y - 5",
+      "y = (x + 5)/2",
+      "f⁻¹(x) = (x + 5)/2"
+    ],
+    optionType: 'text',
+    correct: 1,
+    explanation: "Step 2 is to swap x and y. So, y = 2x - 5 becomes x = 2y - 5.",
+    explanationType: 'text',
+  },
+  {
+    id: 'q7_result_step_3',
+    question: "x = 2y - 5. After Step 3 (Solve for y), what is the equation?",
+    questionType: 'text',
+    options: [
+      "y = 2x - 5",
+      "x = 2y - 5",
+      "y = (x + 5)/2",
+      "f⁻¹(x) = (x + 5)/2"
+    ],
+    optionType: 'text',
+    correct: 2,
+    explanation: "Step 3 is to solve for y. Starting with x = 2y - 5:\n1. Add 5: x + 5 = 2y\n2. Divide by 2: (x + 5)/2 = y\nSo, y = (x + 5)/2.",
+    explanationType: 'text',
+  },
+  {
+    id: 'q8_result_step_4',
+    question: "y = (x + 5)/2. After Step 4 (Replace y with f⁻¹(x)), what is the equation?",
+    questionType: 'text',
+    options: [
+      "y = 2x - 5",
+      "x = 2y - 5",
+      "y = (x + 5)/2",
+      "f⁻¹(x) = (x + 5)/2"
+    ],
+    optionType: 'text',
+    correct: 3,
+    explanation: "Step 4 is to replace y with f⁻¹(x). So, y = (x + 5)/2 becomes f⁻¹(x) = (x + 5)/2.",
+    explanationType: 'text',
+  },
+];
+
+// Define the Questions (Groups of Steps)
+const questions: MultiStepQuestion[] = [
+  {
+    id: 'identify_steps_question',
+    title: '1. Identify the Steps',
+    steps: question1Steps
+  },
+  {
+    id: 'find_results_question',
+    title: '2. Find the Results',
+    steps: question2Steps
+  }
+];
+
+const InverseFunctions: React.FC = () => { // Renamed component for clarity
+  const rules = [
+    "Step 1: Replace f(x) with y",
+    "Step 2: Swap x and y variables",
+    "Step 3: Solve for y",
+    "Step 4: Replace y with f⁻¹(x)"
   ];
 
-  const checkAnswer = () => {
-    const normalizedAnswer = userAnswer.trim().replace(/\s+/g, "");
-    const normalizedCorrect = questions[currentQuestion].answer.replace(/\s+/g, "");
-
-    if (normalizedAnswer === normalizedCorrect) {
-      setFeedback("**Correct!** Well done.");
-      setScore(score + 1);
-    } else {
-      setFeedback(`
-**Incorrect.** Try again. The correct steps are:
-
-${questions[currentQuestion].steps.map(step => `- ${step}`).join('\n')}
-      `);
-    }
+  const renderSharedValuesSummary = () => {
+    return (
+      <div>
+        <p className="mb-2">You have reviewed the steps for finding the inverse of a function:</p>
+        <ol className="list-decimal list-inside space-y-1 text-sm">
+          <li>Replace f(x) with y</li>
+          <li>Swap x and y variables</li>
+          <li>Solve for y</li>
+          <li>Replace y with f⁻¹(x)</li>
+        </ol>
+        <p className="mt-3 font-medium">Example:</p>
+        <p className="text-xs">f(x) = 2x - 5</p>
+        <p className="text-xs">1. y = 2x - 5</p>
+        <p className="text-xs">2. x = 2y - 5</p>
+        <p className="text-xs">3. x + 5 = 2y → (x + 5)/2 = y</p>
+        <p className="text-xs">4. f⁻¹(x) = (x + 5)/2</p>
+      </div>
+    );
   };
-
-  const nextQuestion = () => {
-    setCurrentQuestion((prev) => (prev + 1) % questions.length);
-    setUserAnswer("");
-    setFeedback("");
-    setShowHint(false);
-  };
-
-  const showHintHandler = () => {
-    setShowHint(true);
-    setFeedback(`**Hint:** ${questions[currentQuestion].hint}`);
-  };
-
-  const renderMarkdown = (content: string) => (
-    <ReactMarkdown
-      remarkPlugins={[remarkMath]}
-      rehypePlugins={[rehypeKatex]}
-      components={{
-        ul: ({ node, ...props }) => <ul className="list-disc pl-5 space-y-1" {...props} />,
-        li: ({ node, ...props }) => <li className="pl-2" {...props} />
-      }}
-    >
-      {content}
-    </ReactMarkdown>
-  );
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-xl font-bold mb-4">Inverse Functions Quiz</h2>
-
-      <div className="mb-4 p-4 bg-blue-50 rounded">
-        {renderMarkdown(questions[currentQuestion].question)}
-      </div>
-
-      <div className="mb-4">
-        <label className="block text-sm font-medium mb-1">
-          Your answer (use $f^{-1}(x) = ...$ format):
-        </label>
-        <input
-          type="text"
-          value={userAnswer}
-          onChange={(e) => setUserAnswer(e.target.value)}
-          className="w-full p-2 border rounded"
-          placeholder="e.g., f⁻¹(x) = (x + a)/b"
-        />
-      </div>
-
-      <div className="flex gap-2 mb-4">
-        <button
-          onClick={checkAnswer}
-          className="flex-1 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
-        >
-          Check Answer
-        </button>
-        <button
-          onClick={showHintHandler}
-          disabled={showHint}
-          className={`flex-1 py-2 px-4 rounded ${
-            showHint ? "bg-gray-300" : "bg-yellow-500 hover:bg-yellow-600 text-white"
-          }`}
-        >
-          {showHint ? "Hint Shown" : "Get Hint"}
-        </button>
-      </div>
-
-      {feedback && (
-        <div className={`p-3 mb-4 rounded ${
-          feedback.includes("Correct") ? "bg-green-100" : "bg-yellow-100"
-        }`}>
-          {renderMarkdown(feedback)}
-        </div>
-      )}
-
-      <button
-        onClick={nextQuestion}
-        className="w-full bg-gray-200 hover:bg-gray-300 py-2 px-4 rounded"
-      >
-        Next Question
-      </button>
-
-      <div className="mt-4 pt-4 border-t">
-        <p className="font-medium">Score: {score}/{questions.length}</p>
-        <div className="mt-2 text-sm text-gray-600">
-          {renderMarkdown(`
-**Remember:**
-
-- Swap $x$ and $y$ variables
-- Solve for $y$
-- For $x^n$ use $\\sqrt[n]{x}$
-- Check by verifying $f(f^{-1}(x)) = x$
-          `)}
-        </div>
-      </div>
-    </div>
+    <MultipleStepInteractiveComponent
+      title="Inverse Function Steps Quiz"
+      icon="🔄"
+      theme={{
+        from: "from-emerald-600",
+        to: "to-teal-700",
+        button: "bg-gradient-to-r from-amber-500 to-orange-500",
+        buttonHover: "hover:from-amber-600 hover:to-orange-600"
+      }}
+      rules={rules}
+      questions={questions} // Use the new 'questions' prop
+      rulesTitle="Steps to Find Inverse:"
+      renderSharedValuesSummary={renderSharedValuesSummary}
+    />
   );
 };
 
-export default InverseFunctions;
+export default InverseFunctions; // Updated export name
