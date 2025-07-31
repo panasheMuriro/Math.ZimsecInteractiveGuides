@@ -415,10 +415,6 @@ These graphs show how speed or velocity changes over time:
 **Key Features:**
 
 \`\`\`velocity-time-features
-{
-  "showLegend": true,
-  "title": "Velocity-Time Graph Key Features"
-}
   \`\`\`
 
 **Horizontal Line:**
@@ -464,9 +460,6 @@ Distance = Area under speed-time or velocity-time graph
 **Example Interpretation:**
 
 \`\`\`velocity-time-example
-{
-  "showCalculations": false
-}
 \`\`\`
 
 
@@ -558,9 +551,9 @@ $v = \\frac{\\Delta s}{\\Delta t}$
 \`\`\`
 
 A ball thrown upward:
-- 0-2s: Curved line from (0,0) to (2,20) - upward motion, decreasing velocity
-- 2-4s: Curved line from (2,20) to (4,0) - downward motion, increasing speed
-- Maximum displacement = 20m at t = 2s
+- 0-2s: Curved line from (0,0) to (2,5) - upward motion, decreasing velocity
+- 2-4s: Curved line from (2,5) to (4,0) - downward motion, increasing speed
+- Maximum displacement = 5m at t = 2s
 - Returns to starting position at t = 4s`,
         interactive: "displacement-time",
       },
