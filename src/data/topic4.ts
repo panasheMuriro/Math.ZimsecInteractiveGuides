@@ -288,7 +288,7 @@ Density = 240 g ÷ 80 cm³ = 3 g/cm³`,
     ],
   },
   {
-    title: "Mensuration",
+    title: "Mensuration 2D",
     icon: "📐",
     content: `Mensuration deals with the measurement of geometric figures, including perimeter, area, surface area, and volume of various shapes and solids.`,
     subsections: [
@@ -363,36 +363,78 @@ Area = ½ × 10 × 6 = 30 cm²`,
         interactive: "area",
       },
       {
-        title: "Combined Shapes",
-        content: `**COMBINED SHAPES**
+        "title": "Combined Shape Perimeters",
+        "content": `**COMBINED SHAPE PERIMETERS**
 
-Areas and perimeters of shapes made from combining basic shapes:
+Finding the total distance around the outside edge of combined shapes:
 
-**Approach for Area:**
-1. Break the shape into recognizable parts
-2. Calculate the area of each part
-3. Add areas for shapes that don't overlap
-4. Subtract areas for cut-out sections
+**Step-by-Step Approach:**
+1. Trace the complete outer boundary of the combined shape
+2. Identify each section of the perimeter (straight lines, curves, etc.)
+3. Calculate the length of each outer edge section
+4. Add up all outer edge lengths
+5. **Important:** Do NOT include internal boundaries or hidden edges
 
-**Approach for Perimeter:**
-1. Identify the outer boundary
-2. Add up all the outer edge lengths
-3. Don't include internal boundaries
+**Common Perimeter Scenarios:**
+- Rectangle + Triangle: 2 rectangle sides + 2 triangle sides + shared base
+- Rectangle + Semicircle: 3 rectangle sides + semicircle arc
+- L-shaped figure: Count only the outer edges, not internal corners
+- Shapes with cut-outs: Outer perimeter + inner perimeter of cut-out
 
-**Common Combined Shapes:**
-- Rectangle with semicircle
-- Rectangle with triangle
-- Circle with rectangle removed
-- L-shaped figures
-- Compound shapes with curves
+**Example Calculation:**
+Shape: Rectangle (8×5) with semicircle (radius 3) attached to one side
+- Rectangle edges: 8 + 5 + 5 = 18 cm (the side with semicircle not counted)
+- Semicircle arc = π × 3 = 9.42 cm
+- **Total perimeter = 18 + 9.42 = 27.42 cm**
 
-**Example:**
-Find the area of a shape made from a rectangle (8×5) with a semicircle (radius 3) attached:
-Rectangle area = 8 × 5 = 40 cm²
-Semicircle area = ½ × π × 3² = 4.5π cm²
-Total area = 40 + 4.5π ≈ 54.14 cm²`,
-        interactive: "combined-shapes",
+**Pro Tips:**
+- Draw the shape and highlight the outer boundary
+- Break curved sections into recognizable arcs
+- Double-check that you haven't counted internal edges
+- For complex shapes, work systematically around the perimeter`,
+        "interactive": "combined-shape-perimeters"
       },
+      {
+        "title": "Combined Shape Areas",
+        "content": `**COMBINED SHAPE AREAS**
+
+Calculating the total area when shapes are combined together:
+
+**Step-by-Step Approach:**
+1. Identify all basic shapes within the combined figure
+2. Calculate the area of each individual shape
+3. For overlapping shapes: Add non-overlapping areas, subtract overlapping sections
+4. For adjacent shapes: Simply add all individual areas together
+5. For shapes with cut-outs: Subtract the cut-out area from the main shape
+
+**Common Area Combinations:**
+- Rectangle + Triangle: House-shaped figures
+- Rectangle + Semicircle: Rounded-end shapes
+- Circle - Rectangle: Ring or partial ring shapes
+- Multiple rectangles: L-shapes, T-shapes, cross shapes
+- Curved + straight edges: Stadium shapes, arch shapes
+
+**Example Calculation:**
+Shape: Rectangle (10×6) with semicircle (radius 4) on top
+- Rectangle area = 10 × 6 = 60 cm²
+- Semicircle area = ½ × π × 4² = 8π ≈ 25.13 cm²
+- **Total area = 60 + 25.13 = 85.13 cm²**
+
+**Key Notes:**
+- Always sketch and label dimensions first
+- Watch for overlapping vs. adjacent shapes
+- Use consistent units throughout calculations`,
+        "interactive": "combined-shape-areas"
+      },
+    ],
+  },  
+
+   {
+    title: "Mensuration 3D",
+    icon: "📐",
+    content: `Mensuration deals with the measurement of geometric figures, including perimeter, area, surface area, and volume of various shapes and solids.`,
+    subsections: [
+  
       {
         title: "Volume of Cuboids",
         content: `**VOLUME OF CUBOIDS**
@@ -527,8 +569,6 @@ Volume = (4/3)π × 3³ = 36π cm³
 Mass = 7.8 × 36π ≈ 882.5 g`,
         interactive: "volume-density",
       },
-
-      
     ],
   },
 ];

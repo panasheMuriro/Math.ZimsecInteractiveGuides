@@ -1,21 +1,23 @@
+// src/Templates/MultipleChoiceInteractiveComponent.tsx
 import React, { useState } from 'react';
 import { InlineMath, BlockMath } from 'react-katex';
 import 'katex/dist/katex.min.css';
 import { RotateCw, CheckCircle, XCircle, HelpCircle } from 'lucide-react';
 
-// Define the type for a single question
 export interface QuizQuestion {
   id?: string;
-  question: string; // This is now always a KaTeX string intended for BlockMath
-  options: string[]; // KaTeX strings for options (for InlineMath)
-  correct: number; // Index of the correct option
-  explanation: string; // KaTeX string for explanation
-  explanationType?: 'text' | 'math'; // Controls rendering: 'math' -> BlockMath, 'text' (or undefined) -> InlineMath
-  questionType?: 'text' | 'math'
-  optionType?: 'text' | 'math'
+  question: string;
+  options: string[];
+  correct: number;
+  explanation: string;
+  explanationType?: 'text' | 'math';
+  questionType?: 'text' | 'math';
+  optionType?: 'text' | 'math';
+  CustomContentComponent?: React.FC<{
+    question: QuizQuestion;
+  }>;
 }
 
-// Define the type for the component props
 interface MultipleChoiceInteractiveComponentProps {
   title: string;
   icon: string;
@@ -25,11 +27,10 @@ interface MultipleChoiceInteractiveComponentProps {
     button: string;
     buttonHover: string;
   };
-  rules: string[]; // These are plain text strings for list items
+  rules: string[];
   rulesTitle?: string;
   questions: QuizQuestion[];
   onReset?: () => void;
-  CustomQuestionComponent?: React.FC<{ question: QuizQuestion; selectedAnswer: number | null; onAnswerSelect: (index: number) => void; feedback: { message: string; isCorrect: boolean; correctAnswerText?: string } | null }>; // Optional custom component
 }
 
 const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComponentProps> = ({
@@ -40,7 +41,6 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
   rulesTitle = 'Key Rules:',
   questions,
   onReset,
-  CustomQuestionComponent, // Accept the custom component prop
 }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
@@ -48,35 +48,24 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
   const [score, setScore] = useState<number>(0);
   const [attempts, setAttempts] = useState<number>(0);
   const [showExplanation, setShowExplanation] = useState<boolean>(false);
-
   const currentQuestion = questions[currentQuestionIndex];
 
-  // --- Helper to determine grid columns ---
-  // A simple heuristic: if any option string is longer than a threshold, use 1 column.
-  // You might adjust the threshold (e.g., 30 characters) based on testing.
   const getGridColsClass = (options: string[]): string => {
-    const longOptionThreshold = 40; // Characters
+    const longOptionThreshold = 40;
     const hasLongOption = options.some(option => option.length > longOptionThreshold);
-    // Consider options with complex KaTeX potentially longer when rendered
-    // This is a rough estimate. KaTeX like \frac{very long expression}{another long one} is complex.
-    // You could add more sophisticated checks here if needed.
     const hasComplexKaTeX = options.some(option =>
       option.includes('\\frac') ||
       option.includes('\\sqrt') ||
       option.includes('\\int') ||
       option.includes('\\sum') ||
-      (option.match(/\$/g) || []).length > 2 // More than one pair of $ delimiters
+      (option.match(/\$/g) || []).length > 2
     );
     if (hasLongOption || hasComplexKaTeX) {
       return 'grid-cols-1';
     }
-    return 'grid-cols-2'; // Default for shorter options
+    return 'grid-cols-2';
   };
-
-  // Use gridColsClass only if NOT using a custom component
-  const gridColsClass = CustomQuestionComponent ? '' : getGridColsClass(currentQuestion.options);
-
-  // --- End Helper ---
+  const gridColsClass = getGridColsClass(currentQuestion.options);
 
   const checkAnswer = () => {
     if (selectedAnswer === null) return;
@@ -122,10 +111,7 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
   };
 
   const renderExplanation = () => {
-    if (currentQuestion.explanationType === 'math') {
-      return <BlockMath math={currentQuestion.explanation} />;
-    }
-    return <InlineMath math={currentQuestion.explanation} />;
+    return renderTextWithMath(currentQuestion.explanation)
   };
 
   const renderTextWithMath = (text: string): React.ReactNode => {
@@ -145,7 +131,6 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
 
   return (
     <div className={`bg-gradient-to-br ${theme.from} ${theme.to} p-6 rounded-3xl text-white shadow-xl max-w-md w-full`}>
-      {/* Header */}
       <div className="flex items-center justify-between mb-5">
         <h3 className="text-2xl font-bold flex items-center">
           <span className="mr-2 text-3xl">{icon}</span> {title}
@@ -164,7 +149,6 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
         </div>
       </div>
 
-      {/* Question Counter */}
       <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 mb-5 shadow-sm border border-white/10">
         <div className="text-center">
           <span className="text-sm opacity-90">
@@ -173,53 +157,40 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
         </div>
       </div>
 
-      {/* Question and Options */}
       <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-5 mb-5 shadow-sm border border-white/10">
-
-        {/* Render Question Text or Math */}
-        <h4 className="font-bold text-lg mb-4">
-
-          {CustomQuestionComponent ? <></> :
-            currentQuestion.questionType == "text" ? renderTextWithMath(currentQuestion.question) : <BlockMath math={currentQuestion.question} />}
-        </h4>
-
-        {/* Conditional rendering based on CustomQuestionComponent prop */}
-        {CustomQuestionComponent ? (
-          // If a custom component is provided, render it
-          <CustomQuestionComponent
-            question={currentQuestion}
-            selectedAnswer={selectedAnswer}
-            onAnswerSelect={setSelectedAnswer}
-            feedback={feedback}
-          />
+        {currentQuestion.CustomContentComponent ? (
+          <div className="mb-4">
+            <currentQuestion.CustomContentComponent question={currentQuestion} />
+          </div>
         ) : (
-          // Otherwise, render the default options grid
-          <>
-            <div className={`grid gap-3 mb-5 ${gridColsClass}`}>
-              {currentQuestion.options.map((option, index) => (
-                <button
-                  key={index}
-                  onClick={() => setSelectedAnswer(index)}
-                  disabled={!!feedback}
-                  className={`py-3 px-2 rounded-xl font-bold transition-all duration-200 ${selectedAnswer === index
-                    ? feedback
-                      ? index === currentQuestion.correct
-                        ? 'bg-green-500 text-white'
-                        : 'bg-red-500 text-white'
-                      : 'bg-white/40 text-white border-2 border-white'
-                    : feedback && index === currentQuestion.correct
-                      ? 'bg-green-500/30 text-white border-2 border-green-400'
-                      : 'bg-white/20 hover:bg-white/30 text-white border-2 border-transparent'
-                    } ${feedback ? 'cursor-default' : 'hover:scale-[1.03]'}`}
-                >
-                  {currentQuestion.optionType == "text" ? renderTextWithMath(option) : <InlineMath math={option} />}
-                </button>
-              ))}
-            </div>
-          </>
+          <h4 className="font-bold text-lg mb-4">
+            {currentQuestion.questionType === "text" ? renderTextWithMath(currentQuestion.question) : <BlockMath math={currentQuestion.question} />}
+          </h4>
         )}
 
-        {/* Check Answer Button (only show if no custom component or if custom component doesn't handle it) */}
+        <div className={`grid gap-3 mb-5 ${gridColsClass}`}>
+          {currentQuestion.options.map((option, index) => (
+            <button
+              key={index}
+              onClick={() => setSelectedAnswer(index)}
+              disabled={!!feedback}
+              className={`py-3 px-2 rounded-xl font-bold transition-all duration-200 ${
+                selectedAnswer === index
+                  ? feedback
+                    ? index === currentQuestion.correct
+                      ? 'bg-green-500 text-white'
+                      : 'bg-red-500 text-white'
+                    : 'bg-white/40 text-white border-2 border-white'
+                  : feedback && index === currentQuestion.correct
+                    ? 'bg-green-500/30 text-white border-2 border-green-400'
+                    : 'bg-white/20 hover:bg-white/30 text-white border-2 border-transparent'
+              } ${feedback ? 'cursor-default' : 'hover:scale-[1.03]'}`}
+            >
+              {currentQuestion.optionType === "text" ? renderTextWithMath(option) : <InlineMath math={option} />}
+            </button>
+          ))}
+        </div>
+
         {selectedAnswer !== null && !feedback && (
           <button
             onClick={checkAnswer}
@@ -230,7 +201,6 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
         )}
       </div>
 
-      {/* Feedback and Explanation */}
       {feedback && (
         <div className={`rounded-2xl p-5 mb-5 backdrop-blur-sm border ${getFeedbackColor()}`}>
           <div className="flex items-center mb-3">
@@ -244,7 +214,7 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
             </p>
             {!feedback.isCorrect && feedback.correctAnswerText && (
               <div className="ml-2 font-bold">
-                <InlineMath math={feedback.correctAnswerText} />
+                 {currentQuestion.optionType === 'text' ? renderTextWithMath(feedback.correctAnswerText) : <InlineMath math={feedback.correctAnswerText} />}
               </div>
             )}
           </div>
@@ -257,8 +227,8 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
           </button>
           {showExplanation && (
             <div className="bg-white/10 rounded-xl p-4">
-              <div className="overflow-x-auto max-w-full">
-                <div className="min-w-max">
+              <div className="w-full">
+                <div className="w-full">
                   {renderExplanation()}
                 </div>
               </div>
@@ -267,7 +237,6 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
         </div>
       )}
 
-      {/* Next Question Button */}
       <div className="flex gap-3">
         <button
           onClick={nextQuestion}
@@ -279,7 +248,6 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
         </button>
       </div>
 
-      {/* Rules Section */}
       <div className="mt-4 bg-white/10 rounded-xl p-3 text-sm">
         <p className="font-bold mb-1">{rulesTitle}</p>
         <ul className="list-disc list-inside space-y-1">
