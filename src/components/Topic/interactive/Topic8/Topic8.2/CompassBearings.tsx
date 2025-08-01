@@ -22,7 +22,7 @@ const CompassBearings: React.FC = () => {
 
   // Refs for stable references and cleanup
   const animationRef = useRef<number | null>(null); // For requestAnimationFrame
-  const exampleChangeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const exampleChangeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isMountedRef = useRef<boolean>(true); // To prevent state updates on unmounted component
 
   const examples: BearingExample[] = [

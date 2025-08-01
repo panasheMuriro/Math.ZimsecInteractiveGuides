@@ -28,7 +28,7 @@ const InteractivePointPlot: React.FC<InteractivePointPlotProps> = ({
   const [xCoord, setXCoord] = useState(initialX);
   const [yCoord, setYCoord] = useState(initialY);
   const [isAnimating, setIsAnimating] = useState(true);
-  const interactionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const interactionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   
   const centerX = width / 2;
   const centerY = height / 2;
