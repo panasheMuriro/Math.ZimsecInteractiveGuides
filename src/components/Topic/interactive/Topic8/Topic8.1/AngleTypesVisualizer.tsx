@@ -44,55 +44,24 @@ const AngleTypesVisualizer = () => {
   const endY = center + radius * Math.sin((angle - 90) * Math.PI / 180);
 
   // Create arc path for angle visualization
-  // const createArcPath = (degrees: number) => {
-  //   const startAngle = -90; // Start from top
-  //   const endAngle = startAngle + degrees;
-    
-  //   const startX = center + (radius * 0.6) * Math.cos(startAngle * Math.PI / 180);
-  //   const startY = center + (radius * 0.6) * Math.sin(startAngle * Math.PI / 180);
-    
-  //   const endArcX = center + (radius * 0.6) * Math.cos(endAngle * Math.PI / 180);
-  //   const endArcY = center + (radius * 0.6) * Math.sin(endAngle * Math.PI / 180);
-    
-  //   const largeArc = degrees > 180 ? 1 : 0;
-    
-  //   if (degrees === 0) return '';
-
-  //   if (degrees >= 360) {
-  //     return `M ${center - arcRadius} ${center} 
-  //             A ${arcRadius} ${arcRadius} 0 1 1 ${center + arcRadius} ${center}
-  //             A ${arcRadius} ${arcRadius} 0 1 1 ${center - arcRadius} ${center} Z`;
-  //   }
-    
-  //   return `M ${center} ${center} L ${startX} ${startY} A ${radius * 0.6} ${radius * 0.6} 0 ${largeArc} 1 ${endArcX} ${endArcY} Z`;
-  // };
-
   const createArcPath = (degrees: number) => {
     const arcRadius = radius * 0.6;
-    
     if (degrees === 0) return '';
-    
     // For 360 degrees, create a complete circle
     if (degrees >= 360) {
       return `M ${center - arcRadius} ${center} 
               A ${arcRadius} ${arcRadius} 0 1 1 ${center + arcRadius} ${center}
               A ${arcRadius} ${arcRadius} 0 1 1 ${center - arcRadius} ${center} Z`;
     }
-    
     const startAngle = -90; // Start from top
     const endAngle = startAngle + degrees;
-    
     const startX = center + arcRadius * Math.cos(startAngle * Math.PI / 180);
     const startY = center + arcRadius * Math.sin(startAngle * Math.PI / 180);
-    
     const endArcX = center + arcRadius * Math.cos(endAngle * Math.PI / 180);
     const endArcY = center + arcRadius * Math.sin(endAngle * Math.PI / 180);
-    
     const largeArc = degrees > 180 ? 1 : 0;
-    
     return `M ${center} ${center} L ${startX} ${startY} A ${arcRadius} ${arcRadius} 0 ${largeArc} 1 ${endArcX} ${endArcY} Z`;
   };
-  
 
   // Predefined angle types for quick selection
   const angleTypes = [
@@ -105,26 +74,26 @@ const AngleTypesVisualizer = () => {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white">
-      <div className="text-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">Angle Types Visualizer</h1>
-        <p className="text-gray-600">Explore different types of angles interactively</p>
+    <div className="max-w-4xl mx-auto p-6 bg-gradient-to-br from-[#B9375D] to-[#D25D5D] rounded-2xl">
+      <div className="text-center mb-6 text-white">
+        <h1 className="text-3xl font-bold mb-2">Angle Types Visualizer</h1>
+        <p>Explore different types of angles interactively</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* SVG Visualization */}
-        <div className="bg-gray-50 rounded-xl p-6 flex flex-col items-center">
-          <svg width={size} height={size} className="border-2 border-gray-200 rounded-lg bg-white">
+        <div className="bg-white rounded-xl p-6 flex flex-col items-center shadow-md">
+          <svg width={size} height={size} className="border-2 border-slate-200 rounded-lg bg-slate-50 shadow-inner">
             {/* Grid lines for reference */}
             <defs>
               <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
-                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#f3f4f6" strokeWidth="1"/>
+                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e2e8f0" strokeWidth="1"/>
               </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#grid)" />
             
             {/* Center point */}
-            <circle cx={center} cy={center} r="4" fill="#374151" />
+            <circle cx={center} cy={center} r="4" fill="#475569" />
             
             {/* Fixed reference line (horizontal) */}
             <line 
@@ -132,7 +101,7 @@ const AngleTypesVisualizer = () => {
               y1={center} 
               x2={center + radius} 
               y2={center} 
-              stroke="#6b7280" 
+              stroke="#94a3b8" 
               strokeWidth="3"
               strokeLinecap="round"
             />
@@ -152,7 +121,7 @@ const AngleTypesVisualizer = () => {
             <path
               d={createArcPath(angle)}
               fill={currentType.color}
-              fillOpacity="0.3"
+              fillOpacity="0.25"
               stroke={currentType.color}
               strokeWidth="2"
             />
@@ -173,31 +142,31 @@ const AngleTypesVisualizer = () => {
             <text
               x={center}
               y={center + 25}
-              fill="#374151"
+              fill="#475569"
               fontSize="12"
               textAnchor="middle"
             >
               Vertex
             </text>
           </svg>
-
+          
           {/* Current Angle Info */}
           <div className="mt-4 text-center">
             <div 
-              className="inline-block px-6 py-3 rounded-lg text-white font-bold text-lg mb-2"
+              className="inline-block px-6 py-3 rounded-lg text-white font-bold text-lg mb-2 shadow-sm"
               style={{ backgroundColor: currentType.color }}
             >
               {currentType.name} Angle
             </div>
-            <p className="text-gray-600 font-mono">{currentType.range}</p>
+            <p className="text-slate-600 font-mono text-sm">{currentType.range}</p>
           </div>
         </div>
 
         {/* Controls */}
         <div className="space-y-6">
           {/* Slider Control */}
-          <div className="bg-gray-50 rounded-xl p-6">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Angle Control</h3>
+          <div className="bg-white rounded-xl p-6 shadow-md">
+            <h3 className="text-lg font-semibold text-slate-800 mb-4">Angle Control</h3>
             <div className="space-y-4">
               <input
                 type="range"
@@ -205,23 +174,23 @@ const AngleTypesVisualizer = () => {
                 max="360"
                 value={angle}
                 onChange={(e) => setAngle(parseInt(e.target.value))}
-                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer slider"
                 style={{
-                  background: `linear-gradient(to right, ${currentType.color} 0%, ${currentType.color} ${(angle/360)*100}%, #e5e7eb ${(angle/360)*100}%, #e5e7eb 100%)`
+                  background: `linear-gradient(to right, ${currentType.color} 0%, ${currentType.color} ${(angle/360)*100}%, #cbd5e1 ${(angle/360)*100}%, #cbd5e1 100%)`
                 }}
               />
-              <div className="flex justify-between text-sm text-gray-500">
+              <div className="flex justify-between text-sm text-slate-500">
                 <span>0°</span>
                 <span>180°</span>
                 <span>360°</span>
               </div>
             </div>
-
+            
             {/* Animation Controls */}
             <div className="flex gap-2 mt-4">
               <button
                 onClick={() => setIsAnimating(!isAnimating)}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-sm"
               >
                 {isAnimating ? <Pause size={16} /> : <Play size={16} />}
                 {isAnimating ? 'Pause' : 'Animate'}
@@ -231,7 +200,7 @@ const AngleTypesVisualizer = () => {
                   setAngle(0);
                   setIsAnimating(false);
                 }}
-                className="flex items-center gap-2 px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 transition-colors shadow-sm"
               >
                 <RotateCcw size={16} />
                 Reset
@@ -240,8 +209,8 @@ const AngleTypesVisualizer = () => {
           </div>
 
           {/* Quick Selection */}
-          <div className="bg-gray-50 rounded-xl p-6">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Quick Examples</h3>
+          <div className="bg-white rounded-xl p-6 shadow-md">
+            <h3 className="text-lg font-semibold text-slate-800 mb-4">Quick Examples</h3>
             <div className="grid grid-cols-2 gap-2">
               {angleTypes.map((type) => (
                 <button
@@ -250,7 +219,7 @@ const AngleTypesVisualizer = () => {
                     setAngle(type.angle);
                     setIsAnimating(false);
                   }}
-                  className="px-3 py-2 rounded-lg text-white font-medium hover:opacity-80 transition-opacity"
+                  className="px-3 py-2 rounded-lg text-white font-medium hover:opacity-90 transition-opacity shadow-sm"
                   style={{ backgroundColor: type.color }}
                 >
                   {type.name} ({type.angle}°)
@@ -260,32 +229,32 @@ const AngleTypesVisualizer = () => {
           </div>
 
           {/* Definitions */}
-          <div className="bg-gray-50 rounded-xl p-6">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Angle Definitions</h3>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
+          <div className="bg-white rounded-xl p-6 shadow-md">
+            <h3 className="text-lg font-semibold text-slate-800 mb-4">Angle Definitions</h3>
+            <div className="space-y-3 text-sm">
+              <div className="flex justify-between items-center p-2 rounded hover:bg-slate-50">
                 <span className="font-medium text-green-600">Acute:</span>
-                <span className="text-gray-600">0° &lt; θ &lt; 90°</span>
+                <span className="text-slate-700">{'0° < θ < 90°'}</span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center p-2 rounded hover:bg-slate-50">
                 <span className="font-medium text-blue-600">Right:</span>
-                <span className="text-gray-600">θ = 90°</span>
+                <span className="text-slate-700">θ = 90°</span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center p-2 rounded hover:bg-slate-50">
                 <span className="font-medium text-amber-600">Obtuse:</span>
-                <span className="text-gray-600">90° &lt; θ &lt; 180°</span>
+                <span className="text-slate-700">{'90° < θ < 180°'}</span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center p-2 rounded hover:bg-slate-50">
                 <span className="font-medium text-red-600">Straight:</span>
-                <span className="text-gray-600">θ = 180°</span>
+                <span className="text-slate-700">θ = 180°</span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center p-2 rounded hover:bg-slate-50">
                 <span className="font-medium text-purple-600">Reflex:</span>
-                <span className="text-gray-600">180° &lt; θ &lt; 360°</span>
+                <span className="text-slate-700">{'180° < θ < 360°'}</span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center p-2 rounded hover:bg-slate-50">
                 <span className="font-medium text-pink-600">Complete:</span>
-                <span className="text-gray-600">θ = 360°</span>
+                <span className="text-slate-700">θ = 360°</span>
               </div>
             </div>
           </div>

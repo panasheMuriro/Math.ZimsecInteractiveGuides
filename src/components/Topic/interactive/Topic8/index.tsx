@@ -1,4 +1,5 @@
 import AnglesAroundPointQuiz from "./Topic8.1/AnglesAroundPointQuiz";
+import AnglesOfElevationDepressionQuiz from "./Topic8.1/AnglesOfElevationDepression";
 import AngleTypesVisualizer from "./Topic8.1/AngleTypesVisualizer";
 import LinearAngles from "./Topic8.1/LinearAngles";
 import ProtractorMeasurementTool from "./Topic8.1/ProtractorUsage";
@@ -25,6 +26,7 @@ export const topic8Components: Record<string, React.ComponentType> = {
   "protractor-usage": ProtractorMeasurementTool,
   "straight-line-angles": LinearAngles,
   "angles-around-point": AnglesAroundPointQuiz,
+  "elevation-depression": AnglesOfElevationDepressionQuiz,
   "cardinal-directions": CardinalBearings,
   "compass-bearings": CompassBearings,
   "three-figure-bearings": ThreeFigureBearings,
