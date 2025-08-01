@@ -116,18 +116,18 @@ const QuadrilateralProperties: React.FC = () => {
   const pointsString = currentQuad.points.map((p) => `${p[0]},${p[1]}`).join(' ');
 
   return (
-    <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-100 font-sans">
-      <h1 className="text-xl font-bold text-gray-800 mb-2 text-center">
+    <div className="p-4 bg-gradient-to-br from-[#379777] to-[#1B4242] font-sans rounded-2xl">
+      <h1 className="text-xl font-bold text-white mb-2 text-center">
         Quadrilateral Properties
       </h1>
-      <p className="text-sm text-gray-600 mb-4 text-center">
+      <p className="text-sm text-white mb-4 text-center">
         Explore special quadrilaterals and their properties
       </p>
 
       <div className="flex flex-col gap-4">
         {/* Quadrilateral Visualization */}
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h2 className="text-base font-semibold mb-3 text-center">{currentQuad.name}</h2>
+        <div className="bg-white/20 p-4 rounded-lg shadow-md">
+          <h2 className="text-base font-semibold mb-3 text-center text-white">{currentQuad.name}</h2>
           <div className="flex justify-center mb-3">
             <svg width={svgSize} height={svgSize} className="border rounded-lg bg-gray-50">
               {/* Quadrilateral */}
@@ -190,10 +190,10 @@ const QuadrilateralProperties: React.FC = () => {
                 <button
                   key={index}
                   onClick={() => setSelectedQuad(index)}
-                  className={`px-3 py-1.5 text-sm rounded-lg transition-colors flex-shrink-0 ${
+                  className={`px-3 py-2 text-sm rounded-2xl transition-colors flex-shrink-0 ${
                     selectedQuad === index
                       ? 'bg-blue-500 text-white'
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                      : 'bg-white text-gray-700 hover:bg-gray-300'
                   }`}
                 >
                   {quad.name}
@@ -205,7 +205,7 @@ const QuadrilateralProperties: React.FC = () => {
           {/* Toggles for Diagonals and Symmetry */}
           <div className="grid grid-cols-2 gap-2 mb-3">
             <div>
-              <label className="flex items-center text-xs font-medium text-gray-700">
+              <label className="flex items-center text-xs font-medium text-white">
                 <input
                   type="checkbox"
                   checked={showDiagonals}
@@ -213,11 +213,11 @@ const QuadrilateralProperties: React.FC = () => {
                   disabled={!currentQuad.showDiagonals}
                   className="mr-2"
                 />
-                Show Diagonals
+                Show <br/> Diagonals
               </label>
             </div>
             <div>
-              <label className="flex items-center text-xs font-medium text-gray-700">
+              <label className="flex items-center text-xs font-medium text-white">
                 <input
                   type="checkbox"
                   checked={showSymmetry}

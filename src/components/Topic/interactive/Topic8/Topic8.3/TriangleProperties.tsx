@@ -86,18 +86,18 @@ const TriangleProperties: React.FC = () => {
   const exteriorAngle = 180 - currentTriangle.angles[0]; // Exterior angle = sum of opposite interior angles
 
   return (
-    <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-100  font-sans">
-      <h1 className="text-xl font-bold text-gray-800 mb-2 text-center">
+    <div className="p-4 bg-gradient-to-br from-[#50727B] to-[#344955] rounded-2xl  font-sans">
+      <h1 className="text-xl font-bold text-white mb-2 text-center">
         Triangle Classification
       </h1>
-      <p className="text-sm text-gray-600 mb-4 text-center">
+      <p className="text-sm text-white mb-4 text-center">
         Explore triangles by sides and angles
       </p>
 
       <div className="flex flex-col gap-4">
         {/* Triangle Visualization */}
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h2 className="text-base font-semibold mb-3 text-center">
+        <div className="bg-white/20 p-4 rounded-lg shadow-md">
+          <h2 className="text-base text-white font-semibold mb-3 text-center">
             {currentTriangle.name} ({currentTriangle.sideType}, {currentTriangle.angleType})
           </h2>
           <div className="flex justify-center mb-3">
@@ -167,10 +167,10 @@ const TriangleProperties: React.FC = () => {
                 <button
                   key={index}
                   onClick={() => setSelectedTriangle(index)}
-                  className={`px-3 py-1.5 text-sm rounded-lg transition-colors flex-shrink-0 ${
+                  className={`px-3 py-2 text-sm rounded-2xl transition-colors flex-shrink-0 ${
                     selectedTriangle === index
                       ? 'bg-blue-500 text-white'
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                      : 'bg-white text-gray-700 hover:bg-gray-300'
                   }`}
                 >
                   {triangle.name}
@@ -180,7 +180,7 @@ const TriangleProperties: React.FC = () => {
           </div>
 
           {/* Properties Display */}
-          <div className="bg-gray-50 p-3 rounded-lg text-sm">
+          <div className="bg-white/20 text-white p-3 rounded-lg text-sm">
             <p>
               <span className="font-medium">Side Type:</span> {currentTriangle.sideType}
               {currentTriangle.sideType === 'Equilateral' && ' (a = b = c)'}

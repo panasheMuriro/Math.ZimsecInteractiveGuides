@@ -136,18 +136,18 @@ const PolygonAngleCalculations: React.FC = () => {
   const exteriorSweepFlag = 0; // Counter-clockwise for exterior angle
 
   return (
-    <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-100 font-sans">
-      <h1 className="text-xl font-bold text-gray-800 mb-2 text-center">
+    <div className="p-4 bg-gradient-to-br from-[#A2678A] to-[#4D3C77] font-sans rounded-2xl">
+      <h1 className="text-xl font-bold text-white mb-2 text-center">
         Polygon Angle Calculations
       </h1>
-      <p className="text-sm text-gray-600 mb-4 text-center">
+      <p className="text-sm text-white mb-4 text-center">
         Explore interior and exterior angles of regular polygons
       </p>
 
       <div className="flex flex-col gap-4">
         {/* Polygon Visualization */}
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h2 className="text-base font-semibold mb-3 text-center">
+        <div className="bg-white/20 p-4 rounded-lg shadow-md">
+          <h2 className="text-base font-semibold mb-3 text-center text-white">
             {customSides && parseInt(customSides) >= 3 ? `${n}-Sided Polygon` : polygons[selectedPolygon].name} ({n} sides)
           </h2>
           <div className="flex justify-center mb-3">
@@ -226,10 +226,10 @@ const PolygonAngleCalculations: React.FC = () => {
                     setSelectedPolygon(index);
                     setCustomSides('');
                   }}
-                  className={`px-3 py-1.5 text-sm rounded-lg transition-colors flex-shrink-0 ${
+                  className={`px-3 py-2 text-sm rounded-2xl transition-colors flex-shrink-0 ${
                     selectedPolygon === index && !customSides
                       ? 'bg-blue-500 text-white'
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                      : 'bg-white text-gray-700 hover:bg-gray-300'
                   }`}
                 >
                   {polygon.name}
@@ -240,7 +240,7 @@ const PolygonAngleCalculations: React.FC = () => {
 
           {/* Custom Sides Input */}
           <div className="mb-3">
-            <label className="block text-xs font-medium mb-1 text-gray-700">
+            <label className="block text-sm font-medium mb-1 text-white">
               Enter Number of Sides (≥ 3)
             </label>
             <input
@@ -248,13 +248,13 @@ const PolygonAngleCalculations: React.FC = () => {
               min="3"
               value={customSides}
               onChange={(e) => setCustomSides(e.target.value)}
-              className="w-full p-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-2 border border-white rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="e.g., 7"
             />
           </div>
 
           {/* Angle Calculations Display */}
-          <div className="bg-gray-50 p-3 rounded-lg text-sm">
+          <div className="bg-white/80 p-3 rounded-lg text-sm">
             <p>
               <span className="font-medium">Sum of Interior Angles:</span> {sumInterior}° [Formula: (n-2) × 180°]
             </p>

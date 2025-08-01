@@ -360,18 +360,18 @@ const CircleTheorems: React.FC = () => {
   const currentTheorem = theorems[selectedTheorem];
 
   return (
-    <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-100 font-sans">
-      <h1 className="text-xl font-bold text-gray-800 mb-2 text-center">
+    <div className="p-4 bg-gradient-to-br from-[#146C94] to-[#2C3333] font-sans rounded-2xl">
+      <h1 className="text-xl font-bold text-white mb-2 text-center">
         Circle Theorems
       </h1>
-      <p className="text-sm text-gray-600 mb-4 text-center">
+      <p className="text-sm text-white mb-4 text-center">
         Explore fundamental circle theorems with interactive diagrams
       </p>
 
       <div className="flex flex-col gap-4">
         {/* Theorem Visualization */}
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h2 className="text-base font-semibold mb-3 text-center">{currentTheorem.name}</h2>
+        <div className="bg-white/20 p-4 rounded-lg shadow-md">
+          <h2 className="text-base font-semibold mb-3 text-center text-white">{currentTheorem.name}</h2>
           <div className="flex justify-center mb-3">
             <svg width={svgSize} height={svgSize} className="border rounded-lg bg-gray-50">
               {currentTheorem.renderDiagram(svgSize, centerX, centerY, radius) as ReactNode}
@@ -385,7 +385,7 @@ const CircleTheorems: React.FC = () => {
                 <button
                   key={index}
                   onClick={() => setSelectedTheorem(index)}
-                  className={`px-3 py-1.5 text-sm rounded-lg transition-colors flex-shrink-0 ${
+                  className={`px-3 py-2 text-sm rounded-2xl transition-colors flex-shrink-0 ${
                     selectedTheorem === index
                       ? 'bg-blue-500 text-white'
                       : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
@@ -398,7 +398,7 @@ const CircleTheorems: React.FC = () => {
           </div>
 
           {/* Theorem Description */}
-          <div className="bg-gray-50 p-3 rounded-lg text-sm">
+          <div className="bg-white/30 text-white p-3 rounded-lg text-sm">
             <p>{currentTheorem.description}</p>
           </div>
         </div>

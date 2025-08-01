@@ -67,17 +67,17 @@ const PolygonClassification: React.FC = () => {
   const pointsString = pointsToString(pointsArray);
 
   return (
-    <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-100 font-sans">
-      <h1 className="text-xl font-bold text-gray-800 mb-2 text-center">
+    <div className="p-4 bg-gradient-to-br from-[#F29F58] to-[#FF8225] font-sans rounded-2xl">
+      <h1 className="text-xl font-bold text-white mb-2 text-center">
         Polygon Classification
       </h1>
-      <p className="text-sm text-gray-600 mb-4 text-center">
+      <p className="text-sm text-white mb-4 text-center">
         Explore polygons by number of sides, regularity, and convexity
       </p>
 
       <div className="flex flex-col gap-4">
         {/* Polygon Visualization */}
-        <div className="bg-white p-4 rounded-lg shadow-md">
+        <div className="bg-white/50 p-4 rounded-lg shadow-md">
           <h2 className="text-base font-semibold mb-3 text-center">
             {polygons[selectedPolygon].name} ({polygons[selectedPolygon].sides} sides)
           </h2>
@@ -111,10 +111,10 @@ const PolygonClassification: React.FC = () => {
                 <button
                   key={index}
                   onClick={() => setSelectedPolygon(index)}
-                  className={`px-3 py-1.5 text-sm rounded-lg transition-colors flex-shrink-0 ${
+                  className={`px-3 py-2 text-sm rounded-2xl transition-colors flex-shrink-0 ${
                     selectedPolygon === index
                       ? 'bg-blue-500 text-white'
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                      : 'bg-white text-gray-700 hover:bg-gray-300'
                   }`}
                 >
                   {polygon.name}
@@ -155,7 +155,7 @@ const PolygonClassification: React.FC = () => {
           </div>
 
           {/* Properties Display */}
-          <div className="bg-gray-50 p-3 rounded-lg text-sm">
+          <div className="bg-white/60 p-3 rounded-lg text-sm">
             <p>
               <span className="font-medium">Exterior Angle:</span> {exteriorAngle.toFixed(1)}° (Sum of exterior angles = 360°)
             </p>
