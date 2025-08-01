@@ -12,7 +12,7 @@ export interface MultiStep {
   optionType: 'text'; // Assuming text for now, can be extended
   correct: number;
   explanation: string;
-  explanationType: 'text'; // Assuming text for now, can be extended
+  explanationType?: 'text'; // Assuming text for now, can be extended
   onCorrect?: (selectedOptionIndex: number, setSharedValue: (key: string, value: any) => void) => void;
   CustomContentComponent?: React.FC<{
     step: MultiStep; // Pass the specific step

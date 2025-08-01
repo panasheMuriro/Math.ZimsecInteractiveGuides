@@ -81,32 +81,18 @@ const CongruencyTests= () => {
   const triangles = getTrianglePoints(condition === "RHS");
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-md">
-      <h3 className="text-lg font-semibold mb-4 text-center text-gray-700">
+    <div className="max-w-md mx-auto p-4 bg-gradient-to-br from-[#774360] to-[#B25068] rounded-2xl mt-5 shadow-md">
+      <h3 className="text-lg font-semibold mb-4 text-center text-white">
         Triangle Congruence Visualizer
       </h3>
-      <p className="text-sm text-gray-600 mb-4 text-center">
+      <p className="text-sm text-white mb-4 text-center">
         Select a congruence condition and tap parts to highlight corresponding elements.
       </p>
 
       {/* Condition Selector */}
-      <div className="flex flex-wrap justify-center gap-2 mb-6">
-        {["SSS", "SAS", "ASA", "RHS"].map((cond) => (
-          <button
-            key={cond}
-            onClick={() => handleConditionChange(cond as "SSS" | "SAS" | "ASA" | "RHS")}
-            className={`px-4 py-2 text-sm font-medium rounded-md ${
-              condition === cond
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-            }`}
-          >
-            {cond}
-          </button>
-        ))}
-      </div>
+     
       
-        <div className="flex justify-center">
+        <div className="bg-white/80 rounded-lg mb-5 flex justify-center">
           <svg width="100%" height="200" viewBox="0 0 400 200" className="max-w-full">
             {/* Triangle 1 (ABC) */}
             <polygon
@@ -385,9 +371,25 @@ const CongruencyTests= () => {
             )}
           </svg>
         </div>
+
+         <div className="flex flex-wrap justify-center gap-2 mb-6">
+        {["SSS", "SAS", "ASA", "RHS"].map((cond) => (
+          <button
+            key={cond}
+            onClick={() => handleConditionChange(cond as "SSS" | "SAS" | "ASA" | "RHS")}
+            className={`px-5 py-2 rounded-2xl text-sm font-medium ${
+              condition === cond
+                ? "bg-[#FF9F29] text-white"
+                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+            }`}
+          >
+            {cond}
+          </button>
+        ))}
+      </div>
    
       {/* Feedback */}
-      <div className="text-sm text-gray-600 mt-4">
+      <div className="text-sm mt-4 bg-white/20 text-white p-3 rounded-lg ">
         <p>
           <strong>Condition:</strong> {condition}
         </p>
