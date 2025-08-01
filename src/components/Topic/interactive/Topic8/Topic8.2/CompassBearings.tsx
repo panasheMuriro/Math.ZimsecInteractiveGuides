@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 interface BearingExample {
   compassBearing: string;
@@ -14,12 +14,16 @@ interface BearingExample {
 const CompassBearings: React.FC = () => {
   const [currentExample, setCurrentExample] = useState<number>(0);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
-  const [animationStep, setAnimationStep] = useState<number>(0);
   const [sweepAngle, setSweepAngle] = useState<number>(0);
   const [showFinalResult, setShowFinalResult] = useState<boolean>(false);
   const [customAngle, setCustomAngle] = useState<string>('30');
   const [customStart, setCustomStart] = useState<'N' | 'S'>('N');
   const [customEnd, setCustomEnd] = useState<'E' | 'W'>('E');
+
+  // Refs for stable references and cleanup
+  const animationRef = useRef<number | null>(null); // For requestAnimationFrame
+  const exampleChangeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isMountedRef = useRef<boolean>(true); // To prevent state updates on unmounted component
 
   const examples: BearingExample[] = [
     {
@@ -60,55 +64,113 @@ const CompassBearings: React.FC = () => {
     }
   ];
 
-  // Auto-start animation when example changes
+  // Set isMountedRef on mount/unmount
   useEffect(() => {
-    setShowFinalResult(false);
-    setIsAnimating(true);
-    setAnimationStep(0);
-    setSweepAngle(0);
-  }, [currentExample]);
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+      // Cleanup any running animation or timeout on unmount
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+      if (exampleChangeTimeoutRef.current) {
+        clearTimeout(exampleChangeTimeoutRef.current);
+      }
+    };
+  }, []);
 
-  // Animation cycle
+  // Handle example change and trigger animation reset/start
+  const handleExampleChange = (index: number) => {
+    if (index === currentExample) return; // No change, do nothing
+
+    // Cancel any ongoing animation frame
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+      animationRef.current = null;
+    }
+
+    // Clear any pending example change timeout
+    if (exampleChangeTimeoutRef.current) {
+      clearTimeout(exampleChangeTimeoutRef.current);
+      exampleChangeTimeoutRef.current = null;
+    }
+
+    // Immediately reset animation state
+    if (isMountedRef.current) {
+        setShowFinalResult(false);
+        setIsAnimating(false);
+        setSweepAngle(examples[index].startDirection === 'N' ? 0 : 180); // Set to start angle immediately
+    }
+
+    // Use timeout to ensure state is flushed and then start animation
+    exampleChangeTimeoutRef.current = setTimeout(() => {
+        if (isMountedRef.current) {
+            setCurrentExample(index);
+            // Delay the animation start slightly to ensure state reset is rendered
+            setTimeout(() => {
+                if (isMountedRef.current) {
+                    setIsAnimating(true);
+                }
+            }, 20); // Very short delay
+        }
+    }, 10); // Very short delay to ensure reset
+  };
+
+  // Animation cycle using requestAnimationFrame for smoother performance
   useEffect(() => {
     if (isAnimating) {
-      if (animationStep === 0) {
-        // Step 1: Show two lines at start direction
-        setTimeout(() => setAnimationStep(1), 800);
-      } else if (animationStep === 1) {
-        // Step 2: Start sweeping animation
-        const currentBearing = examples[currentExample];
-        const targetAngle = currentBearing.threeFigure;
-        const startAngle = currentBearing.startDirection === 'N' ? 0 : 180;
-        const duration = 2000; // 2 seconds for sweep
-        const steps = 60;
-        const angleIncrement = (targetAngle - startAngle) / steps;
-        
-        let step = 0;
-        const sweepInterval = setInterval(() => {
-          step++;
-          setSweepAngle(startAngle + (angleIncrement * step));
-          
-          if (step >= steps) {
-            clearInterval(sweepInterval);
-            setAnimationStep(2);
-          }
-        }, duration / steps);
-      } else if (animationStep === 2) {
-        // Step 3: Show three-figure bearing and keep it visible
-        setTimeout(() => {
-          setAnimationStep(3);
-          setShowFinalResult(true);
-          setIsAnimating(false);
-        }, 500);
-      }
-    }
-  }, [isAnimating, animationStep, currentExample]);
+      const currentBearing = examples[currentExample];
+      const startAngle = currentBearing.startDirection === 'N' ? 0 : 180;
+      const targetAngle = currentBearing.threeFigure;
+      const totalDuration = 1500; // ms
+      const startTime = performance.now();
 
-  const handleExampleChange = (index: number) => {
-    if (index !== currentExample) {
-      setCurrentExample(index);
+      // Cancel any previous animation frame
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+
+      const animate = (currentTime: number) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / totalDuration, 1);
+        
+        // Ease-in-out function for smoother start/stop
+        const easeProgress = progress < 0.5 
+          ? 2 * progress * progress 
+          : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+        const currentAngle = startAngle + (targetAngle - startAngle) * easeProgress;
+        
+        // Normalize angle to 0-360 range
+        const normalizedAngle = ((currentAngle % 360) + 360) % 360;
+        
+        if (isMountedRef.current) {
+            setSweepAngle(normalizedAngle);
+        }
+
+        if (progress < 1) {
+          animationRef.current = requestAnimationFrame(animate);
+        } else {
+          // Animation complete
+          if (isMountedRef.current) {
+            animationRef.current = null;
+            setIsAnimating(false);
+            setShowFinalResult(true);
+          }
+        }
+      };
+
+      animationRef.current = requestAnimationFrame(animate);
     }
-  };
+
+    // Cleanup function for this effect
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+        animationRef.current = null;
+      }
+    };
+  }, [isAnimating, currentExample]); // Only re-run when isAnimating or currentExample changes
 
   const calculateCustomBearing = (): number => {
     const angle = parseInt(customAngle) || 0;
@@ -135,7 +197,9 @@ const CompassBearings: React.FC = () => {
   const radius = svgSize * 0.4;
 
   const polarToCartesian = (centerX: number, centerY: number, radius: number, angleInDegrees: number) => {
-    const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
+    // Normalize angle to [0, 360)
+    const normalizedAngle = ((angleInDegrees % 360) + 360) % 360;
+    const angleInRadians = (normalizedAngle - 90) * Math.PI / 180.0;
     return {
       x: centerX + (radius * Math.cos(angleInRadians)),
       y: centerY + (radius * Math.sin(angleInRadians))
@@ -144,87 +208,78 @@ const CompassBearings: React.FC = () => {
 
   const currentBearing = examples[currentExample];
 
+  // Determine which line to show
+  let animatedLine = null;
+  const lineEnd = polarToCartesian(centerX, centerY, radius, sweepAngle);
+  
+  if (isAnimating || showFinalResult) {
+    // Show animated or final line
+    animatedLine = (
+      <line
+        key={`animated-line-${currentExample}-${isAnimating}`} 
+        x1={centerX}
+        y1={centerY}
+        x2={lineEnd.x}
+        y2={lineEnd.y}
+        stroke="#dc2626"
+        strokeWidth="3"
+        markerEnd="url(#arrowhead)"
+      />
+    );
+  } else {
+    // Show initial reference line (start direction)
+    const startAngle = currentBearing.startDirection === 'N' ? 0 : 180;
+    const startLineEnd = polarToCartesian(centerX, centerY, radius, startAngle);
+    animatedLine = (
+      <line
+        key={`initial-line-${currentExample}`}
+        x1={centerX}
+        y1={centerY}
+        x2={startLineEnd.x}
+        y2={startLineEnd.y}
+        stroke="#94a3b8"
+        strokeWidth="2"
+        strokeDasharray="8,4"
+      />
+    );
+  }
+
+
   return (
-    <div className="p-4 bg-bearings-gradient rounded-lg mx-auto">
-      <div className="mb-4">
-        <h2 className="text-xl font-bold text-gray-800 mb-1">
+    <div className="p-6 bg-gradient-to-br from-[#DA6C6C] to-[#AF3E3E] rounded-2xl mx-auto font-sans">
+      <div className="mb-4 mt-3 text-white">
+        <h2 className="text-xl font-bold mb-1">
           Animated Compass Bearings
         </h2>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm">
           Tap any bearing to see the animated conversion
         </p>
       </div>
-
       <div className="flex flex-col gap-4">
         {/* Animated Compass Display */}
-        <div className="bg-white p-3 rounded-lg shadow-md">
-          <h3 className="text-base font-semibold mb-3 text-center">Visual Demonstration</h3>
-          
-          <div className="flex justify-center mb-3">
-            <svg width={svgSize} height={svgSize} className="border rounded-lg bg-gray-50">
+        <div className="bg-white/20 p-3 rounded-lg shadow-md">
+          <h3 className="text-base font-semibold mb-3 text-center text-white">Visual Demonstration</h3>
+         <div className="mb-3 overflow-x-auto"> 
+            {/* Added 'block' and 'min-w-min' to the SVG for better left alignment behavior within the container */}
+            <svg width={svgSize} height={svgSize} className="border rounded-lg bg-gray-50 block scale-90">
               {/* Background circles */}
               <circle cx={centerX} cy={centerY} r={radius} fill="none" stroke="#e5e7eb" strokeWidth="2"/>
               <circle cx={centerX} cy={centerY} r={radius * 0.8} fill="none" stroke="#f3f4f6" strokeWidth="1"/>
-              
               {/* Cardinal directions */}
               <text x={centerX} y={centerY - radius - 10} textAnchor="middle" className="text-base font-bold fill-blue-600">N</text>
               <text x={centerX + radius + 10} y={centerY + 5} textAnchor="middle" className="text-base font-bold fill-green-600">E</text>
               <text x={centerX} y={centerY + radius + 15} textAnchor="middle" className="text-base font-bold fill-red-600">S</text>
               <text x={centerX - radius - 10} y={centerY + 5} textAnchor="middle" className="text-base font-bold fill-purple-600">W</text>
+              
+              {/* Animated or static line */}
+              {animatedLine}
 
-              {/* Reference line (always visible for North start direction) */}
-    
-                <line
-                  x1={centerX}
-                  y1={centerY}
-                  x2={centerX}
-                  y2={centerY - radius}
-                  stroke="#94a3b8"
-                  strokeWidth="2"
-                  strokeDasharray="8,4"
-                />
-        
-
-              {/* Step 1: Moving line at starting direction */}
-              {(isAnimating && animationStep === 0) && (
-                <line
-                  x1={centerX}
-                  y1={centerY}
-                  x2={centerX}
-                  y2={currentBearing.startDirection === 'N' ? centerY - radius : centerY + radius}
-                  stroke="#dc2626"
-                  strokeWidth="3"
-                />
-              )}
-
-              {/* Step 2: Sweeping line */}
-              {(isAnimating && animationStep >= 1) && (
-                <line
-                  x1={centerX}
-                  y1={centerY}
-                  x2={polarToCartesian(centerX, centerY, radius, sweepAngle).x}
-                  y2={polarToCartesian(centerX, centerY, radius, sweepAngle).y}
-                  stroke="#dc2626"
-                  strokeWidth="3"
-                  markerEnd="url(#arrowhead)"
-                />
-              )}
-
-              {/* Final result - stays visible */}
+              {/* Final result elements - stays visible when showFinalResult is true */}
               {showFinalResult && (
                 <>
-                  {/* Final bearing line */}
-                  <line
-                    x1={centerX}
-                    y1={centerY}
-                    x2={polarToCartesian(centerX, centerY, radius, currentBearing.threeFigure).x}
-                    y2={polarToCartesian(centerX, centerY, radius, currentBearing.threeFigure).y}
-                    stroke="#dc2626"
-                    strokeWidth="3"
-                    markerEnd="url(#arrowhead)"
-                  />
                   {/* Three-figure bearing display */}
                   <text
+                    key="bearing-text"
                     x={centerX}
                     y={centerY - 8}
                     textAnchor="middle"
@@ -233,6 +288,7 @@ const CompassBearings: React.FC = () => {
                     {currentBearing.threeFigure.toString().padStart(3, '0')}°
                   </text>
                   <text
+                    key="label-text"
                     x={centerX}
                     y={centerY + 12}
                     textAnchor="middle"
@@ -242,7 +298,6 @@ const CompassBearings: React.FC = () => {
                   </text>
                 </>
               )}
-
               {/* Arrow marker definition */}
               <defs>
                 <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
@@ -251,17 +306,16 @@ const CompassBearings: React.FC = () => {
               </defs>
             </svg>
           </div>
-
           {/* Example selector - now horizontal scroll for mobile */}
           <div className="overflow-x-auto pb-2 mb-3">
-            <div className="flex gap-2 w-max">
+            <div className="flex gap-2 w-full flex-wrap">
               {examples.map((example, index) => (
                 <button
                   key={index}
                   onClick={() => handleExampleChange(index)}
-                  className={`px-3 py-1.5 text-sm rounded-lg transition-colors flex-shrink-0 ${
+                  className={`px-3 py-2 text-sm rounded-3xl transition-colors flex-shrink-0 ${
                     currentExample === index
-                      ? 'bg-blue-500 text-white'
+                      ? 'bg-[#129990] text-white'
                       : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                   }`}
                 >
@@ -270,8 +324,7 @@ const CompassBearings: React.FC = () => {
               ))}
             </div>
           </div>
-
-          <div className="text-center text-xs text-gray-600">
+          <div className="text-center text-xs text-white">
             {isAnimating ? (
               <span className="text-blue-600 font-semibold">🔄 Animating...</span>
             ) : (
@@ -279,11 +332,10 @@ const CompassBearings: React.FC = () => {
             )}
           </div>
         </div>
-
         {/* Information Panel */}
         <div className="space-y-3">
           {/* Current Example Details */}
-          <div className="bg-white p-3 rounded-lg shadow-md">
+          <div className="bg-white/20 text-white p-3 rounded-lg shadow-md">
             <h3 className="text-base font-semibold mb-2">Current Example</h3>
             <div className="space-y-1 text-sm">
               <p>
@@ -295,14 +347,13 @@ const CompassBearings: React.FC = () => {
               <p>
                 <span className="font-medium">Description:</span> {currentBearing.description}
               </p>
-              <p className="bg-gray-50 p-2 rounded mt-1 text-xs">
+              <p className="bg-gray-50 p-2 rounded mt-1 text-xs text-black">
                 <span className="font-medium">Formula:</span> {currentBearing.formula}
               </p>
             </div>
           </div>
-
           {/* Custom Calculator */}
-          <div className="bg-white p-3 rounded-lg shadow-md">
+          <div className="bg-white/90 p-3 rounded-lg shadow-md">
             <h3 className="text-base font-semibold mb-2">Custom Calculator</h3>
             <div className="grid grid-cols-2 gap-2 mb-2">
               <div>
@@ -351,10 +402,9 @@ const CompassBearings: React.FC = () => {
               </p>
             </div>
           </div>
-
           {/* Conversion Rules */}
-          <div className="bg-white p-3 rounded-lg shadow-md">
-            <h3 className="text-base font-semibold mb-2">Conversion Rules</h3>
+          <div className="bg-white/20 p-3 rounded-lg shadow-md">
+            <h3 className="text-base font-semibold mb-2 text-white">Conversion Rules</h3>
             <div className="grid grid-cols-2 gap-2 text-xs">
               <div className="p-1.5 bg-blue-50 rounded">
                 <strong>N...°E:</strong> angle

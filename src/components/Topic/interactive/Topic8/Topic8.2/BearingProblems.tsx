@@ -289,11 +289,11 @@ const BearingProblems: React.FC = () => {
   ];
 
   return (
-    <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen font-sans">
-      <h1 className="text-xl font-bold text-gray-800 mb-2 text-center">
+    <div className="p-6 bg-gradient-to-br from-[#948979] to-[#3F4F44] font-sans rounded-2xl">
+      <h1 className="text-xl font-bold text-white mb-2 text-center">
         Solving Bearing Problems
       </h1>
-      <p className="text-sm text-gray-600 mb-4 text-center">
+      <p className="text-sm text-white  mb-4 text-center">
         Step through an example to learn how to solve bearing problems
       </p>
 
@@ -325,14 +325,14 @@ const BearingProblems: React.FC = () => {
             <button
               onClick={() => setCurrentStep((prev) => Math.max(0, prev - 1))}
               disabled={currentStep === 0}
-              className="px-3 py-1.5 text-sm bg-gray-200 text-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-5 py-2 text-sm bg-gray-200 text-gray-700 rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Previous
             </button>
             <button
               onClick={() => setCurrentStep((prev) => Math.min(steps.length - 1, prev + 1))}
               disabled={currentStep === steps.length - 1}
-              className="px-3 py-1.5 text-sm bg-blue-500 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-5 py-2 text-sm bg-[#948979] text-white rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Next
             </button>
@@ -346,7 +346,7 @@ const BearingProblems: React.FC = () => {
         </div>
 
         {/* Problem-Solving Strategy */}
-        <div className="bg-white p-4 rounded-lg shadow-md">
+        <div className="bg-white/20 text-white p-4 rounded-lg shadow-md">
           <div className="text-sm space-y-2">
           
               <span className="font-medium">Common Problem Types:</span>

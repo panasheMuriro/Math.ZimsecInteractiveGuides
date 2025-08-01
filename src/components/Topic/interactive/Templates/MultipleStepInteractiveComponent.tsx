@@ -1,16 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// src/Templates/MultiStepInteractiveComponent.tsx (Modified for Questions with Steps)
-// Updated Progress Display
 import React, { useState, useEffect } from 'react';
 import 'katex/dist/katex.min.css';
 import { RotateCw, CheckCircle, XCircle, HelpCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { renderTextWithMath } from '../../../../utils/renderTextWithMath';
 
-
-
-// Define the structure for a single Step within a Question
 export interface MultiStep {
-  id: string; // Unique ID for the step (e.g., 'q1_step1')
+  id: string;
   question: string;
   questionType: 'text'; // Assuming text for now, can be extended
   options: string[];
@@ -30,7 +25,6 @@ export interface MultiStepQuestion { // Renamed from MultiStepQuestionGroup for 
   id: string; // Unique ID for the question (e.g., 'q1')
   title: string; // Title/heading for the question
   steps: MultiStep[]; // Array of steps belonging to this question
-  // You could add question-level properties here if needed later
 }
 
 // Define the structure for tracking results for a single Step
@@ -44,7 +38,6 @@ interface StepResult {
 interface QuestionResult {
   questionId: string; // ID of the question
   stepResults: StepResult[]; // Results for each step in this question
-  // Potentially add question-level aggregate stats here if needed
 }
 
 interface MultiStepInteractiveComponentProps {
@@ -180,7 +173,6 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
         setCurrentQuestionIndex(prevQuestionIndex);
         setCurrentStepIndexWithinQuestion(prevQuestionStepCount - 1);
       }
-      // If at the first question, first step, do nothing (button disabled)
     }
     // Hide explanation for the step we're leaving
     const stepId = currentStep.id;
@@ -190,7 +182,6 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
   const resetQuiz = () => {
     setCurrentQuestionIndex(0);
     setCurrentStepIndexWithinQuestion(0);
-    // Re-initialize results structure
     setQuestionResults(
       questions.map(q => ({
         questionId: q.id,
@@ -242,18 +233,6 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
         setFinalSummary(false);
     }
   }, [currentQuestionIndex, currentStepIndexWithinQuestion, questions.length, currentQuestion.steps.length]);
-
-  // --- Calculations for Progress Display ---
-  // Calculate total steps across all questions (for final summary if needed elsewhere)
-  // const totalSteps = questions.reduce((acc, q) => acc + q.steps.length, 0);
-
-  // Calculate current overall step index for display (1-based) - Not used in this version
-  // let currentOverallStep = 1;
-  // for (let qIndex = 0; qIndex < currentQuestionIndex; qIndex++) {
-  //     currentOverallStep += questions[qIndex].steps.length;
-  // }
-  // currentOverallStep += currentStepIndexWithinQuestion + 1; // Add 1 for 1-based indexing
-  // --- End Calculations ---
 
   return (
     <div className={`bg-gradient-to-br ${theme.from} ${theme.to} p-6 rounded-3xl text-white shadow-xl max-w-md w-full`}>

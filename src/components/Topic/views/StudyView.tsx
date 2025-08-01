@@ -121,7 +121,7 @@ const renderInteractive = (type: string) => {
 
         <div className="text-lg mb-4 font-bold">Practice</div>
 
-        <div className="mb-6">
+        <div className="mb-6 font-sans">
           {renderInteractive(currentContent.interactive as string)}
 
           

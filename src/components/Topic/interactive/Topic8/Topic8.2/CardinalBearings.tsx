@@ -1,4 +1,5 @@
-import  { useState } from 'react';
+import { Info } from 'lucide-react';
+import { useState } from 'react';
 
 interface Direction {
   name: string;
@@ -12,7 +13,7 @@ interface Point {
   y: number;
 }
 
-const CardinalBearings= () => {
+const CardinalBearings = () => {
   const [selectedDirection, setSelectedDirection] = useState<string | null>(null);
   const [showAllLabels, setShowAllLabels] = useState<boolean>(false);
 
@@ -36,21 +37,21 @@ const CardinalBearings= () => {
     { name: 'NNW', fullName: 'North-Northwest', angle: 337.5, type: 'half-wind' }
   ];
 
-  // Mobile-first responsive values
-  const svgSize = 280; // Smaller for mobile
+  // Responsive SVG size
+  const svgSize = 280;
   const centerX = svgSize / 2;
   const centerY = svgSize / 2;
-  const outerRadius = svgSize * 0.45; // 45% of svg size
-  const innerRadius = svgSize * 0.35; // 35% of svg size
-  const labelRadius = svgSize * 0.52; // 52% of svg size
+  const outerRadius = svgSize * 0.42; // Slightly reduced to prevent label cutoff
+  const innerRadius = svgSize * 0.32;
+  const labelRadius = svgSize * 0.48; // Adjusted to keep labels within bounds
 
   const getColorForType = (type: Direction['type'], isSelected = false): string => {
-    if (isSelected) return '#ef4444';
+    if (isSelected) return '#ef4444'; // Red for selected
     switch (type) {
-      case 'cardinal': return '#1d4ed8';
-      case 'intercardinal': return '#059669';
-      case 'half-wind': return '#7c3aed';
-      default: return '#64748b';
+      case 'cardinal': return '#3b82f6'; // Blue
+      case 'intercardinal': return '#10b981'; // Emerald
+      case 'half-wind': return '#8b5cf6'; // Violet
+      default: return '#64748b'; // Gray
     }
   };
 
@@ -79,72 +80,63 @@ const CardinalBearings= () => {
   const selectedDirectionData = selectedDirection ? directions.find(d => d.name === selectedDirection) : null;
 
   return (
-    <div className="p-3 sm:p-6 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-lg max-w-full">
-      <div className="mb-4 sm:mb-6">
-        <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Cardinal & Intermediate Directions</h2>
-        <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4">
+    <div className="p-4 sm:p-6 bg-gradient-to-br from-[#687FE5] to-indigo-300 rounded-2xl max-w-2xl mx-auto shadow-lg">
+      <div className="mb-5 sm:mb-6 ">
+        <h2 className="text-xl sm:text-2xl text-white font-bold mb-2 text-center pt-3">Cardinal & Intermediate Directions</h2>
+        <p className="text-sm sm:text-base text-white mb-4 text-center">
           Interactive compass rose showing all 16 directions with angles
         </p>
         
-        <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mb-3 sm:mb-4">
-          <button
-            onClick={() => setShowAllLabels(!showAllLabels)}
-            className="px-3 py-2 text-sm sm:text-base bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors touch-manipulation"
-            type="button"
-          >
-            {showAllLabels ? 'Hide Labels' : 'Show All Labels'}
-          </button>
-          
-          <button
-            onClick={() => setSelectedDirection(null)}
-            className="px-3 py-2 text-sm sm:text-base bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors touch-manipulation"
-            type="button"
-          >
-            Clear Selection
-          </button>
-        </div>
-
-        {/* Legend - Stack on mobile */}
-        <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-4 mb-3 sm:mb-4 text-xs sm:text-sm">
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-1 bg-blue-600 flex-shrink-0"></div>
+     
+        
+        {/* Legend */}
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-4 text-xs sm:text-sm">
+          <div className="flex items-center gap-2 bg-white/70 px-3 py-1.5 rounded-lg shadow-sm">
+            <div className="w-4 h-1 bg-blue-500 rounded-full"></div>
             <span>Cardinal (N, E, S, W)</span>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-1 bg-green-600 flex-shrink-0"></div>
+          <div className="flex items-center gap-2 bg-white/70 px-3 py-1.5 rounded-lg shadow-sm">
+            <div className="w-4 h-1 bg-emerald-500 rounded-full"></div>
             <span>Intercardinal (NE, SE, SW, NW)</span>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-1 bg-purple-600 flex-shrink-0"></div>
+          <div className="flex items-center gap-2 bg-white/70 px-3 py-1.5 rounded-lg shadow-sm">
+            <div className="w-4 h-1 bg-violet-500 rounded-full"></div>
             <span>Half-wind (NNE, ENE, etc.)</span>
           </div>
         </div>
       </div>
 
-      {/* SVG Container - Centered and responsive */}
-      <div className="flex justify-center mb-4 sm:mb-6">
+      {/* SVG Container */}
+      <div className="flex justify-center mb-5 sm:mb-6">
         <div className="relative">
           <svg 
             width={svgSize} 
             height={svgSize} 
             viewBox={`0 0 ${svgSize} ${svgSize}`}
-            className="border rounded-lg bg-white shadow-lg w-full h-auto max-w-sm sm:max-w-md"
+            className="bg-white rounded-xl shadow-lg border border-gray-200 w-full h-auto"
           >
             {/* Background circles */}
-            <circle cx={centerX} cy={centerY} r={outerRadius} fill="none" stroke="#e5e7eb" strokeWidth="1"/>
-            <circle cx={centerX} cy={centerY} r={innerRadius} fill="none" stroke="#e5e7eb" strokeWidth="1"/>
-            <circle cx={centerX} cy={centerY} r={svgSize * 0.25} fill="none" stroke="#e5e7eb" strokeWidth="1"/>
-            <circle cx={centerX} cy={centerY} r={svgSize * 0.15} fill="none" stroke="#e5e7eb" strokeWidth="1"/>
-
+            {[0.42, 0.32, 0.22, 0.12].map((factor, i) => (
+              <circle 
+                key={i}
+                cx={centerX} 
+                cy={centerY} 
+                r={svgSize * factor} 
+                fill="none" 
+                stroke="#e5e7eb" 
+                strokeWidth={i === 0 ? 1.5 : 1}
+                strokeDasharray={i === 0 ? "none" : "4 2"}
+              />
+            ))}
+            
             {/* Direction lines and labels */}
             {directions.map((direction: Direction) => {
               const isSelected = selectedDirection === direction.name;
               const shouldShowLabel = showAllLabels || isSelected || direction.type === 'cardinal';
-              
               const innerPoint = polarToCartesian(centerX, centerY, innerRadius, direction.angle);
               const outerPoint = polarToCartesian(centerX, centerY, outerRadius, direction.angle);
               const labelPoint = polarToCartesian(centerX, centerY, labelRadius, direction.angle);
-
+              
               return (
                 <g key={direction.name}>
                   {/* Direction line */}
@@ -155,33 +147,36 @@ const CardinalBearings= () => {
                     y2={outerPoint.y}
                     stroke={getColorForType(direction.type, isSelected)}
                     strokeWidth={getStrokeWidth(direction.type, isSelected)}
-                    className="cursor-pointer hover:opacity-80 touch-manipulation"
+                    className="cursor-pointer transition-all duration-200 hover:opacity-80"
                     onClick={() => handleDirectionClick(direction.name)}
-                    style={{ touchAction: 'manipulation' }}
                   />
                   
-                  {/* Direction dot - Larger for mobile touch */}
+                  {/* Direction dot */}
                   <circle
                     cx={outerPoint.x}
                     cy={outerPoint.y}
-                    r={direction.type === 'cardinal' ? 6 : direction.type === 'intercardinal' ? 5 : 4}
+                    r={direction.type === 'cardinal' ? 7 : direction.type === 'intercardinal' ? 6 : 5}
                     fill={getColorForType(direction.type, isSelected)}
-                    className="cursor-pointer hover:opacity-80 touch-manipulation"
+                    className="cursor-pointer transition-all duration-200 hover:opacity-80 hover:scale-110"
                     onClick={() => handleDirectionClick(direction.name)}
-                    style={{ touchAction: 'manipulation' }}
                   />
-
+                  
                   {/* Direction label */}
                   {shouldShowLabel && (
                     <text
                       x={labelPoint.x}
-                      y={labelPoint.y + 4}
+                      y={labelPoint.y + 5}
                       textAnchor="middle"
-                      className={`text-xs sm:text-sm font-semibold cursor-pointer hover:opacity-80 touch-manipulation ${
-                        isSelected ? 'fill-red-600' : 'fill-gray-700'
+                      className={`text-xs sm:text-sm font-bold cursor-pointer transition-all duration-200 ${
+                        isSelected 
+                          ? 'fill-red-600 text-shadow' 
+                          : direction.type === 'cardinal'
+                            ? 'fill-blue-600'
+                            : direction.type === 'intercardinal'
+                              ? 'fill-emerald-600'
+                              : 'fill-violet-600'
                       }`}
                       onClick={() => handleDirectionClick(direction.name)}
-                      style={{ touchAction: 'manipulation' }}
                     >
                       {direction.name}
                     </text>
@@ -189,45 +184,70 @@ const CardinalBearings= () => {
                 </g>
               );
             })}
-
+            
             {/* Center compass rose */}
-            <circle cx={centerX} cy={centerY} r="6" fill="#374151"/>
-            <text x={centerX} y={centerY + 3} textAnchor="middle" className="text-xs fill-white font-bold">N</text>
-
+            <circle cx={centerX} cy={centerY} r="8" fill="#374151" className="shadow-md"/>
+            <text x={centerX} y={centerY + 4} textAnchor="middle" className="text-xs fill-white font-bold">N</text>
+            
             {/* North indicator arrow */}
             <polygon
-              points={`${centerX-4},${centerY-20} ${centerX+4},${centerY-20} ${centerX},${centerY-28}`}
+              points={`${centerX-5},${centerY-25} ${centerX+5},${centerY-25} ${centerX},${centerY-33}`}
               fill="#dc2626"
+              className="drop-shadow-md"
             />
           </svg>
         </div>
       </div>
 
+
+   <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-4 justify-center">
+          <button
+            onClick={() => setShowAllLabels(!showAllLabels)}
+            className="px-4 py-2.5 text-sm sm:text-base bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-md active:scale-95"
+            type="button"
+          >
+            {showAllLabels ? 'Hide Labels' : 'Show All Labels'}
+          </button>
+          <button
+            onClick={() => setSelectedDirection(null)}
+            className="px-4 py-2.5 text-sm sm:text-base bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors shadow-md active:scale-95"
+            type="button"
+          >
+            Clear Selection
+          </button>
+        </div>
+
       {/* Selected direction info */}
       {selectedDirectionData && (
-        <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-white rounded-lg shadow-md border-l-4 border-red-500">
-          <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-1">
+        <div className="mb-5 sm:mb-6 p-4 bg-gradient-to-r from-white to-blue-50 rounded-xl shadow-md border-l-4 border-red-500 transform transition-transform duration-300 hover:scale-[1.02]">
+          <h3 className="text-lg font-bold text-gray-800 mb-2 flex items-center">
+            <span className="mr-2 text-red-500">•</span>
             {selectedDirectionData.name} - {selectedDirectionData.fullName}
           </h3>
-          <p className="text-sm sm:text-base text-gray-600 mb-1">
-            <span className="font-semibold">Angle:</span> {selectedDirectionData.angle}°
-          </p>
-          <p className="text-sm sm:text-base text-gray-600">
-            <span className="font-semibold">Type:</span> {
-              selectedDirectionData.type === 'cardinal' ? 'Cardinal Direction' :
-              selectedDirectionData.type === 'intercardinal' ? 'Intercardinal Direction' :
-              'Half-wind Direction'
-            }
-          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <p className="text-gray-600">
+              <span className="font-semibold text-gray-700">Angle:</span> {selectedDirectionData.angle}°
+            </p>
+            <p className="text-gray-600">
+              <span className="font-semibold text-gray-700">Type:</span> {
+                selectedDirectionData.type === 'cardinal' ? 'Cardinal Direction' :
+                selectedDirectionData.type === 'intercardinal' ? 'Intercardinal Direction' :
+                'Half-wind Direction'
+              }
+            </p>
+          </div>
         </div>
       )}
 
       {/* Memory aid */}
-      <div className="p-3 sm:p-4 bg-yellow-50 rounded-lg border border-yellow-200">
-        <h3 className="text-base sm:text-lg font-semibold text-yellow-800 mb-2">Memory Aid</h3>
-        <p className="text-sm sm:text-base text-yellow-700">
+      <div className="p-4 bg-white/50 rounded-xl shadow-inner">
+        <h3 className="text-lg font-semibold mb-2 flex gap-3 items-center">
+         <Info/>
+          Memory Aid
+        </h3>
+        <p >
           <strong>"Never Eat Soggy Waffles"</strong> - Remember the cardinal directions clockwise: 
-          <span className="font-mono block sm:inline mt-1 sm:mt-0"> N → E → S → W</span>
+          <span className="font-mono block sm:inline mt-1 sm:mt-0 bg-white/50 px-2 py-1 rounded ml-0 sm:ml-1"> N → E → S → W</span>
         </p>
       </div>
     </div>

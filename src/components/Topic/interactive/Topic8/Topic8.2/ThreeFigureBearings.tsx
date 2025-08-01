@@ -66,11 +66,11 @@ const ThreeFigureBearings = () => {
   const backBearing = calculateBackBearing(currentAngle);
 
   return (
-    <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-100 font-sans">
-      <h1 className="text-xl font-bold text-gray-800 mb-2 text-center">
+    <div className="p-6 bg-gradient-to-br from-[#03A6A1] to-[#096B68] font-sans rounded-2xl">
+      <h1 className="text-xl font-bold text-white mb-2 text-center">
         Three-Figure Bearings
       </h1>
-      <p className="text-sm text-gray-600 mb-4 text-center">
+      <p className="text-sm text-white mb-4 text-center">
         Learn how bearings are measured clockwise from North (000°–360°)
       </p>
 
@@ -163,8 +163,8 @@ const ThreeFigureBearings = () => {
           </div>
 
           {/* Example buttons */}
-          <div className="overflow-x-auto pb-2 mb-3">
-            <div className="flex gap-2 w-max">
+          <div className="pb-2 mb-3">
+            <div className="flex gap-2 flex-wrap w-full">
               {examples.map((example, index) => (
                 <button
                   key={index}
@@ -172,9 +172,9 @@ const ThreeFigureBearings = () => {
                     setCurrentExample(index);
                     setBearingAngle(example.angle.toString());
                   }}
-                  className={`px-3 py-1.5 text-sm rounded-lg transition-colors flex-shrink-0 ${
+                  className={`px-3 py-2 text-sm rounded-2xl transition-colors flex-shrink-0 ${
                     currentExample === index
-                      ? 'bg-blue-500 text-white'
+                      ? 'bg-[#03A6A1] text-white'
                       : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                   }`}
                 >
@@ -186,7 +186,7 @@ const ThreeFigureBearings = () => {
 
           {/* Custom angle input */}
           <div className="mb-3">
-            <label className="block text-xs font-medium mb-1 text-gray-700">
+            <label className="block text-sm font-medium mb-1 text-gray-700">
               Enter Bearing (0°–360°)
             </label>
             <input
@@ -195,7 +195,7 @@ const ThreeFigureBearings = () => {
               max="360"
               value={bearingAngle}
               onChange={(e) => setBearingAngle(e.target.value)}
-              className="w-full p-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-2 border border-[#03A6A1] border-3 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter angle (e.g., 065)"
             />
           </div>
