@@ -1,434 +1,764 @@
+import React, { ReactNode, useState } from 'react';
+import { Compass, Ruler, Play, Pause, ChevronLeft, ChevronRight } from 'lucide-react';
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+type ConstructionStep = {
+  id: string;
+  title: string;
+  description: string;
+  illustration: JSX.Element;
+  maxSteps: number; // Added to track steps per construction
+};
 
 const BasicConstructions: React.FC = () => {
-  const [construction, setConstruction] = useState<
-    "perpendicular" | "parallel" | "line-segment" | "copy-angle" | "bisect-angle" | "construct-60" | "construct-30" | "construct-90"
-  >("perpendicular");
-  const [step, setStep] = useState<number>(0);
+  const [activeConstruction, setActiveConstruction] = useState(0);
+  const [animationStep, setAnimationStep] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
 
-  const constructions: { [key: string]: { steps: string[] } } = {
-    perpendicular: {
-      steps: [
-        "Draw a line and mark a point above it.",
-        "Use compass from point to intersect line at two points.",
-        "Draw arcs from these points to intersect inside.",
-        "Draw perpendicular line through the intersection."
-      ]
+  const constructions: ConstructionStep[] = [
+    {
+      id: 'perpendicular',
+      title: 'Perpendicular Line Through Point',
+      description: 'Construct a line perpendicular to a given line passing through a point on that line',
+      illustration: <PerpendicularConstruction step={animationStep} />,
+      maxSteps: 5
     },
-    parallel: {
-      steps: [
-        "Draw a line and a point not on it.",
-        "Draw a transversal through the point.",
-        "Copy an angle from the line to the point.",
-        "Draw the parallel line through the point."
-      ]
+    {
+      id: 'angle-bisector',
+      title: 'Angle Bisector',
+      description: 'Divide an angle into two equal parts',
+      illustration: <AngleBisectorConstruction step={animationStep} />,
+      maxSteps: 5
     },
-    "line-segment": {
-      steps: [
-        "Mark a point for the start of the segment.",
-        "Use compass to measure the desired length.",
-        "Draw an arc from the point.",
-        "Mark the endpoint where the arc intersects."
-      ]
+    {
+      id: 'parallel-lines',
+      title: 'Parallel Lines',
+      description: 'Construct a line parallel to a given line passing through an external point',
+      illustration: <ParallelLinesConstruction step={animationStep} />,
+      maxSteps: 6
     },
-    "copy-angle": {
-      steps: [
-        "Draw an angle and a new ray.",
-        "Use compass to measure the angle's arc.",
-        "Transfer the arc to the new ray.",
-        "Draw the copied angle."
-      ]
-    },
-    "bisect-angle": {
-      steps: [
-        "Draw an angle.",
-        "Use compass to draw an arc inside from vertex.",
-        "Draw arcs from arc intersections to meet inside.",
-        "Draw the bisector through the intersection."
-      ]
-    },
-    "construct-60": {
-      steps: [
-        "Draw a line segment.",
-        "Use compass to draw arc from one endpoint.",
-        "Draw arc from other endpoint to intersect.",
-        "Connect intersection to form equilateral triangle."
-      ]
-    },
-    "construct-30": {
-      steps: [
-        "Construct a 60° angle.",
-        "Draw an arc inside the 60° angle from vertex.",
-        "Draw arcs from arc intersections to meet.",
-        "Draw the bisector for 30° angle."
-      ]
-    },
-    "construct-90": {
-      steps: [
-        "Draw a line and mark a point on it.",
-        "Draw arcs from point to intersect line.",
-        "Draw arcs from intersections to meet above.",
-        "Draw perpendicular line through intersection."
-      ]
+    {
+      id: 'angle-60',
+      title: '60-Degree Angle',
+      description: 'Construct a 60-degree angle using compass and straightedge',
+      illustration: <Angle60Construction step={animationStep} />,
+      maxSteps: 4
+    }
+  ];
+
+  const currentConstruction = constructions[activeConstruction];
+  const maxStepsForCurrent = currentConstruction.maxSteps;
+
+  const handleNext = () => {
+    if (animationStep < maxStepsForCurrent) {
+      setAnimationStep(prev => prev + 1);
     }
   };
 
-  // Helper function to calculate a point along a line at a given distance
-  const pointAlongLine = (
-    x1: number,
-    y1: number,
-    x2: number,
-    y2: number,
-    distance: number
-  ) => {
-    const length = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
-    const ratio = distance / length;
-    return {
-      x: x1 + ratio * (x2 - x1),
-      y: y1 + ratio * (y2 - y1),
-    };
-  };
-
-  // Helper function to calculate angle arc path
-  const getAngleArcPath = (
-    vertex: { x: number; y: number },
-    p1: { x: number; y: number },
-    p2: { x: number; y: number },
-    radius: number
-  ) => {
-    const point1 = pointAlongLine(vertex.x, vertex.y, p1.x, p1.y, radius);
-    const point2 = pointAlongLine(vertex.x, vertex.y, p2.x, p2.y, radius);
-    const crossProduct =
-      (p1.x - vertex.x) * (p2.y - vertex.y) - (p1.y - vertex.y) * (p2.x - vertex.x);
-    const sweepFlag = crossProduct > 0 ? 1 : 0;
-    return `M ${point1.x},${point1.y} A ${radius},${radius} 0 0 ${sweepFlag} ${point2.x},${point2.y}`;
-  };
-
-  const handleConstructionChange = (
-    newConstruction: "perpendicular" | "parallel" | "line-segment" | "copy-angle" | "bisect-angle" | "construct-60" | "construct-30" | "construct-90"
-  ) => {
-    setConstruction(newConstruction);
-    setStep(0);
-  };
-
-  const handleNextStep = () => {
-    if (step < constructions[construction].steps.length - 1) {
-      setStep(step + 1);
+  const handlePrev = () => {
+    if (animationStep > 0) {
+      setAnimationStep(prev => prev - 1);
     }
   };
 
-  const handlePrevStep = () => {
-    if (step > 0) {
-      setStep(step - 1);
-    }
+  // const resetAnimation = () => {
+  //   setAnimationStep(0);
+  //   setIsPlaying(false);
+  // };
+
+  const togglePlay = () => {
+    setIsPlaying(!isPlaying);
   };
 
-  // SVG visualization logic for each construction
-  const renderConstruction = () => {
-    switch (construction) {
-      case "perpendicular":
-        return (
-          <>
-            {/* Base line */}
-            <line x1="50" y1="150" x2="250" y2="150" stroke="black" strokeWidth="2" />
-            {/* Point above */}
-            {step >= 0 && <circle cx="150" cy="50" r="3" fill="red" />}
-            {/* Compass arcs */}
-            {step >= 1 && (
-              <>
-                <circle cx="150" cy="50" r="50" fill="none" stroke="blue" strokeWidth="1" strokeDasharray="5" />
-                <circle cx="100" cy="150" r="3" fill="blue" />
-                <circle cx="200" cy="150" r="3" fill="blue" />
-              </>
-            )}
-            {step >= 2 && (
-              <>
-                <circle cx="100" cy="150" r="40" fill="none" stroke="blue" strokeWidth="1" strokeDasharray="5" />
-                <circle cx="200" cy="150" r="40" fill="none" stroke="blue" strokeWidth="1" strokeDasharray="5" />
-                <circle cx="150" cy="110" r="3" fill="blue" />
-              </>
-            )}
-            {step >= 3 && <line x1="150" y1="50" x2="150" y2="150" stroke="red" strokeWidth="2" />}
-          </>
-        );
-      case "parallel":
-        return (
-          <>
-            {/* Base line */}
-            <line x1="50" y1="150" x2="250" y2="150" stroke="black" strokeWidth="2" />
-            {/* Point not on line */}
-            {step >= 0 && <circle cx="150" cy="50" r="3" fill="red" />}
-            {/* Transversal */}
-            {step >= 1 && <line x1="100" y1="150" x2="150" y2="50" stroke="black" strokeWidth="2" />}
-            {step >= 2 && (
-              <>
-                <path
-                  d={getAngleArcPath(
-                    { x: 100, y: 150 },
-                    { x: 100, y: 130 },
-                    { x: 130, y: 150 },
-                    20
-                  )}
-                  stroke="blue"
-                  strokeWidth="1"
-                  fill="none"
-                  strokeDasharray="5"
-                />
-                <path
-                  d={getAngleArcPath(
-                    { x: 150, y: 50 },
-                    { x: 150, y: 70 },
-                    { x: 120, y: 50 },
-                    20
-                  )}
-                  stroke="blue"
-                  strokeWidth="1"
-                  fill="none"
-                  strokeDasharray="5"
-                />
-              </>
-            )}
-            {step >= 3 && <line x1="50" y1="50" x2="250" y2="50" stroke="red" strokeWidth="2" />}
-          </>
-        );
-      case "line-segment":
-        return (
-          <>
-            {/* Starting point */}
-            {step >= 0 && <circle cx="100" cy="100" r="3" fill="red" />}
-            {/* Compass measurement */}
-            {step >= 1 && <circle cx="100" cy="100" r="50" fill="none" stroke="blue" strokeWidth="1" strokeDasharray="5" />}
-            {step >= 2 && <circle cx="150" cy="100" r="3" fill="blue" />}
-            {step >= 3 && <line x1="100" y1="100" x2="150" y2="100" stroke="red" strokeWidth="2" />}
-          </>
-        );
-      case "copy-angle":
-        return (
-          <>
-            {/* Original angle */}
-            <line x1="100" y1="150" x2="150" y2="150" stroke="black" strokeWidth="2" />
-            <line x1="150" y1="150" x2="200" y2="100" stroke="black" strokeWidth="2" />
-            {/* New ray */}
-            {step >= 0 && <line x1="100" y1="50" x2="150" y2="50" stroke="black" strokeWidth="2" />}
-            {step >= 1 && (
-              <path
-                d={getAngleArcPath(
-                  { x: 150, y: 150 },
-                  { x: 150, y: 130 },
-                  { x: 180, y: 120 },
-                  20
-                )}
-                stroke="blue"
-                strokeWidth="1"
-                fill="none"
-                strokeDasharray="5"
-              />
-            )}
-            {step >= 2 && (
-              <path
-                d={getAngleArcPath(
-                  { x: 150, y: 50 },
-                  { x: 150, y: 70 },
-                  { x: 120, y: 50 },
-                  20
-                )}
-                stroke="blue"
-                strokeWidth="1"
-                fill="none"
-                strokeDasharray="5"
-              />
-            )}
-            {step >= 3 && <line x1="150" y1="50" x2="200" y2="0" stroke="red" strokeWidth="2" />}
-          </>
-        );
-      case "bisect-angle":
-        return (
-          <>
-            {/* Angle */}
-            <line x1="100" y1="150" x2="150" y2="100" stroke="black" strokeWidth="2" />
-            <line x1="150" y1="100" x2="200" y2="150" stroke="black" strokeWidth="2" />
-            {step >= 1 && (
-              <path
-                d={getAngleArcPath(
-                  { x: 150, y: 100 },
-                  { x: 130, y: 120 },
-                  { x: 170, y: 120 },
-                  20
-                )}
-                stroke="blue"
-                strokeWidth="1"
-                fill="none"
-                strokeDasharray="5"
-              />
-            )}
-            {step >= 2 && (
-              <>
-                <circle cx="130" cy="120" r="15" fill="none" stroke="blue" strokeWidth="1" strokeDasharray="5" />
-                <circle cx="170" cy="120" r="15" fill="none" stroke="blue" strokeWidth="1" strokeDasharray="5" />
-                <circle cx="150" cy="120" r="3" fill="blue" />
-              </>
-            )}
-            {step >= 3 && <line x1="150" y1="100" x2="150" y2="150" stroke="red" strokeWidth="2" />}
-          </>
-        );
-      case "construct-60":
-        return (
-          <>
-            {/* Line segment */}
-            <line x1="100" y1="150" x2="150" y2="150" stroke="black" strokeWidth="2" />
-            {step >= 1 && (
-              <circle cx="100" cy="150" r="50" fill="none" stroke="blue" strokeWidth="1" strokeDasharray="5" />
-            )}
-            {step >= 2 && (
-              <>
-                <circle cx="150" cy="150" r="50" fill="none" stroke="blue" strokeWidth="1" strokeDasharray="5" />
-                <circle cx="125" cy="107" r="3" fill="blue" />
-              </>
-            )}
-            {step >= 3 && (
-              <>
-                <line x1="100" y1="150" x2="125" y2="107" stroke="red" strokeWidth="2" />
-                <line x1="125" y1="107" x2="150" y2="150" stroke="red" strokeWidth="2" />
-              </>
-            )}
-          </>
-        );
-      case "construct-30":
-        return (
-          <>
-            {/* 60° angle */}
-            <line x1="100" y1="150" x2="150" y2="150" stroke="black" strokeWidth="2" />
-            <line x1="150" y1="150" x2="125" y2="107" stroke="black" strokeWidth="2" />
-            {step >= 1 && (
-              <path
-                d={getAngleArcPath(
-                  { x: 150, y: 150 },
-                  { x: 150, y: 130 },
-                  { x: 137.5, y: 128.5 },
-                  20
-                )}
-                stroke="blue"
-                strokeWidth="1"
-                fill="none"
-                strokeDasharray="5"
-              />
-            )}
-            {step >= 2 && (
-              <>
-                <circle cx="130" cy="130" r="15" fill="none" stroke="blue" strokeWidth="1" strokeDasharray="5" />
-                <circle cx="150" cy="130" r="15" fill="none" stroke="blue" strokeWidth="1" strokeDasharray="5" />
-                <circle cx="140" cy="130" r="3" fill="blue" />
-              </>
-            )}
-            {step >= 3 && <line x1="150" y1="150" x2="140" y2="130" stroke="red" strokeWidth="2" />}
-          </>
-        );
-      case "construct-90":
-        return (
-          <>
-            {/* Base line and point */}
-            <line x1="50" y1="150" x2="250" y2="150" stroke="black" strokeWidth="2" />
-            {step >= 0 && <circle cx="150" cy="150" r="3" fill="red" />}
-            {step >= 1 && (
-              <>
-                <circle cx="150" cy="150" r="50" fill="none" stroke="blue" strokeWidth="1" strokeDasharray="5" />
-                <circle cx="100" cy="150" r="3" fill="blue" />
-                <circle cx="200" cy="150" r="3" fill="blue" />
-              </>
-            )}
-            {step >= 2 && (
-              <>
-                <circle cx="100" cy="150" r="40" fill="none" stroke="blue" strokeWidth="1" strokeDasharray="5" />
-                <circle cx="200" cy="150" r="40" fill="none" stroke="blue" strokeWidth="1" strokeDasharray="5" />
-                <circle cx="150" cy="110" r="3" fill="blue" />
-              </>
-            )}
-            {step >= 3 && <line x1="150" y1="110" x2="150" y2="150" stroke="red" strokeWidth="2" />}
-          </>
-        );
-      default:
-        return null;
+  React.useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isPlaying && animationStep < maxStepsForCurrent) {
+      interval = setInterval(() => {
+        setAnimationStep(prev => prev + 1);
+      }, 1500);
+    } else if (animationStep >= maxStepsForCurrent) {
+      setIsPlaying(false);
     }
+    return () => clearInterval(interval);
+  }, [isPlaying, animationStep, maxStepsForCurrent]);
+
+  return (
+      <div className="bg-gradient-to-br from-[#35858B] to-[#395B64] rounded-xl shadow-lg overflow-hidden">
+        <div className="p-6">
+          <h2 className="text-2xl font-bold text-white mb-2">Geometric Constructions</h2>
+          <p className="text-white mb-6">
+            Learn fundamental constructions using compass and straightedge
+          </p>
+          <div className="flex flex-wrap gap-2 mb-6">
+            {constructions.map((construction, index) => (
+              <button
+                key={construction.id}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                  activeConstruction === index
+                    ? 'bg-rose-500 text-white'
+                    : 'bg-white text-gray-700 hover:bg-gray-200'
+                }`}
+                onClick={() => {
+                  setActiveConstruction(index);
+                  setAnimationStep(0);
+                  setIsPlaying(false);
+                }}
+              >
+                {construction.title}
+              </button>
+            ))}
+          </div>
+          <div className="flex flex-col md:flex-row gap-8">
+            <div className="md:w-1/2">
+              <div className="bg-gray-50 rounded-lg p-4 mb-4 min-h-[300px] flex items-center justify-center">
+                {currentConstruction.illustration as ReactNode}
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex justify-between space-x-2 w-full">
+                  <button
+                    className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center"
+                    onClick={handlePrev}
+                    disabled={animationStep === 0}
+                    aria-label="Previous step"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                     Previous
+                  </button>
+                  <button
+                    className="p-2 rounded-full bg-rose-500 text-white hover:bg-blue-600 flex items-center"
+                    onClick={togglePlay}
+                    aria-label={isPlaying ? "Pause animation" : "Play animation"}
+                  >
+                    {isPlaying ? <Pause className="w-10 h-5" /> :  <Play className="w-10 h-5" />}
+                  </button>
+                  <button
+                    className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center"
+                    onClick={handleNext}
+                    disabled={animationStep === maxStepsForCurrent}
+                    aria-label="Next step"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                    Next Step
+                  </button>
+                </div>
+                {/* <button
+                  className="flex items-center space-x-1 text-sm text-gray-600 hover:text-gray-900"
+                  onClick={resetAnimation}
+                >
+                  <RotateCcw className="w-4 h-4" />
+                  {/* <span>Reset</span> */}
+                {/* </button> */}
+              </div>
+              <div className="mt-4">
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div
+                    className="bg-rose-500 h-2 rounded-full transition-all duration-300"
+                    style={{ width: `${(animationStep / maxStepsForCurrent) * 100}%` }}
+                  ></div>
+                </div>
+                <div className="text-right text-sm text-white mt-1">
+                  Step {animationStep} of {maxStepsForCurrent}
+                </div>
+              </div>
+            </div>
+            <div className="md:w-1/2">
+              <h3 className="text-xl font-semibold text-white mb-3">
+                {currentConstruction.title}
+              </h3>
+              <p className="text-white mb-4">
+                {currentConstruction.description}
+              </p>
+              <div className="bg-white/20 text-white rounded-lg p-4">
+                <h4 className="font-medium mb-2">Construction Steps:</h4>
+                <ol className="list-decimal list-inside space-y-2 text-white">
+                  {getStepsForConstruction(activeConstruction, animationStep)}
+                </ol>
+              </div>
+              <div className="mt-6 bg-amber-50 rounded-lg p-4 border border-amber-200">
+                <h4 className="font-medium text-amber-800 mb-2">Tools Required:</h4>
+                <ul className="space-y-1">
+                  <li className="flex items-center">
+                    <Compass className="w-4 h-4 mr-2 text-amber-600" />
+                    <span>Compass for drawing arcs</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Ruler className="w-4 h-4 mr-2 text-amber-600" />
+                    <span>Straightedge for drawing lines</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  );
+};
+
+// Helper function to render correct steps based on construction
+const getStepsForConstruction = (constructionIndex: number, currentStep: number) => {
+  const stepClass = (stepNum: number) => currentStep >= stepNum ? 'text-white font-medium' : 'text-black';
+
+  switch (constructionIndex) {
+    case 0: // Perpendicular Line
+      return (
+        <>
+          <li className={stepClass(1)}>
+            With P as center and any suitable radius, draw an arc cutting line AB at points X and Y
+          </li>
+          <li className={stepClass(2)}>
+            With X as center and suitable radius, draw an arc above the line
+          </li>
+          <li className={stepClass(3)}>
+            With Y as center and same radius, draw another arc intersecting the first at point M
+          </li>
+          <li className={stepClass(4)}>
+            Join points M and P to form the perpendicular line MP
+          </li>
+          <li className={stepClass(5)}>
+            Line MP is perpendicular to line AB through point P
+          </li>
+        </>
+      );
+    case 1: // Angle Bisector
+      return (
+        <>
+          <li className={stepClass(1)}>
+            Place compass at vertex Q and make an arc that cuts both arms of the angle at points A and B
+          </li>
+          <li className={stepClass(2)}>
+            From point A, make an arc towards the interior of the angle
+          </li>
+          <li className={stepClass(3)}>
+            Without changing compass width, from point B make another arc intersecting the first at point C
+          </li>
+          <li className={stepClass(4)}>
+            Draw a line from Q through C using a ruler
+          </li>
+          <li className={stepClass(5)}>
+            Line QC bisects the angle
+          </li>
+        </>
+      );
+    case 2: // Parallel Lines
+      return (
+        <>
+          <li className={stepClass(1)}>
+            Choose any point X on line AB and join it to point P
+          </li>
+          <li className={stepClass(2)}>
+            With X as center and any suitable radius, draw an arc cutting PX at M and AB at N
+          </li>
+          <li className={stepClass(3)}>
+            With P as center and same radius, draw an arc cutting PX at Q
+          </li>
+          <li className={stepClass(4)}>
+            With Q as center and same radius as before, draw an arc cutting the previous arc at R
+          </li>
+          <li className={stepClass(5)}>
+            Join P and R to draw line CD
+          </li>
+          <li className={stepClass(6)}>
+            Line CD is parallel to line AB and passes through P
+          </li>
+        </>
+      );
+    case 3: // 60 Degree Angle
+      return (
+        <>
+          <li className={stepClass(1)}>
+            Draw a line segment OB with point O at the left end
+          </li>
+          <li className={stepClass(2)}>
+            Place compass at O and draw an arc meeting OB at point P
+          </li>
+          <li className={stepClass(3)}>
+            Place compass at P and draw an arc through O, intersecting the first arc at point A
+          </li>
+          <li className={stepClass(4)}>
+            Draw a line from O through A to form the 60° angle
+          </li>
+        </>
+      );
+    default:
+      return null;
+  }
+};
+
+// Perpendicular Line Construction Component
+const PerpendicularConstruction: React.FC<{ step: number }> = ({ step }) => {
+  const width = 400;
+  const height = 300;
+  const lineY = 150;
+  const pointP = { x: 200, y: lineY };
+  const radius = 60;
+  const pointX = { x: pointP.x - radius, y: lineY };
+  const pointY = { x: pointP.x + radius, y: lineY };
+  const arcRadius = 70;
+  const pointM = {
+    x: pointP.x,
+    y: pointP.y - Math.sqrt(arcRadius ** 2 - ((pointY.x - pointX.x) / 2) ** 2)
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-md">
-      <h3 className="text-lg font-semibold mb-4 text-center text-gray-700">
-       [NOT DONE] Geometric Constructions Visualizer
-      </h3>
-      <p className="text-sm text-gray-600 mb-4 text-center">
-        Select a construction and step through the process to see how it’s done.
-      </p>
+    <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} className="w-full">
+      <line
+        x1="50"
+        y1={lineY}
+        x2={width - 50}
+        y2={lineY}
+        stroke="#94a3b8"
+        strokeWidth="2"
+      />
+      <circle cx={pointX.x} cy={pointX.y} r="3" fill="#3b82f6" />
+      <circle cx={pointP.x} cy={pointP.y} r="4" fill="#3b82f6" />
+      <circle cx={pointY.x} cy={pointY.y} r="3" fill="#3b82f6" />
+      <text x={pointX.x - 15} y={pointX.y + 20} className="text-xs fill-gray-700">X</text>
+      <text x={pointP.x - 10} y={pointP.y + 20} className="text-xs fill-gray-700">P</text>
+      <text x={pointY.x + 5} y={pointY.y + 20} className="text-xs fill-gray-700">Y</text>
 
-      {/* Construction Selector */}
-      <div className="flex flex-wrap justify-center gap-2 mb-6">
-        {[
-          { id: "perpendicular", label: "Perpendicular Line" },
-          { id: "parallel", label: "Parallel Line" },
-          { id: "line-segment", label: "Line Segment" },
-          { id: "copy-angle", label: "Copy Angle" },
-          { id: "bisect-angle", label: "Bisect Angle" },
-          { id: "construct-60", label: "60° Angle" },
-          { id: "construct-30", label: "30° Angle" },
-          { id: "construct-90", label: "90° Angle" }
-        ].map(({ id, label }) => (
-          <button
-            key={id}
-            onClick={() => handleConstructionChange(id as any)}
-            className={`px-3 py-1 text-sm font-medium rounded-md ${
-              construction === id
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-            }`}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
+      {step >= 1 && (
+        <circle
+          cx={pointP.x}
+          cy={pointP.y}
+          r={radius}
+          fill="none"
+          stroke="#ef4444"
+          strokeWidth="1.5"
+          strokeDasharray="4,4"
+        />
+      )}
 
-      {/* Visualization */}
-      <div className="flex justify-center">
-        <svg width="100%" height="200" viewBox="0 0 300 200" className="max-w-full">
-          {renderConstruction()}
-        </svg>
-      </div>
+      {step >= 2 && (
+        <circle
+          cx={pointX.x}
+          cy={pointX.y}
+          r={arcRadius}
+          fill="none"
+          stroke="#10b981"
+          strokeWidth="1.5"
+          strokeDasharray="4,4"
+        />
+      )}
 
-      {/* Step Navigation */}
-      <div className="flex justify-between mt-4">
-        <button
-          onClick={handlePrevStep}
-          disabled={step === 0}
-          className={`px-4 py-2 text-sm font-medium rounded-md ${
-            step === 0 ? "bg-gray-300 cursor-not-allowed" : "bg-blue-500 text-white hover:bg-blue-600"
-          }`}
-        >
-          Previous
-        </button>
-        <button
-          onClick={handleNextStep}
-          disabled={step === constructions[construction].steps.length - 1}
-          className={`px-4 py-2 text-sm font-medium rounded-md ${
-            step === constructions[construction].steps.length - 1
-              ? "bg-gray-300 cursor-not-allowed"
-              : "bg-blue-500 text-white hover:bg-blue-600"
-          }`}
-        >
-          Next
-        </button>
-      </div>
+      {step >= 3 && (
+        <circle
+          cx={pointY.x}
+          cy={pointY.y}
+          r={arcRadius}
+          fill="none"
+          stroke="#10b981"
+          strokeWidth="1.5"
+          strokeDasharray="4,4"
+        />
+      )}
 
-      {/* Feedback */}
-      <div className="text-sm text-gray-600 mt-4">
-        <p>
-          <strong>Step {step + 1}:</strong> {constructions[construction].steps[step]}
-        </p>
-        <p className="mt-2">
-          Use the buttons to navigate through the steps of the {construction.replace("-", " ")} construction using only a compass and straightedge.
-        </p>
-      </div>
-    </div>
+      {step >= 4 && (
+        <>
+          <circle cx={pointM.x} cy={pointM.y} r="4" fill="#8b5cf6" />
+          <text x={pointM.x + 10} y={pointM.y - 5} className="text-xs fill-gray-700">M</text>
+        </>
+      )}
+
+      {step >= 5 && (
+        <line
+          x1={pointP.x}
+          y1={pointP.y}
+          x2={pointM.x}
+          y2={pointM.y}
+          stroke="#3b82f6"
+          strokeWidth="2"
+        />
+      )}
+
+      {step >= 4 && (
+        <>
+          <line
+            x1={pointX.x}
+            y1={pointX.y}
+            x2={pointM.x}
+            y2={pointM.y}
+            stroke="#d1d5db"
+            strokeWidth="1"
+            strokeDasharray="3,3"
+          />
+          <line
+            x1={pointY.x}
+            y1={pointY.y}
+            x2={pointM.x}
+            y2={pointM.y}
+            stroke="#d1d5db"
+            strokeWidth="1"
+            strokeDasharray="3,3"
+          />
+        </>
+      )}
+    </svg>
+  );
+};
+
+// Angle Bisector Construction Component
+const AngleBisectorConstruction: React.FC<{ step: number }> = ({ step }) => {
+  const width = 400;
+  const height = 300;
+  const vertexQ = { x: 200, y: 150 };
+  const arm1Angle = -30 * Math.PI / 180;
+  const arm2Angle = 30 * Math.PI / 180;
+  const armLength = 120;
+  const pointP = {
+    x: vertexQ.x + armLength * Math.cos(arm1Angle),
+    y: vertexQ.y + armLength * Math.sin(arm1Angle)
+  };
+  const pointR = {
+    x: vertexQ.x + armLength * Math.cos(arm2Angle),
+    y: vertexQ.y + armLength * Math.sin(arm2Angle)
+  };
+  const firstArcRadius = 60;
+  const pointA = {
+    x: vertexQ.x + firstArcRadius * Math.cos(arm1Angle),
+    y: vertexQ.y + firstArcRadius * Math.sin(arm1Angle)
+  };
+  const pointB = {
+    x: vertexQ.x + firstArcRadius * Math.cos(arm2Angle),
+    y: vertexQ.y + firstArcRadius * Math.sin(arm2Angle)
+  };
+  const secondArcRadius = 50;
+
+  // Calculate intersection point C correctly
+  const x1 = pointA.x;
+  const y1 = pointA.y;
+  const x2 = pointB.x;
+  const y2 = pointB.y;
+  const r = secondArcRadius;
+  const d = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+
+  let pointC = { x: 0, y: 0 };
+  if (d <= 2 * r) {
+    const a = (r ** 2 - r ** 2 + d ** 2) / (2 * d);
+    const h = Math.sqrt(r ** 2 - a ** 2);
+    const x3 = x1 + a * (x2 - x1) / d;
+    const y3 = y1 + a * (y2 - y1) / d;
+    pointC = {
+      x: x3 + h * (y2 - y1) / d,
+      y: y3 - h * (x2 - x1) / d
+    };
+  } else {
+    // Fallback if circles don't intersect properly
+    pointC = {
+      x: vertexQ.x,
+      y: vertexQ.y - Math.sqrt(secondArcRadius ** 2 - ((pointB.x - pointA.x) / 2) ** 2)
+    };
+  }
+
+  return (
+    <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} className="w-full">
+      <line
+        x1={vertexQ.x}
+        y1={vertexQ.y}
+        x2={pointP.x}
+        y2={pointP.y}
+        stroke="#94a3b8"
+        strokeWidth="2"
+      />
+      <line
+        x1={vertexQ.x}
+        y1={vertexQ.y}
+        x2={pointR.x}
+        y2={pointR.y}
+        stroke="#94a3b8"
+        strokeWidth="2"
+      />
+
+      <circle cx={vertexQ.x} cy={vertexQ.y} r="4" fill="#3b82f6" />
+      <text x={vertexQ.x + 10} y={vertexQ.y + 10} className="text-xs fill-gray-700">Q</text>
+      <text x={pointP.x + 10} y={pointP.y - 10} className="text-xs fill-gray-700">P</text>
+      <text x={pointR.x + 10} y={pointR.y + 10} className="text-xs fill-gray-700">R</text>
+
+      {step >= 1 && (
+        <>
+          <path
+            d={`M ${pointA.x} ${pointA.y} A ${firstArcRadius} ${firstArcRadius} 0 0 1 ${pointB.x} ${pointB.y}`}
+            fill="none"
+            stroke="#ef4444"
+            strokeWidth="1.5"
+            strokeDasharray="4,4"
+          />
+          <circle cx={pointA.x} cy={pointA.y} r="3" fill="#3b82f6" />
+          <circle cx={pointB.x} cy={pointB.y} r="3" fill="#3b82f6" />
+          <text x={pointA.x + 10} y={pointA.y - 5} className="text-xs fill-gray-700">A</text>
+          <text x={pointB.x + 10} y={pointB.y + 15} className="text-xs fill-gray-700">B</text>
+        </>
+      )}
+
+      {step >= 2 && (
+        <circle
+          cx={pointA.x}
+          cy={pointA.y}
+          r={secondArcRadius}
+          fill="none"
+          stroke="#10b981"
+          strokeWidth="1.5"
+          strokeDasharray="4,4"
+        />
+      )}
+
+      {step >= 3 && (
+        <circle
+          cx={pointB.x}
+          cy={pointB.y}
+          r={secondArcRadius}
+          fill="none"
+          stroke="#10b981"
+          strokeWidth="1.5"
+          strokeDasharray="4,4"
+        />
+      )}
+
+      {step >= 4 && (
+        <>
+          <circle cx={pointC.x} cy={pointC.y} r="4" fill="#8b5cf6" />
+          <text x={pointC.x + 10} y={pointC.y - 5} className="text-xs fill-gray-700">C</text>
+        </>
+      )}
+
+      {step >= 5 && (
+        <line
+          x1={vertexQ.x}
+          y1={vertexQ.y}
+          x2={pointC.x}
+          y2={pointC.y}
+          stroke="#3b82f6"
+          strokeWidth="2"
+        />
+      )}
+    </svg>
+  );
+};
+
+// Parallel Lines Construction Component
+const ParallelLinesConstruction: React.FC<{ step: number }> = ({ step }) => {
+  const width = 400;
+  const height = 300;
+  const pointA = { x: 50, y: 200 };
+  const pointB = { x: 350, y: 200 };
+  const pointP = { x: 200, y: 100 };
+  const pointX = { x: 150, y: 200 };
+  const radius = 50;
+  const pxLength = Math.sqrt((pointP.x - pointX.x) ** 2 + (pointP.y - pointX.y) ** 2);
+  const ratio = radius / pxLength;
+  const pointM = {
+    x: pointX.x + ratio * (pointP.x - pointX.x),
+    y: pointX.y + ratio * (pointP.y - pointX.y)
+  };
+  const pointN = {
+    x: pointX.x - radius,
+    y: pointX.y
+  };
+  const pointQ = {
+    x: pointP.x - ratio * (pointP.x - pointX.x),
+    y: pointP.y - ratio * (pointP.y - pointX.y)
+  };
+
+  // Simplified calculation for point R at intersection
+  const pointR = {
+    x: pointQ.x - radius / 2,
+    y: pointQ.y - radius * 0.866
+  };
+
+  return (
+    <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} className="w-full">
+      <line
+        x1={pointA.x}
+        y1={pointA.y}
+        x2={pointB.x}
+        y2={pointB.y}
+        stroke="#94a3b8"
+        strokeWidth="2"
+      />
+      <text x={pointA.x - 20} y={pointA.y + 5} className="text-xs fill-gray-700">A</text>
+      <text x={pointB.x + 10} y={pointB.y + 5} className="text-xs fill-gray-700">B</text>
+
+      <circle cx={pointP.x} cy={pointP.y} r="4" fill="#3b82f6" />
+      <text x={pointP.x + 10} y={pointP.y - 5} className="text-xs fill-gray-700">P</text>
+
+      {step >= 1 && (
+        <line
+          x1={pointP.x}
+          y1={pointP.y}
+          x2={pointX.x}
+          y2={pointX.y}
+          stroke="#94a3b8"
+          strokeWidth="1.5"
+          strokeDasharray="3,3"
+        />
+      )}
+
+      {step >= 1 && (
+        <>
+          <circle cx={pointX.x} cy={pointX.y} r="3" fill="#3b82f6" />
+          <text x={pointX.x - 15} y={pointX.y + 20} className="text-xs fill-gray-700">X</text>
+        </>
+      )}
+
+      {step >= 2 && (
+        <circle
+          cx={pointX.x}
+          cy={pointX.y}
+          r={radius}
+          fill="none"
+          stroke="#ef4444"
+          strokeWidth="1.5"
+          strokeDasharray="4,4"
+        />
+      )}
+
+      {step >= 2 && (
+        <>
+          <circle cx={pointM.x} cy={pointM.y} r="3" fill="#ef4444" />
+          <circle cx={pointN.x} cy={pointN.y} r="3" fill="#ef4444" />
+          <text x={pointM.x + 5} y={pointM.y - 5} className="text-xs fill-gray-700">M</text>
+          <text x={pointN.x - 15} y={pointN.y + 20} className="text-xs fill-gray-700">N</text>
+        </>
+      )}
+
+      {step >= 3 && (
+        <circle
+          cx={pointP.x}
+          cy={pointP.y}
+          r={radius}
+          fill="none"
+          stroke="#10b981"
+          strokeWidth="1.5"
+          strokeDasharray="4,4"
+        />
+      )}
+
+      {step >= 3 && (
+        <>
+          <circle cx={pointQ.x} cy={pointQ.y} r="3" fill="#10b981" />
+          <text x={pointQ.x + 5} y={pointQ.y - 5} className="text-xs fill-gray-700">Q</text>
+        </>
+      )}
+
+      {step >= 4 && (
+        <circle
+          cx={pointQ.x}
+          cy={pointQ.y}
+          r={radius}
+          fill="none"
+          stroke="#8b5cf6"
+          strokeWidth="1.5"
+          strokeDasharray="4,4"
+        />
+      )}
+
+      {step >= 4 && (
+        <>
+          <circle cx={pointR.x} cy={pointR.y} r="4" fill="#8b5cf6" />
+          <text x={pointR.x + 10} y={pointR.y - 5} className="text-xs fill-gray-700">R</text>
+        </>
+      )}
+
+      {step >= 5 && (
+        <line
+          x1={pointP.x}
+          y1={pointP.y}
+          x2={pointR.x}
+          y2={pointR.y}
+          stroke="#3b82f6"
+          strokeWidth="2"
+        />
+      )}
+    </svg>
+  );
+};
+
+// 60-Degree Angle Construction Component
+const Angle60Construction: React.FC<{ step: number }> = ({ step }) => {
+  const width = 400;
+  const height = 300;
+  const pointO = { x: 100, y: 150 };
+  const pointB = { x: 300, y: 150 };
+  const radius = 80;
+  const pointP = { x: pointO.x + radius, y: pointO.y };
+  const pointA = {
+    x: pointO.x + radius * Math.cos(Math.PI / 3),
+    y: pointO.y - radius * Math.sin(Math.PI / 3)
+  };
+
+  return (
+    <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} className="w-full">
+      <line
+        x1={pointO.x}
+        y1={pointO.y}
+        x2={pointB.x}
+        y2={pointB.y}
+        stroke="#94a3b8"
+        strokeWidth="2"
+      />
+      <text x={pointO.x - 15} y={pointO.y + 5} className="text-xs fill-gray-700">O</text>
+      <text x={pointB.x + 5} y={pointB.y + 5} className="text-xs fill-gray-700">B</text>
+
+      {step >= 2 && (
+        <circle
+          cx={pointO.x}
+          cy={pointO.y}
+          r={radius}
+          fill="none"
+          stroke="#ef4444"
+          strokeWidth="1.5"
+          strokeDasharray="4,4"
+        />
+      )}
+
+      {step >= 2 && (
+        <>
+          <circle cx={pointP.x} cy={pointP.y} r="3" fill="#ef4444" />
+          <text x={pointP.x + 5} y={pointP.y + 15} className="text-xs fill-gray-700">P</text>
+        </>
+      )}
+
+      {step >= 3 && (
+        <circle
+          cx={pointP.x}
+          cy={pointP.y}
+          r={radius}
+          fill="none"
+          stroke="#10b981"
+          strokeWidth="1.5"
+          strokeDasharray="4,4"
+        />
+      )}
+
+      {step >= 3 && (
+        <>
+          <circle cx={pointA.x} cy={pointA.y} r="4" fill="#10b981" />
+          <text x={pointA.x + 10} y={pointA.y - 5} className="text-xs fill-gray-700">A</text>
+        </>
+      )}
+
+      {step >= 4 && (
+        <line
+          x1={pointO.x}
+          y1={pointO.y}
+          x2={pointA.x}
+          y2={pointA.y}
+          stroke="#3b82f6"
+          strokeWidth="2"
+        />
+      )}
+
+      {step >= 4 && (
+        <path
+          d={`M ${pointO.x + 30} ${pointO.y} A 30 30 0 0 1 ${pointA.x - 20} ${pointA.y + 15}`}
+          fill="none"
+          stroke="#3b82f6"
+          strokeWidth="1"
+        />
+      )}
+
+      {step >= 4 && (
+        <text x={pointO.x + 35} y={pointO.y - 10} className="text-xs fill-blue-600">60°</text>
+      )}
+    </svg>
   );
 };
 
