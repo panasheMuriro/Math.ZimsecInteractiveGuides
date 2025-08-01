@@ -79,8 +79,11 @@ const BasicConstructions: React.FC = () => {
     setIsPlaying(!isPlaying);
   };
 
-  React.useEffect(() => {
-    let interval: NodeJS.Timeout;
+
+    React.useEffect(() => {
+    // Use ReturnType<typeof setInterval> instead of NodeJS.Timeout
+    let interval: ReturnType<typeof setInterval> | null = null; 
+
     if (isPlaying && animationStep < maxStepsForCurrent) {
       interval = setInterval(() => {
         setAnimationStep(prev => prev + 1);
@@ -88,8 +91,15 @@ const BasicConstructions: React.FC = () => {
     } else if (animationStep >= maxStepsForCurrent) {
       setIsPlaying(false);
     }
-    return () => clearInterval(interval);
+
+    // Clear the interval on component unmount or when dependencies change
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
   }, [isPlaying, animationStep, maxStepsForCurrent]);
+
 
   return (
     <div className="bg-gradient-to-br from-[#35858B] to-[#395B64] rounded-xl shadow-lg overflow-hidden">
@@ -131,7 +141,7 @@ const BasicConstructions: React.FC = () => {
             <div className="flex items-center justify-between">
               <div className="flex justify-between space-x-2 w-full">
                 <button
-                  className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center disabled:opacity-50"
+                  className="p-2 px-3 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center disabled:opacity-50"
                   onClick={handlePrev}
                   disabled={animationStep === 0}
                   aria-label="Previous step"
@@ -148,12 +158,12 @@ const BasicConstructions: React.FC = () => {
                   <span className="ml-1">{isPlaying ? "Pause" : "Play"}</span>
                 </button>
                 <button
-                  className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center disabled:opacity-50"
+                  className="p-2 px-3 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center disabled:opacity-50"
                   onClick={handleNext}
                   disabled={animationStep === maxStepsForCurrent}
                   aria-label="Next step"
                 >
-                  Next Step
+                  Next
                   <ChevronRight className="w-5 h-5" />
                 </button>
               </div>
