@@ -30,6 +30,7 @@ export interface MultiStepQuestion {
 interface StepResult {
   stepId: string;
   lastSelectedOptionIndex: number | null;
+  previouslySelectedOptionIndex: number | null; // Track the option selected before the last check
   isCorrect: boolean | null;
 }
 
@@ -74,6 +75,7 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
       stepResults: q.steps.map(step => ({
         stepId: step.id,
         lastSelectedOptionIndex: null,
+        previouslySelectedOptionIndex: null, // Initialize
         isCorrect: null
       }))
     }))
@@ -97,9 +99,16 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
     setQuestionResults(prevResults => {
       const newResults = [...prevResults];
       const newStepResults = [...newResults[currentQuestionIndex].stepResults];
+      const currentResult = newStepResults[currentStepIndexWithinQuestion];
+
+      // Determine if the selected option is different from the one used for the last check
+      const isDifferentOption = optionIndex !== currentResult.previouslySelectedOptionIndex;
+
       newStepResults[currentStepIndexWithinQuestion] = {
-        ...newStepResults[currentStepIndexWithinQuestion],
+        ...currentResult,
         lastSelectedOptionIndex: optionIndex,
+        // Reset correctness check only if a different option is selected
+        isCorrect: isDifferentOption ? null : currentResult.isCorrect
       };
       newResults[currentQuestionIndex].stepResults = newStepResults;
       return newResults;
@@ -118,6 +127,8 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
       const newStepResults = [...newResults[currentQuestionIndex].stepResults];
       newStepResults[currentStepIndexWithinQuestion] = {
         ...newStepResults[currentStepIndexWithinQuestion],
+        // Store the option that was checked
+        previouslySelectedOptionIndex: newStepResults[currentStepIndexWithinQuestion].lastSelectedOptionIndex,
         isCorrect,
       };
       newResults[currentQuestionIndex].stepResults = newStepResults;
@@ -171,6 +182,7 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
         stepResults: q.steps.map(step => ({
           stepId: step.id,
           lastSelectedOptionIndex: null,
+          previouslySelectedOptionIndex: null,
           isCorrect: null
         }))
       }))
@@ -291,7 +303,8 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
             })}
           </div>
 
-          {currentStepResult.lastSelectedOptionIndex !== null && (
+          {/* Show Check Answer button when an option is selected and the answer hasn't been checked yet */}
+          {currentStepResult.lastSelectedOptionIndex !== null && currentStepResult.isCorrect === null && (
             <button
               onClick={checkAnswer}
               className={`w-full ${theme.button} ${theme.buttonHover} rounded-xl p-3 font-bold transition-all duration-200 shadow-md mt-3`}
