@@ -8,37 +8,34 @@ import { BlockMath } from 'react-katex';
 export interface MultiStep {
   id: string;
   question: string;
-  questionType: 'text'; // Assuming text for now, can be extended
+  questionType: 'text';
   options: string[];
-  optionType: 'text' | 'math'; // Assuming text for now, can be extended
+  optionType: 'text' | 'math';
   correct: number;
   explanation: string;
-  explanationType?: 'text'; // Assuming text for now, can be extended
+  explanationType?: 'text';
   onCorrect?: (selectedOptionIndex: number, setSharedValue: (key: string, value: any) => void) => void;
   CustomContentComponent?: React.FC<{
-    step: MultiStep; // Pass the specific step
+    step: MultiStep;
     sharedValues: { [key: string]: any };
   }>;
 }
 
-// Define the structure for a Question, which contains multiple Steps
-export interface MultiStepQuestion { // Renamed from MultiStepQuestionGroup for clarity if needed
-  id: string; // Unique ID for the question (e.g., 'q1')
-  title: string; // Title/heading for the question
-  steps: MultiStep[]; // Array of steps belonging to this question
+export interface MultiStepQuestion {
+  id: string;
+  title: string;
+  steps: MultiStep[];
 }
 
-// Define the structure for tracking results for a single Step
 interface StepResult {
-  stepId: string; // ID of the specific step
+  stepId: string;
   lastSelectedOptionIndex: number | null;
   isCorrect: boolean | null;
 }
 
-// Define the structure for tracking results for an entire Question
 interface QuestionResult {
-  questionId: string; // ID of the question
-  stepResults: StepResult[]; // Results for each step in this question
+  questionId: string;
+  stepResults: StepResult[];
 }
 
 interface MultiStepInteractiveComponentProps {
@@ -52,8 +49,7 @@ interface MultiStepInteractiveComponentProps {
   };
   rules: string[];
   rulesTitle?: string;
-  // Modified: Accept an array of Questions, each with its own steps
-  questions: MultiStepQuestion[]; // Use the MultiStepQuestion type for the group
+  questions: MultiStepQuestion[];
   initialSharedValues?: { [key: string]: any };
   renderSharedValuesSummary?: (sharedValues: { [key: string]: any }) => React.ReactNode;
   onReset?: () => void;
@@ -65,15 +61,13 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
   theme,
   rules,
   rulesTitle = 'Key Rules:',
-  questions, // Changed from 'steps'
+  questions,
   initialSharedValues = {},
   renderSharedValuesSummary,
   onReset,
 }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [currentStepIndexWithinQuestion, setCurrentStepIndexWithinQuestion] = useState<number>(0);
-
-  // Initialize results structure for all questions and their steps
   const [questionResults, setQuestionResults] = useState<QuestionResult[]>(
     questions.map(q => ({
       questionId: q.id,
@@ -84,14 +78,12 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
       }))
     }))
   );
-
   const [sharedValues, setSharedValues] = useState<{ [key: string]: any }>(initialSharedValues);
-  const [score, setScore] = useState<number>(0); // Total score across all questions
-  const [attempts, setAttempts] = useState<number>(0); // Total attempts across all questions
-  const [showExplanation, setShowExplanation] = useState<{ [key: string]: boolean }>({}); // Keyed by step ID
+  const [score, setScore] = useState<number>(0);
+  const [attempts, setAttempts] = useState<number>(0);
+  const [showExplanation, setShowExplanation] = useState<{ [key: string]: boolean }>({});
   const [finalSummary, setFinalSummary] = useState<boolean>(false);
 
-  // Get current question and step based on indices
   const currentQuestion = questions[currentQuestionIndex];
   const currentStep = currentQuestion.steps[currentStepIndexWithinQuestion];
   const currentStepResult = questionResults[currentQuestionIndex].stepResults[currentStepIndexWithinQuestion];
@@ -112,7 +104,7 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
       newResults[currentQuestionIndex].stepResults = newStepResults;
       return newResults;
     });
-    // Hide explanation if it was shown for this step
+
     if (showExplanation[stepId]) {
         setShowExplanation(prev => ({ ...prev, [stepId]: false }));
     }
@@ -121,7 +113,6 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
   const checkAnswer = () => {
     if (currentStepResult.lastSelectedOptionIndex === null) return;
     const isCorrect = currentStepResult.lastSelectedOptionIndex === currentStep.correct;
-
     setQuestionResults(prevResults => {
       const newResults = [...prevResults];
       const newStepResults = [...newResults[currentQuestionIndex].stepResults];
@@ -142,40 +133,31 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
   };
 
   const goToNextStep = () => {
-    // Check if there are more steps in the current question
     if (currentStepIndexWithinQuestion < currentQuestion.steps.length - 1) {
       setCurrentStepIndexWithinQuestion(prev => prev + 1);
     } else {
-      // If at the end of the current question's steps
       if (currentQuestionIndex < questions.length - 1) {
-        // Move to the next question (starting at its first step)
         setCurrentQuestionIndex(prev => prev + 1);
         setCurrentStepIndexWithinQuestion(0);
       } else {
-        // If at the end of the last question, show final summary
         setFinalSummary(true);
       }
     }
-    // Hide explanation for the step we're leaving
     const stepId = currentStep.id;
     setShowExplanation(prev => ({ ...prev, [stepId]: false }));
   };
 
   const goToPreviousStep = () => {
-    // Check if we can go back within the current question
     if (currentStepIndexWithinQuestion > 0) {
       setCurrentStepIndexWithinQuestion(prev => prev - 1);
     } else {
-      // If at the first step of the current question
       if (currentQuestionIndex > 0) {
-        // Move to the previous question (to its last step)
         const prevQuestionIndex = currentQuestionIndex - 1;
         const prevQuestionStepCount = questions[prevQuestionIndex].steps.length;
         setCurrentQuestionIndex(prevQuestionIndex);
         setCurrentStepIndexWithinQuestion(prevQuestionStepCount - 1);
       }
     }
-    // Hide explanation for the step we're leaving
     const stepId = currentStep.id;
     setShowExplanation(prev => ({ ...prev, [stepId]: false }));
   };
@@ -211,7 +193,6 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
   const getGridColsClass = (options: string[]): string => {
     const longOptionThreshold = 40;
     const hasLongOption = options.some(option => option.length > longOptionThreshold);
-    // Placeholder check for KaTeX complexity
     const hasComplexKaTeX = options.some(option =>
       option.includes('\\frac') ||
       option.includes('\\sqrt') ||
@@ -227,9 +208,7 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
 
   const gridColsClass = getGridColsClass(currentStep.options);
 
-  // Ensure final summary is only shown when appropriate
   useEffect(() => {
-    // This check might be redundant now, but good to keep for safety
     if (!(currentQuestionIndex === questions.length - 1 && currentStepIndexWithinQuestion === currentQuestion.steps.length - 1)) {
         setFinalSummary(false);
     }
@@ -237,7 +216,6 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
 
   return (
     <div className={`bg-gradient-to-br ${theme.from} ${theme.to} p-6 rounded-3xl text-white shadow-xl max-w-md w-full`}>
-      {/* Header */}
       <div className="flex items-center justify-between mb-5">
         <h3 className="text-2xl font-bold flex items-center">
           <span className="mr-2 text-3xl">{icon}</span> {title}
@@ -256,16 +234,14 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
         </div>
       </div>
 
-      {/* Progress/Summary Header */}
       {!finalSummary ? (
         <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 mb-5 shadow-sm border border-white/10">
           <div className="text-center">
-            {/* Updated Progress Display: Question X of Y | Step X of Y (within current question) */}
             <span className="text-sm opacity-90">
               Question {currentQuestionIndex + 1} of {questions.length} |
               Step {currentStepIndexWithinQuestion + 1} of {currentQuestion.steps.length}
             </span>
-             <p className="font-bold mt-1">  {currentQuestion.title}</p> {/* Show Question Title */}
+             <p className="font-bold mt-1">  {currentQuestion.title}</p>
           </div>
         </div>
       ) : (
@@ -278,20 +254,16 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
         </div>
       )}
 
-      {/* Main Content Area */}
       {!finalSummary ? (
         <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-5 mb-5 shadow-sm border border-white/10">
-          {/* Custom Content for Step */}
           {currentStep.CustomContentComponent && (
             <div className="mb-4">
               <currentStep.CustomContentComponent step={currentStep} sharedValues={sharedValues} />
             </div>
           )}
-          {/* Step Question */}
           <h4 className="font-bold text-lg mb-4">
              {renderTextWithMath(currentStep.question)}
           </h4>
-          {/* Answer Options */}
           <div className={`grid gap-3 mb-5 ${gridColsClass}`}>
             {currentStep.options.map((option, index) => {
               const isSelected = currentStepResult.lastSelectedOptionIndex === index;
@@ -301,8 +273,6 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
                 <button
                   key={index}
                   onClick={() => handleAnswerSelect(index)}
-                  // Disable button after checking answer
-                  disabled={isCorrectStatus !== null}
                   className={`py-3 px-2 rounded-xl font-bold transition-all duration-200 ${
                     isSelected
                       ? isCorrectStatus === true
@@ -320,8 +290,8 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
               );
             })}
           </div>
-          {/* Check Answer Button */}
-          {currentStepResult.lastSelectedOptionIndex !== null && currentStepResult.isCorrect === null && (
+
+          {currentStepResult.lastSelectedOptionIndex !== null && (
             <button
               onClick={checkAnswer}
               className={`w-full ${theme.button} ${theme.buttonHover} rounded-xl p-3 font-bold transition-all duration-200 shadow-md mt-3`}
@@ -329,7 +299,7 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
               Check Answer
             </button>
           )}
-          {/* Feedback and Explanation */}
+
           {currentStepResult.isCorrect !== null && (
             <div className={`rounded-2xl p-5 mt-5 backdrop-blur-sm border ${getFeedbackColor(currentStepResult.isCorrect)}`}>
               <div className="flex items-center mb-3">
@@ -370,7 +340,6 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
           )}
         </div>
       ) : (
-        /* Final Summary Screen */
         <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-5 mb-5 shadow-sm border border-white/10">
           <h4 className="font-bold text-lg mb-4 text-center">Quiz Completed!</h4>
           <p className="mb-4 text-center">Your final score: <span className="font-bold">{score}</span> / <span className="font-bold">{attempts}</span> attempts</p>
@@ -385,7 +354,6 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
             <ul className="space-y-4">
               {questions.map((question, qIndex) => {
                 const qResult = questionResults[qIndex];
-                // Calculate stats for this question
                 const totalQSteps = question.steps.length;
                 let correctQSteps = 0;
                 let attemptedQSteps = 0;
@@ -441,12 +409,11 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
           </button>
         </div>
       )}
-      {/* Navigation Buttons */}
+
       {!finalSummary && (
         <div className="flex gap-3 mb-5">
           <button
             onClick={goToPreviousStep}
-            // Disable if at the very first step of the first question
             disabled={currentQuestionIndex === 0 && currentStepIndexWithinQuestion === 0}
             className={`flex items-center justify-center flex-1 py-3 rounded-xl font-bold transition-all ${
               (currentQuestionIndex === 0 && currentStepIndexWithinQuestion === 0)
@@ -458,8 +425,6 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
           </button>
           <button
             onClick={goToNextStep}
-            // Enable next button only if the current step is answered correctly
-            // OR if it's the last step of the last question (to allow finishing)
             disabled={
               !(currentStepResult.isCorrect === true) &&
               !(currentQuestionIndex === questions.length - 1 && currentStepIndexWithinQuestion === currentQuestion.steps.length - 1)
@@ -471,7 +436,6 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
                 : 'bg-gray-500/50 cursor-not-allowed'
             }`}
           >
-            {/* Change button text based on context */}
             {currentQuestionIndex === questions.length - 1 && currentStepIndexWithinQuestion === currentQuestion.steps.length - 1
               ? 'Finish'
               : 'Next'}
@@ -479,7 +443,7 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
           </button>
         </div>
       )}
-      {/* Rules Section */}
+
       <div className="mt-4 bg-white/10 rounded-xl p-3 text-sm">
         <p className="font-bold mb-1">{rulesTitle}</p>
         <ul className="list-disc list-inside space-y-1">
