@@ -1,6 +1,4 @@
-// components/EquationCodeRenderer.tsx
-
-import PythagorasDemo1 from "./Viewers/PythagorasDemo1";
+import PythagorasDemo1 from "./PythagorasDemo1";
 
 interface CodeProps extends React.HTMLAttributes<HTMLElement> {
   className?: string;

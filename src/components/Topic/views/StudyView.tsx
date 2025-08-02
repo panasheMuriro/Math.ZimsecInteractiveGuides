@@ -28,7 +28,8 @@ import { topic7Components } from "../interactive/Topic7";
 import { topic8Components } from "../interactive/Topic8";
 import { topic9Components } from "../interactive/Topic9";
 import VariationCodeRenderer from "../interactive/Topic6/VariationCodeRenderer";
-import TrigCodeRenderer from "../interactive/Topic10/TrigCodeRenderer";
+import TrigCodeRenderer from "../interactive/Topic10/Viewers/TrigCodeRenderer";
+
 
 
 const StudyView = () => {
