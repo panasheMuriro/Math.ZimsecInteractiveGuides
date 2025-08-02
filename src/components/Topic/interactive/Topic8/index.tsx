@@ -17,8 +17,8 @@ import ScaleFactors from "./Topic8.4/ScaleFactors";
 import SimilarityCongruency from "./Topic8.4/SimilarityCongruency";
 import SimilarShapesProblems from "./Topic8.4/SimilarShapesProblems";
 import BasicConstructions from "./Topic8.5/BasicConstructions";
-import LineSymmetry from "./Topic8.5/LineSymmetry";
-import RotationalSymmetry from "./Topic8.5/RotationalSymmetry";
+import LineSymmetry from "./Topic8.6/LineSymmetry";
+import RotationalSymmetry from "./Topic8.6/RotationalSymmetry";
 import ShapeConstructions from "./Topic8.5/ShapeConstructions";
 
 export const topic8Components: Record<string, React.ComponentType> = {

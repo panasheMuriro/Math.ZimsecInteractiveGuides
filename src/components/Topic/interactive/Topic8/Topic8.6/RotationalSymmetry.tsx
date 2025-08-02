@@ -71,7 +71,7 @@ const RotationalSymmetry: React.FC = () => {
     return (
       <path
         d={pathData}
-        stroke={isOriginal ? "black" : "gray"}
+        stroke={isOriginal ? "white" : "gray"}
         strokeWidth={isOriginal ? "2" : "1"}
         fill="none"
         strokeDasharray={isOriginal ? "none" : "5"}
@@ -132,11 +132,11 @@ const RotationalSymmetry: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-md">
-      <h3 className="text-lg font-semibold mb-4 text-center text-gray-700">
+    <div className="max-w-md mx-auto p-4 bg-gradient-to-br from-[#03A6A1] to-[#00809D] rounded-lg shadow-md">
+      <h3 className="text-lg font-semibold mb-4 text-center text-white">
         Rotational Symmetry Visualizer
       </h3>
-      <p className="text-sm text-gray-600 mb-4 text-center">
+      <p className="text-sm text-white mb-4 text-center">
         Select a shape and step through to see its rotational symmetry.
       </p>
 
@@ -149,9 +149,9 @@ const RotationalSymmetry: React.FC = () => {
           <button
             key={id}
             onClick={() => handleShapeChange(id as any)}
-            className={`px-3 py-1 text-sm font-medium rounded-md ${
+            className={`px-3 py-2 text-sm font-medium rounded-full border-black border-1 ${
               shape === id
-                ? "bg-blue-500 text-white"
+                ? "bg-[#FF7601] text-white"
                 : "bg-gray-200 text-gray-700 hover:bg-gray-300"
             }`}
           >
@@ -161,7 +161,7 @@ const RotationalSymmetry: React.FC = () => {
       </div>
 
       {/* Visualization */}
-      <div className="flex justify-center">
+      <div className="flex justify-center scale-120">
         <svg width="100%" height="200" viewBox="0 0 300 200" className="max-w-full">
           {renderVisualization() as ReactNode}
         </svg>
@@ -172,7 +172,7 @@ const RotationalSymmetry: React.FC = () => {
         <button
           onClick={handlePrevStep}
           disabled={step === 0}
-          className={`px-4 py-2 text-sm font-medium rounded-md ${
+          className={`px-4 py-2 text-sm font-medium rounded-full border-black border-1 ${
             step === 0 ? "bg-gray-300 cursor-not-allowed" : "bg-blue-500 text-white hover:bg-blue-600"
           }`}
         >
@@ -181,7 +181,7 @@ const RotationalSymmetry: React.FC = () => {
         <button
           onClick={handleNextStep}
           disabled={step === shapes[shape].steps.length - 1}
-          className={`px-4 py-2 text-sm font-medium rounded-md ${
+          className={`px-4 py-2 text-sm font-medium rounded-full border-black border-1 ${
             step === shapes[shape].steps.length - 1
               ? "bg-gray-300 cursor-not-allowed"
               : "bg-blue-500 text-white hover:bg-blue-600"
@@ -192,7 +192,7 @@ const RotationalSymmetry: React.FC = () => {
       </div>
 
       {/* Feedback */}
-      <div className="text-sm text-gray-600 mt-4">
+      <div className="text-sm text-white bg-white/20 p-4 rounded-lg mt-4">
         <p>
           <strong>Step {step + 1}:</strong> {shapes[shape].steps[step]}
         </p>
