@@ -5,10 +5,10 @@ import Mean from "./Topic9.2/Mean";
 import MeasureSelection from "./Topic9.2/MeasureSelection";
 import Median from "./Topic9.2/Median";
 import Mode from "./Topic9.2/Mode";
-import OgiveQuartilesQuiz from "./Topic9.3/OgiveQuartilesQuiz";
-import QuartileIQRQuiz from "./Topic9.3/QuartileIQRQuiz";
-import RangeQuiz from "./Topic9.3/RangeQuiz";
-import SemiIQRQuiz from "./Topic9.3/SemiIQRQuiz";
+import OgiveQuartiles from "./Topic9.3/OgiveQuartiles";
+import QuartilesIQR from "./Topic9.3/QuartileIQR";
+import Range from "./Topic9.3/Range";
+import SemiIQR from "./Topic9.3/SemiIQR";
 
 export const topic9Components: Record<string, React.ComponentType> = {
   "data-collection": DataCollection,
@@ -18,8 +18,8 @@ export const topic9Components: Record<string, React.ComponentType> = {
   "median-calculations": Median,
   "mode-identification": Mode,
   "measure-selection": MeasureSelection,
-  "range-calculations": RangeQuiz,
-  "quartiles-iqr": QuartileIQRQuiz,
-  "semi-iqr": SemiIQRQuiz,
-  "ogive-quartiles": OgiveQuartilesQuiz,
+  "range-calculations": Range,
+  "quartiles-iqr": QuartilesIQR,
+  "semi-iqr": SemiIQR,
+  "ogive-quartiles": OgiveQuartiles,
 };
