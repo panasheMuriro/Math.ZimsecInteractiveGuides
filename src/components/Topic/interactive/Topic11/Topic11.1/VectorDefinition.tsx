@@ -18,14 +18,14 @@ const VectorDefinition = () => {
   const vectorY = magnitude * Math.sin((angle * Math.PI) / 180);
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-gray-50 font-sans">
-      <h1 className="text-2xl font-bold text-center mb-4 text-blue-800 flex items-center justify-center">
-        <Navigation className="w-6 h-6 mr-2" /> Vector Definition
+    <div className="max-w-md mx-auto p-4 bg-gradient-to-br from-[#4DA1A9] to-[#2E5077] font-sans rounded-2xl">
+      <h1 className="text-2xl font-bold text-center mb-4 flex items-center justify-center text-white mt-3">
+        <Navigation className="w-6 h-6 mr-2 " /> Vector Definition
       </h1>
       {/* Scalar vs Vector */}
-      <section className="mb-6 bg-white p-4 rounded-lg shadow">
+      <section className="mb-6 bg-white/20 text-white p-4 rounded-lg shadow">
         <h2 className="text-lg font-semibold mb-2">Vectors vs Scalars</h2>
-        <ul className="text-sm text-gray-700 list-disc pl-5">
+        <ul className="text-sm  list-disc pl-5">
           <li><strong>Scalars</strong>: Have magnitude only (e.g., distance, speed).</li>
           <li><strong>Vectors</strong>: Have magnitude and direction (e.g., displacement, velocity).</li>
         </ul>

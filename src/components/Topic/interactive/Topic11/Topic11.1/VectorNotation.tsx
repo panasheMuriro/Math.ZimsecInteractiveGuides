@@ -24,8 +24,8 @@ const VectorNotation: React.FC = () => {
   const originY = 100;
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-gray-50 font-sans">
-      <h1 className="text-2xl font-bold text-center mb-4 text-blue-800 flex items-center justify-center">
+    <div className="max-w-md mx-auto p-4 bg-gradient-to-br from-[#3D8D7A] to-[#1B4D3E] rounded-2xl">
+      <h1 className="text-2xl font-bold text-center mb-4 text-white mt-3 flex items-center justify-center">
         <ArrowRight className="w-6 h-6 mr-2" /> Vector Notation
       </h1>
 
