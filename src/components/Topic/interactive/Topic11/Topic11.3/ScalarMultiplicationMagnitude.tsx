@@ -32,9 +32,9 @@ const ScalarMultiplicationMagnitude: React.FC = () => {
   const magnitude = Math.sqrt(v.x ** 2 + v.y ** 2).toFixed(2);
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-gray-50 min-h-screen font-sans">
+    <div className="max-w-md mx-auto p-4 bg-gradient-to-br from-teal-500 to-emerald-600 rounded-2xl">
  
-      <h1 className="text-2xl font-bold text-center mb-4 text-blue-800 flex items-center justify-center">
+      <h1 className="text-2xl font-bold text-center mb-4 text-white flex items-center justify-center">
         <ArrowRight className="w-6 h-6 mr-2" /> Scalar Multiplication and Magnitude
       </h1>
 
@@ -69,7 +69,8 @@ const ScalarMultiplicationMagnitude: React.FC = () => {
             = <InlineMath math={`${magnitude}`} />
           </div>
         </div>
-
+      </section>
+           <section className="mb-6 bg-white p-4 rounded-lg shadow">
         {/* SVG Visualization */}
         <div className="flex flex-col items-center">
           <svg width="200" height="300" className="mb-4">

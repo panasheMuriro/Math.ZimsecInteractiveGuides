@@ -46,8 +46,8 @@ const PlaneShapeVectors: React.FC = () => {
   const isEqual = Math.abs(k * v.x - w.x) < 0.01 && Math.abs(k * v.y - w.y) < 0.01;
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-gray-50 min-h-screen font-sans">
-      <h1 className="text-2xl font-bold text-center mb-4 text-blue-800 flex items-center justify-center">
+    <div className="max-w-md mx-auto p-4 bg-gradient-to-br from-slate-400 to-slate-800 rounded-2xl">
+      <h1 className="text-2xl font-bold text-center mb-4 text-white flex items-center justify-center">
         <ArrowRight className="w-6 h-6 mr-2" /> Vector Properties of Plane Shapes
       </h1>
 
@@ -100,6 +100,11 @@ const PlaneShapeVectors: React.FC = () => {
             = <InlineMath math={`${magnitudeV} : ${magnitudeW} ${ratioVW !== 'undefined' ? `= ${ratioVW} : 1` : ''}`} />
           </div>
         </div>
+
+      </section>
+
+
+         <section className="mb-6 bg-white p-4 rounded-lg shadow">
 
         {/* SVG Visualization */}
         <div className="flex flex-col items-center">

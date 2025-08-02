@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, Grid, Plus, Minus } from 'lucide-react';
+import { ArrowRight, Grid } from 'lucide-react';
 import { InlineMath, BlockMath } from 'react-katex';
 import 'katex/dist/katex.min.css';
 
@@ -38,37 +38,10 @@ const VectorAddSubtract: React.FC = () => {
   const negW = { x: -w.x, y: -w.y };
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-gray-50 min-h-screen font-sans">
-      <h1 className="text-2xl font-bold text-center mb-4 text-blue-800 flex items-center justify-center">
+    <div className="max-w-md mx-auto p-4 bg-gradient-to-br from-[#D2665A] to-[#B82132] rounded-2xl font-sans">
+      <h1 className="text-2xl font-bold text-center mb-4 text-white flex items-center justify-center">
         <ArrowRight className="w-6 h-6 mr-2" /> Vector Addition and Subtraction
       </h1>
-
-      {/* Addition Section */}
-      <section className="mb-6 bg-white p-4 rounded-lg shadow">
-        <h2 className="text-lg font-semibold mb-2 flex items-center">
-          <Plus className="w-5 h-5 mr-2 text-blue-600" /> Addition
-        </h2>
-        <p className="text-sm text-gray-700">
-          For vectors <InlineMath math="\vec{v} = \begin{pmatrix} x_1 \\ y_1 \end{pmatrix}" /> and{' '}
-          <InlineMath math="\vec{w} = \begin{pmatrix} x_2 \\ y_2 \end{pmatrix}" />:
-          <BlockMath math="\vec{v} + \vec{w} = \begin{pmatrix} x_1 + x_2 \\ y_1 + y_2 \end{pmatrix}" />
-          Geometrically: Place tail of <InlineMath math="\vec{w}" /> at head of <InlineMath math="\vec{v}" />, result is from tail of{' '}
-          <InlineMath math="\vec{v}" /> to head of <InlineMath math="\vec{w}" />.
-          Example: <BlockMath math="\begin{pmatrix} 2 \\ 3 \end{pmatrix} + \begin{pmatrix} 1 \\ 4 \end{pmatrix} = \begin{pmatrix} 3 \\ 7 \end{pmatrix}" />
-        </p>
-      </section>
-
-      {/* Subtraction Section */}
-      <section className="mb-6 bg-white p-4 rounded-lg shadow">
-        <h2 className="text-lg font-semibold mb-2 flex items-center">
-          <Minus className="w-5 h-5 mr-2 text-blue-600" /> Subtraction
-        </h2>
-        <p className="text-sm text-gray-700">
-          <InlineMath math="\vec{v} - \vec{w} = \vec{v} + (-\vec{w}) = \begin{pmatrix} x_1 - x_2 \\ y_1 - y_2 \end{pmatrix}" />.
-          Geometrically: Vector from head of <InlineMath math="\vec{w}" /> to head of <InlineMath math="\vec{v}" />.
-          Example: <BlockMath math="\begin{pmatrix} 2 \\ 3 \end{pmatrix} - \begin{pmatrix} 1 \\ 4 \end{pmatrix} = \begin{pmatrix} 1 \\ -1 \end{pmatrix}" />
-        </p>
-      </section>
 
       {/* Interactive Visualization */}
       <section className="mb-6 bg-white p-4 rounded-lg shadow">
@@ -119,17 +92,19 @@ const VectorAddSubtract: React.FC = () => {
             </>
           )}
         </div>
-
+      </section>
+      {/* Interactive Visualization */}
+      <section className="mb-6 bg-white p-4 rounded-lg shadow">
         {/* Display Mode Buttons */}
         <div className="flex flex-wrap justify-center gap-2 mb-4">
           <button
-            className={`px-3 py-1 text-sm rounded ${displayMode === 'addition' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+            className={`px-3 py-2 text-sm rounded-full ${displayMode === 'addition' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
             onClick={() => setDisplayMode('addition')}
           >
             See Addition
           </button>
           <button
-            className={`px-3 py-1 text-sm rounded ${displayMode === 'subtraction' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+            className={`px-3 py-2 text-sm rounded-full ${displayMode === 'subtraction' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
             onClick={() => setDisplayMode('subtraction')}
           >
             See Subtraction
@@ -393,6 +368,8 @@ const VectorAddSubtract: React.FC = () => {
           </div>
         </div>
       </section>
+
+
     </div>
   );
 };
