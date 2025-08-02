@@ -127,8 +127,8 @@ const BasicConstructions: React.FC = () => {
             </button>
           ))}
         </div>
-        <div className="flex flex-col md:flex-row gap-8">
-          <div className="md:w-1/2">
+        <div className="flex flex-col gap-8">
+          <div>
             <div className="bg-gray-50 rounded-lg p-4 mb-4 min-h-[300px] flex items-center justify-center">
               <IllustrationComponent step={animationStep} />
             </div>
@@ -150,7 +150,7 @@ const BasicConstructions: React.FC = () => {
                   Previous
                 </button>
                 <button
-                  className="p-2 rounded-full bg-rose-500 text-white hover:bg-blue-600 flex items-center disabled:opacity-50"
+                  className="p-2 px-3 rounded-full bg-rose-500 text-white hover:bg-blue-600 flex items-center disabled:opacity-50"
                   onClick={togglePlay}
                   aria-label={isPlaying ? "Pause animation" : "Play animation"}
                 >
@@ -180,7 +180,7 @@ const BasicConstructions: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="md:w-1/2">
+          <div>
             <h3 className="text-xl font-semibold text-white mb-3">
               {currentConstruction.title}
             </h3>
