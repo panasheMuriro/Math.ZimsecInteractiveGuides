@@ -10,7 +10,7 @@ interface Vector {
 
 const VectorTypes: React.FC = () => {
   const [vector, setVector] = useState<Vector>({ x: 2, y: 3 });
-  const [startPoint, ] = useState<Vector>({ x: 1, y: 1 });
+  const [startPoint,] = useState<Vector>({ x: 1, y: 1 });
   const [displayMode, setDisplayMode] = useState<'all' | 'original-negative' | 'original-parallel' | 'original-equal'>('all');
 
   const handleVectorXChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,11 +43,13 @@ const VectorTypes: React.FC = () => {
           Adjust the start point to see how the translation and equal vectors move. Negative and parallel vectors are drawn from the origin.
         </p>
         <div className="text-sm text-gray-700 mb-2">
-         <div>Current vector: <BlockMath math={`\\vec{v} = \\begin{pmatrix} ${vector.x} \\\\ ${vector.y} \\end{pmatrix}`} /></div>
-      {(displayMode === 'all' || displayMode === 'original-negative') && (  <div className="text-red-500">Negative: <BlockMath math={`-\\vec{v} = \\begin{pmatrix} ${negativeVector.x} \\\\ ${negativeVector.y} \\end{pmatrix}`} /></div>)}
-       {(displayMode === 'all' || displayMode === 'original-parallel') && ( <div className="text-green-700" >Parallel (2x): <BlockMath math={`\\begin{pmatrix} ${parallelVector.x} \\\\ ${parallelVector.y} \\end{pmatrix}`} /></div>)}
-      {(displayMode === 'all' || displayMode === 'original-equal') && (   <div className="text-purple-700">Equal at (3,4): <BlockMath math={`\\vec{w} = \\begin{pmatrix} ${vector.x} \\\\ ${vector.y} \\end{pmatrix}`} /></div>)}
+          <div>Current vector: <BlockMath math={`\\vec{v} = \\begin{pmatrix} ${vector.x} \\\\ ${vector.y} \\end{pmatrix}`} /></div>
+          {(displayMode === 'all' || displayMode === 'original-negative') && (<div className="text-red-500">Negative: <BlockMath math={`-\\vec{v} = \\begin{pmatrix} ${negativeVector.x} \\\\ ${negativeVector.y} \\end{pmatrix}`} /></div>)}
+          {(displayMode === 'all' || displayMode === 'original-parallel') && (<div className="text-green-700" >Parallel (2x): <BlockMath math={`\\begin{pmatrix} ${parallelVector.x} \\\\ ${parallelVector.y} \\end{pmatrix}`} /></div>)}
+          {(displayMode === 'all' || displayMode === 'original-equal') && (<div className="text-purple-700">Equal at (3,4): <BlockMath math={`\\vec{w} = \\begin{pmatrix} ${vector.x} \\\\ ${vector.y} \\end{pmatrix}`} /></div>)}
         </div>
+      </section>
+      <section className="mb-6 bg-white p-4 rounded-lg shadow">
         <div className="flex flex-wrap justify-center gap-2 mb-4">
           <button
             className={`px-3 py-2 text-sm rounded-full ${displayMode === 'all' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
@@ -73,11 +75,10 @@ const VectorTypes: React.FC = () => {
           >
             Original & Equal
           </button>
-      
-      
+
+
         </div>
 
-        
         <div className="flex flex-col items-center">
           <svg width="200" height="200" className="mb-4">
             {/* Grid lines */}
@@ -96,7 +97,7 @@ const VectorTypes: React.FC = () => {
             <line x1={100} y1={0} x2={100} y2={200} stroke="black" strokeWidth="2" />
             <line x1={0} y1={100} x2={200} y2={100} stroke="black" strokeWidth="2" />
 
-                {[...Array(11)].map((_, i) => {
+            {[...Array(11)].map((_, i) => {
               const unit = i - 5;
               if (unit === 0) return null; // Skip label at origin to avoid clutter
               return (
@@ -223,6 +224,8 @@ const VectorTypes: React.FC = () => {
 
           </div>
         </div>
+
+
       </section>
 
     </div>
