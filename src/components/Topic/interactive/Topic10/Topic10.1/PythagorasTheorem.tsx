@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import MultipleStepInteractiveComponent, { MultiStepQuestion } from '../../Templates/MultipleStepInteractiveComponent';
-import { PythagoreanTriangleDiagram } from '../PythagoreanTriangleDiagram';
+import { PythagoreanTriangleDiagram } from '../Viewers/PythagoreanTriangleDiagram';
 
 
 const PythagorasTheorem= () => {
@@ -95,8 +95,8 @@ const PythagorasTheorem= () => {
     title: "Pythagoras Theorem Quiz",
     icon: "📐", // Or an SVG icon component
     theme: {
-      from: "from-blue-500",
-      to: "to-indigo-700",
+      from: "from-[#670D2F]",
+      to: "to-[#A53860]",
       button: "bg-amber-500",
       buttonHover: "hover:bg-amber-600",
     },

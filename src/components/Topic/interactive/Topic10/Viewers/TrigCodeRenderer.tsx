@@ -1,4 +1,5 @@
 import PythagorasDemo1 from "./PythagorasDemo1";
+import RightTriangle from "./RightTriangle";
 
 interface CodeProps extends React.HTMLAttributes<HTMLElement> {
   className?: string;
@@ -13,6 +14,11 @@ const TrigCodeRenderer: React.FC<CodeProps> = ({
 
   if (className === "language-pythagoras-demo-1") {
     return <PythagorasDemo1/>
+  }
+
+
+  if (className === "language-trig-ratios") {
+    return <RightTriangle/>
   }
   
   // Default code rendering

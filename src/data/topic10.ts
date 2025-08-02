@@ -96,6 +96,9 @@ export const sections: Section[] = [
 - **Cosine (cos):** $$\\cos \\theta = \\frac{\\text{Adjacent}}{\\text{Hypotenuse}}$$
 - **Tangent (tan):** $$\\tan \\theta = \\frac{\\text{Opposite}}{\\text{Adjacent}}$$
 
+\`\`\`trig-ratios
+\`\`\`
+
 **Key Components:**
 - **Opposite:** Side opposite the angle $\\theta$ (acute, < 90°).
 - **Adjacent:** Side next to $\\theta$ (not hypotenuse).
