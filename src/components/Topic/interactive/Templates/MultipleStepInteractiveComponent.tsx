@@ -3,13 +3,14 @@ import React, { useState, useEffect } from 'react';
 import 'katex/dist/katex.min.css';
 import { RotateCw, CheckCircle, XCircle, HelpCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { renderTextWithMath } from '../../../../utils/renderTextWithMath';
+import { BlockMath } from 'react-katex';
 
 export interface MultiStep {
   id: string;
   question: string;
   questionType: 'text'; // Assuming text for now, can be extended
   options: string[];
-  optionType: 'text'; // Assuming text for now, can be extended
+  optionType: 'text' | 'math'; // Assuming text for now, can be extended
   correct: number;
   explanation: string;
   explanationType?: 'text'; // Assuming text for now, can be extended
@@ -314,7 +315,7 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
                         : 'bg-white/20 hover:bg-white/30 text-white border-2 border-transparent'
                   } ${isCorrectStatus === true || isCorrectStatus === false ? 'cursor-default' : 'hover:scale-[1.03]'}`}
                 >
-                  {renderTextWithMath(option)}
+                  {currentStep.optionType == "math"? <BlockMath math={option}/> :renderTextWithMath(option)}
                 </button>
               );
             })}

@@ -1,340 +1,170 @@
-// export default ModeQuiz;
-import React, { useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import { InlineMath } from 'react-katex';
-import 'katex/dist/katex.min.css';
+// src/Components/Interactive/ModeIdentification.tsx
+import React from 'react';
+import MultipleStepInteractiveComponent, { MultiStepQuestion } from '../../Templates/MultipleStepInteractiveComponent';
 
-interface QuizQuestion {
-  type: 'Ungrouped' | 'Grouped';
-  data: DataPoint[];
-  correctMode: number | string | string[]; // Allow single number, single string (for "No mode"), or string array (for multiple modes)
-  steps: string[];
-}
-
-interface DataPoint {
-  value?: number | string; // For ungrouped data (numerical or categorical)
-  class?: string; // For grouped data
-  frequency?: number;
-  lowerBoundary?: number;
-  classWidth?: number;
-  prevFrequency?: number;
-  nextFrequency?: number;
-}
-
-const ModeQuiz: React.FC = () => {
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [userAnswer, setUserAnswer] = useState('');
-  const [score, setScore] = useState(0);
-  const [showResult, setShowResult] = useState(false);
-  const [showSteps, setShowSteps] = useState(false);
-  const [currentStep, setCurrentStep] = useState(0);
-  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
-
-  const questions: QuizQuestion[] = [
+const Mode: React.FC = () => {
+  const questions: MultiStepQuestion[] = [
     {
-      type: 'Ungrouped',
-      data: [
-        { value: 5 },
-        { value: 10 },
-        { value: 10 },
-        { value: 15 },
-        { value: 20 },
-      ],
-      correctMode: 10,
+      id: 'q1',
+      title: 'Finding Mode from Ungrouped Data',
       steps: [
-        '\\text{List the values: } 5,\\ 10,\\ 10,\\ 15,\\ 20',
-        '\\text{Count frequency of each value: } 5 (1),\\ 10 (2),\\ 15 (1),\\ 20 (1)',
-        '\\text{Mode is the value with the highest frequency: } 10 \\text{ (appears 2 times)}',
-      ],
+        {
+          id: 'q1-step1',
+          question: "What is the mode of the following data set: 3, 7, 5, 3, 9, 7, 3, 1?",
+          questionType: 'text',
+          options: [
+            "3",
+            "7",
+            "5",
+            "No mode"
+          ],
+          optionType: 'text',
+          correct: 0,
+          explanation: "The mode is the value that appears most frequently. In this data set, 3 appears three times, which is more frequent than any other value."
+        },
+        {
+          id: 'q1-step2',
+          question: "A data set has the following values: 2, 4, 4, 6, 6, 8, 8. How would you classify this distribution?",
+          questionType: 'text',
+          options: [
+            "Unimodal",
+            "Bimodal",
+            "Multimodal",
+            "No mode"
+          ],
+          optionType: 'text',
+          correct: 1,
+          explanation: "This distribution is bimodal because it has two modes (4 and 6), each appearing twice, which is the highest frequency in the data set."
+        }
+      ]
     },
     {
-      type: 'Ungrouped',
-      data: [
-        { value: 'Red' },
-        { value: 'Blue' },
-        { value: 'Red' },
-        { value: 'Green' },
-        { value: 'Blue' },
-      ],
-      correctMode: ['Red', 'Blue'],
+      id: 'q2',
+      title: 'Understanding Mode Properties',
       steps: [
-        '\\text{List the values: } \\text{Red, Blue, Red, Green, Blue}',
-        '\\text{Count frequency of each value: } \\text{Red (2), Blue (2), Green (1)}',
-        '\\text{Modes are the values with the highest frequency: } \\text{Red and Blue (both appear 2 times)}',
-      ],
+        {
+          id: 'q2-step1',
+          question: "Which of the following is NOT an advantage of using the mode?",
+          questionType: 'text',
+          options: [
+            "It is not affected by extreme values",
+            "It can be used for qualitative data",
+            "It is suitable for further mathematical calculations",
+            "It's easy to identify in frequency distributions"
+          ],
+          optionType: 'text',
+          correct: 2,
+          explanation: "The mode is not suitable for further mathematical calculations, which is actually a disadvantage. Measures like the mean are better for mathematical operations."
+        },
+        {
+          id: 'q2-step2',
+          question: "In which situation is the mode most useful?",
+          questionType: 'text',
+          options: [
+            "When calculating precise averages",
+            "When identifying the most popular item in a survey",
+            "When analyzing income distributions with outliers",
+            "When finding the center of a symmetric data set"
+          ],
+          optionType: 'text',
+          correct: 1,
+          explanation: "The mode is most useful for identifying the most frequently occurring value, such as the most popular product, favorite color, or common category in a data set."
+        }
+      ]
     },
     {
-      type: 'Ungrouped',
-      data: [
-        { value: 1 },
-        { value: 2 },
-        { value: 3 },
-        { value: 4 },
-      ],
-      correctMode: 'No mode',
+      id: 'q3',
+      title: 'Finding Mode from Grouped Data',
       steps: [
-        '\\text{List the values: } 1,\\ 2,\\ 3,\\ 4',
-        '\\text{Count frequency of each value: } 1 (1),\\ 2 (1),\\ 3 (1),\\ 4 (1)',
-        '\\text{No mode exists since all values appear exactly once}',
-      ],
+        {
+          id: 'q3-step1',
+          question: "In grouped data, what is the 'modal class'?",
+          questionType: 'text',
+          options: [
+            "The class with the lowest frequency",
+            "The class containing the median value",
+            "The class with the highest frequency",
+            "The first class in the distribution"
+          ],
+          optionType: 'text',
+          correct: 2,
+          explanation: "The modal class in grouped data is the class interval that has the highest frequency, meaning it contains the most data values."
+        },
+        {
+          id: 'q3-step2',
+          question: "Which formula is used to estimate the mode for grouped data?\n\nGiven:\n- $L$ = lower boundary of modal class\n- $f_1$ = frequency of modal class\n- $f_0$ = frequency of class before modal class\n- $f_2$ = frequency of class after modal class\n- $h$ = class width",
+          questionType: 'text',
+          options: [
+            "$Mode = L + \\frac{f_1 - f_0}{f_1 + f_0} \\times h$",
+            "$Mode = L + \\frac{f_1 - f_0}{2f_1 - f_0 - f_2} \\times h$",
+            "$Mode = L + \\frac{f_1 + f_0}{f_1 - f_2} \\times h$",
+            "$Mode = \\frac{f_1 - f_0}{f_1 + f_2} \\times h$"
+          ],
+          optionType: 'text',
+          correct: 1,
+          explanation: "The formula for estimating the mode in grouped data is $Mode = L + \\frac{f_1 - f_0}{2f_1 - f_0 - f_2} \\times h$. This formula interpolates within the modal class to find a more precise mode estimate."
+        }
+      ]
     },
     {
-      type: 'Grouped',
-      data: [
-        { class: '0-10', frequency: 4, lowerBoundary: 0, classWidth: 10, prevFrequency: 0, nextFrequency: 6 },
-        { class: '10-20', frequency: 6, lowerBoundary: 10, classWidth: 10, prevFrequency: 4, nextFrequency: 8 },
-        { class: '20-30', frequency: 8, lowerBoundary: 20, classWidth: 10, prevFrequency: 6, nextFrequency: 2 },
-        { class: '30-40', frequency: 2, lowerBoundary: 30, classWidth: 10, prevFrequency: 8, nextFrequency: 0 },
-      ],
-      correctMode: 22,
+      id: 'q4',
+      title: 'Applying Mode Concepts',
       steps: [
-        '\\text{Identify modal class (highest frequency): } 20-30 \\text{ with } f_1 = 8',
-        'L = 20 \\text{ (lower boundary of modal class)}',
-        'f_1 = 8 \\text{ (frequency of modal class)}',
-        'f_0 = 6 \\text{ (frequency of class before modal class)}',
-        'f_2 = 2 \\text{ (frequency of class after modal class)}',
-        'h = 10 \\text{ (class width)}',
-        '\\text{Mode} = L + \\frac{f_1 - f_0}{2f_1 - f_0 - f_2} \\times h = 20 + \\frac{8 - 6}{2 \\times 8 - 6 - 2} \\times 10 = 20 + \\frac{2}{16 - 6 - 2} \\times 10 = 20 + \\frac{2}{8} \\times 10 = 20 + 2.5 = 22',
-      ],
-    },
+        {
+          id: 'q4-step1',
+          question: "For the following grouped frequency distribution, which class is the modal class?\n\n| Class Interval | Frequency |\n|----------------|-----------|\n| 0-10          | 5         |\n| 10-20         | 12        |\n| 20-30         | 18        |\n| 30-40         | 15        |\n| 40-50         | 7         |",
+          questionType: 'text',
+          options: [
+            "0-10",
+            "10-20",
+            "20-30",
+            "30-40"
+          ],
+          optionType: 'text',
+          correct: 2,
+          explanation: "The modal class is 20-30 because it has the highest frequency of 18, which is more than any other class interval."
+        },
+        {
+          id: 'q4-step2',
+          question: "What is a key disadvantage of the mode compared to the mean and median?",
+          questionType: 'text',
+          options: [
+            "It is affected by extreme values",
+            "It may not exist or be unique in a data set",
+            "It cannot be used for qualitative data",
+            "It is difficult to calculate"
+          ],
+          optionType: 'text',
+          correct: 1,
+          explanation: "A significant disadvantage of the mode is that a data set may have no mode (if all values appear equally) or multiple modes (bimodal, multimodal), making it less definitive than the mean or median."
+        }
+      ]
+    }
   ];
 
-  const handleAnswer = () => {
-    const correctMode = questions[currentQuestion].correctMode;
-    let isAnswerCorrect = false;
-
-    if (typeof correctMode === 'number') {
-      const userMode = parseFloat(userAnswer);
-      const tolerance = 0.1; // Allow small rounding differences for grouped data
-      isAnswerCorrect = !isNaN(userMode) && Math.abs(userMode - correctMode) <= tolerance;
-    } else if (Array.isArray(correctMode)) {
-      const userModes = userAnswer.split(',').map((val) => val.trim());
-      isAnswerCorrect =
-        userModes.length === correctMode.length &&
-        userModes.every((val) => correctMode.includes(val));
-    } else {
-      isAnswerCorrect = userAnswer.trim().toLowerCase() === 'no mode';
-    }
-
-    setIsCorrect(isAnswerCorrect);
-    if (isAnswerCorrect) setScore(score + 1);
-  };
-
-  const nextQuestion = () => {
-    setShowSteps(false);
-    setCurrentStep(0);
-    setUserAnswer('');
-    setIsCorrect(null);
-    if (currentQuestion + 1 < questions.length) {
-      setCurrentQuestion(currentQuestion + 1);
-    } else {
-      setShowResult(true);
-    }
-  };
-
-  const handleShowSteps = () => {
-    setShowSteps(true);
-    setCurrentStep(1);
-  };
-
-  const handleNextStep = () => {
-    if (currentStep < questions[currentQuestion].steps.length) {
-      setCurrentStep(currentStep + 1);
-    }
-  };
-
-  const resetQuiz = () => {
-    setCurrentQuestion(0);
-    setScore(0);
-    setShowResult(false);
-    setShowSteps(false);
-    setCurrentStep(0);
-    setUserAnswer('');
-    setIsCorrect(null);
-  };
-
-  const renderTable = (data: DataPoint[]) => {
-    if (questions[currentQuestion].type === 'Ungrouped') {
-      return (
-        <table className="w-full text-sm text-left text-gray-700 mt-4">
-          <thead className="text-xs uppercase bg-blue-500 text-white">
-            <tr>
-              <th className="py-3 px-4">Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((row, index) => (
-              <tr key={index} className="bg-white border-b">
-                <td className="py-3 px-4">{row.value}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      );
-    } else {
-      return (
-        <table className="w-full text-sm text-left text-gray-700 mt-4">
-          <thead className="text-xs uppercase bg-blue-500 text-white">
-            <tr>
-              <th className="py-3 px-4">Class</th>
-              <th className="py-3 px-4">Frequency</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((row, index) => (
-              <tr key={index} className="bg-white border-b">
-                <td className="py-3 px-4">{row.class}</td>
-                <td className="py-3 px-4">{row.frequency}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      );
-    }
-  };
-
-  const renderChart = (data: DataPoint[]) => {
-    if (questions[currentQuestion].type === 'Ungrouped') {
-      const freqMap: { [key: string]: number } = {};
-      data.forEach((row) => {
-        if (row.value !== undefined) {
-          const key = typeof row.value === 'number' ? row.value.toString() : row.value;
-          freqMap[key] = (freqMap[key] || 0) + 1;
-        }
-      });
-      const chartData = Object.entries(freqMap).map(([value, frequency]) => ({
-        value,
-        frequency,
-      }));
-      return (
-        <BarChart width={360} height={250} data={chartData} margin={{ top: 20, right: 20, left: 0, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="value" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="frequency" fill="#8884d8" />
-        </BarChart>
-      );
-    } else {
-      return (
-        <BarChart width={360} height={250} data={data} margin={{ top: 20, right: 20, left: 0, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="class" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="frequency" fill="#8884d8" />
-        </BarChart>
-      );
-    }
-  };
+  const rules = [
+    "For ungrouped data, mode is the most frequently occurring value",
+    "A distribution can be unimodal (1 mode), bimodal (2 modes), or multimodal (3+ modes)",
+    "For grouped data, identify the modal class (highest frequency) then estimate mode using $Mode = L + \\frac{f_1 - f_0}{2f_1 - f_0 - f_2} \\times h$",
+    "Mode is useful for categorical data and identifying most common values",
+    "Mode is not affected by extreme values but may not exist or be unique"
+  ];
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-gray-100 min-h-screen flex flex-col font-sans">
-      {showResult ? (
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4 text-blue-600">Quiz Completed!</h2>
-          <p className="text-lg mb-4">
-            Your Score: {score} out of {questions.length}
-          </p>
-          <button
-            className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition"
-            onClick={resetQuiz}
-          >
-            Try Again
-          </button>
-        </div>
-      ) : (
-        <div>
-          <h2 className="text-xl font-semibold mb-4 text-blue-600">
-            Question {currentQuestion + 1} of {questions.length}
-          </h2>
-          <p className="text-lg mb-4">
-            Identify the mode for the {questions[currentQuestion].type} data below.
-            {questions[currentQuestion].type === 'Ungrouped' &&
-              ' For multiple modes, enter values separated by commas (e.g., Red,Blue). For no mode, enter "No mode".'}
-          </p>
-          <div className="overflow-x-auto">{renderTable(questions[currentQuestion].data)}</div>
-          <div className="flex justify-center mt-4">{renderChart(questions[currentQuestion].data)}</div>
-          <div className="mt-4">
-            {!showSteps && (
-              <button
-                className="w-full bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition mb-4"
-                onClick={handleShowSteps}
-              >
-                Show Steps
-              </button>
-            )}
-            {showSteps && (
-              <div className="mb-4 max-w-full overflow-scroll">
-                <p className="text-sm font-medium text-gray-700">Calculation Steps:</p>
-                <ul className="list-disc list-inside text-sm text-gray-700">
-                  {questions[currentQuestion].steps.slice(0, currentStep).map((step, index) => (
-                    <li key={index} className="overflow-wrap break-word">
-                      <InlineMath math={step} />
-                    </li>
-
-    //                   <li key={index} className="overflow-wrap break-words whitespace-normal">
-    //     <BlockMath math={step} />
-    //   </li>
-                  ))}
-                </ul>
-                {currentStep < questions[currentQuestion].steps.length && (
-                  <button
-                    className="w-full bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition mt-2"
-                    onClick={handleNextStep}
-                  >
-                    Next Step
-                  </button>
-                )}
-              </div>
-            )}
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Enter the mode (to 1 decimal place for grouped data; use commas for multiple modes or "No mode" if none):
-            </label>
-            <input
-              type="text"
-              className="w-full p-2 border rounded-lg mb-4"
-              value={userAnswer}
-              onChange={(e) => setUserAnswer(e.target.value)}
-              disabled={isCorrect !== null}
-            />
-            {isCorrect === null && (
-              <button
-                className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition"
-                onClick={handleAnswer}
-                disabled={!userAnswer}
-              >
-                Submit Answer
-              </button>
-            )}
-          </div>
-          {isCorrect !== null && (
-            <div className="mt-4">
-              <p className={`text-lg font-semibold ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
-                {isCorrect
-                  ? 'Correct!'
-                  : `Incorrect. Correct mode: ${
-                      typeof questions[currentQuestion].correctMode === 'number'
-                        ? questions[currentQuestion].correctMode.toFixed(1)
-                        : Array.isArray(questions[currentQuestion].correctMode)
-                        ? questions[currentQuestion].correctMode.join(', ')
-                        : questions[currentQuestion].correctMode
-                    }`}
-              </p>
-              <button
-                className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition mt-4"
-                onClick={nextQuestion}
-              >
-                {currentQuestion + 1 < questions.length ? 'Next Question' : 'See Results'}
-              </button>
-            </div>
-          )}
-        </div>
-      )}
-    </div>
+    <MultipleStepInteractiveComponent
+      title="Mode Identification"
+      icon="📊"
+      theme={{
+        from: "from-violet-500",
+        to: "to-purple-600",
+        button: "bg-violet-600",
+        buttonHover: "hover:bg-violet-700"
+      }}
+      rules={rules}
+      rulesTitle="Key Rules:"
+      questions={questions}
+    />
   );
 };
 
-export default ModeQuiz;
+export default Mode;

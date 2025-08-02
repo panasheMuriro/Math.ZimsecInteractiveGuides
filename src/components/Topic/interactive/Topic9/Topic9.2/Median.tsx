@@ -1,307 +1,170 @@
-import React, { useState } from 'react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import { InlineMath } from 'react-katex';
-import 'katex/dist/katex.min.css';
+// src/Components/Interactive/MedianCalculations.tsx
+import React from 'react';
+import MultipleStepInteractiveComponent, { MultiStepQuestion } from '../../Templates/MultipleStepInteractiveComponent';
 
-interface QuizQuestion {
-  type: 'Ungrouped' | 'Grouped' | 'Ogive';
-  data: DataPoint[];
-  correctMedian: number;
-  steps: string[];
-}
-
-interface DataPoint {
-  value?: number; // For ungrouped data
-  class?: string; // For grouped data
-  frequency?: number;
-  cumulativeFrequency?: number;
-  lowerBoundary?: number;
-  classWidth?: number;
-}
-
-const MedianQuiz: React.FC = () => {
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [userAnswer, setUserAnswer] = useState('');
-  const [score, setScore] = useState(0);
-  const [showResult, setShowResult] = useState(false);
-  const [showSteps, setShowSteps] = useState(false);
-  const [currentStep, setCurrentStep] = useState(0);
-  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
-
-  const questions: QuizQuestion[] = [
+const Median: React.FC = () => {
+  const questions: MultiStepQuestion[] = [
     {
-      type: 'Ungrouped',
-      data: [
-        { value: 12 },
-        { value: 8 },
-        { value: 15 },
-        { value: 10 },
-        { value: 20 },
-      ],
-      correctMedian: 12,
+      id: 'q1',
+      title: 'Finding Median from Ungrouped Data',
       steps: [
-        '\\text{Arrange in ascending order: } 8,\\ 10,\\ 12,\\ 15,\\ 20',
-        '\\text{Number of values (n): } 5 \\text{ (odd)}',
-        '\\text{Median position} = \\frac{n + 1}{2} = \\frac{5 + 1}{2} = 3\\text{rd term}',
-        '\\text{Median} = 12',
-      ],
+        {
+          id: 'q1-step1',
+          question: "What is the first step in finding the median of ungrouped data?",
+          questionType: 'text',
+          options: [
+            "Calculate the mean",
+            "Identify the mode",
+            "Arrange the data in ascending order",
+            "Find the range"
+          ],
+          optionType: 'text',
+          correct: 2,
+          explanation: "The first step is always to arrange the data in ascending (or descending) order to identify the middle value(s)."
+        },
+        {
+          id: 'q1-step2',
+          question: "Find the median of the following data set: 12, 18, 9, 25, 14, 22, 16",
+          questionType: 'text',
+          options: [
+            "14",
+            "16",
+            "18",
+            "22"
+          ],
+          optionType: 'text',
+          correct: 1,
+          explanation: "First arrange in order: 9, 12, 14, 16, 18, 22, 25. There are 7 values (odd), so median is the $\\frac{7+1}{2} = 4$th value, which is 16."
+        }
+      ]
     },
     {
-      type: 'Ungrouped',
-      data: [
-        { value: 5 },
-        { value: 10 },
-        { value: 15 },
-        { value: 20 },
-      ],
-      correctMedian: 12.5,
+      id: 'q2',
+      title: 'Median with Even Number of Values',
       steps: [
-        '\\text{Arrange in ascending order: } 5,\\ 10,\\ 15,\\ 20',
-        '\\text{Number of values (n): } 4 \\text{ (even)}',
-        '\\text{Median position: average of } \\frac{n}{2} \\text{ and } \\frac{n}{2} + 1 \\text{ terms} = 2\\text{nd and } 3\\text{rd terms}',
-        '\\text{Median} = \\frac{10 + 15}{2} = 12.5',
-      ],
+        {
+          id: 'q2-step1',
+          question: "How do you calculate the median when there is an even number of data values?",
+          questionType: 'text',
+          options: [
+            "Take the middle value",
+            "Average the two middle values",
+            "Use the formula $\\frac{n+1}{2}$",
+            "Subtract the smallest from the largest"
+          ],
+          optionType: 'text',
+          correct: 1,
+          explanation: "For an even number of values, the median is the average (mean) of the two middle values after arranging the data in order."
+        },
+        {
+          id: 'q2-step2',
+          question: "What is the median of: 5, 12, 8, 15, 10, 20?",
+          questionType: 'text',
+          options: [
+            "10",
+            "11",
+            "12",
+            "15"
+          ],
+          optionType: 'text',
+          correct: 1,
+          explanation: "First arrange in order: 5, 8, 10, 12, 15, 20. There are 6 values (even), so median is the average of the 3rd and 4th values: $\\frac{10+12}{2} = 11$."
+        }
+      ]
     },
     {
-      type: 'Grouped',
-      data: [
-        { class: '0-10', frequency: 4, cumulativeFrequency: 4, lowerBoundary: 0, classWidth: 10 },
-        { class: '10-20', frequency: 6, cumulativeFrequency: 10, lowerBoundary: 10, classWidth: 10 },
-        { class: '20-30', frequency: 8, cumulativeFrequency: 18, lowerBoundary: 20, classWidth: 10 },
-        { class: '30-40', frequency: 2, cumulativeFrequency: 20, lowerBoundary: 30, classWidth: 10 },
-      ],
-      correctMedian: 20,
-      steps: [
-        '\\text{Total frequency (n): } 4 + 6 + 8 + 2 = 20',
-        '\\text{Median position} = \\frac{n}{2} = \\frac{20}{2} = 10',
-        '\\text{Median class: } 10-20 \\text{ (cumulative frequency reaches } 10\\text{)}',
-        'L = 10 \\text{ (lower boundary)}',
-        'CF = 4 \\text{ (cumulative frequency before median class)}',
-        'f = 6 \\text{ (frequency of median class)}',
-        'h = 10 \\text{ (class width)}',
-        '\\text{Median} = L + \\frac{\\frac{n}{2} - CF}{f} \\times h = 10 + \\frac{10 - 4}{6} \\times 10 = 10 + \\frac{6}{6} \\times 10 = 10 + 10 = 20',
-      ],
+      id: 'q3',
+      title: 'Finding Median from Grouped Data',
+      steps: [{
+        id: 'q3-step1',
+          question: "Which formula is used to find the median for grouped data?",
+          questionType: 'text',
+          options: [
+            "$Median = L + \\frac{\\frac{n}{2} - CF}{f} \\times h$",
+            "$Median = \\frac{\\sum fx}{\\sum f}$",
+            "$Median = \\frac{L_1 + L_2}{2}$",
+            "$Median = \\frac{n+1}{2}$"
+          ],
+          optionType: 'text',
+          correct: 0,
+          explanation: "The formula for grouped median is $Median = L + \\frac{\\frac{n}{2} - CF}{f} \\times h$, where L is the lower boundary of the median class."
+        },
+        {
+          id: 'q3-step2',
+          question: "For the grouped data below, what is the median class?\n\n| Class Interval | Frequency (f) | Cumulative Frequency (CF) |\n|----------------|---------------|---------------------------|\n| 0-10          | 5             | 5                         |\n| 10-20         | 8             | 13                        |\n| 20-30         | 12            | 25                        |\n| 30-40         | 7             | 32                        |\n| 40-50         | 3             | 35                        |",
+          questionType: 'text',
+          options: [
+            "0-10",
+            "10-20",
+            "20-30",
+            "30-40"
+          ],
+          optionType: 'text',
+          correct: 2,
+          explanation: "Total frequency n = 35. We need the class containing the $\\frac{n}{2} = \\frac{35}{2} = 17.5$th value. Looking at cumulative frequencies, 17.5 falls between 13 and 25, so the median class is 20-30."
+        }
+      ]
     },
     {
-      type: 'Ogive',
-      data: [
-        { class: '0-10', frequency: 4, cumulativeFrequency: 4, lowerBoundary: 0, classWidth: 10 },
-        { class: '10-20', frequency: 6, cumulativeFrequency: 10, lowerBoundary: 10, classWidth: 10 },
-        { class: '20-30', frequency: 8, cumulativeFrequency: 18, lowerBoundary: 20, classWidth: 10 },
-        { class: '30-40', frequency: 2, cumulativeFrequency: 20, lowerBoundary: 30, classWidth: 10 },
-      ],
-      correctMedian: 20,
+      id: 'q4',
+      title: 'Using Ogives to Find Median',
       steps: [
-        '\\text{Total frequency (n): } 20',
-        '\\text{Median position} = \\frac{n}{2} = \\frac{20}{2} = 10',
-        '\\text{Plot cumulative frequency against upper boundaries: } (10, 4),\\ (20, 10),\\ (30, 18),\\ (40, 20)',
-        '\\text{Draw horizontal line at cumulative frequency} = 10',
-        '\\text{Read x-value where line intersects ogive: approximately } 20',
-        '\\text{Median} = 20',
-      ],
-    },
+        {
+          id: 'q4-step1',
+          question: "How can you use an ogive (cumulative frequency curve) to find the median?",
+          questionType: 'text',
+          options: [
+            "Find the highest point on the curve",
+            "Draw a vertical line at the total frequency",
+            "Draw a horizontal line at $\\frac{n}{2}$ and read the corresponding x-value",
+            "Measure the slope of the curve"
+          ],
+          optionType: 'text',
+          correct: 2,
+          explanation: "To find the median from an ogive, draw a horizontal line at the cumulative frequency of $\\frac{n}{2}$, then read the corresponding value on the x-axis."
+        },
+        {
+          id: 'q4-step2',
+          question: "Which of the following is NOT an advantage of using the median?",
+          questionType: 'text',
+          options: [
+            "It is not affected by extreme values",
+            "It is suitable for open-ended distributions",
+            "It uses all data values in its calculation",
+            "It always exists for numerical data"
+          ],
+          optionType: 'text',
+          correct: 2,
+          explanation: "The median does not use all data values in its calculation; it only depends on the middle value(s). This is actually a disadvantage compared to the mean, but it makes the median robust against outliers."
+        }
+      ]
+    }
   ];
 
-  const handleAnswer = () => {
-    const userMedian = parseFloat(userAnswer);
-    const correctMedian = questions[currentQuestion].correctMedian;
-    const tolerance = 0.1; // Allow small rounding differences
-    const isAnswerCorrect = Math.abs(userMedian - correctMedian) <= tolerance;
-    setIsCorrect(isAnswerCorrect);
-    if (isAnswerCorrect) setScore(score + 1);
-  };
-
-  const nextQuestion = () => {
-    setShowSteps(false);
-    setCurrentStep(0);
-    setUserAnswer('');
-    setIsCorrect(null);
-    if (currentQuestion + 1 < questions.length) {
-      setCurrentQuestion(currentQuestion + 1);
-    } else {
-      setShowResult(true);
-    }
-  };
-
-  const handleShowSteps = () => {
-    setShowSteps(true);
-    setCurrentStep(1);
-  };
-
-  const handleNextStep = () => {
-    if (currentStep < questions[currentQuestion].steps.length) {
-      setCurrentStep(currentStep + 1);
-    }
-  };
-
-  const renderTable = (data: DataPoint[]) => {
-    if (questions[currentQuestion].type === 'Ungrouped') {
-      return (
-        <table className="w-full text-sm text-left text-gray-700 mt-4">
-          <thead className="text-xs uppercase bg-blue-500 text-white">
-            <tr>
-              <th className="py-3 px-4">Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((row, index) => (
-              <tr key={index} className="bg-white border-b">
-                <td className="py-3 px-4">{row.value}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      );
-    } else {
-      return (
-        <table className="w-full text-sm text-left text-gray-700 mt-4">
-          <thead className="text-xs uppercase bg-blue-500 text-white">
-            <tr>
-              <th className="py-3 px-4">Class</th>
-              <th className="py-3 px-4">Frequency</th>
-              <th className="py-3 px-4">Cumulative Frequency</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((row, index) => (
-              <tr key={index} className="bg-white border-b">
-                <td className="py-3 px-4">{row.class}</td>
-                <td className="py-3 px-4">{row.frequency}</td>
-                <td className="py-3 px-4">{row.cumulativeFrequency}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      );
-    }
-  };
-
-
-    const resetQuiz = () => {
-    setCurrentQuestion(0);
-    setScore(0);
-    setShowResult(false);
-    setShowSteps(false);
-    setCurrentStep(0);
-    setUserAnswer('');
-    setIsCorrect(null);
-  };
-
-  const renderOgive = (data: DataPoint[]) => {
-    if (questions[currentQuestion].type !== 'Ogive') return null;
-    const chartData = data.map((row) => ({
-      upperBoundary: (row.lowerBoundary || 0) + (row.classWidth || 0),
-      cumulativeFrequency: row.cumulativeFrequency,
-    }));
-    return (
-      <AreaChart width={360} height={250} data={chartData} margin={{ top: 20, right: 20, left: 0, bottom: 5 }}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="upperBoundary" label={{ value: 'Upper Boundary', position: 'insideBottom', offset: -5 }} />
-        <YAxis label={{ value: 'Cumulative Frequency', angle: -90, position: 'insideLeft' }} />
-        <Tooltip />
-        <Legend />
-        <Area type="monotone" dataKey="cumulativeFrequency" stroke="#8884d8" fill="#8884d8" fillOpacity={0.3} />
-      </AreaChart>
-    );
-  };
+  const rules = [
+    "For ungrouped data, arrange values in order and find the middle value(s)",
+    "For odd n: Median = $\\frac{n+1}{2}$th term",
+    "For even n: Median = average of two middle values",
+    "For grouped data: $Median = L + \\frac{\\frac{n}{2} - CF}{f} \\times h$",
+    "On an ogive, draw horizontal line at $\\frac{n}{2}$ to find median",
+    "Median is robust against outliers and works with skewed data"
+  ];
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-gray-100 min-h-screen flex flex-col font-sans">
-      {showResult ? (
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4 text-blue-600">Quiz Completed!</h2>
-          <p className="text-lg mb-4">
-            Your Score: {score} out of {questions.length}
-          </p>
-          <button
-            className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition"
-            onClick={resetQuiz}
-          >
-            Try Again
-          </button>
-        </div>
-      ) : (
-        <div>
-          <h2 className="text-xl font-semibold mb-4 text-blue-600">
-            Question {currentQuestion + 1} of {questions.length}
-          </h2>
-          <p className="text-lg mb-4">
-            Calculate the median for the {questions[currentQuestion].type === 'Ogive' ? 'Grouped' : questions[currentQuestion].type} data below
-            {questions[currentQuestion].type === 'Ogive' && ' using the ogive method'}.
-          </p>
-          <div className="overflow-x-auto">{renderTable(questions[currentQuestion].data)}</div>
-          {questions[currentQuestion].type === 'Ogive' && (
-            <div className="flex justify-center mt-4">
-              {renderOgive(questions[currentQuestion].data)}
-            </div>
-          )}
-          <div className="mt-4">
-            {!showSteps && (
-              <button
-                className="w-full bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition mb-4"
-                onClick={handleShowSteps}
-              >
-                Show Steps
-              </button>
-            )}
-            {showSteps && (
-              <div className="mb-4">
-                <p className="text-sm font-medium text-gray-700">Calculation Steps:</p>
-                <ul className="list-disc list-inside text-sm text-gray-700">
-                  {questions[currentQuestion].steps.slice(0, currentStep).map((step, index) => (
-                    <li key={index}>
-                      <InlineMath math={step} />
-                    </li>
-                  ))}
-                </ul>
-                {currentStep < questions[currentQuestion].steps.length && (
-                  <button
-                    className="w-full bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition mt-2"
-                    onClick={handleNextStep}
-                  >
-                    Next Step
-                  </button>
-                )}
-              </div>
-            )}
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Enter your calculated median (to 1 decimal place):
-            </label>
-            <input
-              type="number"
-              step="0.1"
-              className="w-full p-2 border rounded-lg mb-4"
-              value={userAnswer}
-              onChange={(e) => setUserAnswer(e.target.value)}
-              disabled={isCorrect !== null}
-            />
-            {isCorrect === null && (
-              <button
-                className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition"
-                onClick={handleAnswer}
-                disabled={!userAnswer}
-              >
-                Submit Answer
-              </button>
-            )}
-          </div>
-          {isCorrect !== null && (
-            <div className="mt-4">
-              <p className={`text-lg font-semibold ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
-                {isCorrect ? 'Correct!' : `Incorrect. Correct median: ${questions[currentQuestion].correctMedian.toFixed(1)}`}
-              </p>
-              <button
-                className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition mt-4"
-                onClick={nextQuestion}
-              >
-                {currentQuestion + 1 < questions.length ? 'Next Question' : 'See Results'}
-              </button>
-            </div>
-          )}
-        </div>
-      )}
-    </div>
+    <MultipleStepInteractiveComponent
+      title="Median Determination"
+      icon="📊"
+      theme={{
+        from: "from-amber-500",
+        to: "to-orange-600",
+        button: "bg-amber-600",
+        buttonHover: "hover:bg-amber-700"
+      }}
+      rules={rules}
+      rulesTitle="Key Rules:"
+      questions={questions}
+    />
   );
 };
 
-export default MedianQuiz;
+export default Median;
