@@ -28,6 +28,7 @@ import { topic7Components } from "../interactive/Topic7";
 import { topic8Components } from "../interactive/Topic8";
 import { topic9Components } from "../interactive/Topic9";
 import VariationCodeRenderer from "../interactive/Topic6/VariationCodeRenderer";
+import TrigCodeRenderer from "../interactive/Topic10/TrigCodeRenderer";
 
 
 const StudyView = () => {
@@ -90,6 +91,24 @@ const renderInteractive = (type: string) => {
     // window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+
+  let CodeRendererComponent; // : CodeRendererType | undefined;
+
+switch (topicId) {
+  case "8":
+    CodeRendererComponent = SVGCodeRenderer;
+    break;
+  case "6":
+    CodeRendererComponent = VariationCodeRenderer;
+    break;
+  case "10":
+     CodeRendererComponent = TrigCodeRenderer;
+     break
+  default: // Covers cases like "7" or any other ID
+    CodeRendererComponent = GraphCodeRenderer;
+    break;
+}
+
   return (
     <div className="min-h-screen bg-[#fdfaf6] text-[#3b3a30] p-6 font-serif">
       <div className="max-w-md mx-auto">
@@ -111,7 +130,9 @@ const renderInteractive = (type: string) => {
               remarkPlugins={[remarkMath, remarkGfm]}
               rehypePlugins={[rehypeKatex]}
               components={{
-                code:topicId == "8" ? SVGCodeRenderer: topicId == "6"? VariationCodeRenderer: GraphCodeRenderer
+                code: CodeRendererComponent
+
+                // code:topicId == "8" ? SVGCodeRenderer: topicId == "6"? VariationCodeRenderer: GraphCodeRenderer
               }}
             >
               {currentContent.content}

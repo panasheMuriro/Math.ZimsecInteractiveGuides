@@ -22,9 +22,14 @@ export const sections: Section[] = [
 - For a right-angled triangle with sides $a$, $b$ (legs) and $c$ (hypotenuse):
   $$a^2 + b^2 = c^2$$
 
+\`\`\`pythagoras-demo-1
+\`\`\`
+
+
 **Derivation:**
 - Use geometric methods (e.g., counting squares on a grid) to show $a^2 + b^2 = c^2$.
 - Example: Divide a square into two squares and two rectangles to demonstrate.
+
 
 **Applications:**
 - Find the length of an unknown side (e.g., diagonal of a rectangle, height of a ladder).

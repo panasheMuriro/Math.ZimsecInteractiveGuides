@@ -92,3 +92,8 @@ export interface PresetCondition {
   condition: string;
   domain: DomainKey
 }
+
+export interface CodeProps extends React.HTMLAttributes<HTMLElement> {
+  className?: string;
+  children?: React.ReactNode;
+}
