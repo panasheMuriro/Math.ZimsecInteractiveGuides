@@ -1,107 +1,99 @@
-import React, { useState } from 'react';
+// src/Components/Interactive/DataCollectionMethods.tsx
+import React from 'react';
+import MultipleChoiceInteractiveComponent, { QuizQuestion } from '../../Templates/MultipleChoiceInteractiveComponent';
 
-interface QuizQuestion {
-  question: string;
-  options: string[];
-  correctAnswer: string;
-}
-
-const DataCollectionQuiz: React.FC = () => {
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [score, setScore] = useState(0);
-  const [showResult, setShowResult] = useState(false);
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-
+const DataCollection: React.FC = () => {
   const questions: QuizQuestion[] = [
     {
-      question: "Which method involves questioning a representative subset of the population?",
-      options: ["Census", "Sampling", "Surveys", "Experiments"],
-      correctAnswer: "Sampling",
+      question: "Which of the following is a primary data collection method?",
+      options: [
+        "Reading government reports",
+        "Conducting a survey",
+        "Using data from a research paper",
+        "Analyzing historical records"
+      ],
+      correct: 1,
+      explanation: "Primary data is collected directly by the researcher for a specific purpose. Conducting a survey is a primary method. The other options are examples of secondary data collection.",
+      questionType: "text",
+      optionType: "text"
     },
     {
-      question: "What ensures every member of the population has an equal chance of being selected?",
-      options: ["Stratified sampling", "Random sampling", "Systematic sampling", "Cluster sampling"],
-      correctAnswer: "Random sampling",
+      question: "What is the main advantage of random sampling?",
+      options: [
+        "It is the quickest method",
+        "It ensures every member of the population has an equal chance of being selected",
+        "It is the cheapest method",
+        "It requires no planning"
+      ],
+      correct: 1,
+      explanation: "Random sampling minimizes selection bias by giving every member of the population an equal opportunity to be included in the sample, which helps ensure the sample is representative.",
+      questionType: "text",
+      optionType: "text"
     },
     {
-      question: "Which data collection method uses published reports or government statistics?",
-      options: ["Primary Data", "Secondary Data", "Observations", "Census"],
-      correctAnswer: "Secondary Data",
+      question: "Which sampling method divides the population into groups and then randomly selects entire groups?",
+      options: [
+        "Stratified sampling",
+        "Systematic sampling",
+        "Random sampling",
+        "Cluster sampling"
+      ],
+      correct: 3,
+      explanation: "Cluster sampling involves dividing the population into clusters (often geographic areas) and then randomly selecting entire clusters for inclusion in the sample.",
+      questionType: "text",
+      optionType: "text"
     },
     {
-      question: "What is a key consideration to minimize measurement errors in data collection?",
-      options: ["Bias", "Reliability", "Accuracy", "Sample size"],
-      correctAnswer: "Accuracy",
+      question: "What does 'validity' refer to in data collection?",
+      options: [
+        "The data is free from errors",
+        "The data is collected quickly",
+        "The data measures what it claims to measure",
+        "The data is consistent when collected multiple times"
+      ],
+      correct: 2,
+      explanation: "Validity is about accuracy in measurement - whether the data collection method actually measures the concept it is intended to measure.",
+      questionType: "text",
+      optionType: "text"
     },
+    {
+      question: "Which of the following is an example of secondary data?",
+      options: [
+        "Interviewing customers in a store",
+        "Observing animal behavior in the wild",
+        "Conducting a controlled experiment",
+        "Using statistics from a government website"
+      ],
+      correct: 3,
+      explanation: "Secondary data is information that has already been collected by someone else for a different purpose. Government statistics are a classic example of secondary data.",
+      questionType: "text",
+      optionType: "text"
+    }
   ];
 
-  const handleAnswer = (answer: string) => {
-    setSelectedAnswer(answer);
-    if (answer === questions[currentQuestion].correctAnswer) {
-      setScore(score + 1);
-    }
-    setTimeout(() => {
-      if (currentQuestion + 1 < questions.length) {
-        setCurrentQuestion(currentQuestion + 1);
-        setSelectedAnswer(null);
-      } else {
-        setShowResult(true);
-      }
-    }, 1000);
-  };
-
-  const resetQuiz = () => {
-    setCurrentQuestion(0);
-    setScore(0);
-    setShowResult(false);
-    setSelectedAnswer(null);
-  };
+  const rules = [
+    "Primary data is collected directly by the researcher for a specific purpose",
+    "Secondary data is information collected by others for different purposes",
+    "Sampling methods help select representative subsets of populations",
+    "Validity ensures data measures what it claims to measure",
+    "Reliability means consistent results over time"
+  ];
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-lg flex flex-col justify-center font-sans">
-      {showResult ? (
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4 text-blue-600">Quiz Completed!</h2>
-          <p className="text-lg mb-4">
-            Your Score: {score} out of {questions.length}
-          </p>
-          <button
-            className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition"
-            onClick={resetQuiz}
-          >
-            Try Again
-          </button>
-        </div>
-      ) : (
-        <div>
-          <h2 className="text-xl font-semibold mb-4 text-blue-600">
-            Question {currentQuestion + 1} of {questions.length}
-          </h2>
-          <p className="text-lg mb-6">{questions[currentQuestion].question}</p>
-          <div className="space-y-3">
-            {questions[currentQuestion].options.map((option) => (
-              <button
-                key={option}
-                className={`w-full py-3 px-4 rounded-lg text-left transition ${
-                  selectedAnswer
-                    ? option === questions[currentQuestion].correctAnswer
-                      ? 'bg-green-500 text-white'
-                      : selectedAnswer === option
-                      ? 'bg-red-500 text-white'
-                      : 'bg-gray-200'
-                    : 'bg-gray-200 hover:bg-gray-300'
-                }`}
-                onClick={() => handleAnswer(option)}
-                disabled={!!selectedAnswer}
-              >
-                {option}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
+    <MultipleChoiceInteractiveComponent
+      title="Data Collection Methods"
+      icon="📊"
+      theme={{
+        from: "from-[#5459AC]",
+        to: "to-[#52357B]",
+        button: "bg-indigo-600",
+        buttonHover: "hover:bg-indigo-700"
+      }}
+      rules={rules}
+      rulesTitle="Key Concepts:"
+      questions={questions}
+    />
   );
 };
 
-export default DataCollectionQuiz;
+export default DataCollection;

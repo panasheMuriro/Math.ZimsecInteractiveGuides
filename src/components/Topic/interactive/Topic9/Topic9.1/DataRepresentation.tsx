@@ -123,13 +123,13 @@ const DataRepresentationViz: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-gray-100 flex flex-col justify-center font-sans">
-      <h2 className="text-xl font-semibold mb-4 text-blue-600 text-center">Data Representation Visualizer</h2>
+    <div className="max-w-md mx-auto p-4 bg-gradient-to-r from-[#DA6C6C] to-[#AF3E3E] flex flex-col justify-center font-sans rounded-2xl">
+      <h2 className="text-xl font-semibold mb-4 text-white text-center">Data Representation Visualizer</h2>
       <div className="flex flex-wrap justify-center gap-2 mb-6">
         {['Table', 'Bar', 'Pie', 'Histogram', 'FrequencyPolygon', 'Ogive'].map((type) => (
           <button
             key={type}
-            className={`py-2 px-4 rounded-lg transition ${
+            className={`py-2 px-4 rounded-full border-1 transition ${
               viewType === type ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300'
             }`}
             onClick={() => setViewType(type)}
@@ -138,7 +138,7 @@ const DataRepresentationViz: React.FC = () => {
           </button>
         ))}
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-center bg-white rounded-lg">
         {renderView()}
       </div>
     </div>

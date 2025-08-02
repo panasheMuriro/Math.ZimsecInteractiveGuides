@@ -1,5 +1,5 @@
-import DataClassificationQuiz from "./Topic9.1/DataClassification";
-import DataCollectionQuiz from "./Topic9.1/DataCollection";
+import DataClassification from "./Topic9.1/DataClassification";
+import DataCollection from "./Topic9.1/DataCollection";
 import DataRepresentationViz from "./Topic9.1/DataRepresentation";
 import MeanQuiz from "./Topic9.2/MeanQuiz";
 import MeasureSelectionQuiz from "./Topic9.2/MeasureSelectionQuiz";
@@ -11,8 +11,8 @@ import RangeQuiz from "./Topic9.3/RangeQuiz";
 import SemiIQRQuiz from "./Topic9.3/SemiIQRQuiz";
 
 export const topic9Components: Record<string, React.ComponentType> = {
-  "data-collection": DataCollectionQuiz,
-  "data-classification": DataClassificationQuiz,
+  "data-collection": DataCollection,
+  "data-classification": DataClassification,
   "data-representation": DataRepresentationViz,
   "mean-calculations": MeanQuiz,
   "median-calculations": MedianQuiz,
