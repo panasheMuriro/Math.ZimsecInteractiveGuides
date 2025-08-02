@@ -58,6 +58,7 @@ export const sections: Section[] = [
 - Communicate vector notation clearly in problem-solving.`,
         interactive: "vector-notation",
       },
+     
     ],
   },
   {
@@ -128,6 +129,11 @@ export const sections: Section[] = [
 - Use ICT tools to visualize position vectors.
 - Solve problems involving position vectors in real-world contexts.`,
         interactive: "position-vectors",
+      },
+       {
+        title: "Types of Vectors Problems",
+        content: `**Types of Vectors Problems**`,
+        interactive: "vector-types-problems",
       },
     ],
   },

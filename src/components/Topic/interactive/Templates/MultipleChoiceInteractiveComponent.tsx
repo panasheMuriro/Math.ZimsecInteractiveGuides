@@ -164,7 +164,7 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
           </div>
         ) : (
           <h4 className="font-bold text-lg mb-4">
-            {currentQuestion.questionType === "text" ? renderTextWithMath(currentQuestion.question) : <BlockMath math={currentQuestion.question} />}
+            {currentQuestion.questionType === "math" ? <BlockMath math={currentQuestion.question} /> : renderTextWithMath(currentQuestion.question)}
           </h4>
         )}
 

@@ -30,8 +30,8 @@ const VectorTypes: React.FC = () => {
   const equalVectorStart = { x: 3, y: 4 };
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-gray-50 min-h-screen font-sans">
-      <h1 className="text-2xl font-bold text-center mb-4 text-blue-800 flex items-center justify-center">
+    <div className="max-w-md mx-auto p-4 bg-gradient-to-br from-[#FF9D23] to-[#854836] rounded-2xl font-sans">
+      <h1 className="text-2xl font-bold text-center mb-4 text-white flex items-center justify-center">
         <ArrowRight className="w-6 h-6 mr-2" /> Vector Types
       </h1>
       {/* Interactive Visualization */}
@@ -50,30 +50,34 @@ const VectorTypes: React.FC = () => {
         </div>
         <div className="flex flex-wrap justify-center gap-2 mb-4">
           <button
-            className={`px-3 py-1 text-sm rounded ${displayMode === 'all' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+            className={`px-3 py-2 text-sm rounded-full ${displayMode === 'all' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
             onClick={() => setDisplayMode('all')}
           >
             All Vectors
           </button>
           <button
-            className={`px-3 py-1 text-sm rounded ${displayMode === 'original-negative' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+            className={`px-3 py-2 text-sm rounded-full ${displayMode === 'original-negative' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
             onClick={() => setDisplayMode('original-negative')}
           >
             Original & Negative
           </button>
           <button
-            className={`px-3 py-1 text-sm rounded ${displayMode === 'original-parallel' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+            className={`px-3 py-2 text-sm rounded-full ${displayMode === 'original-parallel' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
             onClick={() => setDisplayMode('original-parallel')}
           >
             Original & Parallel
           </button>
           <button
-            className={`px-3 py-1 text-sm rounded ${displayMode === 'original-equal' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+            className={`px-3 py-2 text-sm rounded-full ${displayMode === 'original-equal' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
             onClick={() => setDisplayMode('original-equal')}
           >
             Original & Equal
           </button>
+      
+      
         </div>
+
+        
         <div className="flex flex-col items-center">
           <svg width="200" height="200" className="mb-4">
             {/* Grid lines */}

@@ -24,8 +24,8 @@ const PositionVectors: React.FC = () => {
   const originY = 100;
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-gray-50  font-sans">
-      <h1 className="text-2xl font-bold text-center mb-4 text-blue-800 flex items-center justify-center">
+    <div className="max-w-md mx-auto p-4 bg-gradient-to-br from-[#497D74] to-[#71BBB2] font-sans rounded-2xl">
+      <h1 className="text-2xl font-bold text-center mb-4 text-white flex items-center justify-center">
         <ArrowRight className="w-6 h-6 mr-2" /> Position Vectors
       </h1>
 
