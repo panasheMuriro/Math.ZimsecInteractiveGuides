@@ -16,7 +16,7 @@ const Header = ({
   onBack 
 }: HeaderProps) => {
   return (
-    <div className="text-center mb-8 relative">
+    <div className="text-center mb-8 relative mt-20">
       {showBackButton && onBack && (
         <button
           onClick={onBack}
