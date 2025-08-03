@@ -1,3 +1,4 @@
+import TranslationProblems from "./Topic13.1/TranslationProblems";
 import TranslationVisualizer from "./Topic13.1/TranslationVisualizer";
 import VectorTranslationVisualizer from "./Topic13.1/VectorTranslationVisualizer";
 import ReflectionVisualizer from "./Topic13.2/ReflectionVisualizer";
@@ -9,6 +10,7 @@ import StretchVisualizer from "./Topic13.4/StretchVisualizer";
 export const topic13Components: Record<string, React.ComponentType> = {
   "basic-translation": TranslationVisualizer,
   "vector-translation": VectorTranslationVisualizer,
+  "translation-problems": TranslationProblems,
   "reflection": ReflectionVisualizer,
   "rotation": RotationVisualizer,
   "enlargement": EnlargementVisualizer,
