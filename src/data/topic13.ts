@@ -70,6 +70,50 @@ export const sections: Section[] = [
 - Use ICT tools to visualize and verify translations.`,
         interactive: "vector-translation",
       },
+       {
+      title: "Translation Problems",
+      content: `**TRANSLATION PROBLEMS (FORM 2-4)**
+
+**Step-by-Step Problem Solving:**
+
+**Step 1: Identify Given Information**
+- Note coordinates of original points/vertices
+- Identify the translation vector or movement description
+- Determine what needs to be found (new coordinates, translation vector, etc.)
+
+**Step 2: Apply Translation Formula**
+- For point $P(x,y)$ and vector $\\begin{pmatrix} a \\\\ b \\end{pmatrix}$: $P'(x+a, y+b)$
+- For multiple points, apply to each vertex systematically
+
+**Step 3: Find Translation Vector (Reverse Problems)**
+- Given original point $P(x_1,y_1)$ and image $P'(x_2,y_2)$
+- Translation vector = $\\begin{pmatrix} x_2-x_1 \\\\ y_2-y_1 \\end{pmatrix}$
+
+**Step 4: Verify Results**
+- Check that all points moved by same vector
+- Ensure shape and size remain unchanged
+- Plot on coordinate plane if necessary
+
+**Common Problem Types:**
+1. **Forward Translation**: Given point and vector, find image
+2. **Reverse Translation**: Given object and image, find vector
+3. **Composite Translation**: Multiple translations in sequence
+4. **Real-world Applications**: Navigation, design, mapping
+
+**Example Problem:**
+Triangle ABC has vertices $A(2,1)$, $B(4,3)$, $C(1,4)$. Find coordinates after translation by $\\begin{pmatrix} -3 \\\\ 2 \\end{pmatrix}$.
+
+**Solution:**
+- $A'(2-3, 1+2) = A'(-1,3)$
+- $B'(4-3, 3+2) = B'(1,5)$
+- $C'(1-3, 4+2) = C'(-2,6)$
+
+**Syllabus Objectives**:
+- Solve problems involving translation systematically
+- Apply translation concepts to real-world contexts
+- Use coordinate geometry to verify translation results`,
+      interactive: "translation-problems",
+    },
     ],
   },
   {
