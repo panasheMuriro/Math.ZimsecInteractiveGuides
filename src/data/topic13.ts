@@ -319,7 +319,87 @@ Using matrix $\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}$:
 - Describe enlargements fully given matrices or images.
 - Use ICT tools to model and verify enlargements.`,
       interactive: "enlargement",
-    },]
+    },
+   {
+      title: "Enlargement Problems",
+      content: `**ENLARGEMENT PROBLEMS (FORMS 2-4)**
+
+**Step-by-Step Problem Solving:**
+
+**Step 1: Identify Given Information**
+- Note coordinates of original figure vertices
+- Identify centre of enlargement (origin or specific point)
+- Determine scale factor $k$ or identify if it needs to be found
+- Check if using geometric method or matrix method
+
+**Step 2: Apply Enlargement Formula**
+
+**About Origin:**
+- Formula: $(x,y) \\to (kx, ky)$
+- Matrix method: $\\begin{pmatrix} k & 0 \\\\ 0 & k \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} kx \\\\ ky \\end{pmatrix}$
+
+**About Point $C(a,b)$:**
+- Step 1: Translate figure so $C$ becomes origin: $(x,y) \\to (x-a, y-b)$
+- Step 2: Apply enlargement: $(x-a, y-b) \\to (k(x-a), k(y-b))$
+- Step 3: Translate back: $(k(x-a), k(y-b)) \\to (k(x-a)+a, k(y-b)+b)$
+- **Final formula:** $(x,y) \\to (k(x-a)+a, k(y-b)+b)$
+
+**Step 3: Find Scale Factor (Reverse Problems)**
+- Calculate ratio of corresponding distances from centre
+- Formula: $k = \\frac{\\text{image distance from centre}}{\\text{object distance from centre}}$
+- Alternative: $k = \\frac{\\text{image side length}}{\\text{object side length}}$
+
+**Step 4: Find Centre of Enlargement**
+- Draw lines through corresponding points of object and image
+- Centre is intersection point of these lines
+- For parallel lines, centre is at infinity (translation, not enlargement)
+
+**Step 5: Verify Results**
+- Check that shape is preserved (angles unchanged)
+- Verify all distances from centre scaled by same factor $k$
+- Confirm orientation (same if $k > 0$, reversed if $k < 0$)
+
+**Common Problem Types:**
+
+**Type 1: Forward Enlargement**
+Given: Figure and enlargement details
+Find: Coordinates of enlarged figure
+
+**Type 2: Scale Factor Problems**
+Given: Object and image figures
+Find: Scale factor and centre
+
+**Type 3: Centre Finding**
+Given: Object, image, and scale factor
+Find: Centre of enlargement
+
+**Type 4: Matrix Problems**
+Given: Enlargement matrix
+Find: Scale factor and apply to coordinates
+
+**Example Problem:**
+Triangle $ABC$ has vertices $A(1,1)$, $B(3,1)$, $C(2,3)$. Enlarge by scale factor $2$ about centre $(0,0)$.
+
+**Solution:**
+- $A'(2×1, 2×1) = A'(2,2)$
+- $B'(2×3, 2×1) = B'(6,2)$
+- $C'(2×2, 2×3) = C'(4,6)$
+
+**Special Cases:**
+- $k = 1$: Identity (no change)
+- $0 < k < 1$: Reduction
+- $k > 1$: True enlargement
+- $k < 0$: Enlargement with rotation 180°
+- $k = -1$: Rotation 180° about centre
+
+**Syllabus Objectives**:
+- Solve enlargement problems systematically using geometric and matrix methods
+- Find scale factors and centres of enlargement from given information
+- Apply enlargement concepts to real-world scaling problems
+- Use coordinate geometry to verify enlargement results`,
+      interactive: "enlargement-problems",
+    },
+  ]
   },
   {
     title: "Stretch and Shear",

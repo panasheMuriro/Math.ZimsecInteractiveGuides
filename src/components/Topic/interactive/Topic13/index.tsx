@@ -4,6 +4,7 @@ import VectorTranslationVisualizer from "./Topic13.1/VectorTranslationVisualizer
 import ReflectionRotationProblems from "./Topic13.2/ReflectionRotationProblems";
 import ReflectionVisualizer from "./Topic13.2/ReflectionVisualizer";
 import RotationVisualizer from "./Topic13.2/RotationVisualizer";
+import EnlargementProblems from "./Topic13.3/EnlargementProblems";
 import EnlargementVisualizer from "./Topic13.3/EnlargementVisualizer";
 import ShearVisualizer from "./Topic13.4/ShearVisualizer";
 import StretchVisualizer from "./Topic13.4/StretchVisualizer";
@@ -16,6 +17,7 @@ export const topic13Components: Record<string, React.ComponentType> = {
   "rotation": RotationVisualizer,
   "reflection-rotation-problems": ReflectionRotationProblems,
   "enlargement": EnlargementVisualizer,
+  "enlargement-problems": EnlargementProblems,
   "stretch": StretchVisualizer,
   "shear": ShearVisualizer,
 };
