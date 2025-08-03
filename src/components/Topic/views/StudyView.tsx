@@ -29,6 +29,7 @@ import { topic8Components } from "../interactive/Topic8";
 import { topic9Components } from "../interactive/Topic9";
 import VariationCodeRenderer from "../interactive/Topic6/VariationCodeRenderer";
 import TrigCodeRenderer from "../interactive/Topic10/Viewers/TrigCodeRenderer";
+import { renderTextWithMath } from "../../../utils/renderTextWithMath";
 
 
 
@@ -122,7 +123,7 @@ switch (topicId) {
 
         {section.subsections && (
           <h3 className="text-lg font-semibold text-[#4e4b44] mb-4">
-            {currentContent.title}
+             {renderTextWithMath(currentContent.title)}
           </h3>
         )}
         <div className="bg-[#fffef9] shadow-lg border border-[#e4ded4] rounded-2xl p-6 mb-6 prose max-w-none">
