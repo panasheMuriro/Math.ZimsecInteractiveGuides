@@ -15,77 +15,94 @@ const TreeDiagramVisualizer: React.FC = () => {
     setCoin2(result2);
   };
 
+  const getCoinColor = (coin: string | null) => {
+    if (!coin) return "text-[#F4F1DE]";
+    return coin === 'H' ? "text-[#E07A5F]" : "text-[#81B29A]";
+  };
+
+  const getHighlightedOutcomeColor = (outcome: string) => {
+    return coin1 && coin2 && `${coin1}${coin2}` === outcome 
+      ? "font-extrabold text-[#E07A5F]" 
+      : "text-[#F4F1DE]";
+  };
+
   return (
-    <div className="max-w-md mx-auto p-4 bg-gray-50 rounded-lg shadow-md text-gray-800 font-sans">
+    <div className="max-w-md mx-auto p-6 bg-[#3D405B] border-4 border-[#F4F1DE] rounded-3xl font-sans">
       <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">Try It: Flip Two Coins</h2>
-        <p className="text-sm mb-2">
-          Probability of Getting Two Heads:
-<BlockMath math={"P(\\text{HH}) = \\dfrac{1}{2} \\cdot \\dfrac{1}{2} = \\dfrac{1}{4}"} />
-        </p>
-        <div className="flex justify-center space-x-4 mb-4">
-          <div className="flex items-center">
-            <Coins className="w-12 h-12 text-blue-500" />
-            <span className="ml-2 text-lg font-bold">{coin1 || '-'}</span>
+        <h2 className="text-2xl font-extrabold mb-4 text-center text-[#F4F1DE] underline decoration-2 underline-offset-4">FLIP TWO COINS</h2>
+        <div className="bg-[#81B29A] border-3 border-[#F4F1DE] rounded-2xl p-4 mb-6">
+          <p className="text-base mb-3 text-center text-[#3D405B] font-extrabold">
+            Probability of Getting Two Heads:
+            <BlockMath math={"P(\\text{HH}) = \\dfrac{1}{2} \\cdot \\dfrac{1}{2} = \\dfrac{1}{4}"} />
+          </p>
+        </div>
+        <div className="flex justify-center space-x-6 mb-6">
+          <div className="flex flex-col items-center">
+            <Coins className={`w-14 h-14 ${getCoinColor(coin1)} drop-shadow-lg`} />
+            <span className="mt-2 text-2xl font-extrabold text-[#3D405B] bg-[#F2CC8F] border-3 border-[#3D405B] rounded-full w-10 h-10 flex items-center justify-center">
+              {coin1 || '?'}
+            </span>
           </div>
-          <div className="flex items-center">
-            <Coins className="w-12 h-12 text-blue-500" />
-            <span className="ml-2 text-lg font-bold">{coin2 || '-'}</span>
+          <div className="flex flex-col items-center">
+            <Coins className={`w-14 h-14 ${getCoinColor(coin2)} drop-shadow-lg`} />
+            <span className="mt-2 text-2xl font-extrabold text-[#3D405B] bg-[#F2CC8F] border-3 border-[#3D405B] rounded-full w-10 h-10 flex items-center justify-center">
+              {coin2 || '?'}
+            </span>
           </div>
         </div>
-        <div className="flex justify-center space-x-2">
+        <div className="flex justify-center">
           <button
             onClick={flipCoins}
-            className="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+            className="flex items-center px-6 py-3 rounded-full font-extrabold border-3 border-[#F4F1DE] bg-[#E07A5F] text-[#F4F1DE] hover:bg-[#F2CC8F] hover:text-[#3D405B] transform hover:scale-105 transition-all duration-200 drop-shadow-lg"
           >
             <RefreshCw className="w-5 h-5 mr-2" />
-            Flip Coins
+            FLIP COINS
           </button>
         </div>
         {coin1 && coin2 && (
-          <p className="text-sm mt-2 text-center">
-            Result: You got <span className="font-bold">{coin1}{coin2}</span>!
+          <p className="text-base mt-4 text-center text-[#F4F1DE] font-extrabold bg-[#81B29A] py-3 px-4 rounded-full border-3 border-[#F4F1DE]">
+            Result: You got <span className="text-[#E07A5F]">{coin1}{coin2}</span>!
             {`${coin1}${coin2}` === 'HH' ? ' 🎉 That’s two heads!' : ''}
           </p>
         )}
       </section>
 
-      <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">Tree Diagram</h2>
-        <p className="text-sm mb-2">Sample space for two coins: {`{${outcomes.join(', ')}}`}</p>
+      <section className="mb-4">
+        <h2 className="text-2xl font-extrabold mb-4 text-center text-[#F4F1DE] underline decoration-2 underline-offset-4">TREE DIAGRAM</h2>
+        <p className="text-base mb-4 text-center text-[#F4F1DE] font-extrabold bg-[#81B29A] py-2 px-4 rounded-full border-3 border-[#F4F1DE]">
+          Sample space: {`{${outcomes.join(', ')}}`}
+        </p>
         <div className="flex justify-center">
           <svg className="w-full max-w-xs" viewBox="0 0 300 200">
             {/* Root Node */}
-            <text x="10" y="20" className="text-sm font-bold">Start</text>
-            <circle cx="20" cy="30" r="5" fill="blue" />
+            <text x="10" y="20" className="text-sm font-extrabold fill-[#F4F1DE]">START</text>
+            <circle cx="20" cy="30" r="6" fill="#F2CC8F" stroke="#F4F1DE" strokeWidth="2" />
 
             {/* First Coin Branches */}
-            <line x1="20" y1="30" x2="100" y2="70" stroke="black" strokeWidth="1" />
-            <line x1="20" y1="30" x2="100" y2="130" stroke="black" strokeWidth="1" />
-            <text x="60" y="55" className="text-xs">H (1/2)</text>
-            <text x="60" y="115" className="text-xs">T (1/2)</text>
-
-            
+            <line x1="20" y1="30" x2="100" y2="70" stroke="#F4F1DE" strokeWidth="2" />
+            <line x1="20" y1="30" x2="100" y2="130" stroke="#F4F1DE" strokeWidth="2" />
+            <text x="50" y="55" className="text-sm font-extrabold fill-[#E07A5F]">H (½)</text>
+            <text x="50" y="115" className="text-sm font-extrabold fill-[#81B29A]">T (½)</text>
 
             {/* Second Coin - Heads Branch */}
-            <circle cx="100" cy="70" r="5" fill="blue" />
-            <text x="110" y="65" className="text-sm font-bold">H</text>
-            <line x1="100" y1="70" x2="180" y2="50" stroke="black" strokeWidth="1" />
-            <line x1="100" y1="70" x2="180" y2="90" stroke="black" strokeWidth="1" />
-            <text x="140" y="45" className="text-xs">H (1/2)</text>
-            <text x="140" y="85" className="text-xs">T (1/2)</text>
-            <text x="190" y="50" className={`text-sm ${coin1 === 'H' && coin2 === 'H' ? 'font-bold text-blue-500' : ''}`}>HH</text>
-            <text x="190" y="90" className={`text-sm ${coin1 === 'H' && coin2 === 'T' ? 'font-bold text-blue-500' : ''}`}>HT</text>
+            <circle cx="100" cy="70" r="6" fill="#F4F1DE" stroke="#3D405B" strokeWidth="2" />
+            <text x="110" y="65" className="text-sm font-extrabold fill-[#3D405B]">H</text>
+            <line x1="100" y1="70" x2="180" y2="50" stroke="#F4F1DE" strokeWidth="2" />
+            <line x1="100" y1="70" x2="180" y2="90" stroke="#F4F1DE" strokeWidth="2" />
+            <text x="140" y="45" className="text-sm font-extrabold fill-[#E07A5F]">H (½)</text>
+            <text x="140" y="85" className="text-sm font-extrabold fill-[#81B29A]">T (½)</text>
+            <text x="190" y="50" className={`text-sm ${getHighlightedOutcomeColor('HH')}`}>HH</text>
+            <text x="190" y="90" className={`text-sm ${getHighlightedOutcomeColor('HT')}`}>HT</text>
 
             {/* Second Coin - Tails Branch */}
-            <circle cx="100" cy="130" r="5" fill="blue" />
-            <text x="110" y="125" className="text-sm font-bold">T</text>
-            <line x1="100" y1="130" x2="180" y2="110" stroke="black" strokeWidth="1" />
-            <line x1="100" y1="130" x2="180" y2="150" stroke="black" strokeWidth="1" />
-            <text x="140" y="105" className="text-xs">H (1/2)</text>
-            <text x="140" y="145" className="text-xs">T (1/2)</text>
-            <text x="190" y="110" className={`text-sm ${coin1 === 'T' && coin2 === 'H' ? 'font-bold text-blue-500' : ''}`}>TH</text>
-            <text x="190" y="150" className={`text-sm ${coin1 === 'T' && coin2 === 'T' ? 'font-bold text-blue-500' : ''}`}>TT</text>
+            <circle cx="100" cy="130" r="6" fill="#F4F1DE" stroke="#3D405B" strokeWidth="2" />
+            <text x="110" y="125" className="text-sm font-extrabold fill-[#3D405B]">T</text>
+            <line x1="100" y1="130" x2="180" y2="110" stroke="#F4F1DE" strokeWidth="2" />
+            <line x1="100" y1="130" x2="180" y2="150" stroke="#F4F1DE" strokeWidth="2" />
+            <text x="140" y="105" className="text-sm font-extrabold fill-[#E07A5F]">H (½)</text>
+            <text x="140" y="145" className="text-sm font-extrabold fill-[#81B29A]">T (½)</text>
+            <text x="190" y="110" className={`text-sm ${getHighlightedOutcomeColor('TH')}`}>TH</text>
+            <text x="190" y="150" className={`text-sm ${getHighlightedOutcomeColor('TT')}`}>TT</text>
           </svg>
         </div>
       </section>

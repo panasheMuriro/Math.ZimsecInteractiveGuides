@@ -16,82 +16,96 @@ const ProbabilityRulesVisualizer: React.FC = () => {
     setDieResult(die);
     setCoinResult(coin);
     setAnimateDie(true);
-    setTimeout(() => setAnimateDie(false), 300); // Reset animation after 300ms
+    setTimeout(() => setAnimateDie(false), 300);
   };
 
   const drawCard = () => {
     const card = Math.random() < 0.5 ? 'Red' : 'Black';
     setCardResult(card);
     setAnimateCard(true);
-    setTimeout(() => setAnimateCard(false), 300); // Reset animation after 300ms
+    setTimeout(() => setAnimateCard(false), 300);
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-gray-50 rounded-lg shadow-md text-gray-800 font-sans">
+    <div className="max-w-md mx-auto p-6 bg-[#F4F1DE] border-4 border-[#3D405B] rounded-3xl font-sans">
       <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">Independent Events: Die and Coin</h2>
-        <p className="text-sm mb-2">
-          Probability of Rolling a 3 and Flipping Heads:
-          <BlockMath math={"P(3 \\text{ and heads}) = \\dfrac{1}{6} \\cdot \\dfrac{1}{2} = \\dfrac{1}{12}"} />
-        </p>
-        <div className="flex justify-center space-x-4 mb-4">
-          <div className="flex items-center">
-            <Dice3 className="w-12 h-12 text-blue-500" />
-            <span className="ml-2 text-lg font-bold">{dieResult || '-'}</span>
+        <h2 className="text-2xl font-bold mb-4 text-center text-[#3D405B] tracking-wider underline decoration-2 underline-offset-4">DIE & COIN</h2>
+        <div className="bg-[#F2CC8F] border-4 border-[#3D405B] rounded-2xl p-4 mb-6">
+          <p className="text-base mb-3 text-center text-[#3D405B] font-bold">
+            Probability of Rolling a 3 and Flipping Heads:
+            <BlockMath math={"P(3 \\text{ and heads}) = \\dfrac{1}{6} \\cdot \\dfrac{1}{2} = \\dfrac{1}{12}"} />
+          </p>
+        </div>
+        <div className="flex justify-center space-x-8 mb-6">
+          <div className="flex flex-col items-center">
+            <Dice3 className="w-14 h-14 text-[#3D405B] rounded-full bg-white border-3 border-[#3D405B] p-2" />
+            <span className="mt-2 text-2xl font-bold text-white bg-[#81B29A] border-4 border-[#3D405B] rounded-full w-12 h-12 flex items-center justify-center">
+              {dieResult || '?'}
+            </span>
           </div>
-          <div className="flex items-center">
-            <Coins className="w-12 h-12 text-blue-500" />
-            <span className="ml-2 text-lg font-bold">{coinResult || '-'}</span>
+          <div className="flex flex-col items-center">
+            <Coins className="w-14 h-14 text-[#3D405B] rounded-full bg-white border-3 border-[#3D405B] p-2" />
+            <span className="mt-2 text-2xl font-bold text-white bg-[#81B29A] border-4 border-[#3D405B] rounded-full w-12 h-12 flex items-center justify-center">
+              {coinResult || '?'}
+            </span>
           </div>
         </div>
-        <div className="flex justify-center space-x-2">
+        <div className="flex justify-center">
           <button
             onClick={rollDieAndFlipCoin}
-            className={`flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-transform ${
+            className={`flex items-center px-6 py-3 rounded-full font-bold border-4 border-[#3D405B] bg-[#81B29A] text-[#3D405B] hover:bg-[#99C1B9] transform transition-all duration-200 ${
               animateDie ? 'scale-110' : 'scale-100'
             }`}
           >
             <RefreshCw className="w-5 h-5 mr-2" />
-            Roll & Flip
+            ROLL & FLIP
           </button>
         </div>
         {dieResult && coinResult && (
-          <p className="text-sm mt-2 text-center">
-            Result: You got <span className="font-bold">{dieResult}</span> and{' '}
-            <span className="font-bold">{coinResult}</span>!
-            {dieResult === 3 && coinResult === 'H' ? ' 🎉 That’s a 3 and heads!' : ''}
+          <p className="text-base mt-4 text-center text-[#3D405B] font-bold bg-[#F2CC8F] py-3 px-4 rounded-full border-4 border-[#3D405B]">
+            Result: You got <span className="text-[#E07A5F]">{dieResult}</span> and{' '}
+            <span className="text-[#E07A5F]">{coinResult}</span>!
+            {dieResult === 3 && coinResult === 'H' ? ' 🎉' : ''}
           </p>
         )}
       </section>
 
-      <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">Mutually Exclusive Events: Card Draw</h2>
-        <p className="text-sm mb-2">
-          Probability of Drawing a Red or Black Card:
-          <BlockMath math={"P(\\text{red or black}) = \\dfrac{26}{52} + \\dfrac{26}{52} = 1"} />
-        </p>
-        <div className="flex justify-center mb-4">
-          <div className="flex items-center">
-            <svg className={`w-12 h-12 ${cardResult === 'Red' ? 'text-red-500' : cardResult === 'Black' ? 'text-gray-800' : 'text-gray-400'}`} viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-            </svg>
-            <span className="ml-2 text-lg font-bold">{cardResult || '-'}</span>
+      <section className="mb-4">
+        <h2 className="text-2xl font-bold mb-4 text-center text-[#3D405B] tracking-wider underline decoration-2 underline-offset-4">CARD DRAW</h2>
+        <div className="bg-[#F2CC8F] border-4 border-[#3D405B] rounded-2xl p-4 mb-6">
+          <p className="text-base mb-3 text-center text-[#3D405B] font-bold">
+            Probability of Drawing a Red or Black Card:
+            <BlockMath math={"P(\\text{red or black}) = \\dfrac{26}{52} + \\dfrac{26}{52} = 1"} />
+          </p>
+        </div>
+        <div className="flex justify-center mb-6">
+          <div className="flex flex-col items-center">
+            <div className={`w-16 h-16 rounded-full border-4 border-[#3D405B] flex items-center justify-center ${
+              cardResult === 'Red' ? 'bg-[#E07A5F]' : cardResult === 'Black' ? 'bg-[#81B29A]' : 'bg-white'
+            }`}>
+              <svg className="w-10 h-10 text-white" viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="12" cy="12" r="8" />
+              </svg>
+            </div>
+            <span className="mt-3 text-2xl font-bold text-white bg-[#3D405B] border-4 border-[#3D405B] rounded-full w-12 h-12 flex items-center justify-center">
+              {cardResult || '?'}
+            </span>
           </div>
         </div>
-        <div className="flex justify-center space-x-2">
+        <div className="flex justify-center">
           <button
             onClick={drawCard}
-            className={`flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-transform ${
+            className={`flex items-center px-6 py-3 rounded-full font-bold border-4 border-[#3D405B] bg-[#E07A5F] text-white hover:bg-[#F09070] transform transition-all duration-200 ${
               animateCard ? 'scale-110' : 'scale-100'
             }`}
           >
             <RefreshCw className="w-5 h-5 mr-2" />
-            Draw Card
+            DRAW CARD
           </button>
         </div>
         {cardResult && (
-          <p className="text-sm mt-2 text-center">
-            Result: You drew a <span className="font-bold">{cardResult}</span> card!
+          <p className="text-base mt-4 text-center text-[#3D405B] font-bold bg-[#F2CC8F] py-3 px-4 rounded-full border-4 border-[#3D405B]">
+            Result: You drew a <span className={cardResult === 'Red' ? 'text-[#E07A5F]' : 'text-[#81B29A]'}>{cardResult}</span> card!
           </p>
         )}
       </section>
