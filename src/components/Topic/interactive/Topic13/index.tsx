@@ -7,6 +7,7 @@ import RotationVisualizer from "./Topic13.2/RotationVisualizer";
 import EnlargementProblems from "./Topic13.3/EnlargementProblems";
 import EnlargementVisualizer from "./Topic13.3/EnlargementVisualizer";
 import ShearVisualizer from "./Topic13.4/ShearVisualizer";
+import StretchShearProblems from "./Topic13.4/StretchShearProblems";
 import StretchVisualizer from "./Topic13.4/StretchVisualizer";
 
 export const topic13Components: Record<string, React.ComponentType> = {
@@ -20,4 +21,5 @@ export const topic13Components: Record<string, React.ComponentType> = {
   "enlargement-problems": EnlargementProblems,
   "stretch": StretchVisualizer,
   "shear": ShearVisualizer,
+  "stretch-shear-problems": StretchShearProblems
 };

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { X, Calculator, MapPin } from 'lucide-react';
-import { BlockMath, InlineMath } from 'react-katex';
-import 'katex/dist/katex.min.css';
+import React, { useState } from "react";
+import { Move, X, Calculator, Eye, FileText } from "lucide-react";
+import { BlockMath, InlineMath } from "react-katex";
+import "katex/dist/katex.min.css";
 
 interface Point {
   x: number;
@@ -15,21 +15,29 @@ const ShearVisualizer: React.FC = () => {
     { x: 3, y: 1 },
     { x: 2, y: 0 },
   ];
-  const [mode, setMode] = useState<'draw' | 'compute' | 'invariant' | 'describe'>('draw');
-  const [shearAxis, setShearAxis] = useState<'x-axis' | 'y-axis'>('x-axis');
-  const [k, setK] = useState<number>(1); // Shear factor
+
+  const [mode, setMode] = useState<
+    "draw" | "compute" | "invariant" | "describe"
+  >("draw");
+
+  const [shearAxis, setShearAxis] = useState<"x-axis" | "y-axis">("x-axis");
+  const [k, setK] = useState<number>(1);
+
   const [pointA, setPointA] = useState<Point>({ x: 2, y: 3 });
   const [pointAPrime, setPointAPrime] = useState<Point>({ x: 5, y: 3 });
+
   const [showResult, setShowResult] = useState(false);
 
   const handleKChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value) || 0;
     setK(value);
+
+    if (showResult) setShowResult(false);
   };
 
   const handlePointChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    axis: 'x' | 'y',
+    axis: "x" | "y",
     isPrime: boolean
   ) => {
     const value = parseFloat(e.target.value) || 0;
@@ -38,6 +46,8 @@ const ShearVisualizer: React.FC = () => {
     } else {
       setPointA((prev) => ({ ...prev, [axis]: value }));
     }
+
+    if (showResult) setShowResult(false);
   };
 
   const applyAction = () => {
@@ -46,7 +56,7 @@ const ShearVisualizer: React.FC = () => {
 
   const reset = () => {
     setShowResult(false);
-    setShearAxis('x-axis');
+    setShearAxis("x-axis");
     setK(1);
     setPointA({ x: 2, y: 3 });
     setPointAPrime({ x: 5, y: 3 });
@@ -57,7 +67,7 @@ const ShearVisualizer: React.FC = () => {
 
   const getShearedPoints = () => {
     return points.map((p) => {
-      if (shearAxis === 'x-axis') {
+      if (shearAxis === "x-axis") {
         return { x: p.x + k * p.y, y: p.y };
       } else {
         return { x: p.x, y: p.y + k * p.x };
@@ -68,319 +78,291 @@ const ShearVisualizer: React.FC = () => {
   const shearedPoints = getShearedPoints();
 
   const getShearMatrix = () => {
-    if (shearAxis === 'x-axis') {
+    if (shearAxis === "x-axis") {
       return `\\begin{pmatrix} 1 & ${k} \\\\ 0 & 1 \\end{pmatrix}`;
     } else {
       return `\\begin{pmatrix} 1 & 0 \\\\ ${k} & 1 \\end{pmatrix}`;
     }
   };
 
-  const getInvariantLine = () => {
-    return shearAxis === 'x-axis' ? 'y-axis (x = 0)' : 'x-axis (y = 0)';
-  };
-
-  const computeImagePoint = () => {
-    if (shearAxis === 'x-axis') {
-      return { x: pointA.x + k * pointA.y, y: pointA.y };
-    } else {
-      return { x: pointA.x, y: pointA.y + k * pointA.x };
-    }
-  };
-
-  const calculatedImagePoint = computeImagePoint();
-
   const describeShear = () => {
-    if (shearAxis === 'x-axis') {
-      const possibleK = pointA.y !== 0 ? (pointAPrime.x - pointA.x) / pointA.y : NaN;
-      if (!isNaN(possibleK) && pointAPrime.y === pointA.y) {
-        return {
-          axis: 'x-axis',
-          k: possibleK,
-          invariant: 'y-axis (x = 0)',
-        };
-      }
-    } else {
-      const possibleK = pointA.x !== 0 ? (pointAPrime.y - pointA.y) / pointA.x : NaN;
-      if (!isNaN(possibleK) && pointAPrime.x === pointA.x) {
-        return {
-          axis: 'y-axis',
-          k: possibleK,
-          invariant: 'x-axis (y = 0)',
-        };
-      }
+    if (pointA.y !== 0 && pointAPrime.y === pointA.y) {
+      const possibleK = (pointAPrime.x - pointA.x) / pointA.y;
+      return {
+        axis: "x-axis",
+        k: possibleK,
+        invariant: "y-axis (x = 0)",
+      };
+    } else if (pointA.x !== 0 && pointAPrime.x === pointA.x) {
+      const possibleK = (pointAPrime.y - pointA.y) / pointA.x;
+      return {
+        axis: "y-axis",
+        k: possibleK,
+        invariant: "x-axis (y = 0)",
+      };
     }
-    return {
-      axis: 'unknown',
-      k: NaN,
-      invariant: 'unknown',
-    };
+
+    return { axis: "unknown", k: NaN, invariant: "unknown" };
   };
 
-  const { axis: calculatedAxis, k: calculatedK, invariant: calculatedInvariant } = describeShear();
+  const {
+    axis: calculatedAxis,
+    k: calculatedK,
+    invariant: calculatedInvariant,
+  } = describeShear();
 
   return (
-    <div className="w-full max-w-md mx-auto p-4 bg-white rounded-lg shadow-lg">
-      <h2 className="text-xl font-bold mb-4">Shear Visualizer</h2>
+    <div className="w-full max-w-md mx-auto p-6 bg-gradient-to-br from-teal-500 to-green-700 rounded-2xl shadow-xl text-white">
+      {/* Title */}
+      <h2 className="text-2xl font-bold mb-5 flex items-center">
+        <Move className="mr-3" size={28} /> Shear Visualizer
+      </h2>
 
-      {/* Modes */}
-      <div className="grid grid-cols-2 gap-2 border-b mb-4">
+      {/* Tab Navigation - Styled like RotationVisualizer */}
+      <div className="flex flex-wrap border-b border-white/30 mb-6">
         <button
-          className={`py-2 px-4 text-sm font-semibold ${mode === 'draw' ? 'bg-blue-100 text-blue-700 border-b-2 border-blue-500' : 'text-gray-600 hover:bg-gray-100'}`}
-          onClick={() => setMode('draw')}
+          className={`py-2 px-3 text-sm font-semibold rounded-t-lg transition-colors ${
+            mode === "draw"
+              ? "bg-white/20 text-white"
+              : "bg-transparent text-white/70 hover:text-white hover:bg-white/10"
+          }`}
+          onClick={() => setMode("draw")}
         >
-          Draw Shear
+          <Eye className="inline mr-1" size={16} /> Draw Shear
         </button>
         <button
-          className={`py-2 px-4 text-sm font-semibold ${mode === 'compute' ? 'bg-blue-100 text-blue-700 border-b-2 border-blue-500' : 'text-gray-600 hover:bg-gray-100'}`}
-          onClick={() => setMode('compute')}
+          className={`py-2 px-3 text-sm font-semibold rounded-t-lg transition-colors ${
+            mode === "compute"
+              ? "bg-white/20 text-white"
+              : "bg-transparent text-white/70 hover:text-white hover:bg-white/10"
+          }`}
+          onClick={() => setMode("compute")}
         >
-          Compute Coordinates
+          <Calculator className="inline mr-1" size={16} /> Compute Coordinates
         </button>
         <button
-          className={`py-2 px-4 text-sm font-semibold ${mode === 'invariant' ? 'bg-blue-100 text-blue-700 border-b-2 border-blue-500' : 'text-gray-600 hover:bg-gray-100'}`}
-          onClick={() => setMode('invariant')}
+          className={`py-2 px-3 text-sm font-semibold rounded-t-lg transition-colors ${
+            mode === "invariant"
+              ? "bg-white/20 text-white"
+              : "bg-transparent text-white/70 hover:text-white hover:bg-white/10"
+          }`}
+          onClick={() => setMode("invariant")}
         >
           Invariant Line
         </button>
         <button
-          className={`py-2 px-4 text-sm font-semibold ${mode === 'describe' ? 'bg-blue-100 text-blue-700 border-b-2 border-blue-500' : 'text-gray-600 hover:bg-gray-100'}`}
-          onClick={() => setMode('describe')}
+          className={`py-2 px-3 text-sm font-semibold rounded-t-lg transition-colors ${
+            mode === "describe"
+              ? "bg-white/20 text-white"
+              : "bg-transparent text-white/70 hover:text-white hover:bg-white/10"
+          }`}
+          onClick={() => setMode("describe")}
         >
-          Describe Shear
+          <FileText className="inline mr-1" size={16} /> Describe Shear
         </button>
       </div>
 
       {/* Mode Content */}
-      {mode === 'draw' && (
-        <div>
-          <div className="mb-4">
-            <h3 className="text-lg font-semibold">Set Shear Parameters</h3>
-            <div className="flex gap-4 mb-2">
+      <div className="mb-6 p-4 bg-white/20 backdrop-blur-sm rounded-xl border border-white/30">
+        {(mode === "draw" || mode === "compute" || mode === "invariant") && (
+          <>
+            <h3 className="text-lg font-semibold mb-3">
+              {mode === "draw" && "Set Shear Parameters"}
+              {mode === "compute" && "Set Parameters & Point"}
+              {mode === "invariant" && "Find Invariant Line"}
+            </h3>
+            <div className="flex gap-4 mb-4">
               <button
-                className={`flex-1 py-2 px-4 text-sm font-semibold ${shearAxis === 'x-axis' ? 'bg-blue-200 text-blue-800' : 'bg-gray-200 text-gray-800'}`}
-                onClick={() => setShearAxis('x-axis')}
+                className={`flex-1 py-2 px-4 text-sm font-semibold rounded-lg transition-colors ${
+                  shearAxis === "x-axis"
+                    ? "bg-white text-teal-600"
+                    : "bg-white/30 text-white hover:bg-white/40"
+                }`}
+                onClick={() => setShearAxis("x-axis")}
               >
-                X-Axis Shear
+                Parallel to X-axis
               </button>
               <button
-                className={`flex-1 py-2 px-4 text-sm font-semibold ${shearAxis === 'y-axis' ? 'bg-blue-200 text-blue-800' : 'bg-gray-200 text-gray-800'}`}
-                onClick={() => setShearAxis('y-axis')}
+                className={`flex-1 py-2 px-4 text-sm font-semibold rounded-lg transition-colors ${
+                  shearAxis === "y-axis"
+                    ? "bg-white text-teal-600"
+                    : "bg-white/30 text-white hover:bg-white/40"
+                }`}
+                onClick={() => setShearAxis("y-axis")}
               >
-                Y-Axis Shear
+                Parallel to Y-axis
               </button>
             </div>
-            <div>
-              <label className="block text-sm font-medium">Shear Factor (k)</label>
+            <div className="mb-4">
+              <label className="block text-sm mb-1 opacity-90">
+                Shear Factor (k)
+              </label>
               <input
                 type="number"
                 value={k}
                 onChange={handleKChange}
-                className="w-full p-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full p-2.5 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50"
                 step="0.5"
               />
             </div>
-          </div>
-          <div className="grid grid-cols-2 gap-2 mb-4">
-            <button
-              onClick={applyAction}
-              className="bg-blue-500 text-white px-2 py-2 rounded flex items-center justify-center text-sm hover:bg-blue-600 transition"
-            >
-              Apply
-            </button>
-            <button
-              onClick={reset}
-              className="bg-gray-500 text-white px-2 py-2 rounded flex items-center justify-center text-sm hover:bg-gray-600 transition"
-            >
-              <X className="mr-1 w-4 h-4" /> Reset
-            </button>
-          </div>
-        </div>
-      )}
 
-      {mode === 'compute' && (
-        <div>
-          <div className="mb-4">
-            <h3 className="text-lg font-semibold">Compute Image Coordinates</h3>
-            <div className="flex gap-4 mb-2">
+            {mode === "compute" && (
+              <>
+                <p className="text-sm my-3 opacity-90">
+                  Enter a point to see its image under the current shear:
+                </p>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm mb-1 opacity-90">
+                      Point A (x, y)
+                    </label>
+                    <div className="flex space-x-2">
+                      <input
+                        type="number"
+                        value={pointA.x}
+                        onChange={(e) => handlePointChange(e, "x", false)}
+                        className="w-20 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 text-center"
+                        step="0.5"
+                      />
+                      <input
+                        type="number"
+                        value={pointA.y}
+                        onChange={(e) => handlePointChange(e, "y", false)}
+                        className="w-20 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 text-center"
+                        step="0.5"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm mb-1 opacity-90">
+                      Point A' (x', y')
+                    </label>
+                    <div className="flex space-x-2">
+                      <input
+                        type="number"
+                        value={pointAPrime.x}
+                        readOnly
+                        className="w-20 p-2 bg-gray-200 text-gray-500 rounded-lg border border-gray-300 text-center"
+                        step="0.5"
+                      />
+                      <input
+                        type="number"
+                        value={pointAPrime.y}
+                        readOnly
+                        className="w-20 p-2 bg-gray-200 text-gray-500 rounded-lg border border-gray-300 text-center"
+                        step="0.5"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+            <div className="mt-4 flex justify-center">
               <button
-                className={`flex-1 py-2 px-4 text-sm font-semibold ${shearAxis === 'x-axis' ? 'bg-blue-200 text-blue-800' : 'bg-gray-200 text-gray-800'}`}
-                onClick={() => setShearAxis('x-axis')}
+                onClick={applyAction}
+                className={`flex items-center px-5 py-2.5 font-semibold rounded-full shadow-md hover:bg-gray-100 transition-all duration-200 active:scale-95 ${
+                  mode === "draw"
+                    ? "bg-white text-teal-600"
+                    : mode === "compute"
+                    ? "bg-white text-green-600"
+                    : "bg-white text-purple-600"
+                }`}
               >
-                X-Axis Shear
+                {mode === "draw" && <Eye className="mr-2" size={18} />}
+                {mode === "compute" && (
+                  <Calculator className="mr-2" size={18} />
+                )}
+                {mode === "invariant" && "Show Invariant Line"}
+                {mode === "draw" && "Show Shear"}
+                {mode === "compute" && "Compute"}
               </button>
-              <button
-                className={`flex-1 py-2 px-4 text-sm font-semibold ${shearAxis === 'y-axis' ? 'bg-blue-200 text-blue-800' : 'bg-gray-200 text-gray-800'}`}
-                onClick={() => setShearAxis('y-axis')}
-              >
-                Y-Axis Shear
-              </button>
             </div>
-            <div className="mb-2">
-              <label className="block text-sm font-medium">Shear Factor (k)</label>
-              <input
-                type="number"
-                value={k}
-                onChange={handleKChange}
-                className="w-full p-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                step="0.5"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium">Point A (x, y)</label>
-              <div className="flex space-x-2">
-                <input
-                  type="number"
-                  value={pointA.x}
-                  onChange={(e) => handlePointChange(e, 'x', false)}
-                  className="w-16 p-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  step="0.5"
-                />
-                <input
-                  type="number"
-                  value={pointA.y}
-                  onChange={(e) => handlePointChange(e, 'y', false)}
-                  className="w-16 p-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  step="0.5"
-                />
-              </div>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-2 mb-4">
-            <button
-              onClick={applyAction}
-              className="bg-green-500 text-white px-2 py-2 rounded flex items-center justify-center text-sm hover:bg-green-600 transition"
-            >
-              <Calculator className="mr-1 w-4 h-4" /> Compute
-            </button>
-            <button
-              onClick={reset}
-              className="bg-gray-500 text-white px-2 py-2 rounded flex items-center justify-center text-sm hover:bg-gray-600 transition"
-            >
-              <X className="mr-1 w-4 h-4" /> Reset
-            </button>
-          </div>
-        </div>
-      )}
+          </>
+        )}
 
-      {mode === 'invariant' && (
-        <div>
-          <div className="mb-4">
-            <h3 className="text-lg font-semibold">Identify Invariant Line</h3>
-            <div className="flex gap-4 mb-2">
-              <button
-                className={`flex-1 py-2 px-4 text-sm font-semibold ${shearAxis === 'x-axis' ? 'bg-blue-200 text-blue-800' : 'bg-gray-200 text-gray-800'}`}
-                onClick={() => setShearAxis('x-axis')}
-              >
-                X-Axis Shear
-              </button>
-              <button
-                className={`flex-1 py-2 px-4 text-sm font-semibold ${shearAxis === 'y-axis' ? 'bg-blue-200 text-blue-800' : 'bg-gray-200 text-gray-800'}`}
-                onClick={() => setShearAxis('y-axis')}
-              >
-                Y-Axis Shear
-              </button>
-            </div>
-            <div>
-              <label className="block text-sm font-medium">Shear Factor (k)</label>
-              <input
-                type="number"
-                value={k}
-                onChange={handleKChange}
-                className="w-full p-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                step="0.5"
-              />
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-2 mb-4">
-            <button
-              onClick={applyAction}
-              className="bg-blue-500 text-white px-2 py-2 rounded flex items-center justify-center text-sm hover:bg-blue-600 transition"
-            >
-              <MapPin className="mr-1 w-4 h-4" /> Show
-            </button>
-            <button
-              onClick={reset}
-              className="bg-gray-500 text-white px-2 py-2 rounded flex items-center justify-center text-sm hover:bg-gray-600 transition"
-            >
-              <X className="mr-1 w-4 h-4" /> Reset
-            </button>
-          </div>
-        </div>
-      )}
-
-      {mode === 'describe' && (
-        <div>
-          <div className="mb-4">
-            <h3 className="text-lg font-semibold">Describe Shear</h3>
-            <p className="text-sm mb-2">
-              Enter a point and its image to find the shear axis, factor, and invariant line:
+        {mode === "describe" && (
+          <>
+            <h3 className="text-lg font-semibold mb-3">
+              Describe Shear Transformation
+            </h3>
+            <p className="text-sm mb-3 opacity-90">
+              Enter a point and its image to determine the shear axis and
+              factor:
             </p>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 mb-2">
               <div>
-                <label className="block text-sm font-medium">Point A (x, y)</label>
+                <label className="block text-sm mb-1 opacity-90">
+                  Point A (x, y)
+                </label>
                 <div className="flex space-x-2">
                   <input
                     type="number"
                     value={pointA.x}
-                    onChange={(e) => handlePointChange(e, 'x', false)}
-                    className="w-16 p-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    onChange={(e) => handlePointChange(e, "x", false)}
+                    className="w-20 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 text-center"
                     step="0.5"
                   />
                   <input
                     type="number"
                     value={pointA.y}
-                    onChange={(e) => handlePointChange(e, 'y', false)}
-                    className="w-16 p-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    onChange={(e) => handlePointChange(e, "y", false)}
+                    className="w-20 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 text-center"
                     step="0.5"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium">Point A' (x', y')</label>
+                <label className="block text-sm mb-1 opacity-90">
+                  Point A' (x', y')
+                </label>
                 <div className="flex space-x-2">
                   <input
                     type="number"
                     value={pointAPrime.x}
-                    onChange={(e) => handlePointChange(e, 'x', true)}
-                    className="w-16 p-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    onChange={(e) => handlePointChange(e, "x", true)}
+                    className="w-20 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 text-center"
                     step="0.5"
                   />
                   <input
                     type="number"
                     value={pointAPrime.y}
-                    onChange={(e) => handlePointChange(e, 'y', true)}
-                    className="w-16 p-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    onChange={(e) => handlePointChange(e, "y", true)}
+                    className="w-20 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 text-center"
                     step="0.5"
                   />
                 </div>
               </div>
             </div>
-          </div>
-          <div className="grid grid-cols-2 gap-2 mb-4">
-            <button
-              onClick={applyAction}
-              className="bg-green-500 text-white px-2 py-2 rounded flex items-center justify-center text-sm hover:bg-green-600 transition"
-            >
-              <Calculator className="mr-1 w-4 h-4" /> Describe
-            </button>
-            <button
-              onClick={reset}
-              className="bg-gray-500 text-white px-2 py-2 rounded flex items-center justify-center text-sm hover:bg-gray-600 transition"
-            >
-              <X className="mr-1 w-4 h-4" /> Reset
-            </button>
-          </div>
-        </div>
-      )}
+            <div className="mt-4 flex justify-center">
+              <button
+                onClick={applyAction}
+                className="flex items-center px-5 py-2.5 font-semibold bg-white text-green-600 rounded-full shadow-md hover:bg-gray-100 transition-all duration-200 active:scale-95"
+              >
+                <Calculator className="mr-2" size={18} /> Describe
+              </button>
+            </div>
+          </>
+        )}
+      </div>
 
-      {/* SVG Visualization */}
-      <div className="relative w-full h-80 bg-gray-100 rounded overflow-hidden">
+      {/* Action Buttons - Reset (Always visible) */}
+      <div className="flex justify-center mb-6">
+        <button
+          onClick={reset}
+          className="flex items-center px-5 py-2.5 font-semibold bg-white/20 hover:bg-white/30 text-white rounded-full shadow-md transition-all duration-200 active:scale-95"
+        >
+          <X className="mr-2" size={18} /> Reset
+        </button>
+      </div>
+
+      {/* SVG Visualization Canvas - White background */}
+      <div className="relative w-full h-80 bg-white rounded-xl border-2 border-white/50 overflow-hidden flex items-center justify-center">
         <svg
           width={gridCount * cellSize}
           height={gridCount * cellSize}
-          className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
+          className="absolute"
         >
-          {/* Grid */}
+          {/* Grid Lines - Adjusted for white background */}
           {[...Array(gridCount + 1)].map((_, i) => (
             <g key={i}>
               <line
@@ -388,65 +370,69 @@ const ShearVisualizer: React.FC = () => {
                 y1={0}
                 x2={i * cellSize}
                 y2={gridCount * cellSize}
-                stroke="#ddd"
+                stroke="rgba(156, 163, 175, 0.5)"
+                strokeWidth="1"
               />
               <line
                 x1={0}
                 y1={i * cellSize}
                 x2={gridCount * cellSize}
                 y2={i * cellSize}
-                stroke="#ddd"
+                stroke="rgba(156, 163, 175, 0.5)"
+                strokeWidth="1"
               />
             </g>
           ))}
 
-          {/* Axes */}
+          {/* Axes - Kept black for strong contrast */}
           <line
-            x1={gridCount * cellSize / 2}
+            x1={(gridCount * cellSize) / 2}
             y1={0}
-            x2={gridCount * cellSize / 2}
+            x2={(gridCount * cellSize) / 2}
             y2={gridCount * cellSize}
-            stroke="#000"
+            stroke="#000000"
             strokeWidth="2"
           />
           <line
             x1={0}
-            y1={gridCount * cellSize / 2}
+            y1={(gridCount * cellSize) / 2}
             x2={gridCount * cellSize}
-            y2={gridCount * cellSize / 2}
-            stroke="#000"
+            y2={(gridCount * cellSize) / 2}
+            stroke="#000000"
             strokeWidth="2"
           />
 
-          {/* X-axis scale */}
+          {/* X-axis scale labels - Darker for visibility */}
           {[...Array(gridCount + 1)].map((_, i) => {
             const xCoord = i - gridCount / 2;
             return (
               <text
                 key={`x-${i}`}
                 x={i * cellSize}
-                y={gridCount * cellSize / 2 + 15}
-                fill="#000"
+                y={(gridCount * cellSize) / 2 + 15}
+                fill="#374151"
                 fontSize="10"
                 textAnchor="middle"
+                opacity="0.9"
               >
                 {xCoord}
               </text>
             );
           })}
 
-          {/* Y-axis scale */}
+          {/* Y-axis scale labels - Darker for visibility */}
           {[...Array(gridCount + 1)].map((_, i) => {
             const yCoord = gridCount / 2 - i;
             if (yCoord !== 0) {
               return (
                 <text
                   key={`y-${i}`}
-                  x={gridCount * cellSize / 2 + 10}
+                  x={(gridCount * cellSize) / 2 + 10}
                   y={i * cellSize + 5}
-                  fill="#000"
+                  fill="#374151"
                   fontSize="10"
                   textAnchor="start"
+                  opacity="0.9"
                 >
                   {yCoord}
                 </text>
@@ -455,282 +441,390 @@ const ShearVisualizer: React.FC = () => {
             return null;
           })}
 
-          {/* Invariant Line */}
-          {showResult && (mode === 'draw' || mode === 'invariant') && (
-            <>
-              {shearAxis === 'x-axis' && (
-                <line
-                  x1={gridCount * cellSize / 2}
-                  y1={0}
-                  x2={gridCount * cellSize / 2}
-                  y2={gridCount * cellSize}
-                  stroke="green"
-                  strokeWidth="2"
-                  strokeDasharray="5,5"
-                />
-              )}
-              {shearAxis === 'y-axis' && (
-                <line
-                  x1={0}
-                  y1={gridCount * cellSize / 2}
-                  x2={gridCount * cellSize}
-                  y2={gridCount * cellSize / 2}
-                  stroke="green"
-                  strokeWidth="2"
-                  strokeDasharray="5,5"
-                />
-              )}
-            </>
-          )}
+          {/* Invariant Line - Shown for 'draw', 'invariant', 'describe' modes when result is shown */}
+          {showResult &&
+            (mode === "draw" ||
+              mode === "invariant" ||
+              mode === "describe") && (
+              <>
+                {/* Invariant line for shear parallel to x-axis (y-axis line x=0) */}
+                {shearAxis === "x-axis" && (
+                  <line
+                    x1={(gridCount * cellSize) / 2}
+                    y1={0}
+                    x2={(gridCount * cellSize) / 2}
+                    y2={gridCount * cellSize}
+                    stroke="#10b981"
+                    strokeWidth="2"
+                    strokeDasharray="5,5"
+                  />
+                )}
+                {/* Invariant line for shear parallel to y-axis (x-axis line y=0) */}
+                {shearAxis === "y-axis" && (
+                  <line
+                    x1={0}
+                    y1={(gridCount * cellSize) / 2}
+                    x2={gridCount * cellSize}
+                    y2={(gridCount * cellSize) / 2}
+                    stroke="#10b981"
+                    strokeWidth="2"
+                    strokeDasharray="5,5"
+                  />
+                )}
+                {/* If 'describe' mode and a shear was calculated, show that invariant line too */}
+                {mode === "describe" &&
+                  calculatedAxis !== "unknown" &&
+                  calculatedAxis === "x-axis" && (
+                    <line
+                      x1={(gridCount * cellSize) / 2}
+                      y1={0}
+                      x2={(gridCount * cellSize) / 2}
+                      y2={gridCount * cellSize}
+                      stroke="#8b5cf6"
+                      strokeWidth="1"
+                      strokeDasharray="3,3"
+                    />
+                  )}
+                {mode === "describe" &&
+                  calculatedAxis !== "unknown" &&
+                  calculatedAxis === "y-axis" && (
+                    <line
+                      x1={0}
+                      y1={(gridCount * cellSize) / 2}
+                      x2={gridCount * cellSize}
+                      y2={(gridCount * cellSize) / 2}
+                      stroke="#8b5cf6"
+                      strokeWidth="1"
+                      strokeDasharray="3,3"
+                    />
+                  )}
+              </>
+            )}
 
-          {/* Original Quadrilateral */}
-          {(mode === 'draw' || mode === 'invariant') && (
+          {/* Original Quadrilateral - Kept blue, shown for 'draw', 'invariant' modes */}
+          {(mode === "draw" || mode === "invariant") && (
             <polygon
               points={points
-                .map((p) => `${p.x * cellSize + gridCount * cellSize / 2},${gridCount * cellSize / 2 - p.y * cellSize}`)
-                .join(' ')}
-              fill="rgba(59, 130, 246, 0.5)"
-              stroke="blue"
+                .map(
+                  (p) =>
+                    `${p.x * cellSize + (gridCount * cellSize) / 2},${
+                      (gridCount * cellSize) / 2 - p.y * cellSize
+                    }`
+                )
+                .join(" ")}
+              fill="rgba(59, 130, 246, 0.6)"
+              stroke="#3b82f6"
               strokeWidth="2"
             />
           )}
 
-          {/* Sheared Quadrilateral */}
-          {(mode === 'draw' || mode === 'invariant') && showResult && (
+          {/* Sheared Quadrilateral - Kept red, shown conditionally for 'draw', 'invariant' modes */}
+          {(mode === "draw" || mode === "invariant") && showResult && (
             <polygon
               points={shearedPoints
-                .map((p) => `${p.x * cellSize + gridCount * cellSize / 2},${gridCount * cellSize / 2 - p.y * cellSize}`)
-                .join(' ')}
-              fill="rgba(239, 68, 68, 0.5)"
-              stroke="red"
+                .map(
+                  (p) =>
+                    `${p.x * cellSize + (gridCount * cellSize) / 2},${
+                      (gridCount * cellSize) / 2 - p.y * cellSize
+                    }`
+                )
+                .join(" ")}
+              fill="rgba(239, 68, 68, 0.6)"
+              stroke="#ef4444"
               strokeWidth="2"
             />
           )}
 
           {/* Points for Compute Mode */}
-          {mode === 'compute' && (
+          {mode === "compute" && (
             <>
+              {/* Original Point A */}
               <circle
-                cx={pointA.x * cellSize + gridCount * cellSize / 2}
-                cy={gridCount * cellSize / 2 - pointA.y * cellSize}
-                r="3"
-                fill="blue"
+                cx={pointA.x * cellSize + (gridCount * cellSize) / 2}
+                cy={(gridCount * cellSize) / 2 - pointA.y * cellSize}
+                r="4"
+                fill="#3b82f6"
               />
+              <text
+                x={pointA.x * cellSize + (gridCount * cellSize) / 2 + 6}
+                y={(gridCount * cellSize) / 2 - pointA.y * cellSize - 6}
+                fill="#1e40af"
+                fontSize="11"
+                fontWeight="500"
+                pointerEvents="none"
+              >
+                A({pointA.x},{pointA.y})
+              </text>
+
+              {/* Image Point A' - shown conditionally */}
               {showResult && (
-                <circle
-                  cx={calculatedImagePoint.x * cellSize + gridCount * cellSize / 2}
-                  cy={gridCount * cellSize / 2 - calculatedImagePoint.y * cellSize}
-                  r="3"
-                  fill="red"
-                />
+                <>
+                  {/* Calculate A' based on current shear parameters */}
+                  <circle
+                    cx={
+                      (shearAxis === "x-axis"
+                        ? pointA.x + k * pointA.y
+                        : pointA.x) *
+                        cellSize +
+                      (gridCount * cellSize) / 2
+                    }
+                    cy={
+                      (gridCount * cellSize) / 2 -
+                      (shearAxis === "x-axis"
+                        ? pointA.y
+                        : pointA.y + k * pointA.x) *
+                        cellSize
+                    }
+                    r="4"
+                    fill="#ef4444"
+                  />
+                  <text
+                    x={
+                      (shearAxis === "x-axis"
+                        ? pointA.x + k * pointA.y
+                        : pointA.x) *
+                        cellSize +
+                      (gridCount * cellSize) / 2 +
+                      6
+                    }
+                    y={
+                      (gridCount * cellSize) / 2 -
+                      (shearAxis === "x-axis"
+                        ? pointA.y
+                        : pointA.y + k * pointA.x) *
+                        cellSize -
+                      6
+                    }
+                    fill="#b91c1c"
+                    fontSize="11"
+                    fontWeight="500"
+                    pointerEvents="none"
+                  >
+                    A'(
+                    {shearAxis === "x-axis"
+                      ? pointA.x + k * pointA.y
+                      : pointA.x}
+                    ,
+                    {shearAxis === "x-axis"
+                      ? pointA.y
+                      : pointA.y + k * pointA.x}
+                    )
+                  </text>
+                </>
               )}
             </>
           )}
 
           {/* Points for Describe Mode */}
-          {mode === 'describe' && (
+          {mode === "describe" && (
             <>
+              {/* Original Point A */}
               <circle
-                cx={pointA.x * cellSize + gridCount * cellSize / 2}
-                cy={gridCount * cellSize / 2 - pointA.y * cellSize}
-                r="3"
-                fill="blue"
+                cx={pointA.x * cellSize + (gridCount * cellSize) / 2}
+                cy={(gridCount * cellSize) / 2 - pointA.y * cellSize}
+                r="4"
+                fill="#3b82f6"
               />
-              {showResult && (
-                <circle
-                  cx={pointAPrime.x * cellSize + gridCount * cellSize / 2}
-                  cy={gridCount * cellSize / 2 - pointAPrime.y * cellSize}
-                  r="3"
-                  fill="red"
-                />
-              )}
-            </>
-          )}
+              <text
+                x={pointA.x * cellSize + (gridCount * cellSize) / 2 + 6}
+                y={(gridCount * cellSize) / 2 - pointA.y * cellSize - 6}
+                fill="#1e40af"
+                fontSize="11"
+                fontWeight="500"
+                pointerEvents="none"
+              >
+                A({pointA.x},{pointA.y})
+              </text>
 
-          {/* Points Labels */}
-          {(mode === 'draw' || mode === 'invariant') && (
-            <>
-              {points.map((p, i) => (
-                <text
-                  key={i}
-                  x={p.x * cellSize + gridCount * cellSize / 2 + 5}
-                  y={gridCount * cellSize / 2 - p.y * cellSize - 5}
-                  fill="blue"
-                  fontSize="12"
-                >
-                  A{i + 1}({p.x},{p.y})
-                </text>
-              ))}
-              {showResult &&
-                shearedPoints.map((p, i) => (
+              {/* Image Point A' - shown conditionally */}
+              {showResult && (
+                <>
+                  <circle
+                    cx={pointAPrime.x * cellSize + (gridCount * cellSize) / 2}
+                    cy={(gridCount * cellSize) / 2 - pointAPrime.y * cellSize}
+                    r="4"
+                    fill="#ef4444"
+                  />
                   <text
-                    key={i}
-                    x={p.x * cellSize + gridCount * cellSize / 2 + 5}
-                    y={gridCount * cellSize / 2 - p.y * cellSize - 5}
-                    fill="red"
-                    fontSize="12"
+                    x={
+                      pointAPrime.x * cellSize + (gridCount * cellSize) / 2 + 6
+                    }
+                    y={
+                      (gridCount * cellSize) / 2 - pointAPrime.y * cellSize - 6
+                    }
+                    fill="#b91c1c"
+                    fontSize="11"
+                    fontWeight="500"
+                    pointerEvents="none"
                   >
-                    A{i + 1}'({p.x},{p.y})
+                    A'({pointAPrime.x},{pointAPrime.y})
                   </text>
-                ))}
-            </>
-          )}
-          {mode === 'compute' && (
-            <>
-              <text
-                x={pointA.x * cellSize + gridCount * cellSize / 2 + 5}
-                y={gridCount * cellSize / 2 - pointA.y * cellSize - 5}
-                fill="blue"
-                fontSize="12"
-              >
-                A({pointA.x},{pointA.y})
-              </text>
-              {showResult && (
-                <text
-                  x={calculatedImagePoint.x * cellSize + gridCount * cellSize / 2 + 5}
-                  y={gridCount * cellSize / 2 - calculatedImagePoint.y * cellSize - 5}
-                  fill="red"
-                  fontSize="12"
-                >
-                  A'({calculatedImagePoint.x},{calculatedImagePoint.y})
-                </text>
-              )}
-            </>
-          )}
-          {mode === 'describe' && (
-            <>
-              <text
-                x={pointA.x * cellSize + gridCount * cellSize / 2 + 5}
-                y={gridCount * cellSize / 2 - pointA.y * cellSize - 5}
-                fill="blue"
-                fontSize="12"
-              >
-                A({pointA.x},{pointA.y})
-              </text>
-              {showResult && (
-                <text
-                  x={pointAPrime.x * cellSize + gridCount * cellSize / 2 + 5}
-                  y={gridCount * cellSize / 2 - pointAPrime.y * cellSize - 5}
-                  fill="red"
-                  fontSize="12"
-                >
-                  A'({pointAPrime.x},{pointAPrime.y})
-                </text>
+                </>
               )}
             </>
           )}
         </svg>
       </div>
 
-      {/* Explanation Section */}
-      <div className="mt-4 text-sm">
-        {(mode === 'draw' || mode === 'invariant') && (
+      {/* Information Panel - Shows results based on mode */}
+      <div className="mt-5 p-4 bg-white/15 backdrop-blur-sm rounded-xl border border-white/20 text-sm">
+        <p className="font-semibold mb-2">Original Vertices:</p>
+        <ul className="list-disc list-inside space-y-1">
+          {points.map((p, i) => (
+            <li key={`info-orig-${i}`} className="font-mono">
+              <InlineMath math={`A_{${i + 1}}(${p.x}, ${p.y})`} />
+            </li>
+          ))}
+        </ul>
+
+        {/* Show sheared vertices info if 'draw' or 'invariant' mode action was performed */}
+        {(mode === "draw" || mode === "invariant") && showResult && (
           <>
-            <p>Original quadrilateral vertices:</p>
-            <ul className="list-disc pl-5">
-              {points.map((p, i) => (
-                <li key={i}>
-                  <InlineMath math={`A_{${i + 1}}(${p.x}, ${p.y})`} />
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
-        {mode === 'draw' && showResult && (
-          <>
-            <p className="mt-2">Sheared quadrilateral vertices:</p>
-            <ul className="list-disc pl-5">
+            <p className="font-semibold mt-3 mb-2">
+              Sheared Vertices (
+              {shearAxis === "x-axis"
+                ? `Parallel to X-axis, k=${k}`
+                : `Parallel to Y-axis, k=${k}`}
+              ):
+            </p>
+            <ul className="list-disc list-inside space-y-1">
               {shearedPoints.map((p, i) => (
-                <li key={i}>
-                  <InlineMath math={`A_{${i + 1}}'(${p.x},${p.y})`} />
+                <li key={`info-shear-${i}`} className="font-mono">
+                  <InlineMath math={`A_{${i + 1}}'(${p.x}, ${p.y})`} />
                 </li>
               ))}
             </ul>
-            <p className="mt-2 font-semibold">Shear Matrix:</p>
-            <BlockMath math={getShearMatrix()} />
-            <p className="mt-2 font-semibold">How Transformation Works:</p>
-            <p>
-              For a shear along {shearAxis} with factor k={k}:
+
+            <div className="mt-3 pt-3 border-t border-white/20">
+              <p className="font-semibold mb-2">How Shear Works:</p>
+              <p className="mb-2">
+                Each point <InlineMath math="(x, y)" /> is transformed:
+              </p>
+              <ul className="list-disc list-inside space-y-1">
+                {shearAxis === "x-axis" ? (
+                  <li className="font-mono text-xs">
+                    <InlineMath math={`(x, y) \to (x + ${k} \\cdot y, y)`} />
+                  </li>
+                ) : (
+                  <li className="font-mono text-xs">
+                    <InlineMath math={`(x, y) \to (x, y + ${k} \\cdot x)`} />
+                  </li>
+                )}
+              </ul>
+              <p className="mt-2 text-xs italic">
+                {shearAxis === "x-axis"
+                  ? "Points move horizontally. The y-coordinate (and the y-axis) is invariant."
+                  : "Points move vertically. The x-coordinate (and the x-axis) is invariant."}
+              </p>
+            </div>
+          </>
+        )}
+
+        {/* Show computed point info if 'compute' mode action was performed */}
+        {mode === "compute" && showResult && (
+          <div className="mt-3 pt-3 border-t border-white/20">
+            <p className="font-semibold mb-2">
+              Computed Image (
+              {shearAxis === "x-axis"
+                ? `Parallel to X-axis, k=${k}`
+                : `Parallel to Y-axis, k=${k}`}
+              ):
             </p>
-            <ul className="list-disc pl-5">
-              {points.map((p, i) => (
-                <li key={i}>
-                  <BlockMath
-                    math={`${
-                      getShearMatrix()
-                    } \\begin{pmatrix} ${p.x} \\\\ ${p.y} \\end{pmatrix} = \\begin{pmatrix} ${shearedPoints[i].x} \\\\ ${shearedPoints[i].y} \\end{pmatrix}`}
-                  />
-                </li>
-              ))}
+            <p>
+              Original point <InlineMath math={`A(${pointA.x}, ${pointA.y})`} />{" "}
+              is transformed to:
+            </p>
+            <p className="my-2 text-center font-bold">
+              <InlineMath
+                math={`A'(${
+                  shearAxis === "x-axis" ? pointA.x + k * pointA.y : pointA.x
+                }, ${
+                  shearAxis === "x-axis" ? pointA.y : pointA.y + k * pointA.x
+                })`}
+              />
+            </p>
+            <div className="flex justify-center my-2">
+              <BlockMath
+                math={`${getShearMatrix()} \\begin{pmatrix} ${pointA.x} \\\\ ${
+                  pointA.y
+                } \\end{pmatrix} = \\begin{pmatrix} ${
+                  shearAxis === "x-axis" ? pointA.x + k * pointA.y : pointA.x
+                } \\\\ ${
+                  shearAxis === "x-axis" ? pointA.y : pointA.y + k * pointA.x
+                } \\end{pmatrix}`}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Show invariant line info if 'invariant' mode action was performed */}
+        {mode === "invariant" && showResult && (
+          <div className="mt-3 pt-3 border-t border-white/20">
+            <p className="font-semibold mb-2">Invariant Line:</p>
+            <p>
+              For a shear transformation, the invariant line is the line
+              parallel to the direction of the shear. Points on this line do not
+              move.
+            </p>
+            <ul className="list-disc list-inside space-y-1 mt-2">
+              <li>
+                Shear parallel to the <strong>X-axis</strong>: The invariant
+                line is the <strong>Y-axis</strong> (<InlineMath math="x = 0" />
+                ).
+              </li>
+              <li>
+                Shear parallel to the <strong>Y-axis</strong>: The invariant
+                line is the <strong>X-axis</strong> (<InlineMath math="y = 0" />
+                ).
+              </li>
             </ul>
-            <p className="mt-2">Explanation:</p>
-            <p>
-              Each point’s {shearAxis === 'x-axis' ? 'x-coordinate is shifted by k times its y-coordinate' : 'y-coordinate is shifted by k times its x-coordinate'}, while the other coordinate remains unchanged.
-            </p>
-          </>
+          </div>
         )}
-        {mode === 'compute' && showResult && (
-          <>
-            <p className="mt-2 font-semibold">Computed Image:</p>
-            <p>
-              Point A: <InlineMath math={`(${pointA.x}, ${pointA.y})`} />
+
+        {/* Show description info if 'describe' mode action was performed */}
+        {mode === "describe" && showResult && (
+          <div className="mt-3 pt-3 border-t border-white/20">
+            <p className="font-semibold mb-2">
+              Described Shear Transformation:
             </p>
-            <p>
-              Image A': <InlineMath math={`(${calculatedImagePoint.x}, ${calculatedImagePoint.y})`} />
-            </p>
-            <p className="mt-2 font-semibold">Shear Matrix:</p>
-            <BlockMath math={getShearMatrix()} />
-            <p className="mt-2">Calculation:</p>
-            <BlockMath
-              math={`${
-                getShearMatrix()
-              } \\begin{pmatrix} ${pointA.x} \\\\ ${pointA.y} \\end{pmatrix} = \\begin{pmatrix} ${calculatedImagePoint.x} \\\\ ${calculatedImagePoint.y} \\end{pmatrix}`}
-            />
-            <p className="mt-2">Explanation:</p>
-            <p>
-              The point’s {shearAxis === 'x-axis' ? 'x-coordinate is increased by k times its y-coordinate' : 'y-coordinate is increased by k times its x-coordinate'}, using the shear matrix.
-            </p>
-          </>
-        )}
-        {mode === 'invariant' && showResult && (
-          <>
-            <p className="mt-2">Sheared quadrilateral vertices:</p>
-            <ul className="list-disc pl-5">
-              {shearedPoints.map((p, i) => (
-                <li key={i}>
-                  <InlineMath math={`A_{${i + 1}}'(${p.x},${p.y})`} />
-                </li>
-              ))}
-            </ul>
-            <p className="mt-2 font-semibold">Invariant Line:</p>
-            <p>{getInvariantLine()}</p>
-            <p className="mt-2">Explanation:</p>
-            <p>
-              The invariant line is unchanged by the shear. For a shear along {shearAxis}, the {shearAxis === 'x-axis' ? 'y-axis (x=0)' : 'x-axis (y=0)'} remains fixed.
-            </p>
-          </>
-        )}
-        {mode === 'describe' && showResult && (
-          <>
-            <p className="mt-2 font-semibold">Calculated Shear:</p>
-            <p>
-              From <InlineMath math={`A(${pointA.x}, ${pointA.y})`} /> to{' '}
-              <InlineMath math={`A'(${pointAPrime.x}, ${pointAPrime.y})`} />:
-            </p>
-            <p>
-              Shear Axis: {calculatedAxis === 'x-axis' ? 'X-axis shear' : calculatedAxis === 'y-axis' ? 'Y-axis shear' : 'Unknown'}
-            </p>
-            <p>
-              Shear factor: <InlineMath math={`k = ${isNaN(calculatedK) ? 'undefined' : calculatedK}`} />
-            </p>
-            <p>
-              Invariant line: {calculatedInvariant}
-            </p>
-            <p className="mt-2">Explanation:</p>
-            <p>
-              For an x-axis shear, x' = x + k*y and y' = y. For a y-axis shear, y' = y + k*x and x' = x. The shear factor k is calculated accordingly, and the invariant line is determined by the axis of shear.
-            </p>
-          </>
+            {calculatedAxis !== "unknown" ? (
+              <>
+                <p>
+                  Based on points{" "}
+                  <InlineMath math={`A(${pointA.x}, ${pointA.y})`} /> and{" "}
+                  <InlineMath math={`A'(${pointAPrime.x}, ${pointAPrime.y})`} />
+                  :
+                </p>
+                <ul className="list-disc list-inside space-y-1 my-2">
+                  <li>
+                    Axis of Shear:{" "}
+                    <span className="font-bold">{calculatedAxis}</span>
+                  </li>
+                  <li>
+                    Shear Factor:{" "}
+                    <span className="font-bold">
+                      <InlineMath math={`k = ${calculatedK}`} />
+                    </span>
+                  </li>
+                  <li>
+                    Invariant Line:{" "}
+                    <span className="font-bold">{calculatedInvariant}</span>
+                  </li>
+                </ul>
+                <p className="mt-2 text-xs italic">
+                  This was determined because the invariant coordinate remained
+                  unchanged, and the change in the other coordinate was
+                  proportional to the invariant one.
+                </p>
+              </>
+            ) : (
+              <p>
+                Could not determine a unique shear transformation from these
+                points. They might not represent a simple shear, or more
+                information is needed.
+              </p>
+            )}
+          </div>
         )}
       </div>
     </div>

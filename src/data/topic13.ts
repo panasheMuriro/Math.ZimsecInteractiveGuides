@@ -487,6 +487,115 @@ Triangle $ABC$ has vertices $A(1,1)$, $B(3,1)$, $C(2,3)$. Enlarge by scale facto
 - Use ICT tools to model shears.`,
         interactive: "shear",
       },
+      {
+      title: "Stretch and Shear Problems",
+      content: `**STRETCH AND SHEAR PROBLEMS (FORM 4)**
+
+**Step-by-Step Problem Solving:**
+
+**STRETCH PROBLEMS:**
+
+**Step 1: Identify Stretch Type and Parameters**
+- Determine if one-way or two-way stretch
+- Identify stretch factors ($k$, $k_1$, $k_2$)
+- Note direction of stretch (x-axis, y-axis, or both)
+- Check if using geometric or matrix method
+
+**Step 2: Apply Stretch Transformation**
+
+**One-way Stretch:**
+- X-axis stretch by factor $k$: $(x,y) \\to (kx,y)$
+- Y-axis stretch by factor $k$: $(x,y) \\to (x,ky)$
+- Matrix forms: $\\begin{pmatrix} k & 0 \\\\ 0 & 1 \\end{pmatrix}$ or $\\begin{pmatrix} 1 & 0 \\\\ 0 & k \\end{pmatrix}$
+
+**Two-way Stretch:**
+- Both axes: $(x,y) \\to (k_1x, k_2y)$
+- Matrix form: $\\begin{pmatrix} k_1 & 0 \\\\ 0 & k_2 \\end{pmatrix}$
+
+**Step 3: Identify Invariant Lines**
+- X-axis stretch: Y-axis ($x=0$) is invariant
+- Y-axis stretch: X-axis ($y=0$) is invariant
+- Two-way stretch: Origin only (if $k_1 \\neq k_2$)
+
+**SHEAR PROBLEMS:**
+
+**Step 1: Identify Shear Parameters**
+- Determine shear factor $k$
+- Identify shear direction (parallel to x-axis or y-axis)
+- Note invariant line
+
+**Step 2: Apply Shear Transformation**
+
+**X-axis Shear (invariant line: y-axis):**
+- Formula: $(x,y) \\to (x+ky, y)$
+- Matrix: $\\begin{pmatrix} 1 & k \\\\ 0 & 1 \\end{pmatrix}$
+
+**Y-axis Shear (invariant line: x-axis):**
+- Formula: $(x,y) \\to (x, y+kx)$
+- Matrix: $\\begin{pmatrix} 1 & 0 \\\\ k & 1 \\end{pmatrix}$
+
+**Step 3: Find Shear Factor (Reverse Problems)**
+- Compare object and image coordinates
+- For x-axis shear: $k = \\frac{x'-x}{y}$ where $(x,y) \\to (x',y)$
+- For y-axis shear: $k = \\frac{y'-y}{x}$ where $(x,y) \\to (x,y')$
+
+**Step 4: Verify Properties**
+
+**For Stretch:**
+- Check parallelism is preserved
+- Verify distances scaled by appropriate factors
+- Confirm invariant lines unchanged
+
+**For Shear:**
+- Verify area is preserved (determinant = 1)
+- Check invariant line remains fixed
+- Confirm parallelism preserved
+
+**Common Problem Types:**
+
+**Type 1: Forward Transformation**
+Given: Original figure and transformation matrix/parameters
+Find: Coordinates of transformed figure
+
+**Type 2: Matrix Identification**
+Given: Transformation matrix
+Find: Type of transformation, factors, invariant lines
+
+**Type 3: Reverse Engineering**
+Given: Object and image figures
+Find: Transformation matrix and parameters
+
+**Type 4: Combined Transformations**
+Given: Multiple stretch/shear operations
+Find: Single equivalent transformation
+
+**Example Problems:**
+
+**Stretch Example:**
+Point $A(3,2)$ undergoes x-axis stretch with factor $2$.
+**Solution:** $A'(2×3, 2) = A'(6,2)$
+
+**Shear Example:**
+Point $B(1,4)$ undergoes x-axis shear with factor $0.5$.
+**Solution:** $B'(1+0.5×4, 4) = B'(3,4)$
+
+**Matrix Recognition:**
+Matrix $\\begin{pmatrix} 1 & 2 \\\\ 0 & 1 \\end{pmatrix}$ represents x-axis shear with factor $2$.
+
+**Key Properties to Remember:**
+- Stretch: Changes distances, preserves parallelism
+- Shear: Preserves area, changes angles (except on invariant line)
+- Both preserve parallelism and have specific invariant lines
+- Determinant of stretch matrix: $k_1 × k_2$ (area scaling factor)
+- Determinant of shear matrix: Always 1 (area preserved)
+
+**Syllabus Objectives**:
+- Solve stretch and shear problems using systematic methods
+- Identify transformation types from matrices or coordinate changes
+- Find invariant lines and verify transformation properties
+- Apply stretch and shear concepts to geometric analysis`,
+      interactive: "stretch-shear-problems",
+    },
     ],
   },
 ];
