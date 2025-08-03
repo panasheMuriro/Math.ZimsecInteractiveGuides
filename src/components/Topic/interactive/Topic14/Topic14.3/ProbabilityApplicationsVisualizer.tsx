@@ -39,10 +39,10 @@ const ProbabilityApplicationsVisualizer: React.FC = () => {
   const productExpProb = productTries > 0 ? (productPurchaseCount / productTries).toFixed(2) : '0.00';
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-[#F4F1DE] border-4 border-[#3D405B] rounded-3xl font-sans">
+    <div className="max-w-md mx-auto p-6 bg-[#E07A5F] border-4 border-[#3D405B] rounded-3xl font-sans">
       <section className="mb-6">
         <h2 className="text-2xl font-bold mb-4 text-center text-[#3D405B] tracking-wider underline decoration-2 underline-offset-4">🌤️ WEATHER FORECAST</h2>
-        <div className="bg-[#81B29A] border-4 border-[#3D405B] rounded-2xl p-4 mb-4">
+        <div className="bg-[#F4F1DE] border-4 border-[#3D405B] rounded-2xl p-4 mb-4">
           <p className="text-base mb-2 text-center text-[#3D405B] font-bold">
             Theoretical Probability of Rain:
             <BlockMath math={"P(\\text{rain}) = 0.7"} />
@@ -54,8 +54,8 @@ const ProbabilityApplicationsVisualizer: React.FC = () => {
         </div>
         <div className="flex justify-center mb-4">
           <div className="flex flex-col items-center">
-            <CloudRain className={`w-14 h-14 ${weatherResult === 'Rain' ? 'text-[#E07A5F]' : weatherResult === 'No Rain' ? 'text-[#3D405B]' : 'text-[#F2CC8F]'} bg-white border-3 border-[#3D405B] rounded-full p-2`} />
-            <span className="mt-2 text-xl font-bold text-[#3D405B] bg-white border-4 border-[#3D405B] rounded-full w-12 h-12 flex items-center justify-center">
+            <CloudRain className={`w-14 h-14 ${weatherResult === 'Rain' ? 'text-[#3D405B]' : weatherResult === 'No Rain' ? 'text-[#81B29A]' : 'text-[#F2CC8F]'} bg-white border-3 border-[#3D405B] rounded-full p-2`} />
+            <span className="mt-2 text-xl font-bold text-white bg-[#3D405B] border-4 border-[#3D405B] rounded-full w-12 h-12 flex items-center justify-center">
               {weatherResult ? (weatherResult === 'Rain' ? 'R' : 'N') : '?'}
             </span>
           </div>
@@ -63,26 +63,26 @@ const ProbabilityApplicationsVisualizer: React.FC = () => {
         <div className="flex justify-center">
           <button
             onClick={simulateWeather}
-            className={`flex items-center px-6 py-3 rounded-full font-bold border-4 border-[#3D405B] bg-[#E07A5F] text-white hover:bg-[#F09070] transform transition-all duration-200 ${animateWeather ? 'scale-110' : 'scale-100'}`}
+            className={`flex items-center px-6 py-3 rounded-full font-bold border-4 border-[#3D405B] bg-[#81B29A] text-[#3D405B] hover:bg-[#99C1B9] transform transition-all duration-200 ${animateWeather ? 'scale-110' : 'scale-100'}`}
           >
             <RefreshCw className="w-5 h-5 mr-2" />
             SIMULATE WEATHER
           </button>
         </div>
         {weatherResult && (
-          <p className="text-base mt-3 text-center text-[#3D405B] font-bold bg-white py-2 px-4 rounded-full border-4 border-[#3D405B]">
+          <p className="text-base mt-3 text-center text-[#3D405B] font-bold bg-[#F4F1DE] py-2 px-4 rounded-full border-4 border-[#3D405B]">
             Result: <span className="text-[#E07A5F]">{weatherResult}</span>!
             {weatherResult === 'Rain' ? ' ☔ Better grab an umbrella!' : ' ☀️ Looks clear!'}
           </p>
         )}
         <p className="text-base mt-3 text-center text-[#3D405B] font-bold bg-[#F2CC8F] py-2 px-4 rounded-full border-4 border-[#3D405B]">
-          Tries: <span className="text-[#E07A5F]">{weatherTries}</span> | Rain: <span className="text-[#E07A5F]">{weatherRainCount}</span>
+          Tries: <span className="text-[#3D405B]">{weatherTries}</span> | Rain: <span className="text-[#3D405B]">{weatherRainCount}</span>
         </p>
       </section>
 
       <section className="mb-4">
         <h2 className="text-2xl font-bold mb-4 text-center text-[#3D405B] tracking-wider underline decoration-2 underline-offset-4">🛒 CUSTOMER PURCHASE</h2>
-        <div className="bg-[#81B29A] border-4 border-[#3D405B] rounded-2xl p-4 mb-4">
+        <div className="bg-[#F4F1DE] border-4 border-[#3D405B] rounded-2xl p-4 mb-4">
           <p className="text-base mb-2 text-center text-[#3D405B] font-bold">
             Theoretical Probability of Purchase:
             <BlockMath math={"P(\\text{purchase}) = 0.2"} />
@@ -94,8 +94,8 @@ const ProbabilityApplicationsVisualizer: React.FC = () => {
         </div>
         <div className="flex justify-center mb-4">
           <div className="flex flex-col items-center">
-            <Package className={`w-14 h-14 ${productResult === 'Purchase' ? 'text-[#E07A5F]' : productResult === 'No Purchase' ? 'text-[#3D405B]' : 'text-[#F2CC8F]'} bg-white border-3 border-[#3D405B] rounded-full p-2`} />
-            <span className="mt-2 text-xl font-bold text-[#3D405B] bg-white border-4 border-[#3D405B] rounded-full w-12 h-12 flex items-center justify-center">
+            <Package className={`w-14 h-14 ${productResult === 'Purchase' ? 'text-[#3D405B]' : productResult === 'No Purchase' ? 'text-[#81B29A]' : 'text-[#F2CC8F]'} bg-white border-3 border-[#3D405B] rounded-full p-2`} />
+            <span className="mt-2 text-xl font-bold text-white bg-[#3D405B] border-4 border-[#3D405B] rounded-full w-12 h-12 flex items-center justify-center">
               {productResult ? (productResult === 'Purchase' ? 'P' : 'N') : '?'}
             </span>
           </div>
@@ -110,13 +110,13 @@ const ProbabilityApplicationsVisualizer: React.FC = () => {
           </button>
         </div>
         {productResult && (
-          <p className="text-base mt-3 text-center text-[#3D405B] font-bold bg-white py-2 px-4 rounded-full border-4 border-[#3D405B]">
+          <p className="text-base mt-3 text-center text-[#3D405B] font-bold bg-[#F4F1DE] py-2 px-4 rounded-full border-4 border-[#3D405B]">
             Result: <span className="text-[#E07A5F]">{productResult}</span>!
             {productResult === 'Purchase' ? ' 🛒 Item purchased!' : ' 🛍️ No purchase this time.'}
           </p>
         )}
         <p className="text-base mt-3 text-center text-[#3D405B] font-bold bg-[#F2CC8F] py-2 px-4 rounded-full border-4 border-[#3D405B]">
-          Tries: <span className="text-[#E07A5F]">{productTries}</span> | Purchases: <span className="text-[#E07A5F]">{productPurchaseCount}</span>
+          Tries: <span className="text-[#3D405B]">{productTries}</span> | Purchases: <span className="text-[#3D405B]">{productPurchaseCount}</span>
         </p>
       </section>
     </div>

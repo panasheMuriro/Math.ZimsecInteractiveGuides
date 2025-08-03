@@ -27,7 +27,7 @@ const TreeDiagramVisualizer: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-[#3D405B] border-4 border-[#F4F1DE] rounded-3xl font-sans">
+    <div className="max-w-md mx-auto p-6 bg-[#3D405B] border-4 border-[#81B29A] rounded-3xl font-sans">
       <section className="mb-6">
         <h2 className="text-2xl font-extrabold mb-4 text-center text-[#F4F1DE] underline decoration-2 underline-offset-4">FLIP TWO COINS</h2>
         <div className="bg-[#81B29A] border-3 border-[#F4F1DE] rounded-2xl p-4 mb-6">
