@@ -205,6 +205,72 @@ Triangle ABC has vertices $A(2,1)$, $B(4,3)$, $C(1,4)$. Find coordinates after t
 - Use ICT tools to model and verify rotations.`,
         interactive: "rotation",
       },
+      {
+      title: "Reflection and Rotation Problems",
+      content: `**REFLECTION AND ROTATION PROBLEMS (FORMS 2-4)**
+
+**Step-by-Step Problem Solving:**
+
+**REFLECTION PROBLEMS:**
+
+**Step 1: Identify the Mirror Line**
+- Determine the line of reflection (x-axis, y-axis, x=a, y=a, y=x, y=-x)
+- Note if using geometric method or matrix method
+
+**Step 2: Apply Reflection Rules**
+- **X-axis:** $(x,y) \\to (x,-y)$
+- **Y-axis:** $(x,y) \\to (-x,y)$
+- **Line x=a:** $(x,y) \\to (2a-x,y)$
+- **Line y=a:** $(x,y) \\to (x,2a-y)$
+- **Matrix method:** Multiply by appropriate reflection matrix
+
+**Step 3: Find Axis (Reverse Problems)**
+- Find midpoint of line segment joining object and image points
+- The axis of reflection passes through this midpoint
+- For perpendicular reflections, axis is perpendicular bisector
+
+**ROTATION PROBLEMS:**
+
+**Step 1: Identify Centre and Angle**
+- Note centre of rotation (usually origin for matrix problems)
+- Identify angle and direction (clockwise/counterclockwise)
+
+**Step 2: Apply Rotation**
+- **Geometric method:** Use compass and protractor
+- **Matrix method:** Multiply by rotation matrix
+- **90° CCW:** $\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$
+- **180°:** $\\begin{pmatrix} -1 & 0 \\\\ 0 & -1 \\end{pmatrix}$
+- **270° CCW:** $\\begin{pmatrix} 0 & 1 \\\\ -1 & 0 \\end{pmatrix}$
+
+**Step 3: Find Centre/Angle (Reverse Problems)**
+- **Centre:** Intersection of perpendicular bisectors of segments joining corresponding points
+- **Angle:** Measure angle between lines from centre to corresponding points
+
+**Step 4: Verify Results**
+- Check distances are preserved
+- Verify orientation change (reflection reverses, rotation preserves)
+- Plot points to confirm transformation
+
+**Example Problem:**
+Reflect triangle with vertices $A(1,2)$, $B(3,1)$, $C(2,4)$ in the line $y=x$.
+
+**Solution:**
+Using matrix $\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}$:
+- $A'(2,1)$, $B'(1,3)$, $C'(4,2)$
+
+**Common Problem Types:**
+1. **Single Transformation**: Apply one reflection or rotation
+2. **Finding Transformation**: Given object and image, find the transformation
+3. **Composite Transformations**: Multiple transformations in sequence
+4. **Matrix Identification**: Determine transformation from given matrix
+
+**Syllabus Objectives**:
+- Solve reflection and rotation problems systematically
+- Find axes of reflection and centres/angles of rotation
+- Apply matrix methods to solve transformation problems
+- Verify solutions using geometric properties`,
+      interactive: "reflection-rotation-problems",
+    },
     ],
   },
   {

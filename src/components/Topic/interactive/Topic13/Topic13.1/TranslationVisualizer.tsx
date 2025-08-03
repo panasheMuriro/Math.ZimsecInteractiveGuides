@@ -7,49 +7,49 @@ interface Point {
 }
 
 const TranslationVisualizer: React.FC = () => {
-  // Original points of the triangle
+  
   const [points] = useState<Point[]>([
     { x: 1, y: 1 },
     { x: 2, y: 3 },
     { x: 3, y: 1 },
   ]);
 
-  // State for the translation vector
+  
   const [vector, setVector] = useState<Point>({ x: -3, y: 2 });
 
-  // State to control visibility of the translated shape
+  
   const [showTranslated, setShowTranslated] = useState(false);
 
-  // Handler for vector input changes
+  
   const handleVectorChange = (e: React.ChangeEvent<HTMLInputElement>, axis: 'x' | 'y') => {
     const value = parseFloat(e.target.value) || 0;
     setVector((prev) => ({ ...prev, [axis]: value }));
   };
 
-  // Function to trigger the translation display
+  
   const translatePoints = () => {
     setShowTranslated(true);
   };
 
-  // Function to reset the visualizer
+  
   const reset = () => {
     setShowTranslated(false);
-    // Reset vector to a default if desired, e.g., { x: -3, y: 2 }
-    // setVector({ x: -3, y: 2 });
+    
+    
   };
 
-  // Grid and visualization settings
-  const gridCount = 10; // Number of cells along one axis
-  const cellSize = 30;  // Size of each grid cell in pixels
+  
+  const gridCount = 10; 
+  const cellSize = 30;  
 
-  // Calculate translated points
+  
   const translatedPoints = points.map((point) => ({
     x: point.x + vector.x,
     y: point.y + vector.y,
   }));
 
   return (
-    // Main container with gradient background
+    
     <div className="w-full max-w-md mx-auto p-6 bg-gradient-to-br from-teal-500 to-emerald-500 rounded-2xl shadow-xl text-white">
 
       {/* Title */}
@@ -91,7 +91,7 @@ const TranslationVisualizer: React.FC = () => {
       <div className="flex justify-center space-x-4 mb-6">
         <button
           onClick={translatePoints}
-          disabled={showTranslated} // Optional: disable if already translated
+          disabled={showTranslated} 
           className={`flex items-center px-5 py-2.5 font-semibold rounded-full shadow-md transition-all duration-200 ${
             showTranslated
               ? 'bg-gray-400 cursor-not-allowed'
@@ -113,8 +113,8 @@ const TranslationVisualizer: React.FC = () => {
         <svg
           width={gridCount * cellSize}
           height={gridCount * cellSize}
-          // viewBox={`0 0 ${gridCount * cellSize} ${gridCount * cellSize}`} // Optional for scaling
-          className="absolute" // Removed complex transform, handled by parent flex
+          
+          className="absolute" 
         >
           {/* Grid Lines - Changed to a darker gray for visibility on white */}
           {[...Array(gridCount + 1)].map((_, i) => (
@@ -124,7 +124,7 @@ const TranslationVisualizer: React.FC = () => {
                 y1={0}
                 x2={i * cellSize}
                 y2={gridCount * cellSize}
-                stroke="rgba(156, 163, 175, 0.5)" // Tailwind gray-400 with 50% opacity
+                stroke="rgba(156, 163, 175, 0.5)" 
                 strokeWidth="1"
               />
               <line
@@ -164,7 +164,7 @@ const TranslationVisualizer: React.FC = () => {
                 key={`x-${i}`}
                 x={i * cellSize}
                 y={gridCount * cellSize / 2 + 15}
-                fill="#374151" // Tailwind gray-700
+                fill="#374151" 
                 fontSize="10"
                 textAnchor="middle"
                 opacity="0.9"
@@ -177,13 +177,13 @@ const TranslationVisualizer: React.FC = () => {
           {/* Y-axis scale labels - Changed to dark gray */}
           {[...Array(gridCount + 1)].map((_, i) => {
             const yCoord = gridCount / 2 - i;
-            if (yCoord !== 0) { // Skip origin label if it overlaps
+            if (yCoord !== 0) { 
               return (
                 <text
                   key={`y-${i}`}
                   x={gridCount * cellSize / 2 + 10}
                   y={i * cellSize + 5}
-                  fill="#374151" // Tailwind gray-700
+                  fill="#374151" 
                   fontSize="10"
                   textAnchor="start"
                   opacity="0.9"
@@ -200,8 +200,8 @@ const TranslationVisualizer: React.FC = () => {
             points={points
               .map((p) => `${p.x * cellSize + gridCount * cellSize / 2},${gridCount * cellSize / 2 - p.y * cellSize}`)
               .join(' ')}
-            fill="rgba(59, 130, 246, 0.6)" // Blue with some transparency
-            stroke="#3b82f6" // Solid blue stroke
+            fill="rgba(59, 130, 246, 0.6)" 
+            stroke="#3b82f6" 
             strokeWidth="2"
           />
 
@@ -211,8 +211,8 @@ const TranslationVisualizer: React.FC = () => {
               points={translatedPoints
                 .map((p) => `${p.x * cellSize + gridCount * cellSize / 2},${gridCount * cellSize / 2 - p.y * cellSize}`)
                 .join(' ')}
-              fill="rgba(239, 68, 68, 0.6)" // Red with some transparency
-              stroke="#ef4444" // Solid red stroke
+              fill="rgba(239, 68, 68, 0.6)" 
+              stroke="#ef4444" 
               strokeWidth="2"
             />
           )}
@@ -223,10 +223,10 @@ const TranslationVisualizer: React.FC = () => {
               key={`orig-label-${i}`}
               x={p.x * cellSize + gridCount * cellSize / 2 + 6}
               y={gridCount * cellSize / 2 - p.y * cellSize - 6}
-              fill="#1e40af" // Tailwind blue-800
+              fill="#1e40af" 
               fontSize="11"
               fontWeight="500"
-              pointerEvents="none" // Prevent labels from interfering with interactions
+              pointerEvents="none" 
             >
               A{i + 1}({p.x},{p.y})
             </text>
@@ -239,7 +239,7 @@ const TranslationVisualizer: React.FC = () => {
                 key={`trans-label-${i}`}
                 x={p.x * cellSize + gridCount * cellSize / 2 + 6}
                 y={gridCount * cellSize / 2 - p.y * cellSize - 6}
-                fill="#b91c1c" // Tailwind red-700
+                fill="#b91c1c" 
                 fontSize="11"
                 fontWeight="500"
                 pointerEvents="none"

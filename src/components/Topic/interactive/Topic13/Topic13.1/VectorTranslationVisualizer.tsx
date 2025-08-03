@@ -1,4 +1,4 @@
-// src/components/VectorTranslationVisualizer.tsx (or your preferred location)
+
 
 import React, { useState } from 'react';
 import { Move, X, Calculator } from 'lucide-react';
@@ -11,7 +11,7 @@ interface Point {
 }
 
 const VectorTranslationVisualizer: React.FC = () => {
-  // Vertices of the original quadrilateral
+  
   const points: Point[] = [
     { x: 1, y: 1 },
     { x: 2, y: 2 },
@@ -19,15 +19,15 @@ const VectorTranslationVisualizer: React.FC = () => {
     { x: 2, y: 0 },
   ];
 
-  // State for the correspondence points used to calculate the vector
+  
   const [pointA, setPointA] = useState<Point>({ x: 1, y: 1 });
-  const [pointAPrime, setPointAPrime] = useState<Point>({ x: -3, y: 4 }); // Default changed for demo
+  const [pointAPrime, setPointAPrime] = useState<Point>({ x: -3, y: 4 }); 
 
-  // State flags for UI control
+  
   const [showCalculatedVector, setShowCalculatedVector] = useState(false);
   const [showTranslated, setShowTranslated] = useState(false);
 
-  // Handler for input changes of correspondence points
+  
   const handleCorrespondencePointChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     axis: 'x' | 'y',
@@ -41,38 +41,38 @@ const VectorTranslationVisualizer: React.FC = () => {
     }
   };
 
-  // Function to calculate the vector and show the translation
+  
   const calculateVector = () => {
     setShowCalculatedVector(true);
     setShowTranslated(true);
   };
 
-  // Function to reset the visualizer to its initial state
+  
   const reset = () => {
     setShowCalculatedVector(false);
     setShowTranslated(false);
     setPointA({ x: 1, y: 1 });
-    setPointAPrime({ x: -3, y: 4 }); // Reset to default
+    setPointAPrime({ x: -3, y: 4 }); 
   };
 
-  // Grid and visualization settings
-  const gridCount = 10; // Number of cells along one axis
-  const cellSize = 30;  // Size of each grid cell in pixels
+  
+  const gridCount = 10; 
+  const cellSize = 30;  
 
-  // Calculate the translation vector based on the correspondence points
+  
   const calculatedVector = {
     x: pointAPrime.x - pointA.x,
     y: pointAPrime.y - pointA.y,
   };
 
-  // Calculate the vertices of the translated quadrilateral
+  
   const translatedPoints = points.map((point) => ({
     x: point.x + calculatedVector.x,
     y: point.y + calculatedVector.y,
   }));
 
   return (
-    // Main container with gradient background
+    
     <div className="w-full max-w-md mx-auto p-6 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-xl text-white">
 
       {/* Title */}
@@ -159,7 +159,7 @@ const VectorTranslationVisualizer: React.FC = () => {
                 y1={0}
                 x2={i * cellSize}
                 y2={gridCount * cellSize}
-                stroke="rgba(156, 163, 175, 0.5)" // Gray-400 with opacity
+                stroke="rgba(156, 163, 175, 0.5)" 
                 strokeWidth="1"
               />
               <line
@@ -199,7 +199,7 @@ const VectorTranslationVisualizer: React.FC = () => {
                 key={`x-${i}`}
                 x={i * cellSize}
                 y={gridCount * cellSize / 2 + 15}
-                fill="#374151" // Gray-700
+                fill="#374151" 
                 fontSize="10"
                 textAnchor="middle"
                 opacity="0.9"
@@ -212,13 +212,13 @@ const VectorTranslationVisualizer: React.FC = () => {
           {/* Y-axis scale labels - Darker for visibility */}
           {[...Array(gridCount + 1)].map((_, i) => {
             const yCoord = gridCount / 2 - i;
-            if (yCoord !== 0) { // Skip origin label if it overlaps
+            if (yCoord !== 0) { 
               return (
                 <text
                   key={`y-${i}`}
                   x={gridCount * cellSize / 2 + 10}
                   y={i * cellSize + 5}
-                  fill="#374151" // Gray-700
+                  fill="#374151" 
                   fontSize="10"
                   textAnchor="start"
                   opacity="0.9"
@@ -235,8 +235,8 @@ const VectorTranslationVisualizer: React.FC = () => {
             points={points
               .map((p) => `${p.x * cellSize + gridCount * cellSize / 2},${gridCount * cellSize / 2 - p.y * cellSize}`)
               .join(' ')}
-            fill="rgba(59, 130, 246, 0.6)" // Blue with transparency
-            stroke="#3b82f6" // Solid blue stroke
+            fill="rgba(59, 130, 246, 0.6)" 
+            stroke="#3b82f6" 
             strokeWidth="2"
           />
 
@@ -246,8 +246,8 @@ const VectorTranslationVisualizer: React.FC = () => {
               points={translatedPoints
                 .map((p) => `${p.x * cellSize + gridCount * cellSize / 2},${gridCount * cellSize / 2 - p.y * cellSize}`)
                 .join(' ')}
-              fill="rgba(239, 68, 68, 0.6)" // Red with transparency
-              stroke="#ef4444" // Solid red stroke
+              fill="rgba(239, 68, 68, 0.6)" 
+              stroke="#ef4444" 
               strokeWidth="2"
             />
           )}
@@ -258,7 +258,7 @@ const VectorTranslationVisualizer: React.FC = () => {
               key={`orig-label-${i}`}
               x={p.x * cellSize + gridCount * cellSize / 2 + 6}
               y={gridCount * cellSize / 2 - p.y * cellSize - 6}
-              fill="#1e40af" // Blue-800
+              fill="#1e40af" 
               fontSize="11"
               fontWeight="500"
               pointerEvents="none"
@@ -274,7 +274,7 @@ const VectorTranslationVisualizer: React.FC = () => {
                 key={`trans-label-${i}`}
                 x={p.x * cellSize + gridCount * cellSize / 2 + 6}
                 y={gridCount * cellSize / 2 - p.y * cellSize - 6}
-                fill="#b91c1c" // Red-700
+                fill="#b91c1c" 
                 fontSize="11"
                 fontWeight="500"
                 pointerEvents="none"

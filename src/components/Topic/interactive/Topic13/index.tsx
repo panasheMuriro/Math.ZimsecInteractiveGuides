@@ -1,6 +1,7 @@
 import TranslationProblems from "./Topic13.1/TranslationProblems";
 import TranslationVisualizer from "./Topic13.1/TranslationVisualizer";
 import VectorTranslationVisualizer from "./Topic13.1/VectorTranslationVisualizer";
+import ReflectionRotationProblems from "./Topic13.2/ReflectionRotationProblems";
 import ReflectionVisualizer from "./Topic13.2/ReflectionVisualizer";
 import RotationVisualizer from "./Topic13.2/RotationVisualizer";
 import EnlargementVisualizer from "./Topic13.3/EnlargementVisualizer";
@@ -13,6 +14,7 @@ export const topic13Components: Record<string, React.ComponentType> = {
   "translation-problems": TranslationProblems,
   "reflection": ReflectionVisualizer,
   "rotation": RotationVisualizer,
+  "reflection-rotation-problems": ReflectionRotationProblems,
   "enlargement": EnlargementVisualizer,
   "stretch": StretchVisualizer,
   "shear": ShearVisualizer,
