@@ -63,6 +63,98 @@ export const sections: Section[] = [
 - Use ICT tools to simulate experiments and calculate probabilities.`,
         interactive: "experimental-probability",
       },
+        {
+      title: "Probability Problems",
+      content: `**PROBABILITY PROBLEMS (FORM 1)**
+
+**Step-by-Step Problem Solving:**
+
+**Step 1: Identify the Problem Type**
+- **Theoretical Probability:** Uses mathematical calculation with equally likely outcomes
+- **Experimental Probability:** Uses data from actual trials/experiments
+- **Real-world Application:** Applies probability to practical situations
+
+**Step 2: Define Key Elements**
+- **Identify the experiment:** What action is being performed?
+- **List all possible outcomes:** What are all the ways the experiment can end?
+- **Define the sample space:** Write the set of all possible outcomes
+- **Identify the event:** What specific outcome(s) are we interested in?
+
+**Step 3: Apply the Appropriate Formula**
+
+**For Theoretical Probability:**
+$$ P(E) = \\frac{\\text{Number of favorable outcomes}}{\\text{Total number of possible outcomes}} $$
+
+**For Experimental Probability:**
+$$ P(E) = \\frac{\\text{Number of times E occurs}}{\\text{Total number of trials}} $$
+
+**Step 4: Calculate and Interpret**
+- Perform the calculation
+- Express answer as fraction, decimal, or percentage as required
+- Check that probability is between 0 and 1
+- Interpret the result in context
+
+**Step 5: Verify the Answer**
+- Check that the calculation is correct
+- Ensure the answer makes sense in the context
+- Verify that probabilities sum to 1 for all possible outcomes
+
+**Common Problem Types:**
+
+**Type 1: Single Event Probability**
+- Example: "What is the probability of rolling a 4 on a fair die?"
+- Solution: $P(4) = \\frac{1}{6}$
+
+**Type 2: Multiple Favorable Outcomes**
+- Example: "What is the probability of rolling an even number on a die?"
+- Favorable outcomes: {2, 4, 6}
+- Solution: $P(\\text{even}) = \\frac{3}{6} = \\frac{1}{2}$
+
+**Type 3: Experimental Probability**
+- Example: "In 50 coin flips, heads appeared 23 times. What is the experimental probability?"
+- Solution: $P(\\text{heads}) = \\frac{23}{50} = 0.46$
+
+**Type 4: Real-world Applications**
+- Example: "If 3 out of 20 light bulbs are defective, what is the probability a randomly selected bulb is defective?"
+- Solution: $P(\\text{defective}) = \\frac{3}{20} = 0.15$
+
+**Example Problem Walkthrough:**
+
+**Problem:** A bag contains 5 red balls, 3 blue balls, and 2 green balls. What is the probability of drawing a blue ball?
+
+**Step 1:** This is a theoretical probability problem
+**Step 2:** 
+- Experiment: Drawing one ball from the bag
+- Sample space: {red, red, red, red, red, blue, blue, blue, green, green}
+- Total outcomes: 10 balls
+- Event: Drawing a blue ball
+- Favorable outcomes: 3 blue balls
+
+**Step 3:** $P(\\text{blue}) = \\frac{3}{10}$
+**Step 4:** $P(\\text{blue}) = 0.3$ or 30%
+**Step 5:** Answer makes sense (reasonable probability between 0 and 1)
+
+**Key Tips for Success:**
+- Always identify all possible outcomes first
+- Count carefully to avoid errors
+- Express final answers in the requested format
+- Check that individual probabilities add up correctly
+- Use real-world context to verify reasonableness
+
+**Common Mistakes to Avoid:**
+- Forgetting to list all possible outcomes
+- Miscounting favorable or total outcomes
+- Getting probabilities greater than 1 or less than 0
+- Confusing theoretical and experimental probability
+- Not simplifying fractions when required
+
+**Syllabus Objectives**:
+- Solve probability problems systematically using step-by-step methods
+- Apply probability formulas correctly to different problem types
+- Interpret probability results in real-world contexts
+- Use experimental data to calculate probabilities`,
+      interactive: "probability-problems-1",
+    },
     ],
   },
   {
@@ -126,6 +218,124 @@ export const sections: Section[] = [
 - Use ICT tools to calculate and visualize probabilities of single events.`,
         interactive: "single-events",
       },
+       {
+      title: "Theoretical Probability Problems",
+      content: `**THEORETICAL PROBABILITY PROBLEMS (FORM 2)**
+
+**Step-by-Step Problem Solving:**
+
+**Step 1: Identify the Problem Setup**
+- Determine if the problem involves theoretical probability
+- Check that all outcomes are equally likely
+- Identify the type of experiment (dice, cards, spinners, etc.)
+- Note any constraints or special conditions
+
+**Step 2: Define the Sample Space**
+- List all possible outcomes of the experiment
+- Count the total number of possible outcomes
+- Ensure all outcomes are equally likely
+- Example: For a standard die, sample space = {1, 2, 3, 4, 5, 6}, total = 6
+
+**Step 3: Identify the Event of Interest**
+- Clearly define what constitutes a "favorable" outcome
+- List all outcomes that satisfy the event condition
+- Count the number of favorable outcomes
+- Example: Event "rolling even number" = {2, 4, 6}, favorable = 3
+
+**Step 4: Apply the Theoretical Probability Formula**
+$$ P(E) = \\frac{\\text{Number of favorable outcomes}}{\\text{Total number of possible outcomes}} $$
+
+**Step 5: Simplify and Verify**
+- Reduce fractions to lowest terms
+- Convert to decimal or percentage if required
+- Check that $ 0 \\leq P(E) \\leq 1 $
+- Verify the answer makes logical sense
+
+**Common Problem Types:**
+
+**Type 1: Basic Single Event**
+- Example: "What is the probability of drawing an ace from a standard deck?"
+- Sample space: 52 cards
+- Favorable outcomes: 4 aces
+- Solution: $P(\\text{ace}) = \\frac{4}{52} = \\frac{1}{13}$
+
+**Type 2: Compound Conditions**
+- Example: "What is the probability of rolling a number greater than 4 on a die?"
+- Sample space: {1, 2, 3, 4, 5, 6}
+- Favorable outcomes: {5, 6}
+- Solution: $P(>4) = \\frac{2}{6} = \\frac{1}{3}$
+
+**Type 3: Complement Problems**
+- Example: "What is the probability of NOT drawing a face card?"
+- Face cards: 12 out of 52
+- Solution: $P(\\text{not face card}) = 1 - \\frac{12}{52} = \\frac{40}{52} = \\frac{10}{13}$
+
+**Type 4: Multiple Characteristics**
+- Example: "What is the probability of drawing a red king from a deck?"
+- Red kings: 2 (king of hearts, king of diamonds)
+- Solution: $P(\\text{red king}) = \\frac{2}{52} = \\frac{1}{26}$
+
+**Step-by-Step Example:**
+
+**Problem:** A spinner has 8 equal sections numbered 1 through 8. What is the probability of spinning a prime number?
+
+**Step 1:** Theoretical probability problem with equally likely outcomes
+**Step 2:** Sample space = {1, 2, 3, 4, 5, 6, 7, 8}, Total outcomes = 8
+**Step 3:** Prime numbers = {2, 3, 5, 7}, Favorable outcomes = 4
+**Step 4:** $P(\\text{prime}) = \\frac{4}{8}$
+**Step 5:** $P(\\text{prime}) = \\frac{1}{2} = 0.5$ or 50%
+
+**Key Probability Rules:**
+
+**1. Complement Rule:**
+$P(\\text{not } E) = 1 - P(E)$
+
+**2. Probability Range:**
+$0 \\leq P(E) \\leq 1$
+
+**3. Certain Event:**
+$P(\\text{certain event}) = 1$
+
+**4. Impossible Event:**
+$P(\\text{impossible event}) = 0$
+
+**5. Sum of All Probabilities:**
+For all possible outcomes: $\\sum P(\\text{outcome}) = 1$
+
+**Advanced Problem-Solving Strategies:**
+
+**Strategy 1: Use Complement When Easier**
+- If finding $P(E)$ is complex, calculate $P(\\text{not } E)$ instead
+- Then use $P(E) = 1 - P(\\text{not } E)$
+
+**Strategy 2: Break Down Complex Events**
+- Identify all sub-conditions that make the event true
+- Count systematically to avoid missing cases
+
+**Strategy 3: Verify Using Different Methods**
+- Check answer using complement rule
+- Ensure all probabilities add to 1 for exhaustive events
+
+**Common Mistakes to Avoid:**
+- Forgetting to reduce fractions
+- Miscounting favorable or total outcomes
+- Assuming outcomes are equally likely when they're not
+- Confusing "at least" with "exactly" conditions
+- Not checking that probability is between 0 and 1
+
+**Real-World Applications:**
+- **Quality Control:** Probability of defective products
+- **Medical Testing:** Probability of test accuracy
+- **Games of Chance:** Fair game design
+- **Insurance:** Risk assessment and premium calculation
+
+**Syllabus Objectives**:
+- Solve theoretical probability problems using systematic approaches
+- Apply probability rules including complement rule effectively
+- Compare theoretical predictions with real-world scenarios
+- Use mathematical reasoning to verify probability calculations`,
+      interactive: "theoretical-probability-problems",
+    },
     ],
   },
   {

@@ -35,7 +35,7 @@ const ProbabilityVisualizer: React.FC = () => {
         dots.push(
           <div 
             key={i} 
-            className="w-2 h-2 rounded-full bg-gray-900 absolute"
+            className="w-2 h-2 rounded-full bg-[#264653] absolute"
             style={getDotPosition(number, i)}
           />
         );
@@ -83,32 +83,40 @@ const ProbabilityVisualizer: React.FC = () => {
     };
 
     return (
-      <div className="w-14 h-14 bg-white rounded-lg border-2 border-gray-300 shadow-md flex items-center justify-center relative">
+      <div className="w-12 h-12 bg-[#F4A261] border-3 border-black rounded-xl flex items-center justify-center relative">
         {renderDots()}
       </div>
     );
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-[#5E503F] rounded-2xl shadow-xl text-gray-100 font-sans border border-[#C6AC8F]">
+    <div className="max-w-md mx-auto p-6 bg-[#E9C46A] border-4 border-black rounded-2xl font-sans">
       <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-3 text-[#EAE7DC]">Try It: Roll a Die</h2>
-        <p className="text-sm mb-3 text-[#EAE7DC]">
-          Example: The probability of rolling a{' '}
-          <span className="font-bold text-[#F77F00]">{rollResult || 3}</span> on a fair six-sided die is:
-          <BlockMath math={`P(${rollResult || 3}) = \\frac{1}{6}`} />
-        </p>
-        <div className="flex justify-center mb-5">
+        <h2 className="text-2xl font-extrabold mb-4 text-center text-black underline decoration-2 underline-offset-4">ROLL A DIE</h2>
+        <div className="bg-white border-3 border-black rounded-xl p-4 mb-6">
+          <p className="text-base mb-3 text-center text-black font-extrabold">
+            Probability of rolling a{' '}
+            <span className="text-[#264653]">{rollResult || 3}</span>:
+            <BlockMath math={`P(${rollResult || 3}) = \\frac{1}{6}`} />
+          </p>
+        </div>
+        <div className="flex justify-center mb-6">
           {isRolling ? (
             <div className="flex flex-col items-center">
-              <DiceIcon number={rollingValue || 1} />
-              <p className="text-sm mt-2 text-[#EAE7DC]">Rolling...</p>
+              <div className="animate-bounce">
+                <DiceIcon number={rollingValue || 1} />
+              </div>
+              <p className="text-base mt-4 text-white font-extrabold bg-[#2A9D8F] py-2 px-4 rounded-full border-3 border-black">
+                ROLLING...
+              </p>
             </div>
           ) : rollResult ? (
-            <DiceIcon number={rollResult} />
+            <div className="animate-in zoom-in-50 duration-300">
+              <DiceIcon number={rollResult} />
+            </div>
           ) : (
-            <div className="w-14 h-14 bg-white rounded-lg border-2 border-gray-300 shadow-md flex items-center justify-center">
-              <span className="text-gray-400 text-lg">?</span>
+            <div className="w-12 h-12 bg-[#2A9D8F] border-3 border-black rounded-xl flex items-center justify-center">
+              <span className="text-white text-lg font-bold">?</span>
             </div>
           )}
         </div>
@@ -116,33 +124,33 @@ const ProbabilityVisualizer: React.FC = () => {
           <button
             onClick={rollDie}
             disabled={isRolling}
-            className={`flex items-center px-6 py-3 rounded-full transition shadow-lg duration-200 ${
+            className={`flex items-center px-6 py-3 rounded-full font-extrabold border-3 border-black transition-all duration-200 ${
               isRolling
-                ? 'bg-gray-500 cursor-not-allowed'
-                : 'bg-[#F77F00] text-white hover:bg-[#F09030] hover:shadow-xl transform hover:-translate-y-0.5'
+                ? 'bg-gray-500 text-white cursor-not-allowed'
+                : 'bg-[#264653] text-white hover:bg-[#1e3a44] transform hover:scale-105'
             }`}
           >
             <RefreshCw className={`w-5 h-5 mr-2 ${isRolling ? 'animate-spin' : ''}`} />
-            {isRolling ? 'Rolling...' : 'Roll Die'}
+            {isRolling ? 'ROLLING...' : 'ROLL DIE'}
           </button>
         </div>
         {rollResult && !isRolling && (
-          <p className="text-sm mt-3 text-center text-[#EAE7DC]">
-            Result: You rolled a <span className="font-bold text-[#F77F00]">{rollResult}</span>!
+          <p className="text-base mt-4 text-center text-black font-extrabold bg-white py-3 px-4 rounded-full border-3 border-black animate-in zoom-in-50 duration-300">
+            Result: You rolled a <span className="text-[#E76F51]">{rollResult}</span>!
           </p>
         )}
       </section>
 
       <section className="mb-4">
-        <h2 className="text-xl font-semibold mb-3 text-[#EAE7DC]">Sample Space</h2>
-        <p className="text-sm mb-3 text-[#EAE7DC]">For a six-sided die, the sample space is:</p>
+        <h2 className="text-2xl font-extrabold mb-4 text-center text-black underline decoration-2 underline-offset-4">SAMPLE SPACE</h2>
+        <p className="text-base mb-3 text-center text-black font-extrabold">Six-sided die outcomes:</p>
         <div className="flex flex-wrap justify-center gap-3">
           {sampleSpace.map((num) => (
             <div 
               key={num} 
-              className={`p-2 rounded-full bg-[#C6AC8F] shadow-md ${
+              className={`p-2 rounded-full bg-white border-3 border-black ${
                 rollResult === num 
-                  ? 'ring-2 ring-[#F77F00]' 
+                  ? 'ring-3 ring-[#E76F51] scale-110' 
                   : ''
               }`}
             >
