@@ -417,7 +417,7 @@ const RotationVisualizer: React.FC = () => {
                 strokeWidth="2"
               />
               {/* Rotated Points Labels */}
-              {points.map((p, i) => {
+              {points.map((_, i) => {
                 const finalRotatedPoint = rotatedPoints[i];
                 return (
                   <text
