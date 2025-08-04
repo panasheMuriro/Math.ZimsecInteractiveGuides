@@ -13,7 +13,7 @@ const EstimationGame = () => {
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
   const [attempts, setAttempts] = useState<number>(0);
-  const [theme,] = useState<string>("indigo");
+  const [theme,] = useState<string>("purple");
 
   useEffect(() => {
     generateQuestion();

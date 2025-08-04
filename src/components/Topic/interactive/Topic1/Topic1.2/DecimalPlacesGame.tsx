@@ -13,7 +13,7 @@ const DecimalPlacesGame = () => {
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
   const [attempts, setAttempts] = useState<number>(0);
-  const [theme, ] = useState<string>("purple");
+  const [theme, ] = useState<string>("rainbow");
 
   useEffect(() => {
     generateQuestion();

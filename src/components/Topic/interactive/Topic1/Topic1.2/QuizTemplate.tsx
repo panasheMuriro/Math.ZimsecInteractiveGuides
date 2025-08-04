@@ -2,58 +2,88 @@
 import { ReactNode } from "react";
 import { Target, CheckCircle, XCircle } from "lucide-react";
 
-// Theme configuration
+// Color palette
+const PALETTE = {
+  red: "#f94144",
+  orange: "#f3722c",
+  yellowOrange: "#f8961e",
+  orangeRed: "#f9844a",
+  yellow: "#f9c74f",
+  green: "#90be6d",
+  teal: "#43aa8b",
+  tealDark: "#4d908e",
+  blueGray: "#577590",
+  blue: "#277da1"
+};
+
+// Theme configuration using the palette
 interface Theme {
-  primary: string;
-  secondary: string;
-  accent: string;
-  text: string;
-  button: string;
-  buttonActive: string;
-  correct: string;
-  incorrect: string;
+  primary: string; // Background color for main container
+  secondary: string; // Background for buttons/accents
+  text: string; // Main text color
+  border: string; // Border color (black for neubrutalism)
+  correct: string; // Correct answer color
+  incorrect: string; // Incorrect answer color
+  buttonHover: string; // Hover color for main buttons
+  checkButtonBase: string; // Base color for check button
+  checkButtonHover: string; // Hover color for check button
 }
 
 const themes: Record<string, Theme> = {
+   rainbow: {
+    primary: PALETTE.blue,          // Main background: Blue
+    secondary: PALETTE.orange,      // Accents: Orange
+    text: "#ffffff",                // Text: White
+    border: "#000000",              // Border: Black
+    correct: PALETTE.green,         // Correct: Green
+    incorrect: PALETTE.red,         // Incorrect: Red
+    buttonHover: PALETTE.teal,      // Button hover: Teal
+    checkButtonBase: PALETTE.yellowOrange, // Check button: Yellow-Orange
+    checkButtonHover: PALETTE.orangeRed // Check button hover: Orange-Red
+  },
   blue: {
-    primary: "bg-blue-500",
-    secondary: "bg-blue-600",
-    accent: "bg-cyan-500",
-    text: "text-white",
-    button: "bg-white/20 hover:bg-white/40",
-    buttonActive: "bg-green-500 hover:bg-green-600",
-    correct: "ring-green-400",
-    incorrect: "ring-red-400"
+    primary: PALETTE.teal,
+    secondary: PALETTE.red,
+    text: "#ffffff",
+    border: "#000000",
+    correct: PALETTE.green,
+    incorrect: PALETTE.red,
+    buttonHover: PALETTE.tealDark,
+    checkButtonBase: PALETTE.blue,
+    checkButtonHover: PALETTE.blueGray
   },
   purple: {
-    primary: "bg-purple-500",
-    secondary: "bg-purple-600",
-    accent: "bg-pink-500",
-    text: "text-white",
-    button: "bg-white/20 hover:bg-white/40",
-    buttonActive: "bg-green-500 hover:bg-green-600",
-    correct: "ring-green-400",
-    incorrect: "ring-red-400"
+    primary: PALETTE.tealDark,
+    secondary: PALETTE.blueGray,
+    text: "#ffffff",
+    border: "#000000",
+    correct: PALETTE.green,
+    incorrect: PALETTE.red,
+    buttonHover: PALETTE.blueGray,
+    checkButtonBase: PALETTE.blueGray,
+    checkButtonHover: PALETTE.blue
   },
   green: {
-    primary: "bg-green-500",
-    secondary: "bg-green-600",
-    accent: "bg-emerald-500",
-    text: "text-white",
-    button: "bg-white/20 hover:bg-white/40",
-    buttonActive: "bg-green-500 hover:bg-green-600",
-    correct: "ring-green-400",
-    incorrect: "ring-red-400"
+    primary: PALETTE.teal,
+    secondary: PALETTE.tealDark,
+    text: "#ffffff",
+    border: "#000000",
+    correct: PALETTE.green,
+    incorrect: PALETTE.red,
+    buttonHover: PALETTE.tealDark,
+    checkButtonBase: PALETTE.teal,
+    checkButtonHover: PALETTE.tealDark
   },
   orange: {
-    primary: "bg-orange-500",
-    secondary: "bg-orange-600",
-    accent: "bg-amber-500",
-    text: "text-white",
-    button: "bg-white/20 hover:bg-white/40",
-    buttonActive: "bg-green-500 hover:bg-green-600",
-    correct: "ring-green-400",
-    incorrect: "ring-red-400"
+    primary: PALETTE.orange,
+    secondary: PALETTE.red,
+    text: "#ffffff",
+    border: "#000000",
+    correct: PALETTE.green,
+    incorrect: PALETTE.red,
+    buttonHover: PALETTE.orangeRed,
+    checkButtonBase: PALETTE.orange,
+    checkButtonHover: PALETTE.orangeRed
   }
 };
 
@@ -118,71 +148,188 @@ const QuizTemplate = <T,>({
   };
 
   const hasLongChoice = choices.some(isChoiceLong);
-
   const gridClass = hasLongChoice ? "grid-cols-1" : "grid-cols-2";
-  // --- End Logic for Dynamic Grid Columns ---
+
+  // Apply neubrutalism styles to an element
+
+  // Apply neubrutalism styles with hover effects
+  const applyInteractiveNeubrutalism = (
+    element: HTMLButtonElement | null,
+    baseColor: string,
+    hoverColor: string
+  ) => {
+    if (element) {
+      element.style.backgroundColor = baseColor;
+      element.style.boxShadow = '4px 4px 0 0 rgba(0,0,0,1)';
+      element.style.borderColor = currentTheme.border;
+      element.style.borderWidth = '2px';
+      element.style.borderStyle = 'solid';
+      element.style.color = currentTheme.text;
+      element.style.transition = 'all 0.2s ease';
+
+      const handleMouseEnter = () => {
+        element.style.backgroundColor = hoverColor;
+        element.style.boxShadow = 'none';
+        element.style.transform = 'translate(4px, 4px)';
+      };
+
+      const handleMouseLeave = () => {
+        element.style.backgroundColor = baseColor;
+        element.style.boxShadow = '4px 4px 0 0 rgba(0,0,0,1)';
+        element.style.transform = 'none';
+      };
+
+      element.addEventListener('mouseenter', handleMouseEnter);
+      element.addEventListener('mouseleave', handleMouseLeave);
+
+      // Cleanup event listeners
+      return () => {
+        element.removeEventListener('mouseenter', handleMouseEnter);
+        element.removeEventListener('mouseleave', handleMouseLeave);
+      };
+    }
+    return undefined;
+  };
 
   return (
-    <div className={`${currentTheme.primary} p-6 rounded-2xl ${currentTheme.text}`}>
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-xl font-bold flex items-center">
-          <Target className="mr-2" /> {title}
+    <div 
+      className="p-6 rounded-3xl max-w-md w-full"
+      style={{ 
+        backgroundColor: currentTheme.primary,
+        color: currentTheme.text,
+        border: `4px solid ${currentTheme.border}`,
+        boxShadow: '8px 8px 0 0 rgba(0,0,0,1)'
+      }}
+    >
+      <div className="flex items-center justify-between mb-5">
+        <h3 className="text-2xl font-bold flex items-center">
+          <Target className="mr-2" size={28} /> {title}
         </h3>
-        <div className="text-sm bg-white/20 px-3 py-1 rounded-full">
-          Score: {score}/{attempts}
+        <div 
+          className="text-sm font-bold px-3 py-1 rounded-full"
+          style={{
+            backgroundColor: currentTheme.border,
+            color: currentTheme.text,
+            border: `2px solid ${currentTheme.border}`
+          }}
+        >
+          {score}/{attempts || '0'}
         </div>
       </div>
 
-      <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 mb-4">
-        <p className="text-lg mb-4">
+      <div 
+        className="backdrop-blur-sm rounded-2xl p-5 mb-5"
+        style={{
+          backgroundColor: 'rgba(255, 255, 255, 0.15)',
+          border: `2px solid ${currentTheme.border}`
+        }}
+      >
+        <p className="text-lg mb-5 text-center">
           {question}
         </p>
 
-        {/* Apply dynamic grid class */}
-        <div className={`grid gap-3 mb-4 ${gridClass}`}>
-          {choices.map((choice, index) => (
-            <button
-              key={index}
-              onClick={() => !showResult && !disabled && onSelectAnswer(choice)}
-              className={`p-3 rounded-lg font-medium transition-all duration-200 flex items-center justify-center ${
-                selectedAnswer === choice
-                  ? "bg-white/40 ring-2 ring-white"
-                  : "bg-white/20 hover:bg-white/30"
-              } ${
-                showResult && choice === correctAnswer
-                  ? `ring-2 ${currentTheme.correct}`
-                  : ""
-              } ${
-                showResult && 
-                selectedAnswer === choice && 
-                choice !== correctAnswer
-                  ? `ring-2 ${currentTheme.incorrect}`
-                  : ""
-              }`}
-              disabled={showResult || disabled}
-            >
-              {renderChoiceFn(choice)}
-            </button>
-          ))}
+        <div className={`grid gap-3 mb-5 ${gridClass}`}>
+          {choices.map((choice, index) => {
+            const isSelected = selectedAnswer === choice;
+            const isCorrectChoice = choice === correctAnswer;
+            
+            const buttonStyle = {
+              backgroundColor: 'rgba(255, 255, 255, 0.2)',
+              color: currentTheme.text,
+              borderColor: currentTheme.border,
+              boxShadow: '4px 4px 0 0 rgba(0,0,0,1)',
+              transform: 'none'
+            };
+            
+            if (isSelected) {
+              buttonStyle.backgroundColor = 'rgba(255, 255, 255, 0.4)';
+              buttonStyle.boxShadow = isSelected && !showResult ? 'none' : buttonStyle.boxShadow;
+              buttonStyle.transform = isSelected && !showResult ? 'scale(0.95)' : 'none';
+            }
+            
+            if (showResult) {
+              if (isCorrectChoice) {
+                buttonStyle.backgroundColor = currentTheme.correct;
+                buttonStyle.color = '#ffffff';
+                buttonStyle.borderColor = currentTheme.correct;
+              } else if (isSelected && !isCorrectChoice) {
+                buttonStyle.backgroundColor = currentTheme.incorrect;
+                buttonStyle.color = '#ffffff';
+                buttonStyle.borderColor = currentTheme.incorrect;
+              }
+            }
+
+            return (
+              <button
+                key={index}
+                onClick={() => !showResult && !disabled && onSelectAnswer(choice)}
+                className={`p-4 rounded-xl font-bold transition-all duration-200 flex items-center justify-center border-2 text-base`}
+                style={buttonStyle}
+                disabled={showResult || disabled}
+                onMouseEnter={(e) => {
+                  if (!showResult && !disabled && !isSelected) {
+                    e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
+                    e.currentTarget.style.boxShadow = 'none';
+                    e.currentTarget.style.transform = 'translate(4px, 4px)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!showResult && !disabled && !isSelected) {
+                    e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+                    e.currentTarget.style.boxShadow = '4px 4px 0 0 rgba(0,0,0,1)';
+                    e.currentTarget.style.transform = 'none';
+                  }
+                }}
+              >
+                {renderChoiceFn(choice)}
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      <div className="flex gap-2 mb-4">
+      <div className="flex gap-3 mb-5">
         <button
           onClick={onCheckAnswer}
           disabled={selectedAnswer === null || showResult || disabled}
-          className={`flex-1 rounded-lg p-3 font-bold transition-all duration-200 hover:scale-105 disabled:scale-100 ${
-            selectedAnswer !== null && !showResult && !disabled
-              ? `${currentTheme.buttonActive} text-white`
-              : "bg-white/30 disabled:bg-gray-400/30"
-          }`}
+          className="flex-1 rounded-xl p-3 font-bold transition-all duration-200 border-2"
+          style={{
+            backgroundColor: selectedAnswer !== null && !showResult && !disabled 
+              ? currentTheme.checkButtonBase 
+              : 'rgba(255, 255, 255, 0.3)',
+            color: currentTheme.text,
+            borderColor: currentTheme.border,
+            boxShadow: '4px 4px 0 0 rgba(0,0,0,1)',
+            cursor: selectedAnswer !== null && !showResult && !disabled ? 'pointer' : 'not-allowed'
+          }}
+          onMouseEnter={(e) => {
+            if (selectedAnswer !== null && !showResult && !disabled) {
+              e.currentTarget.style.backgroundColor = currentTheme.checkButtonHover;
+              e.currentTarget.style.boxShadow = 'none';
+              e.currentTarget.style.transform = 'translate(4px, 4px)';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (selectedAnswer !== null && !showResult && !disabled) {
+              e.currentTarget.style.backgroundColor = currentTheme.checkButtonBase;
+              e.currentTarget.style.boxShadow = '4px 4px 0 0 rgba(0,0,0,1)';
+              e.currentTarget.style.transform = 'none';
+            }
+          }}
         >
           Check Answer
         </button>
 
         <button
           onClick={onNewQuestion}
-          className={`flex-1 ${currentTheme.button} rounded-lg p-3 font-bold transition-all duration-200 hover:scale-105`}
+          className="flex-1 rounded-xl p-3 font-bold transition-all duration-200 border-2"
+          style={{
+            backgroundColor: currentTheme.secondary,
+            color: currentTheme.text,
+            borderColor: currentTheme.border,
+            boxShadow: '4px 4px 0 0 rgba(0,0,0,1)'
+          }}
+          ref={(el) => applyInteractiveNeubrutalism(el, currentTheme.secondary, currentTheme.buttonHover)}
         >
           New Question
         </button>
@@ -190,21 +337,38 @@ const QuizTemplate = <T,>({
 
       {showResult && (
         <div
-          className={`bg-white/20 backdrop-blur-sm rounded-xl p-4 ${
-            isCorrect ? `ring-2 ${currentTheme.correct}` : `ring-2 ${currentTheme.incorrect}`
-          }`}
+          className="backdrop-blur-sm rounded-2xl p-5 border-2"
+          style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.15)',
+            borderColor: isCorrect ? currentTheme.correct : currentTheme.incorrect,
+            boxShadow: '4px 4px 0 0 rgba(0,0,0,1)'
+          }}
         >
-          <div className="flex items-center mb-2">
+          <div className="flex items-center mb-3">
             {isCorrect ? (
-              <CheckCircle className="w-5 h-5 mr-2 text-green-300" />
+              <CheckCircle 
+                size={24} 
+                style={{ 
+                  color: currentTheme.correct,
+                  marginRight: '0.5rem'
+                }} 
+              />
             ) : (
-              <XCircle className="w-5 h-5 mr-2 text-red-300" />
+              <XCircle 
+                size={24} 
+                style={{ 
+                  color: currentTheme.incorrect,
+                  marginRight: '0.5rem'
+                }} 
+              />
             )}
-            <span className="font-bold">
+            <span className="font-bold text-lg">
               {isCorrect ? "Correct!" : "Incorrect"}
             </span>
           </div>
-          <p>{explanation}</p>
+          <div className="text-black bg-white/90 p-3 rounded-lg">
+            {explanation}
+          </div>
         </div>
       )}
     </div>
@@ -212,4 +376,4 @@ const QuizTemplate = <T,>({
 };
 
 export { QuizTemplate, themes };
-export type { QuizTemplateProps }; // Export the props type for potential reuse
+export type { QuizTemplateProps };

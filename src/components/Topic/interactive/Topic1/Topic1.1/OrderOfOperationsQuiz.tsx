@@ -1,340 +1,158 @@
 
 
+import MultipleStepInteractiveComponent, { MultiStepQuestion } from "../../Templates/MultipleStepInteractiveComponent";
 
-export interface OperationStep {
-  
-  expression: string;
-  
-  options: string[];
-  
-  correctOptionIndex: number;
-  
-  operationDescription: string;
-  
-  resultExpression: string;
-}
-
-
-export interface OrderOfOperationsProblem {
-  title: string;
-  icon: string;
-  theme: {
-    from: string;
-    to: string;
-    button: string;
-    buttonHover: string;
-  };
-  
-  initialExpression: string;
-  
-  steps: OperationStep[];
-  
-  finalAnswer: string; 
-  
-  rules: string[];
-  rulesTitle?: string;
-}
-
-
- const sampleOrderOfOperationsData: OrderOfOperationsProblem = {
-  title: "Order of Operations",
-  icon: "⚙️", 
-  theme: {
-    from: "from-blue-500", 
-    to: "to-cyan-600",
-    button: "bg-cyan-500",
-    buttonHover: "hover:bg-cyan-600",
-  },
-  initialExpression: "2 + 3 \\times 6 - 4", 
+const orderOfOperationsQuizData: MultiStepQuestion = {
+  id: "order-of-operations",
+  title: "Order of Operations (BODMAS/PEMDAS)",
   steps: [
     {
-      expression: "2 + 3 \\times 6 - 4",
-      options: ["2 + 3", "3 \\times 6", "6 - 4"], 
-      correctOptionIndex: 1, 
-      operationDescription: "\\text{Calculate } 3 \\times 6", 
-      resultExpression: "2 + 18 - 4", 
+      id: "step1-brackets",
+      question: "What is the first operation you should perform in $3 + (2 \\times 5) - 1$?",
+      questionType: 'text',
+      options: [
+        "Addition (+)",
+        "Multiplication (×) inside brackets",
+        "Subtraction (-)",
+        "Addition (+) outside brackets"
+      ],
+      optionType: 'text',
+      correct: 1,
+      explanation: "According to BODMAS/PEMDAS, **Brackets** are done first. Inside the brackets, we have $2 \\times 5$, so multiplication inside brackets is the first operation.",
+      explanationType: 'text'
     },
     {
-      expression: "2 + 18 - 4",
-      options: ["2 + 18", "18 - 4"], 
-      correctOptionIndex: 0, 
-      operationDescription: "\\text{Calculate } 2 + 18", 
-      resultExpression: "20 - 4", 
+      id: "step2-orders",
+      question: "In the expression $4 + 2^3 \\times 5$, which operation comes second?",
+      questionType: 'text',
+      options: [
+        "Addition (+)",
+        "Multiplication (×)",
+        "Exponent (²)",
+        "Subtraction (-)"
+      ],
+      optionType: 'text',
+      correct: 2,
+      explanation: "After checking for brackets (there are none), we do **Orders** (exponents). So $2^3 = 8$ is calculated next.",
+      explanationType: 'text'
     },
     {
-      expression: "20 - 4",
-      options: ["20 - 4"], 
-      correctOptionIndex: 0, 
-      operationDescription: "\\text{Calculate } 20 - 4", 
-      resultExpression: "16", 
+      id: "step3-dm",
+      question: "Evaluate: $15 \\div 3 \\times 2$",
+      questionType: 'text',
+      options: [
+        "$15 \\div (3 \\times 2) = 15 \\div 6 = 2.5$",
+        "$(15 \\div 3) \\times 2 = 5 \\times 2 = 10$",
+        "$15 \\div 3 \\times 2 = 5 \\times 2 = 7$",
+        "$15 \\div 3 \\times 2 = 15 \\div 6 = 2.5$"
+      ],
+      optionType: 'math', 
+      correct: 1,
+      explanation: "Division and Multiplication are done from **left to right**. First, $15 \\div 3 = 5$, then $5 \\times 2 = 10$.",
+      explanationType: 'text'
     },
-  ],
-  finalAnswer: "16", 
-  rulesTitle: "BODMAS/PEMDAS:",
-  rules: [
-    "{B}rackets (Parentheses)",
-    "{O}rders (Exponents/Powers)",
-    "{DM} - Division and Multiplication (Left to Right)",
-    "{AS} - Addition and Subtraction (Left to Right)",
-  ],
+    {
+      id: "step4-as",
+      question: "What is the final step in evaluating $10 - 4 + 3$?",
+      questionType: 'text',
+      options: [
+        "Addition (+)",
+        "Subtraction (-)",
+        "Either, they have equal priority",
+        "Multiplication (×)"
+      ],
+      optionType: 'text',
+      correct: 0,
+      explanation: "Addition and Subtraction are done from **left to right**. We do $10 - 4 = 6$ first, then the final step is $6 + 3 = 9$ (Addition).",
+      explanationType: 'text'
+    },
+    {
+      id: "step5-complex1",
+      question: "Simplify: $(5 + 3) \\times 2^2 - 6 \\div 3$",
+      questionType: 'text',
+      options: [
+        "$8 \\times 4 - 2 = 32 - 2 = 30$",
+        "$8 \\times 4 - 6 \\div 3 = 32 - 2 = 30$",
+        "$(8) \\times (4) - (2) = 32 - 2 = 30$",
+        "All of the above are correct steps"
+      ],
+      optionType: 'math', 
+      correct: 3,
+      explanation: "1. **Brackets**: $(5 + 3) = 8$ \n 2. **Orders**: $2^2 = 4$ \n 3. **Division/Multiplication (L→R)**: $8 \\times 4 = 32$ and $6 \\div 3 = 2$ \n 4. **Addition/Subtraction (L→R)**: $32 - 2 = 30$. All steps shown are correct.",
+      explanationType: 'text'
+    },
+    {
+      id: "step6-fraction",
+      question: "Evaluate: $\\frac{2 + 4}{1 + 2} \\times 3$",
+      questionType: 'text',
+      options: [
+        "$\\frac{6}{3} \\times 3 = 2 \\times 3 = 6$",
+        "$2 + 4 \\div (1 + 2) \\times 3 = 2 + 4 \\div 3 \\times 3$",
+        "$\\frac{2 + 4}{1 + 2} \\times 3 = \\frac{6}{3} \\times 3 = \\frac{18}{3} = 6$",
+        "$\\frac{2 + 4}{1 + 2} \\times 3 = (2 + 4) \\div (1 + 2) \\times 3 = 1 \\times 3 = 3$"
+      ],
+      optionType: 'math', 
+      correct: 0,
+      explanation: "The fraction bar acts as a bracket. \n 1. **Numerator**: $2 + 4 = 6$ \n 2. **Denominator**: $1 + 2 = 3$ \n 3. **Division**: $\\frac{6}{3} = 2$ \n 4. **Multiplication**: $2 \\times 3 = 6$",
+      explanationType: 'text'
+    },
+    {
+      id: "step7-negative",
+      question: "Calculate: $-2^2 + 3 \\times (-4)$",
+      questionType: 'text',
+      options: [
+        "$(-2)^2 + (-12) = 4 - 12 = -8$",
+        "$-(2^2) + (-12) = -4 + (-12) = -16$",
+        "$-2^2 + 3 \\times (-4) = -4 + 12 = 8$",
+        "$-2^2 + 3 \\times (-4) = 4 + (-12) = -8$"
+      ],
+      optionType: 'math', 
+      correct: 1,
+      explanation: "1. **Orders**: $-2^2$ means $-(2^2) = -4$ (the negative is not inside the parentheses for the power). \n 2. **Multiplication**: $3 \\times (-4) = -12$ \n 3. **Addition**: $-4 + (-12) = -16$",
+      explanationType: 'text'
+    },
+    {
+      id: "step8-word-problem",
+      question: "A shop sells packs of pencils. Each pack contains 12 pencils. If they sell 5 packs and then receive 8 more individual pencils, how many pencils do they have? Expression: $12 \\times 5 + 8$",
+      questionType: 'text',
+      options: [
+        "$12 \\times (5 + 8) = 12 \\times 13 = 156$",
+        "$(12 \\times 5) + 8 = 60 + 8 = 68$",
+        "$12 + 5 \\times 8 = 12 + 40 = 52$",
+        "$12 \\times 5 + 8 = 60 + 8 = 68$ pencils"
+      ],
+      optionType: 'math', 
+      correct: 3,
+      explanation: "The expression is $12 \\times 5 + 8$. \n 1. **Multiplication**: $12 \\times 5 = 60$ (total pencils from packs) \n 2. **Addition**: $60 + 8 = 68$ (add the loose pencils). \n They have **68 pencils** in total. Both option 1 and 3 correctly describe the steps, but option 3 gives the final answer.",
+      explanationType: 'text'
+    }
+  ]
 };
 
-
-
-import React, { useState } from 'react';
-import { BlockMath } from 'react-katex';
-import 'katex/dist/katex.min.css';
-import { RotateCw, CheckCircle, XCircle } from 'lucide-react';
-
-
-interface OrderOfOperationsStepperProps {
-  problem: OrderOfOperationsProblem;
-}
-
-const OrderOfOperationsStepper: React.FC<OrderOfOperationsStepperProps> = ({ problem }) => {
-  const { title, icon, theme, initialExpression, steps, finalAnswer, rules, rulesTitle = "Key Rules:" } = problem;
-
-  const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
-  const [selectedOptionIndex, setSelectedOptionIndex] = useState<number | null>(null);
-  const [feedback, setFeedback] = useState<{ message: string; isCorrect: boolean } | null>(null);
-  const [isComplete, setIsComplete] = useState<boolean>(false); 
-
-  
-  const currentStep = steps[currentStepIndex];
-  
-  const displayExpression = currentStepIndex === 0 ? initialExpression : steps[currentStepIndex - 1].resultExpression;
-
-  const handleSelectOption = (index: number) => {
-    if (feedback) return; 
-    setSelectedOptionIndex(index);
-  };
-
-  const handleCheckAnswer = () => {
-    if (selectedOptionIndex === null) return;
-
-    const isCorrect = selectedOptionIndex === currentStep.correctOptionIndex;
-
-    if (isCorrect) {
-      setFeedback({
-        message: 'Correct!',
-        isCorrect: true,
-      });
-
-      
-      if (currentStepIndex === steps.length - 1) {
-        
-        setTimeout(() => setIsComplete(true), 1000); 
-      }
-    } else {
-      setFeedback({
-        message: 'Incorrect. Try again.',
-        isCorrect: false,
-      });
-      
-      
-    }
-  };
-
-  const handleNextStep = () => {
-    
-    if (currentStepIndex < steps.length - 1) {
-      setCurrentStepIndex(currentStepIndex + 1);
-    }
-    
-    setSelectedOptionIndex(null);
-    setFeedback(null);
-  };
-
-  const handleReset = () => {
-    setCurrentStepIndex(0);
-    setSelectedOptionIndex(null);
-    setFeedback(null);
-    setIsComplete(false);
-  };
-
-  const getFeedbackColor = () => {
-    if (!feedback) return '';
-    return feedback.isCorrect
-      ? 'bg-green-500/20 border-green-400'
-      : 'bg-amber-500/20 border-amber-400';
-  };
-
-  
-  if (isComplete) {
-    return (
-      <div className={`bg-gradient-to-br ${theme.from} ${theme.to} p-6 rounded-3xl text-white shadow-xl max-w-md w-full`}>
-        <div className="flex items-center justify-between mb-5">
-          <h3 className="text-2xl font-bold flex items-center">
-            <span className="mr-2 text-3xl">{icon}</span> {title}
-          </h3>
-          <button
-            onClick={handleReset}
-            className="bg-white/20 hover:bg-white/30 rounded-full p-2 transition-all"
-            aria-label="Reset quiz"
-          >
-            <RotateCw className="w-5 h-5" />
-          </button>
-        </div>
-
-        <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-5 mb-5 shadow-sm border border-white/10 text-center">
-          <h4 className="font-bold text-lg mb-4">Final Answer:</h4>
-          <div className="text-3xl font-bold my-4">
-            <BlockMath math={finalAnswer} />
-          </div>
-          <div className="mt-4">
-            <BlockMath math={displayExpression} /> {/* Show the final expression that evaluated to the answer */}
-          </div>
-          <button
-            onClick={handleReset}
-            className={`mt-4 w-full ${theme.button} ${theme.buttonHover} rounded-xl p-3 font-bold transition-all duration-200 shadow-md`}
-          >
-            Solve Another
-          </button>
-        </div>
-
-        {/* Rules Section */}
-        <div className="mt-4 bg-white/10 rounded-xl p-3 text-sm">
-          <p className="font-bold mb-1">{rulesTitle}</p>
-          <ul className="list-disc list-inside space-y-1">
-            {rules.map((rule, index) => (
-              <li key={index} className="overflow-x-auto max-w-full">
-                <div className="min-w-max inline-block">
-                  <BlockMath math={rule} /> {/* Use BlockMath for potentially bold text like \textbf{} */}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    );
-  }
-
+const OrderOfOperationsQuiz = () => {
   return (
-    <div className={`bg-gradient-to-br ${theme.from} ${theme.to} p-6 rounded-3xl text-white shadow-xl max-w-md w-full`}>
-      <div className="flex items-center justify-between mb-5">
-        <h3 className="text-2xl font-bold flex items-center">
-          <span className="mr-2 text-3xl">{icon}</span> {title}
-        </h3>
-        <button
-          onClick={handleReset}
-          className="bg-white/20 hover:bg-white/30 rounded-full p-2 transition-all"
-          aria-label="Reset quiz"
-        >
-          <RotateCw className="w-5 h-5" />
-        </button>
-      </div>
-
-      {/* Expression Display */}
-      <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-5 mb-5 shadow-sm border border-white/10 text-center">
-        <h4 className="font-bold text-lg mb-4">Evaluate:</h4>
-        <div className="text-2xl font-bold">
-          {/* Use BlockMath for the main expression display */}
-          <BlockMath math={displayExpression} />
-        </div>
-      </div>
-
-      {/* Step Counter */}
-      <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 mb-5 shadow-sm border border-white/10">
-        <div className="text-center">
-          <span className="text-sm opacity-90">
-            Step {currentStepIndex + 1} of {steps.length}
-          </span>
-        </div>
-      </div>
-
-      {/* Operation Selection */}
-      <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-5 mb-5 shadow-sm border border-white/10">
-        <h4 className="font-bold text-lg mb-4">Which operation should be performed first?</h4>
-        <div className="space-y-3 mb-5">
-          {currentStep.options.map((option, index) => (
-            <button
-              key={index}
-              onClick={() => handleSelectOption(index)}
-              disabled={!!feedback} 
-              className={`w-full py-1 rounded-xl font-bold transition-all duration-200 text-left px-4 ${
-                selectedOptionIndex === index
-                  ? feedback
-                    ? index === currentStep.correctOptionIndex
-                      ? 'bg-green-500 text-white'
-                      : 'bg-red-500 text-white'
-                    : 'bg-white/40 text-white border-2 border-white'
-                  : feedback && index === currentStep.correctOptionIndex
-                    ? 'bg-green-500/30 text-white border-2 border-green-400'
-                    : 'bg-white/20 hover:bg-white/30 text-white border-2 border-transparent'
-              } ${feedback ? 'cursor-default' : 'hover:scale-[1.01]'}`}
-            >
-              {/* Render operation options using InlineMath for KaTeX */}
-              <BlockMath math={option} /> 
-            </button>
-          ))}
-        </div>
-
-        {selectedOptionIndex !== null && !feedback && (
-          <button
-            onClick={handleCheckAnswer}
-            className={`w-full ${theme.button} ${theme.buttonHover} rounded-xl p-3 font-bold transition-all duration-200 shadow-md`}
-          >
-            Check Answer
-          </button>
-        )}
-      </div>
-
-      {/* Feedback */}
-      {feedback && (
-        <div className={`rounded-2xl p-5 mb-5 backdrop-blur-sm border ${getFeedbackColor()}`}>
-          <div className="flex items-center mb-3">
-            {feedback.isCorrect ? (
-              <CheckCircle className="text-green-300 mr-2" size={24} />
-            ) : (
-              <XCircle className="text-amber-300 mr-2" size={24} />
-            )}
-            <p className={`font-bold text-lg ${feedback.isCorrect ? 'text-green-100' : 'text-amber-100'}`}>
-              {feedback.message}
-            </p>
-          </div>
-
-          {feedback.isCorrect && (
-            <>
-              <p className="mb-2">
-                {/* Show the operation description */}
-                <BlockMath math={currentStep.operationDescription} />
-              </p>
-              <p className="font-bold">
-                {/* Show the resulting expression */}
-                <BlockMath math={currentStep.resultExpression} />
-              </p>
-              <button
-                onClick={handleNextStep}
-                className="mt-4 w-full bg-white/20 hover:bg-white/30 rounded-xl p-3 font-bold transition-all duration-200 shadow-md"
-              >
-                {currentStepIndex === steps.length - 1 ? 'See Final Answer' : 'Next Step'} →
-              </button>
-            </>
-          )}
-        </div>
-      )}
-
-      {/* Rules Section */}
-     <div className="mt-4 bg-white/10 rounded-xl p-3 text-sm">
-        <p className="font-bold mb-1">{rulesTitle}</p>
-        <ul className="list-disc list-inside space-y-1">
-          {/* Rules are plain text strings. If KaTeX is needed *within* a rule,
-              it would need special handling or manual wrapping in InlineMath in the data. */}
-          {rules.map((rule, index) => (
-            <li key={index}>{rule}</li>
-          ))}
-        </ul>
-      </div>
-    </div>
+    <MultipleStepInteractiveComponent
+      title="Order of Operations (BODMAS/PEMDAS)"
+      icon="🔢" 
+      theme={{
+        from: "from-rose-500", 
+        to: "to-pink-600",
+        button: "bg-pink-500",
+        buttonHover: "hover:bg-pink-600",
+      }}
+      rulesTitle="BODMAS/PEMDAS Rules:"
+      rules={[
+        "**B** - **Brackets** (Parentheses) - Do operations inside brackets first",
+        "**O** - **Orders** (Exponents/Powers & Roots) - Calculate powers and roots",
+        "**DM** - **Division and Multiplication** - From left to right",
+        "**AS** - **Addition and Subtraction** - From left to right",
+        "Fraction bars act like brackets (evaluate numerator & denominator separately first)",
+        "Be careful with negative signs and exponents (e.g., $-2^2 = -(2^2) = -4$)"
+      ]}
+      questions={[orderOfOperationsQuizData]}
+      renderSharedValuesSummary={() => null} 
+    />
   );
-};
-
-
-
-
-
-const OrderOfOperationsQuiz: React.FC = () => {
-  return <OrderOfOperationsStepper problem={sampleOrderOfOperationsData} />;
 };
 
 export default OrderOfOperationsQuiz;
