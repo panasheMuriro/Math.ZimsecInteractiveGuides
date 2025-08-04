@@ -123,8 +123,6 @@ const standardFormAddSubQuestion: MultiStepQuestion = {
   ],
 };
 
-import React from "react";
-
 export default function StandardFormAdditionSubtraction() {
   return (
     <>
