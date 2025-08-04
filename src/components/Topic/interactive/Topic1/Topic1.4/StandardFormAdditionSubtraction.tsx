@@ -1,113 +1,147 @@
-import MultiStepInteractiveComponent, { InteractiveToolData } from "../../Templates/MultiStepInteractiveComponent";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import MultipleStepInteractiveComponent, {
+  MultiStepQuestion,
+} from "../../Templates/MultipleStepInteractiveComponent";
 
-// Define data for Adding and Subtracting Numbers in Standard Form (Method 1: Convert to Ordinary)
-const standardFormAddSubData: InteractiveToolData = {
-  title: "Adding and Subtracting Numbers in Standard Form",
-  description: "Practice converting numbers to ordinary form, performing the calculation, and converting the result back.",
-  theme: {
-    primaryColor: "blue", // You can choose a color from the template's options (indigo, blue, green, purple, amber, rose, teal)
-    // backgroundColorFrom and backgroundColorTo are optional if you want to customize the gradient further
-  },
+const renderAddSubSummary = (sharedValues: { [key: string]: any }) => {
+  const entries = Object.entries(sharedValues);
+  if (entries.length === 0) {
+    return <p style={{ color: "#264653" }}>No calculations performed yet.</p>;
+  }
+
+  return (
+    <ul className="space-y-2">
+      {entries.map(([key, value]) => (
+        <li key={key} className="flex justify-between items-center">
+          <span style={{ color: "#264653" }}>{key}:</span>
+          <span className="font-mono" style={{ color: "#264653" }}>
+            {value}
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+
+const standardFormAddSubQuestion: MultiStepQuestion = {
+  id: "standard-form-addsub-quiz",
+  title: "Adding and Subtracting in Standard Form",
   steps: [
     {
-      id: "convertFirst",
-      title: "Step 1: Convert the First Number",
-      description: "Convert the first number from standard form to ordinary form.",
-      type: 'mcq'
+      id: "sf-addsub-method",
+      question:
+        "What is the main principle for adding or subtracting numbers in standard form?",
+      questionType: "text",
+      options: [
+        "Add or subtract the coefficients and the exponents separately",
+        "Convert both numbers to ordinary form, perform the operation, then convert back",
+        "Ensure the powers of 10 are the same, then add or subtract the coefficients",
+        "Multiply one number by a power of 10 to make the exponents match",
+      ],
+      optionType: "text",
+      correct: 2, 
+      explanation:
+        "To add or subtract numbers in standard form, the indices (powers of 10) must be the same. You then add or subtract the coefficients (the numbers in front) and keep the common power of 10.",
     },
     {
-      id: "convertSecond",
-      title: "Step 2: Convert the Second Number",
-      description: "Convert the second number from standard form to ordinary form.",
-      type: 'mcq'
+      id: "sf-add-same-power",
+      question:
+        "Calculate $(4.5 \\times 10^3) + (2.1 \\times 10^3)$. Give your answer in standard form.",
+      questionType: "text",
+      options: [
+        "$6.6 \\times 10^6$",
+        "$6.6 \\times 10^3$",
+        "$2.4 \\times 10^3$",
+        "$2.4 \\times 10^0$",
+      ],
+      optionType: "text",
+      correct: 1, 
+      explanation:
+        "The powers of 10 are the same ($10^3$). Add the coefficients: $4.5 + 2.1 = 6.6$. Keep the power of 10: $6.6 \\times 10^3$. This is already in standard form.",
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Addition (Same Power)", "6.6 \\times 10^3");
+      },
     },
     {
-      id: "calculateOrdinary",
-      title: "Step 3: Perform the Calculation",
-      description: "Add or subtract the two ordinary numbers you found.",
-      type: 'mcq'
+      id: "sf-add-diff-power",
+      question:
+        "Calculate $(6.2 \\times 10^5) + (3.4 \\times 10^4)$. Give your answer in standard form.",
+      questionType: "text",
+      options: [
+        "$9.6 \\times 10^9$",
+        "$6.54 \\times 10^5$",
+        "$9.6 \\times 10^5$",
+        "$65.4 \\times 10^4$",
+      ],
+      optionType: "text",
+      correct: 1, 
+      explanation:
+        "The powers are different ($10^5$ and $10^4$). Adjust one number to match the other. Convert $3.4 \\times 10^4$ to $0.34 \\times 10^5$. Now add coefficients: $6.2 + 0.34 = 6.54$. Result: $6.54 \\times 10^5$. This is in standard form.",
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Addition (Different Power)", "6.54 \\times 10^5");
+      },
     },
     {
-      id: "convertResult",
-      title: "Step 4: Convert the Result Back",
-      description: "Convert the ordinary result back into standard form.",
-      type: 'mcq'
-    }
-    // Optional: Add an 'info' step at the end summarizing Method 1 vs other methods?
-    // {
-    //   id: "summary",
-    //   title: "Summary: Method 1",
-    //   description: "This method involves converting to ordinary numbers. Remember to check the other methods for cases where powers are the same or can be easily adjusted!",
-    //   type: 'info'
-    // }
+      id: "sf-subtract-example",
+      question:
+        "Calculate $(8.7 \\times 10^6) - (2.9 \\times 10^5)$. Give your answer in standard form.",
+      questionType: "text",
+      options: [
+        "$5.8 \\times 10^6$",
+        "$8.41 \\times 10^6$",
+        "$8.41 \\times 10^5$",
+        "$84.1 \\times 10^5$",
+      ],
+      optionType: "text",
+      correct: 1, 
+      explanation:
+        "Make exponents the same. Convert $2.9 \\times 10^5$ to $0.29 \\times 10^6$. Now subtract coefficients: $8.7 - 0.29 = 8.41$. Result: $8.41 \\times 10^6$. This is in standard form.",
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Subtraction Example", "8.41 \\times 10^6");
+      },
+    },
+    {
+      id: "sf-negative-power",
+      question:
+        "Calculate $(5.1 \\times 10^{-3}) + (2.4 \\times 10^{-4})$. Give your answer in standard form.",
+      questionType: "text",
+      options: [
+        "$7.5 \\times 10^{-7}$",
+        "$5.34 \\times 10^{-3}$",
+        "$7.5 \\times 10^{-3}$",
+        "$53.4 \\times 10^{-4}$",
+      ],
+      optionType: "text",
+      correct: 1, 
+      explanation:
+        "Adjust powers. Convert $2.4 \\times 10^{-4}$ to $0.24 \\times 10^{-3}$. Add coefficients: $5.1 + 0.24 = 5.34$. Result: $5.34 \\times 10^{-3}$. This is in standard form.",
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Addition (Negative Powers)", "5.34 \\times 10^{-3}");
+      },
+    },
   ],
-  mcqOptionsPerProblem: [
-    // --- Problem 1: Example from template content ---
-    // Expression: $3.2 \times 10^5 + 4.7 \times 10^4$
-    {
-      convertFirst: ["320000", "32000", "3200000", "3.2 \\times 10^5"], // Correct: "320000"
-      convertSecond: ["47000", "4700", "470000", "4.7 \\times 10^4"], // Correct: "47000"
-      calculateOrdinary: ["367000", "36700", "3670000", "273000"], // Correct: "367000"
-      convertResult: ["3.67 \\times 10^5", "36.7 \\times 10^4", "367 \\times 10^3", "3.67 \\times 10^6"] // Correct: "3.67 \times 10^5"
-    },
-    // --- Problem 2: Subtraction Example ---
-    // Expression: $(7.3 \times 10^4) - (2.8 \times 10^3)$
-    {
-      convertFirst: ["73000", "7300", "730000", "7.3 \\times 10^4"], // Correct: "73000"
-      convertSecond: ["2800", "28000", "280", "2.8 \\times 10^3"], // Correct: "2800"
-      calculateOrdinary: ["70200", "72000", "70020", "45000"], // Correct: "70200"
-      convertResult: ["7.02 \\times 10^4", "70.2 \\times 10^3", "702 \\times 10^2", "7.02 \\times 10^5"] // Correct: "7.02 \times 10^4"
-    }
-    // Add more problems following the same pattern in the array...
-  ],
-  practiceProblems: [
-    // --- Problem 1: Example from template content ---
-    {
-      expression: "(3.2 \\times 10^5)\\\\ + (4.7 \\times 10^4)", // KaTeX formatted
-      solution: {
-        convertFirst: "320000",
-        convertSecond: "47000",
-        calculateOrdinary: "367000",
-        convertResult: "3.67 \\times 10^5" // KaTeX formatted
-      },
-      explanation: {
-        convertFirst: "Move the decimal point 5 places to the right: $3.2 \\times 100000 = 320000$.",
-        convertSecond: "Move the decimal point 4 places to the right: $4.7 \\times 10000 = 47000$.",
-        calculateOrdinary: "$320000 + 47000 = 367000$.",
-        convertResult: "Move the decimal point in 367000 to get one non-zero digit before it: $3.67$. Count the places moved (5) for the power of 10: $3.67 \\times 10^5$."
-      },
-      hint: "Remember, $10^n$ means moving the decimal point $n$ places. Add when converting to ordinary form if the power is positive."
-    },
-    // --- Problem 2: Subtraction Example ---
-    {
-      expression: "(7.3 \\times 10^4) \\\\ - (2.8 \\times 10^3)",
-      solution: {
-        convertFirst: "73000",
-        convertSecond: "2800",
-        calculateOrdinary: "70200",
-        convertResult: "7.02 \\times 10^4"
-      },
-      explanation: {
-        convertFirst: "Move the decimal point 4 places to the right: $7.3 \\times 10000 = 73000$.",
-        convertSecond: "Move the decimal point 3 places to the right: $2.8 \\times 1000 = 2800$.",
-        calculateOrdinary: "$73000 - 2800 = 70200$.",
-        convertResult: "Move the decimal point in 70200 to get one non-zero digit before it: $7.02$. Count the places moved (4) for the power of 10: $7.02 \\times 10^4$."
-      },
-      hint: "Convert both numbers to ordinary form first, then perform the subtraction. Be careful with place values."
-    }
-    // Add more problems following the same pattern in the array...
-  ]
 };
 
+import React from "react";
 
-
-
-const StandardFormAdditionSubtraction = () => {
-  return <MultiStepInteractiveComponent toolData={standardFormAddSubData} />
-};
-
-export default StandardFormAdditionSubtraction;
-
-
-// Then, in your main App component or where you render the tools:
-// <MultiStepInteractiveComponent toolData={standardFormAddSubData} />
+export default function StandardFormAdditionSubtraction() {
+  return (
+    <>
+      <MultipleStepInteractiveComponent
+        title="Adding and Subtracting in Standard Form"
+        icon="➕" 
+        rules={[
+          "Main Principle: Make the powers of 10 the same.",
+          "If powers are the same: Add/Subtract coefficients directly.",
+          "If powers are different: Adjust one number so the powers match.",
+          "Always ensure the final answer is in standard form ($1 \\leq a < 10$).",
+        ]}
+        rulesTitle="Addition/Subtraction Rules:"
+        questions={[standardFormAddSubQuestion]} 
+        renderSharedValuesSummary={renderAddSubSummary} 
+        
+      />
+    </>
+  );
+}

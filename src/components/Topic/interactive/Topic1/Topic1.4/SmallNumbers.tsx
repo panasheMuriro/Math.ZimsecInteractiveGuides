@@ -1,7 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "katex/dist/katex.min.css";
-import { InlineMath } from "react-katex";
-import { ChevronRight, Target } from "lucide-react";
+import { InlineMath, BlockMath } from "react-katex";
+import { ChevronRight, Target, RotateCw } from "lucide-react";
+
+// Neubrutalism color palette
+const NEUBRUTALISM_COLORS = {
+  primaryDark: '#264653',    // Dark teal
+  secondary: '#2a9d8f',      // Teal
+  neutral: '#e9c46a',        // Sand yellow
+  warning: '#f4a261',        // Orange
+  danger: '#e76f51',         // Salmon
+  white: '#ffffff',
+  lightGray: '#f0f0f0',
+  borderGray: '#d0d0d0',
+  shadowGray: 'rgba(0, 0, 0, 0.2)',
+};
+
+// Neubrutalism styles helper
+const neubrutalismBase = {
+  border: `3px solid ${NEUBRUTALISM_COLORS.borderGray}`,
+  borderRadius: '12px',
+  boxShadow: `4px 4px 0px ${NEUBRUTALISM_COLORS.shadowGray}`,
+  padding: '1rem',
+};
 
 const SmallNumbers = () => {
   const [currentNumber, setCurrentNumber] = useState<number>(0.005);
@@ -84,63 +105,115 @@ const SmallNumbers = () => {
   };
 
   // Initialize on first render
-  useState(() => {
+  useEffect(() => {
     generateSteps(currentNumber);
-  });
+  }, []);
 
   return (
-    <div className="bg-purple-500 p-6 rounded-2xl text-white">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-xl font-bold flex items-center">
-          <Target className="mr-2" /> Small Numbers in Standard Form
+    <div style={{
+      ...neubrutalismBase,
+      maxWidth: '600px',
+      width: '100%',
+      margin: '0 auto',
+      padding: '1.5rem',
+      backgroundColor: NEUBRUTALISM_COLORS.danger, // Salmon background
+      border: `4px solid ${NEUBRUTALISM_COLORS.primaryDark}`,
+      borderRadius: '20px',
+      boxShadow: `8px 8px 0px ${NEUBRUTALISM_COLORS.primaryDark}`,
+      color: NEUBRUTALISM_COLORS.white,
+    }}>
+      <div className="flex items-center justify-between mb-5">
+        <h3 className="text-2xl font-extrabold flex items-center" style={{ color: NEUBRUTALISM_COLORS.white }}>
+          <Target className="mr-2" size={28} /> Small Numbers in Standard Form
         </h3>
+        <button
+          onClick={newQuestion}
+          style={{
+            ...neubrutalismBase,
+            backgroundColor: NEUBRUTALISM_COLORS.primaryDark,
+            borderColor: NEUBRUTALISM_COLORS.white,
+            padding: '0.5rem',
+          }}
+          aria-label="New question"
+        >
+          <RotateCw className="w-5 h-5" style={{ color: NEUBRUTALISM_COLORS.white }} />
+        </button>
       </div>
 
-      <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 mb-4">
+      <div style={{
+        ...neubrutalismBase,
+        backgroundColor: NEUBRUTALISM_COLORS.neutral,
+        borderColor: NEUBRUTALISM_COLORS.primaryDark,
+        marginBottom: '1.25rem',
+      }}>
         <div className="mb-4">
-          <h4 className="font-bold text-lg mb-2">Convert to Standard Form:</h4>
-          <p className="text-2xl font-mono bg-white/10 p-3 rounded-lg inline-block">
+          <h4 className="font-extrabold text-lg mb-2" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}>
+            Convert to Standard Form:
+          </h4>
+          <p style={{
+            ...neubrutalismBase,
+            backgroundColor: NEUBRUTALISM_COLORS.lightGray,
+            borderColor: NEUBRUTALISM_COLORS.primaryDark,
+            color: NEUBRUTALISM_COLORS.primaryDark,
+            fontFamily: 'monospace',
+            fontSize: '1.5rem',
+            fontWeight: 'bold',
+            padding: '0.75rem',
+            textAlign: 'center',
+          }}>
             {currentNumber}
           </p>
         </div>
 
-        <div className="bg-white/10 rounded-lg p-4 mb-4 min-h-[120px]">
+        <div style={{
+          ...neubrutalismBase,
+          backgroundColor: NEUBRUTALISM_COLORS.lightGray,
+          borderColor: NEUBRUTALISM_COLORS.primaryDark,
+          minHeight: '150px',
+          marginBottom: '1.25rem',
+        }}>
           {currentStep < steps.length ? (
             <>
-              <h5 className="font-bold text-lg mb-2">{steps[currentStep].title}</h5>
-              <p className="text-lg">
+              <h5 className="font-extrabold text-lg mb-2" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}>
+                {steps[currentStep].title}
+              </h5>
+              <p className="text-lg" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}>
                 {steps[currentStep].content}
                 {steps[currentStep].math && (
-                  <InlineMath math={steps[currentStep].math} />
+                  <BlockMath math={steps[currentStep].math} />
                 )}
               </p>
             </>
           ) : showAnswer ? (
             <>
-              <h5 className="font-bold text-lg mb-2">Final Answer</h5>
-              <p className="text-xl">
-                <InlineMath math={standardForm} />
-              </p>
+              <h5 className="font-extrabold text-lg mb-2" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}>
+                Final Answer
+              </h5>
+              <div style={{ textAlign: 'center' }}>
+                <BlockMath math={standardForm} />
+              </div>
             </>
           ) : null}
         </div>
 
         <div className="flex justify-between items-center mb-4">
-          <div className="text-sm">
+          <div className="text-sm font-bold" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}>
             Step {currentStep + 1} of {steps.length}
           </div>
           <div className="flex space-x-2">
             <button
               onClick={reset}
-              className="px-3 py-1 bg-white/20 hover:bg-white/30 rounded-lg text-sm"
+              style={{
+                ...neubrutalismBase,
+                backgroundColor: NEUBRUTALISM_COLORS.lightGray,
+                borderColor: NEUBRUTALISM_COLORS.primaryDark,
+                color: NEUBRUTALISM_COLORS.primaryDark,
+                fontWeight: 'bold',
+                fontSize: '0.875rem',
+                padding: '0.5rem 1rem',
+              }}
             >
               Reset
-            </button>
-            <button
-              onClick={newQuestion}
-              className="px-3 py-1 bg-white/20 hover:bg-white/30 rounded-lg text-sm"
-            >
-              New Number
             </button>
           </div>
         </div>
@@ -148,12 +221,21 @@ const SmallNumbers = () => {
         <button
           onClick={nextStep}
           disabled={showAnswer}
-          className="w-full bg-white/30 hover:bg-white/40 disabled:bg-gray-400/30 rounded-lg p-3 font-bold transition-all duration-200 flex items-center justify-center"
+          style={{
+            ...neubrutalismBase,
+            width: '100%',
+            padding: '0.75rem',
+            fontWeight: 'bold',
+            backgroundColor: showAnswer ? NEUBRUTALISM_COLORS.danger : NEUBRUTALISM_COLORS.warning,
+            borderColor: NEUBRUTALISM_COLORS.primaryDark,
+            color: NEUBRUTALISM_COLORS.white,
+            cursor: showAnswer ? 'not-allowed' : 'pointer',
+          }}
         >
           {currentStep < steps.length - 1 ? (
-            <>
-              Next Step <ChevronRight className="ml-2" />
-            </>
+            <span className="flex items-center justify-center">
+              Next Step <ChevronRight className="ml-2" size={20} />
+            </span>
           ) : showAnswer ? (
             "Completed"
           ) : (
@@ -162,9 +244,16 @@ const SmallNumbers = () => {
         </button>
       </div>
 
-      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-        <h4 className="font-bold mb-2">Real-World Examples:</h4>
-        <ul className="text-sm space-y-1">
+      <div style={{
+        ...neubrutalismBase,
+        backgroundColor: NEUBRUTALISM_COLORS.neutral,
+        borderColor: NEUBRUTALISM_COLORS.primaryDark,
+        fontSize: '0.875rem',
+      }}>
+        <h4 className="font-extrabold mb-2" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}>
+          Real-World Examples:
+        </h4>
+        <ul className="space-y-1" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}>
           <li>• Size of an atom: <InlineMath math={"1 \\times 10^{-10}"} /> meters</li>
           <li>• Mass of an electron: <InlineMath math={"9.11 \\times 10^{-31}"} /> kg</li>
           <li>• Thickness of human hair: <InlineMath math={"7 \\times 10^{-5}"} /> meters</li>

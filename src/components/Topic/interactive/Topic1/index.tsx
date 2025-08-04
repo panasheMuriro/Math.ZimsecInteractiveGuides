@@ -37,7 +37,7 @@ import ScaleTypesQuiz from "./Topic1.6/ScaleTypesQuiz";
 
 export const topic1Components: Record<string, React.ComponentType> = {
   "rounding-game": RoundingGame,
-  "standard-form-converter": StandardFormConverter,
+
   "scale-calculator": ScaleCalculator,
   "number-types": NumberTypesQuiz,
   "factors-hcf": FactorsHCF,
@@ -59,6 +59,7 @@ export const topic1Components: Record<string, React.ComponentType> = {
   "standard-form-multiplication": StandardFormMultiplication,
   "standard-form-division": StandardFormDivision,
   "standard-form-operations-overview": StandardFormOperationOverview,
+  "standard-form-converter": StandardFormConverter,
 
   "ratio-quiz": RatioQuiz,
   "rate-calculator": RateCalculator,

@@ -1,96 +1,145 @@
-import MultiStepInteractiveComponent, { InteractiveToolData } from "../../Templates/MultiStepInteractiveComponent";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import MultipleStepInteractiveComponent, { MultiStepQuestion } from "../../Templates/MultipleStepInteractiveComponent";
 
-// Define data for Operations in Standard Form Overview
-const standardFormOperationsOverviewData: InteractiveToolData = {
-  title: "Operations in Standard Form: Overview",
-  description: "Test your understanding of the key principles and index laws used when performing calculations with numbers in standard form.",
-  theme: {
-    primaryColor: "indigo", // Using a different color
-  },
+// --- Helper Function for Summary ---
+const renderOperationsSummary = (sharedValues: { [key: string]: any }) => {
+  const entries = Object.entries(sharedValues);
+  if (entries.length === 0) {
+    return <p style={{ color: '#264653' }}>No calculations performed yet.</p>;
+  }
+
+  return (
+    <ul className="space-y-2">
+      {entries.map(([key, value]) => (
+        <li key={key} className="flex justify-between items-center">
+          <span style={{ color: '#264653' }}>{key}:</span>
+          <span className="font-mono" style={{ color: '#264653' }}>{value}</span>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+// --- The Question Data ---
+const standardFormOperationsQuestion: MultiStepQuestion = {
+  id: 'standard-form-operations-quiz',
+  title: 'Operations in Standard Form',
   steps: [
     {
-      id: "identifyOperation",
-      title: "Identify the Operation",
-      description: "What mathematical operation is being described?",
-      type: 'mcq'
+      id: 'sf-mult-principle',
+      question: "What is the first step when multiplying $(a \\times 10^m) \\times (b \\times 10^n)$?",
+      questionType: 'text',
+      options: [
+        "Add the coefficients $a$ and $b$",
+        "Multiply the coefficients $a$ and $b$, then add the exponents $m$ and $n$",
+        "Multiply the coefficients $a$ and $b$, then multiply the exponents $m$ and $n$",
+        "Add the coefficients $a$ and $b$, then add the exponents $m$ and $n$"
+      ],
+      optionType: 'text',
+      correct: 1, // Index of "Multiply the coefficients..."
+      explanation: "According to the rules of indices, $(a \\times 10^m) \\times (b \\times 10^n) = (a \\times b) \\times (10^m \\times 10^n) = (a \\times b) \\times 10^{m+n}$."
     },
     {
-      id: "applyLaw",
-      title: "Apply the Correct Law",
-      description: "Which rule should be used to combine the powers of 10?",
-      type: 'mcq'
-    }
-  ],
-  mcqOptionsPerProblem: [
-    // --- Problem 1: Multiplication ---
-    {
-      // Wrap text options in \text{} for KaTeX rendering
-      identifyOperation: ["\\text{Multiplication}", "\\text{Addition}", "\\text{Division}", "\\text{Subtraction}"],
-      applyLaw: ["10^a \\times 10^b = 10^{a+b}", "10^a \\div 10^b = 10^{a-b}", "(10^a)^b = 10^{ab}", "10^a + 10^b = 10^{a+b}"]
+      id: 'sf-div-principle',
+      question: "What is the first step when dividing $(a \\times 10^m) \\div (b \\times 10^n)$?",
+      questionType: 'text',
+      options: [
+        "Subtract the coefficients $a$ and $b$, then subtract the exponents $m$ and $n$",
+        "Divide the coefficients $a$ and $b$, then multiply the exponents $m$ and $n$",
+        "Subtract the coefficients $a$ and $b$, then divide the exponents $m$ and $n$",
+        "Divide the coefficients $a$ and $b$, then subtract the exponents $m$ and $n$"
+      ],
+      optionType: 'text',
+      correct: 3, // Index of "Divide the coefficients..."
+      explanation: "According to the rules of indices, $(a \\times 10^m) \\div (b \\times 10^n) = (a \\div b) \\times (10^m \\div 10^n) = (a \\div b) \\times 10^{m-n}$."
     },
-    // --- Problem 2: Division ---
     {
-      // Wrap text options in \text{} for KaTeX rendering
-      identifyOperation: ["\\text{Division}", "\\text{Subtraction}", "\\text{Multiplication}", "\\text{Addition}"],
-      applyLaw: ["10^a \\div 10^b = 10^{a-b}", "10^a \\times 10^b = 10^{a+b}", "(10^a)^b = 10^{ab}", "10^a - 10^b = 10^{a-b}"]
+      id: 'sf-add-principle',
+      question: "How do you add or subtract numbers in standard form?",
+      questionType: 'text',
+      options: [
+        "Add or subtract the coefficients and add or subtract the exponents",
+        "Multiply the coefficients and add the exponents",
+        "Convert them to ordinary numbers, perform the operation, then convert back to standard form",
+        "Ensure the exponents are the same, then add or subtract the coefficients"
+      ],
+      optionType: 'text',
+      correct: 3, // Index of "Ensure the exponents are the same..."
+      explanation: "To add or subtract numbers in standard form, the powers of 10 must be the same. You adjust one or both numbers so they have the same exponent, then add or subtract the coefficients."
     },
-    // --- Problem 3: Power ---
     {
-      // Wrap text options in \text{} for KaTeX rendering
-      // Also corrected the text for consistency
-      identifyOperation: ["\\text{Raising to a Power}", "\\text{Multiplication}", "\\text{Division}", "\\text{Addition}"],
-      applyLaw: ["(10^a)^b = 10^{ab}", "10^a \\times 10^b = 10^{a+b}", "10^a \\div 10^b = 10^{a-b}", "10^{a^b} = 10^{ab}"]
-    }
-  ],
-  practiceProblems: [
-    // --- Problem 1: Multiplication ---
-    {
-      // Kept your line break formatting for the expression
-      expression: "(a \\times 10^m) \\\\ \\times (b \\times 10^n)",
-      solution: {
-        // Solutions should also use \text{} if they are meant to be displayed as text by KaTeX
-        // (Although in this specific case, matching the MCQ options exactly is key)
-        identifyOperation: "\\text{Multiplication}",
-        applyLaw: "10^a \\times 10^b = 10^{a+b}"
-      },
-      explanation: {
-        identifyOperation: "\\text{The operation between the two terms is multiplication (}\\times\\text{).}",
-        applyLaw: "\\text{When multiplying terms with the same base (10), you add the exponents: } 10^m \\times 10^n = 10^{m+n}\\text{.}"
-      },
-      hint: "\\text{Look at the symbol between the two parts of the expression. What rule do you use for } 10^m \\times 10^n \\text{?}"
+      id: 'sf-mult-example',
+      question: "Calculate $(2 \\times 10^4) \\times (3 \\times 10^5)$. Give your answer in standard form.",
+      questionType: 'text',
+      options: [
+        "$6 \\times 10^{20}$",
+        "$6 \\times 10^9$",
+        "$5 \\times 10^9$",
+        "$6 \\times 10^{1.8}$"
+      ],
+      optionType: 'text',
+      correct: 1, // Index of "$6 \\times 10^9$"
+      explanation: "Multiply coefficients: $2 \\times 3 = 6$. Add exponents: $4 + 5 = 9$. Result: $6 \\times 10^9$. This is already in standard form.",
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Multiplication Result", "6 \\times 10^9");
+      }
     },
-    // --- Problem 2: Division ---
     {
-      // Kept your line break formatting for the expression
-      expression: "(a \\times 10^m) \\\\ \\div (b \\times 10^n)",
-      solution: {
-        identifyOperation: "\\text{Division}",
-        applyLaw: "10^a \\div 10^b = 10^{a-b}"
-      },
-      explanation: {
-        identifyOperation: "\\text{The operation between the two terms is division (} \\div \\text{).}",
-        applyLaw: "\\text{When dividing terms with the same base (10), you subtract the exponents: } 10^m \\div 10^n = 10^{m-n}\\text{.}"
-      },
-      hint: "\\text{Look at the symbol between the two parts of the expression. What rule do you use for } 10^m \\div 10^n \\text{?}"
+      id: 'sf-div-example',
+      question: "Calculate $(8 \\times 10^6) \\div (2 \\times 10^3)$. Give your answer in standard form.",
+      questionType: 'text',
+      options: [
+        "$4 \\times 10^3$",
+        "$4 \\times 10^2$",
+        "$6 \\times 10^3$",
+        "$4 \\times 10^9$"
+      ],
+      optionType: 'text',
+      correct: 0, // Index of "$4 \\times 10^3$"
+      explanation: "Divide coefficients: $8 \\div 2 = 4$. Subtract exponents: $6 - 3 = 3$. Result: $4 \\times 10^3$. This is already in standard form.",
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Division Result", "4 \\times 10^3");
+      }
     },
-    // --- Problem 3: Power ---
     {
-      expression: "(a \\times 10^m)^n",
-      solution: {
-        identifyOperation: "\\text{Raising to a Power}",
-        applyLaw: "(10^a)^b = 10^{ab}"
-      },
-      explanation: {
-        identifyOperation: "\\text{The entire term } (a \\times 10^m) \\text{ is being raised to the power of } n\\text{.}",
-        applyLaw: "\\text{When raising a power to another power, you multiply the exponents: } (10^m)^n = 10^{m \\times n}\\text{.}"
-      },
-      hint: "\\text{The whole expression in the brackets is being raised to a power. What rule do you use for } (10^m)^n \\text{?}"
+      id: 'sf-add-example',
+      question: "Calculate $(3 \\times 10^4) + (5 \\times 10^3)$. Give your answer in standard form.",
+      questionType: 'text',
+      options: [
+        "$8 \\times 10^7$",
+        "$8 \\times 10^4$",
+        "$3.5 \\times 10^4$",
+        "$35 \\times 10^3$"
+      ],
+      optionType: 'text',
+      correct: 2, // Index of "$3.5 \\times 10^4$"
+      explanation: "First, make exponents the same. Convert $5 \\times 10^3$ to $0.5 \\times 10^4$. Now add coefficients: $3 + 0.5 = 3.5$. Result: $3.5 \\times 10^4$. This is in standard form.",
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Addition Result", "3.5 \\times 10^4");
+      }
     }
   ]
 };
 
-const StandardFormOperationOverview = ()=>{
-    return  <MultiStepInteractiveComponent toolData={standardFormOperationsOverviewData} />
-}
 
-export default StandardFormOperationOverview;
+export default function StandardFormOperationOverview() {
+  return (
+    <>
+    <MultipleStepInteractiveComponent
+  title="Operations in Standard Form Practice"
+  icon="✖️" // Or any other relevant icon
+  rules={[
+    "For multiplication: $(a \\times 10^m) \\times (b \\times 10^n) = (a \\times b) \\times 10^{m+n}$",
+    "For division: $(a \\times 10^m) \\div (b \\times 10^n) = (a \\div b) \\times 10^{m-n}$",
+    "For addition/subtraction: Make exponents the same, then add/subtract coefficients.",
+    "Ensure the final answer is in standard form ($1 \\leq a < 10$)."
+  ]}
+  rulesTitle="Operation Rules:"
+  questions={[standardFormOperationsQuestion]} // Pass the question object
+  renderSharedValuesSummary={renderOperationsSummary} // Pass the summary renderer
+  // initialSharedValues, onReset if needed
+/>
+    
+    </>
+  );
+}
