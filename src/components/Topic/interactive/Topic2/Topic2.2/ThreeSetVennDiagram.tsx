@@ -1,4 +1,31 @@
+// src/Components/ThreeSetVennDiagram.tsx
 import React, { useState } from 'react';
+
+// --- Neubrutalism Styles & Colors (Aligned with MultipleChoice template) ---
+const NEUBRUTALISM_COLORS = {
+  primaryDark: '#264653',    // Darkest color - Text, borders
+  secondary: '#2a9d8f',      // Teal - Correct, accents
+  neutral: '#e9c46a',        // Sand yellow - Highlights, explanations
+  warning: '#f4a261',        // Orange - Warnings
+  danger: '#e76f51',         // Salmon - Danger, resets, main background
+  white: '#ffffff',
+  lightGray: '#f0f0f0',
+  borderGray: '#d0d0d0',
+  shadowGray: 'rgba(38, 70, 83, 0.2)', // primaryDark with opacity
+  background: '#e76f51',     // Salmon background for main container (from template)
+  buttonDefault: '#d1e7e4',  // Lighter teal for default button bg
+  buttonHover: '#c0ddd8',    // Even lighter teal for button hover
+  infoBoxBg: '#e8f4f2',      // Light teal for info boxes
+};
+
+const neubrutalismBase = {
+  border: `3px solid ${NEUBRUTALISM_COLORS.primaryDark}`,
+  borderRadius: '12px',
+  boxShadow: `4px 4px 0px ${NEUBRUTALISM_COLORS.shadowGray}`,
+  padding: '1rem',
+};
+
+// --- End Neubrutalism Styles ---
 
 // Define the possible regions/selections for three sets
 type VennRegion =
@@ -39,7 +66,7 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
     }
   };
 
-  const getRegionDescription = (): string => {
+  const getRegionDescription = (): React.ReactNode => { // Changed to ReactNode for potential math rendering via parent if needed
     switch (activeRegion) {
       case 'only-A': return `Elements in set ${labelA} only.`;
       case 'only-B': return `Elements in set ${labelB} only.`;
@@ -66,7 +93,6 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
   const triangleHeight = Math.sqrt(3) / 2 * 90;
   const offsetX = 45;
   const offsetY = triangleHeight / 2;
-
   const circleA_Cx = centerX;
   const circleA_Cy = centerY - offsetY;
   const circleB_Cx = centerX - offsetX;
@@ -75,35 +101,42 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
   const circleC_Cy = centerY + offsetY;
   // --- End Positions ---
 
-  // --- Color Definitions ---
-  const inactiveColor = "#94A3B8"; // slate-400
-  const strokeColor = "#475569"; // slate-600
-  const labelColor = "#1E293B"; // slate-800
+  // --- Color Definitions (Mapped to new palette) ---
+  const inactiveColor = NEUBRUTALISM_COLORS.borderGray; // Light gray for inactive
+  const strokeColor = NEUBRUTALISM_COLORS.primaryDark; // Dark for strokes and text
+  const labelColor = NEUBRUTALISM_COLORS.primaryDark; // Dark for labels
+
+  // Map original highlight colors to the new palette or derived colors
   const highlightColors: Record<
-    'only-A' | 'only-B' | 'only-C' |
-    'A-and-B-not-C' | 'A-and-C-not-B' | 'B-and-C-not-A' |
-    'intersection-ABC' | 'universal' | 'complement' |
-    'blend-pairwise' | 'blend-triple', // Added blend-triple
+    | 'only-A'
+    | 'only-B'
+    | 'only-C'
+    | 'A-and-B-not-C'
+    | 'A-and-C-not-B'
+    | 'B-and-C-not-A'
+    | 'blend-pairwise' // For pairwise intersection labels/buttons
+    | 'intersection-ABC'
+    | 'universal'
+    | 'complement',
     string
   > = {
-    'only-A': "#93C5FD", // blue-300
-    'only-B': "#FECACA", // red-300
-    'only-C': "#BBF7D0", // green-300
-    'A-and-B-not-C': "#A5F3FC", // cyan-300 (Label color reference)
-    'A-and-C-not-B': "#A5F3FC", // cyan-300 (Label color reference)
-    'B-and-C-not-A': "#A5F3FC", // cyan-300 (Label color reference)
-    'blend-pairwise': "#84CC16", // lime-500 (Pairwise intersection button/label color)
-    // --- Specific blended result color for the triple intersection button ---
-    'blend-triple': "#1E1B4B", // indigo-900 (Estimated dark blend result of A, B, C)
-    // --- Other region colors ---
-    'intersection-ABC': "#1E1B4B", // indigo-900 (Also used for the region label when active)
-    'universal': "#C7D2FE", // indigo-200
-    'complement': "#C7D2FE", // indigo-200
+    'only-A': "#93C5FD", // blue-300 (keeping original distinctiveness)
+    'only-B': "#FECACA", // red-300 (keeping original distinctiveness)
+    'only-C': "#BBF7D0", // green-300 (keeping original distinctiveness)
+    'A-and-B-not-C': "#A5F3FC", // cyan-300 (keeping original distinctiveness)
+    'A-and-C-not-B': "#A5F3FC", // cyan-300
+    'B-and-C-not-A': "#A5F3FC", // cyan-300
+    'blend-pairwise': NEUBRUTALISM_COLORS.warning, // Use orange for pairwise button/label
+    'intersection-ABC': NEUBRUTALISM_COLORS.secondary, // Use teal for the central region
+    'universal': NEUBRUTALISM_COLORS.infoBoxBg, // Light teal for universal
+    'complement': NEUBRUTALISM_COLORS.infoBoxBg, // Light teal for complement
   };
-  // --- Blend colors for pairwise intersections ---
+
+  // Blend colors for pairwise intersections (keeping original for visual effect)
   const blendColorCyan = "#22D3EE"; // cyan-400
   const blendColorYellow = "#FDE68A"; // yellow-200
-  // --- Blend colors for triple intersection ---
+
+  // Blend colors for triple intersection (keeping original for visual effect)
   const blendColorA_ABC = "#3B82F6"; // blue-500
   const blendColorB_ABC = "#EF4444"; // red-500
   const blendColorC_ABC = "#10B981"; // green-500
@@ -115,7 +148,6 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
 
   const isCircleHighlighted = (circle: 'A' | 'B' | 'C'): boolean => {
     if (!activeRegion) return false;
-
     switch (activeRegion) {
       case 'universal':
         return true;
@@ -145,7 +177,7 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
     if (isCircleHighlighted(circle)) {
       switch (activeRegion) {
         case 'universal':
-            return highlightColors['universal'];
+          return highlightColors['universal'];
         case 'only-A':
           return circle === 'A' ? highlightColors['only-A'] : inactiveColor;
         case 'only-B':
@@ -166,53 +198,53 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
           return inactiveColor;
         // --- Triple Intersection Logic ---
         case 'intersection-ABC':
-             // Return distinct blend colors for A, B, and C
-             if (circle === 'A') return blendColorA_ABC;
-             if (circle === 'B') return blendColorB_ABC;
-             if (circle === 'C') return blendColorC_ABC;
-             return inactiveColor; // Shouldn't happen, but default
+          // Return distinct blend colors for A, B, and C
+          if (circle === 'A') return blendColorA_ABC;
+          if (circle === 'B') return blendColorB_ABC;
+          if (circle === 'C') return blendColorC_ABC;
+          return inactiveColor; // Shouldn't happen, but default
         // --- End Triple Intersection Logic ---
         case 'complement':
-             return inactiveColor;
+          return inactiveColor;
         default:
-             return inactiveColor;
+          return inactiveColor;
       }
     } else {
-       if (isRegionActive('complement')) {
-          return inactiveColor;
-       }
-       return inactiveColor;
+      if (isRegionActive('complement')) {
+        return inactiveColor;
+      }
+      return inactiveColor;
     }
   };
 
   const getUniversalSetColor = (): string => {
     if (isRegionActive('universal') || isRegionActive('complement')) {
-      return highlightColors['universal'];
+      return highlightColors['universal']; // Use infoBoxBg color (light teal)
     }
     return inactiveColor;
   };
 
   const getOutsideLabelColor = (): string => {
     if (isRegionActive('complement')) {
-      return highlightColors['complement'];
+      return NEUBRUTALISM_COLORS.warning; // Use orange for complement label when active
     }
     return inactiveColor;
   };
 
   const getRegionLabelColor = (regionType: VennRegion): string => {
     if (isRegionActive(regionType)) {
-      switch(regionType) {
+      switch (regionType) {
         case 'only-A': return highlightColors['only-A'];
         case 'only-B': return highlightColors['only-B'];
         case 'only-C': return highlightColors['only-C'];
         case 'A-and-B-not-C':
         case 'A-and-C-not-B':
         case 'B-and-C-not-A':
-            return highlightColors['blend-pairwise'];
-        // --- Use the specific blend result color for the triple intersection label ---
-        case 'intersection-ABC': return highlightColors['blend-triple']; // Or highlightColors['intersection-ABC']
-        // --- End change ---
-        default: return inactiveColor;
+          return highlightColors['blend-pairwise']; // Use orange for active pairwise labels
+        case 'intersection-ABC':
+          return highlightColors['intersection-ABC']; // Use teal for active central label
+        default:
+          return NEUBRUTALISM_COLORS.warning; // Default active color if not specifically mapped
       }
     }
     return inactiveColor;
@@ -220,27 +252,96 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
 
   // --- LOGIC FOR DETERMINING CIRCLE RENDER ORDER (Z-INDEX) ---
   let topCircle: 'A' | 'B' | 'C' | null = null;
-  // Keep layering logic for pairwise, but for triple intersection,
-  // layering might be less critical or behave differently with blend modes.
-  // We can keep it for consistency or modify if needed.
   if (isRegionActive('A-and-B-not-C')) {
     topCircle = 'C';
   } else if (isRegionActive('A-and-C-not-B')) {
     topCircle = 'B';
   } else if (isRegionActive('B-and-C-not-A')) {
     topCircle = 'A';
-    // Optionally add logic for triple intersection layering if needed later
-    // } else if (isRegionActive('intersection-ABC')) {
-    //   topCircle = 'A'; // Or whichever makes visual sense
   }
   // --- END Z-INDEX LOGIC ---
 
+  // --- Button Styling Helper ---
+  const getButtonStyle = (region: VennRegion) => {
+    const isActive = isRegionActive(region);
+    // Default button colors
+    let bgColor = NEUBRUTALISM_COLORS.buttonDefault; // Default light teal
+    let textColor = NEUBRUTALISM_COLORS.primaryDark; // Default dark text
+
+    if (isActive) {
+      // Map active button colors based on region or use a default
+      switch (region) {
+        case 'only-A':
+          bgColor = "#93C5FD"; // blue-300
+          textColor = NEUBRUTALISM_COLORS.white;
+          break;
+        case 'only-B':
+          bgColor = "#FECACA"; // red-300
+          textColor = NEUBRUTALISM_COLORS.white;
+          break;
+        case 'only-C':
+          bgColor = "#BBF7D0"; // green-300
+          textColor = NEUBRUTALISM_COLORS.white;
+          break;
+        case 'A-and-B-not-C':
+        case 'A-and-C-not-B':
+        case 'B-and-C-not-A':
+          bgColor = NEUBRUTALISM_COLORS.warning; // Orange for active pairwise
+          textColor = NEUBRUTALISM_COLORS.white;
+          break;
+        case 'intersection-ABC':
+          bgColor = NEUBRUTALISM_COLORS.secondary; // Teal for active central
+          textColor = NEUBRUTALISM_COLORS.white;
+          break;
+        case 'universal':
+        case 'complement':
+          bgColor = NEUBRUTALISM_COLORS.infoBoxBg; // Light teal for active U/comp
+          textColor = NEUBRUTALISM_COLORS.primaryDark;
+          break;
+        default:
+          bgColor = NEUBRUTALISM_COLORS.secondary; // Default active (e.g., Clear)
+          textColor = NEUBRUTALISM_COLORS.white;
+          break;
+      }
+    }
+
+    return {
+      ...neubrutalismBase,
+      padding: '0.5rem 0.75rem',
+      fontSize: '0.75rem', // text-xs
+      fontWeight: '500', // font-medium
+      backgroundColor: bgColor,
+      color: textColor,
+      transition: 'all 0.2s',
+      cursor: 'pointer',
+    };
+  };
+  // --- End Button Styling ---
+
   return (
-    <div className="flex flex-col items-center w-full p-4 bg-slate-100 rounded-xl border border-slate-200 shadow-sm">
-      <h3 className="text-xl font-bold mb-3 text-slate-800 text-center">Interactive Venn Diagram: Three Sets</h3>
+    <div style={{
+      ...neubrutalismBase,
+      maxWidth: '600px',
+      width: '100%',
+      margin: '0 auto',
+      padding: '1.5rem',
+      backgroundColor: NEUBRUTALISM_COLORS.background, // Salmon background
+      borderColor: NEUBRUTALISM_COLORS.primaryDark, // Dark border
+      color: NEUBRUTALISM_COLORS.primaryDark, // Dark text
+      borderRadius: '20px',
+      boxShadow: `8px 8px 0px ${NEUBRUTALISM_COLORS.primaryDark}`, // Dark shadow
+    }}>
+      <h3 className="text-xl font-extrabold mb-4 text-center" style={{ color: NEUBRUTALISM_COLORS.white }}>
+        Interactive Venn Diagram: Three Sets
+      </h3>
 
       <div className="flex justify-center mb-4 w-full">
-        <div className="overflow-hidden rounded-lg border border-slate-300 bg-white">
+        <div style={{
+          ...neubrutalismBase,
+          backgroundColor: NEUBRUTALISM_COLORS.white, // White background for SVG container
+          borderColor: NEUBRUTALISM_COLORS.primaryDark, // Dark border
+          padding: '0.5rem',
+        }}>
           <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} className="block">
             <rect
               x={padding}
@@ -253,6 +354,7 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
               strokeDasharray="4,4"
               className="cursor-pointer"
               onClick={() => handleSelectRegion('complement')}
+              style={{ cursor: 'pointer' }}
             />
             <text
               x={width - padding - 5}
@@ -264,7 +366,6 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
             >
               {labelU}
             </text>
-
             {/* --- RENDER CIRCLES WITH DYNAMIC ORDERING AND BLENDING --- */}
             {/* Circle A */}
             {topCircle !== 'A' && (
@@ -276,31 +377,29 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
                 fill={getBaseCircleColor('A')}
                 stroke={strokeColor}
                 strokeWidth="1.5"
-                // Apply blend mode if part of an active pairwise intersection
-                // OR if part of the active triple intersection (apply to 2 of 3)
                 className={`transition-colors duration-200 ${
                   (isRegionActive('A-and-B-not-C') && 'A') ||
                   (isRegionActive('A-and-C-not-B') && 'A') ||
-                  (isRegionActive('intersection-ABC') && 'A') // Apply blend to A as well for triple?
-                  ? 'mix-blend-multiply' : '' // Let's re-evaluate this
+                  (isRegionActive('intersection-ABC') && 'A')
+                    ? 'mix-blend-multiply'
+                    : ''
                 }`}
               />
             )}
             {topCircle !== 'A' && (
-               <text
-                 key="labelA"
-                 x={circleA_Cx}
-                 y={circleA_Cy}
-                 textAnchor="middle"
-                 dy=".3em"
-                 fill={labelColor}
-                 fontSize="16"
-                 fontWeight="bold"
-               >
-                 {labelA}
-               </text>
+              <text
+                key="labelA"
+                x={circleA_Cx}
+                y={circleA_Cy}
+                textAnchor="middle"
+                dy=".3em"
+                fill={labelColor}
+                fontSize="16"
+                fontWeight="bold"
+              >
+                {labelA}
+              </text>
             )}
-
             {/* Circle B */}
             {topCircle !== 'B' && (
               <circle
@@ -314,9 +413,9 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
                 className={`transition-colors duration-200 ${
                   (isRegionActive('A-and-B-not-C') && 'B') ||
                   (isRegionActive('B-and-C-not-A') && 'B') ||
-                  // Apply blend mode for B in triple intersection
                   (isRegionActive('intersection-ABC') && 'B')
-                  ? 'mix-blend-multiply' : ''
+                    ? 'mix-blend-multiply'
+                    : ''
                 }`}
               />
             )}
@@ -334,7 +433,6 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
                 {labelB}
               </text>
             )}
-
             {/* Circle C */}
             {topCircle !== 'C' && (
               <circle
@@ -348,9 +446,9 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
                 className={`transition-colors duration-200 ${
                   (isRegionActive('A-and-C-not-B') && 'C') ||
                   (isRegionActive('B-and-C-not-A') && 'C') ||
-                  // Apply blend mode for C in triple intersection
                   (isRegionActive('intersection-ABC') && 'C')
-                  ? 'mix-blend-multiply' : ''
+                    ? 'mix-blend-multiply'
+                    : ''
                 }`}
               />
             )}
@@ -368,7 +466,6 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
                 {labelC}
               </text>
             )}
-
             {/* Render the 'topCircle' LAST */}
             {topCircle === 'A' && (
               <circle
@@ -383,7 +480,8 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
                   (isRegionActive('A-and-B-not-C') && 'A') ||
                   (isRegionActive('A-and-C-not-B') && 'A') ||
                   (isRegionActive('intersection-ABC') && 'A')
-                  ? 'mix-blend-multiply' : ''
+                    ? 'mix-blend-multiply'
+                    : ''
                 }`}
               />
             )}
@@ -401,7 +499,6 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
                 {labelA}
               </text>
             )}
-
             {topCircle === 'B' && (
               <circle
                 key="circleB-top"
@@ -415,7 +512,8 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
                   (isRegionActive('A-and-B-not-C') && 'B') ||
                   (isRegionActive('B-and-C-not-A') && 'B') ||
                   (isRegionActive('intersection-ABC') && 'B')
-                  ? 'mix-blend-multiply' : ''
+                    ? 'mix-blend-multiply'
+                    : ''
                 }`}
               />
             )}
@@ -433,7 +531,6 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
                 {labelB}
               </text>
             )}
-
             {topCircle === 'C' && (
               <circle
                 key="circleC-top"
@@ -447,7 +544,8 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
                   (isRegionActive('A-and-C-not-B') && 'C') ||
                   (isRegionActive('B-and-C-not-A') && 'C') ||
                   (isRegionActive('intersection-ABC') && 'C')
-                  ? 'mix-blend-multiply' : ''
+                    ? 'mix-blend-multiply'
+                    : ''
                 }`}
               />
             )}
@@ -466,7 +564,6 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
               </text>
             )}
             {/* --- END DYNAMIC CIRCLE RENDERING --- */}
-
             {/* --- Region Labels --- */}
             <text
               x={circleA_Cx}
@@ -480,7 +577,6 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
             >
               Only {labelA}
             </text>
-
             <text
               x={circleB_Cx - circleRadius / 2}
               y={circleB_Cy + circleRadius / 3}
@@ -493,7 +589,6 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
             >
               Only {labelB}
             </text>
-
             <text
               x={circleC_Cx + circleRadius / 2}
               y={circleC_Cy + circleRadius / 3}
@@ -506,7 +601,6 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
             >
               Only {labelC}
             </text>
-
             <text
               x={centerX - 25}
               y={centerY + 10}
@@ -518,7 +612,6 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
             >
               {labelA} ∩ {labelB}
             </text>
-
             <text
               x={centerX + 25}
               y={centerY + 10}
@@ -530,7 +623,6 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
             >
               {labelA} ∩ {labelC}
             </text>
-
             <text
               x={centerX}
               y={centerY + circleRadius - 10}
@@ -542,7 +634,6 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
             >
               {labelB} ∩ {labelC}
             </text>
-
             <text
               x={centerX}
               y={centerY - 5}
@@ -554,7 +645,6 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
             >
               {labelA} ∩ {labelB} ∩ {labelC}
             </text>
-
             <text
               x={centerX}
               y={height - 25}
@@ -564,6 +654,7 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
               fontWeight={isRegionActive('complement') ? "bold" : "normal"}
               className="pointer-events-none select-none cursor-pointer"
               onClick={() => handleSelectRegion('complement')}
+              style={{ cursor: 'pointer' }}
             >
               Outside {labelA}, {labelB}, {labelC}
             </text>
@@ -571,119 +662,146 @@ const ThreeSetVennDiagram: React.FC<ThreeSetVennDiagramProps> = ({
         </div>
       </div>
 
-      <div className="flex flex-wrap justify-center gap-1.5 mb-4 w-full">
+      {/* Control Buttons - Updated with Neubrutalism Style and new palette */}
+      <div className="flex flex-wrap justify-center gap-2 mb-4 w-full">
         <button
           onClick={() => handleSelectRegion('universal')}
-          className={`px-2 py-2 text-xs font-medium rounded-full transition-colors ${
-            isRegionActive('universal')
-              ? 'bg-indigo-500 text-white'
-              : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-          }`}
+          style={getButtonStyle('universal')}
+          onMouseEnter={(e) => {
+            if (!isRegionActive('universal')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonHover;
+          }}
+          onMouseLeave={(e) => {
+            if (!isRegionActive('universal')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonDefault;
+          }}
         >
           {labelU} (Universal)
         </button>
         <button
           onClick={() => handleSelectRegion('only-A')}
-          className={`px-2 py-2 text-xs font-medium rounded-full transition-colors ${
-            isRegionActive('only-A')
-              ? 'bg-blue-500 text-white'
-              : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-          }`}
+          style={getButtonStyle('only-A')}
+          onMouseEnter={(e) => {
+            if (!isRegionActive('only-A')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonHover;
+          }}
+          onMouseLeave={(e) => {
+            if (!isRegionActive('only-A')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonDefault;
+          }}
         >
           Only {labelA}
         </button>
         <button
           onClick={() => handleSelectRegion('only-B')}
-          className={`px-2 py-2 text-xs font-medium rounded-full transition-colors ${
-            isRegionActive('only-B')
-              ? 'bg-red-500 text-white'
-              : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-          }`}
+          style={getButtonStyle('only-B')}
+          onMouseEnter={(e) => {
+            if (!isRegionActive('only-B')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonHover;
+          }}
+          onMouseLeave={(e) => {
+            if (!isRegionActive('only-B')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonDefault;
+          }}
         >
           Only {labelB}
         </button>
         <button
           onClick={() => handleSelectRegion('only-C')}
-          className={`px-2 py-2 text-xs font-medium rounded-full transition-colors ${
-            isRegionActive('only-C')
-              ? 'bg-green-500 text-white'
-              : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-          }`}
+          style={getButtonStyle('only-C')}
+          onMouseEnter={(e) => {
+            if (!isRegionActive('only-C')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonHover;
+          }}
+          onMouseLeave={(e) => {
+            if (!isRegionActive('only-C')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonDefault;
+          }}
         >
           Only {labelC}
         </button>
         <button
           onClick={() => handleSelectRegion('A-and-B-not-C')}
-          className={`px-2 py-2 text-xs font-medium rounded-full transition-colors ${
-            isRegionActive('A-and-B-not-C')
-              ? `bg-[${highlightColors['blend-pairwise']}] text-slate-800`
-              : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-          }`}
-          style={isRegionActive('A-and-B-not-C') ? { backgroundColor: highlightColors['blend-pairwise'] } : {}}
+          style={getButtonStyle('A-and-B-not-C')}
+          onMouseEnter={(e) => {
+            if (!isRegionActive('A-and-B-not-C')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonHover;
+          }}
+          onMouseLeave={(e) => {
+            if (!isRegionActive('A-and-B-not-C')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonDefault;
+          }}
         >
           {labelA} ∩ {labelB} (Not {labelC})
         </button>
         <button
           onClick={() => handleSelectRegion('A-and-C-not-B')}
-          className={`px-2 py-2 text-xs font-medium rounded-full transition-colors ${
-            isRegionActive('A-and-C-not-B')
-              ? `bg-[${highlightColors['blend-pairwise']}] text-slate-800`
-              : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-          }`}
-          style={isRegionActive('A-and-C-not-B') ? { backgroundColor: highlightColors['blend-pairwise'] } : {}}
+          style={getButtonStyle('A-and-C-not-B')}
+          onMouseEnter={(e) => {
+            if (!isRegionActive('A-and-C-not-B')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonHover;
+          }}
+          onMouseLeave={(e) => {
+            if (!isRegionActive('A-and-C-not-B')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonDefault;
+          }}
         >
           {labelA} ∩ {labelC} (Not {labelB})
         </button>
         <button
           onClick={() => handleSelectRegion('B-and-C-not-A')}
-          className={`px-2 py-2 text-xs font-medium rounded-full transition-colors ${
-            isRegionActive('B-and-C-not-A')
-              ? `bg-[${highlightColors['blend-pairwise']}] text-slate-800`
-              : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-          }`}
-          style={isRegionActive('B-and-C-not-A') ? { backgroundColor: highlightColors['blend-pairwise'] } : {}}
+          style={getButtonStyle('B-and-C-not-A')}
+          onMouseEnter={(e) => {
+            if (!isRegionActive('B-and-C-not-A')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonHover;
+          }}
+          onMouseLeave={(e) => {
+            if (!isRegionActive('B-and-C-not-A')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonDefault;
+          }}
         >
           {labelB} ∩ {labelC} (Not {labelA})
         </button>
-        {/* --- Updated button for A ∩ B ∩ C --- */}
         <button
           onClick={() => handleSelectRegion('intersection-ABC')}
-          className={`px-2 py-2 text-xs font-medium rounded-full transition-colors ${
-            isRegionActive('intersection-ABC')
-              // Use the specific blended color for the triple intersection button
-              ? `bg-[${highlightColors['blend-triple']}] text-white` // White text for contrast on dark
-              : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-          }`}
-          // Inline style to handle dynamic color
-          style={isRegionActive('intersection-ABC') ? { backgroundColor: highlightColors['blend-triple'] } : {}}
+          style={getButtonStyle('intersection-ABC')}
+          onMouseEnter={(e) => {
+            if (!isRegionActive('intersection-ABC')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonHover;
+          }}
+          onMouseLeave={(e) => {
+            if (!isRegionActive('intersection-ABC')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonDefault;
+          }}
         >
           {labelA} ∩ {labelB} ∩ {labelC}
         </button>
-        {/* --- End Updated Button --- */}
         <button
           onClick={() => handleSelectRegion('complement')}
-          className={`px-2 py-2 text-xs font-medium rounded-full transition-colors ${
-            isRegionActive('complement')
-              ? 'bg-indigo-300 text-slate-800'
-              : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-          }`}
+          style={getButtonStyle('complement')}
+          onMouseEnter={(e) => {
+            if (!isRegionActive('complement')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonHover;
+          }}
+          onMouseLeave={(e) => {
+            if (!isRegionActive('complement')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonDefault;
+          }}
         >
           Complement (Outside All)
         </button>
         <button
           onClick={() => setActiveRegion(null)}
-          className={`px-2 py-2 text-xs font-medium rounded-full transition-colors ${
-            'bg-slate-200 text-slate-700 hover:bg-slate-300'
-          }`}
+          style={{
+            ...getButtonStyle(null),
+            backgroundColor: NEUBRUTALISM_COLORS.primaryDark, // Dark for clear
+            color: NEUBRUTALISM_COLORS.white, // White text
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.secondary} // Teal hover
+          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.primaryDark}
         >
           Clear
         </button>
       </div>
 
-      <div className="p-3 bg-white border border-slate-300 rounded-lg w-full text-center text-sm">
-        <p className="text-slate-700 font-medium">
-          {description}
-        </p>
+      {/* Info Box - Updated with Neubrutalism Style and new palette */}
+      <div style={{
+        ...neubrutalismBase,
+        backgroundColor: NEUBRUTALISM_COLORS.infoBoxBg, // Light teal
+        borderColor: NEUBRUTALISM_COLORS.primaryDark, // Dark border
+        width: '100%',
+        minHeight: '50px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        fontSize: '0.875rem', // text-sm
+        fontWeight: '500', // font-medium
+        color: NEUBRUTALISM_COLORS.primaryDark, // Dark text
+      }}>
+        <p>{description}</p>
       </div>
     </div>
   );

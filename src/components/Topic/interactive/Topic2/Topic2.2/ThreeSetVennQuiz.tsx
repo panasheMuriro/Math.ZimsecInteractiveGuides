@@ -1,16 +1,6 @@
 // src/Data/ThreeSetVennQuizData.ts
 import MultipleChoiceInteractiveComponent, { QuizQuestion } from '../../Templates/MultipleChoiceInteractiveComponent';
 
-// Define the region numbers for clarity (matching the diagram)
-// 1: Only A
-// 2: Only B
-// 3: Only C
-// 4: A ∩ B (not C)
-// 5: A ∩ C (not B)
-// 6: B ∩ C (not A)
-// 7: A ∩ B ∩ C
-// 8: Outside A, B, and C (A' ∩ B' ∩ C' ∩ U)
-
 const threeSetVennQuizQuestions: QuizQuestion[] = [
   {
     question: `Which region represents elements in set $A$ only?`,

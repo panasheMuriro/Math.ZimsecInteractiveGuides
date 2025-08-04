@@ -1,6 +1,32 @@
 // src/Components/InteractiveVennDiagram.tsx
 import React, { useState } from 'react';
 
+// --- Neubrutalism Styles & Colors (Aligned with templates) ---
+const NEUBRUTALISM_COLORS = {
+  primaryDark: '#264653',    // Darkest color - Text, borders
+  secondary: '#2a9d8f',      // Teal - Correct, accents
+  neutral: '#e9c46a',        // Sand yellow - Highlights, explanations
+  warning: '#f4a261',        // Orange - Warnings
+  danger: '#e76f51',         // Salmon - Danger, resets
+  white: '#ffffff',
+  lightGray: '#f0f0f0',
+  borderGray: '#d0d0d0',
+  shadowGray: 'rgba(38, 70, 83, 0.2)', // primaryDark with opacity
+  background: '#e76f51',     // Salmon background for main container (from template)
+  buttonDefault: '#d1e7e4',  // Lighter teal for default button bg
+  buttonHover: '#c0ddd8',    // Even lighter teal for button hover
+  infoBoxBg: '#e8f4f2',      // Light teal for info boxes
+};
+
+const neubrutalismBase = {
+  border: `3px solid ${NEUBRUTALISM_COLORS.primaryDark}`,
+  borderRadius: '12px',
+  boxShadow: `4px 4px 0px ${NEUBRUTALISM_COLORS.shadowGray}`,
+  padding: '1rem',
+};
+
+// --- End Neubrutalism Styles ---
+
 // Define the possible regions/selections
 type VennSelection = 'U' | 'A-only' | 'B-only' | 'union' | 'intersection' | 'A-complement' | 'B-complement' | 'union-complement' | null;
 
@@ -26,21 +52,21 @@ const InteractiveVennDiagram: React.FC<InteractiveVennDiagramProps> = ({
   };
 
   // Helper function to get region description
-  const getRegionDescription = (): string => {
+  const getRegionDescription = (): React.ReactNode => {
     switch (activeSelection) {
-      case 'U': return `The Universal Set ${labelU}: All elements under consideration, including those in sets ${labelA} and ${labelB}.`;
-      case 'A-only': return `Elements in set ${labelA} only (${labelA} ∩ ${labelB}')`;
-      case 'B-only': return `Elements in set ${labelB} only (${labelA}' ∩ ${labelB})`;
-      case 'union': return `Elements in either set ${labelA} or set ${labelB} or both (${labelA} ∪ ${labelB})`;
-      case 'intersection': return `Elements in both set ${labelA} and set ${labelB} (${labelA} ∩ ${labelB})`;
-      case 'A-complement': return `Elements NOT in set ${labelA} (${labelA}') - Everything in ${labelU} except ${labelA}.`;
-      case 'B-complement': return `Elements NOT in set ${labelB} (${labelB}') - Everything in ${labelU} except ${labelB}.`;
-      case 'union-complement': return `Elements NOT in set ${labelA} AND NOT in set ${labelB} ((${labelA} ∪ ${labelB})') - Everything outside both sets.`;
+      case 'U': return <span>The Universal Set <strong>{labelU}</strong>: All elements under consideration, including those in sets <strong>{labelA}</strong> and <strong>{labelB}</strong>.</span>;
+      case 'A-only': return <span>Elements in set <strong>{labelA}</strong> only (<strong>{labelA} ∩ {labelB}'</strong>)</span>;
+      case 'B-only': return <span>Elements in set <strong>{labelB}</strong> only (<strong>{labelA}' ∩ {labelB}</strong>)</span>;
+      case 'union': return <span>Elements in either set <strong>{labelA}</strong> or set <strong>{labelB}</strong> or both (<strong>{labelA} ∪ {labelB}</strong>)</span>;
+      case 'intersection': return <span>Elements in both set <strong>{labelA}</strong> and set <strong>{labelB}</strong> (<strong>{labelA} ∩ {labelB}</strong>)</span>;
+      case 'A-complement': return <span>Elements NOT in set <strong>{labelA}</strong> (<strong>{labelA}'</strong>) - Everything in <strong>{labelU}</strong> except <strong>{labelA}</strong>.</span>;
+      case 'B-complement': return <span>Elements NOT in set <strong>{labelB}</strong> (<strong>{labelB}'</strong>) - Everything in <strong>{labelU}</strong> except <strong>{labelB}</strong>.</span>;
+      case 'union-complement': return <span>Elements NOT in set <strong>{labelA}</strong> AND NOT in set <strong>{labelB}</strong> ((<strong>{labelA} ∪ {labelB}</strong>)') - Everything outside both sets.</span>;
       default: return 'Select a region using the buttons below to highlight it.';
     }
   };
 
-  // --- SVG Dimensions and Calculations (Adjusted for mobile) ---
+  // --- SVG Dimensions and Calculations ---
   const width = 320;
   const height = 270;
   const padding = 15;
@@ -53,23 +79,29 @@ const InteractiveVennDiagram: React.FC<InteractiveVennDiagramProps> = ({
   const currentCircleOffset = activeSelection === 'intersection' ? circleOffsetOverlap : circleOffsetNormal;
   // --- End Positions ---
 
-  // --- Color Definitions (Adjusted inactiveColor for slate background) ---
-  const inactiveColor = "#94A3B8"; // slate-400
-  const strokeColor = "#475569"; // slate-600
-  const labelColor = "#1E293B"; // slate-800
+  // --- Color Definitions (Integrated with Neubrutalism Palette) ---
+  // Map original highlight colors to Neubrutalism palette
+  const inactiveColor = NEUBRUTALISM_COLORS.borderGray; // slate-400 equivalent
+  const strokeColor = NEUBRUTALISM_COLORS.primaryDark; // slate-600 equivalent
+  const labelColor = NEUBRUTALISM_COLORS.primaryDark; // slate-800 equivalent
+
+  // Map original highlight colors to Neubrutalism palette
   const highlightColors: Record<'U' | 'A-only' | 'B-only' | 'union' | 'intersection' | 'A-complement' | 'B-complement' | 'union-complement', string> = {
-    'U': "#C7D2FE", // indigo-200
-    'A-only': "#93C5FD", // blue-300
-    'B-only': "#FECACA", // red-300
-    'union': "#FDE68A", // yellow-200
-    'intersection': "#10B981", // green-500
-    'A-complement': "#A5B4FC", // indigo-300
-    'B-complement': "#A78BFA", // violet-400
-    'union-complement': "#FBCFE8", // pink-200
+    'U': NEUBRUTALISM_COLORS.infoBoxBg, // indigo-200 -> Light teal
+    'A-only': "#93C5FD", // blue-300 (keeping original for distinctiveness)
+    'B-only': "#FECACA", // red-300 (keeping original for distinctiveness)
+    'union': NEUBRUTALISM_COLORS.neutral, // yellow-200 -> Sand yellow
+    'intersection': NEUBRUTALISM_COLORS.secondary, // green-500 -> Teal
+    'A-complement': "#A5B4FC", // indigo-300 (keeping original for distinctiveness)
+    'B-complement': "#A78BFA", // violet-400 (keeping original for distinctiveness)
+    'union-complement': "#FBCFE8", // pink-200 (keeping original for distinctiveness)
   };
+
+  // Specific colors for intersection blending (keeping original for visual effect)
   const intersectionColorA = "#22D3EE"; // cyan-400
-  const intersectionColorB = "#FDE68A"; // yellow-200
-  // --- End Definitions ---
+  const intersectionColorB = NEUBRUTALISM_COLORS.neutral; // yellow-200 -> Sand yellow
+
+  // --- End Color Definitions ---
 
   const isRegionActive = (regionToCheck: VennSelection): boolean => {
     return activeSelection === regionToCheck;
@@ -142,12 +174,52 @@ const InteractiveVennDiagram: React.FC<InteractiveVennDiagramProps> = ({
      return inactiveColor;
   };
 
+  // --- Button Styling Helper ---
+  const getButtonStyle = (region: VennSelection) => {
+    const isActive = isRegionActive(region);
+    return {
+      ...neubrutalismBase,
+      padding: '0.5rem 0.75rem',
+      fontSize: '0.75rem', // text-xs
+      fontWeight: '500', // font-medium
+      backgroundColor: isActive ? NEUBRUTALISM_COLORS.secondary : NEUBRUTALISM_COLORS.buttonDefault,
+      color: isActive ? NEUBRUTALISM_COLORS.white : NEUBRUTALISM_COLORS.primaryDark,
+      transition: 'all 0.2s',
+      cursor: 'pointer',
+      // Add hover effect inline
+      ...(isActive ? {} : { // No hover change for active buttons
+        ':hover': {
+          backgroundColor: NEUBRUTALISM_COLORS.buttonHover,
+        }
+      })
+    };
+  };
+  // --- End Button Styling ---
+
   return (
-    <div className="flex flex-col items-center w-full p-4 bg-slate-100 rounded-xl border border-slate-200 shadow-sm">
-      <h3 className="text-xl font-bold mb-3 text-slate-800 text-center">Interactive Venn Diagram</h3>
+    <div style={{
+      ...neubrutalismBase,
+      maxWidth: '600px',
+      width: '100%',
+      margin: '0 auto',
+      padding: '1.5rem',
+      backgroundColor: NEUBRUTALISM_COLORS.background, // Salmon background
+      borderColor: NEUBRUTALISM_COLORS.primaryDark,
+      color: NEUBRUTALISM_COLORS.primaryDark,
+      borderRadius: '20px',
+      boxShadow: `8px 8px 0px ${NEUBRUTALISM_COLORS.primaryDark}`,
+    }}>
+      <h3 className="text-xl font-extrabold mb-4 text-center" style={{ color: NEUBRUTALISM_COLORS.white }}>
+        Interactive Venn Diagram
+      </h3>
       
       <div className="flex justify-center mb-4 w-full">
-        <div className="overflow-hidden rounded-lg border border-slate-300 bg-white">
+        <div style={{
+          ...neubrutalismBase,
+          backgroundColor: NEUBRUTALISM_COLORS.white,
+          borderColor: NEUBRUTALISM_COLORS.primaryDark,
+          padding: '0.5rem',
+        }}>
          <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} className="block">
             <rect 
               x={padding} 
@@ -169,7 +241,6 @@ const InteractiveVennDiagram: React.FC<InteractiveVennDiagramProps> = ({
             >
               {labelU}
             </text>
-
             <circle
               cx={centerX - currentCircleOffset}
               cy={centerY}
@@ -191,7 +262,6 @@ const InteractiveVennDiagram: React.FC<InteractiveVennDiagramProps> = ({
             >
               {labelA}
             </text>
-
             <circle
               cx={centerX + currentCircleOffset}
               cy={centerY}
@@ -215,7 +285,6 @@ const InteractiveVennDiagram: React.FC<InteractiveVennDiagramProps> = ({
             >
               {labelB}
             </text>
-
             <text 
               x={centerX - circleOffsetNormal - 35} 
               y={centerY} 
@@ -228,7 +297,6 @@ const InteractiveVennDiagram: React.FC<InteractiveVennDiagramProps> = ({
             >
               A only
             </text>
-            
             <text 
               x={centerX + circleOffsetNormal + 35} 
               y={centerY} 
@@ -241,7 +309,6 @@ const InteractiveVennDiagram: React.FC<InteractiveVennDiagramProps> = ({
             >
               B only
             </text>
-            
             <text 
               x={centerX} 
               y={centerY - 25} 
@@ -253,7 +320,6 @@ const InteractiveVennDiagram: React.FC<InteractiveVennDiagramProps> = ({
             >
               A ∪ B
             </text>
-
             <text 
               x={centerX} 
               y={centerY} 
@@ -265,7 +331,6 @@ const InteractiveVennDiagram: React.FC<InteractiveVennDiagramProps> = ({
             >
               A ∩ B
             </text>
-
             <text 
               x={centerX - circleOffsetNormal - 50} 
               y={centerY - circleRadius - 10} 
@@ -277,7 +342,6 @@ const InteractiveVennDiagram: React.FC<InteractiveVennDiagramProps> = ({
             >
               A'
             </text>
-
             <text 
               x={centerX + circleOffsetNormal + 50} 
               y={centerY - circleRadius - 10} 
@@ -289,7 +353,6 @@ const InteractiveVennDiagram: React.FC<InteractiveVennDiagramProps> = ({
             >
               B'
             </text>
-            
             <text 
               x={centerX} 
               y={height - 25} 
@@ -305,103 +368,102 @@ const InteractiveVennDiagram: React.FC<InteractiveVennDiagramProps> = ({
         </div>
       </div>
 
-      {/* Control Buttons - Added py-3 and adjusted background/colors */}
+      {/* Control Buttons - Updated with Neubrutalism Style */}
       <div className="flex flex-wrap justify-center gap-2 mb-4 w-full">
         <button
           onClick={() => handleSelectRegion('U')}
-          className={`px-3 py-3 text-xs sm:text-sm font-medium rounded-full transition-colors ${
-            isRegionActive('U')
-              ? 'bg-indigo-500 text-white'
-              : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-          }`}
+          style={getButtonStyle('U')}
+          onMouseEnter={(e) => { if (!isRegionActive('U')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonHover; }}
+          onMouseLeave={(e) => { if (!isRegionActive('U')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonDefault; }}
         >
           {labelU} (Universal)
         </button>
         <button
           onClick={() => handleSelectRegion('A-only')}
-          className={`px-3 py-3 text-xs sm:text-sm font-medium rounded-full transition-colors ${
-            isRegionActive('A-only')
-              ? 'bg-blue-500 text-white'
-              : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-          }`}
+          style={getButtonStyle('A-only')}
+          onMouseEnter={(e) => { if (!isRegionActive('A-only')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonHover; }}
+          onMouseLeave={(e) => { if (!isRegionActive('A-only')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonDefault; }}
         >
           {labelA} Only
         </button>
         <button
           onClick={() => handleSelectRegion('B-only')}
-          className={`px-3 py-3 text-xs sm:text-sm font-medium rounded-full transition-colors ${
-            isRegionActive('B-only')
-              ? 'bg-red-500 text-white'
-              : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-          }`}
+          style={getButtonStyle('B-only')}
+          onMouseEnter={(e) => { if (!isRegionActive('B-only')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonHover; }}
+          onMouseLeave={(e) => { if (!isRegionActive('B-only')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonDefault; }}
         >
           {labelB} Only
         </button>
         <button
           onClick={() => handleSelectRegion('union')}
-          className={`px-3 py-3 text-xs sm:text-sm font-medium rounded-full transition-colors ${
-            isRegionActive('union')
-              ? 'bg-yellow-500 text-slate-800'
-              : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-          }`}
+          style={getButtonStyle('union')}
+          onMouseEnter={(e) => { if (!isRegionActive('union')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonHover; }}
+          onMouseLeave={(e) => { if (!isRegionActive('union')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonDefault; }}
         >
           A ∪ B (Union)
         </button>
         <button
           onClick={() => handleSelectRegion('intersection')}
-          className={`px-3 py-3 text-xs sm:text-sm font-medium rounded-full transition-colors ${
-            isRegionActive('intersection')
-              ? 'bg-green-500 text-white'
-              : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-          }`}
+          style={getButtonStyle('intersection')}
+          onMouseEnter={(e) => { if (!isRegionActive('intersection')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonHover; }}
+          onMouseLeave={(e) => { if (!isRegionActive('intersection')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonDefault; }}
         >
           A ∩ B (Intersection)
         </button>
         <button
           onClick={() => handleSelectRegion('A-complement')}
-          className={`px-3 py-3 text-xs sm:text-sm font-medium rounded-full transition-colors ${
-            isRegionActive('A-complement')
-              ? 'bg-indigo-300 text-slate-800' // Button color can remain distinct or match U if preferred
-              : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-          }`}
+          style={getButtonStyle('A-complement')}
+          onMouseEnter={(e) => { if (!isRegionActive('A-complement')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonHover; }}
+          onMouseLeave={(e) => { if (!isRegionActive('A-complement')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonDefault; }}
         >
           {labelA}' (Complement)
         </button>
         <button
           onClick={() => handleSelectRegion('B-complement')}
-          className={`px-3 py-3 text-xs sm:text-sm font-medium rounded-full transition-colors ${
-            isRegionActive('B-complement')
-              ? 'bg-violet-400 text-white' // Button color can remain distinct
-              : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-          }`}
+          style={getButtonStyle('B-complement')}
+          onMouseEnter={(e) => { if (!isRegionActive('B-complement')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonHover; }}
+          onMouseLeave={(e) => { if (!isRegionActive('B-complement')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonDefault; }}
         >
           {labelB}' (Complement)
         </button>
         <button
           onClick={() => handleSelectRegion('union-complement')}
-          className={`px-3 py-3 text-xs sm:text-sm font-medium rounded-full transition-colors ${
-            isRegionActive('union-complement')
-              // MODIFIED: Button color matches highlightColors['U'] (indigo-200)
-              ? 'bg-indigo-200 text-slate-800 hover:bg-indigo-300' // Changed from bg-pink-400
-              : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-          }`}
+          style={getButtonStyle('union-complement')}
+          onMouseEnter={(e) => { if (!isRegionActive('union-complement')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonHover; }}
+          onMouseLeave={(e) => { if (!isRegionActive('union-complement')) e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.buttonDefault; }}
         >
           (A ∪ B)' (Union Complement)
         </button>
         <button
           onClick={() => setActiveSelection(null)}
-          className={`px-3 py-3 text-xs sm:text-sm font-medium rounded-full transition-colors ${
-            'bg-slate-200 text-slate-700 hover:bg-slate-300'
-          }`}
+          style={{
+            ...getButtonStyle(null),
+            backgroundColor: NEUBRUTALISM_COLORS.danger, // Salmon for clear
+            color: NEUBRUTALISM_COLORS.white,
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f6b78a'} // Lighter orange hover
+          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.danger}
         >
           Clear
         </button>
       </div>
 
-      <div className="p-3 bg-white border border-slate-300 rounded-lg w-full text-center min-h-[50px] flex items-center justify-center text-sm">
-        <p className="text-slate-700 font-medium">
-          {getRegionDescription()}
-        </p>
+      {/* Info Box - Updated with Neubrutalism Style */}
+      <div style={{
+        ...neubrutalismBase,
+        backgroundColor: NEUBRUTALISM_COLORS.infoBoxBg, // Light teal
+        borderColor: NEUBRUTALISM_COLORS.primaryDark,
+        width: '100%',
+        minHeight: '60px', // Slightly larger for better text fit
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        fontSize: '0.875rem', // text-sm
+        fontWeight: '500', // font-medium
+        color: NEUBRUTALISM_COLORS.primaryDark,
+      }}>
+        <p>{getRegionDescription()}</p>
       </div>
     </div>
   );
