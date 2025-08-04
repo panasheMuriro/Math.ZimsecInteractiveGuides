@@ -17,7 +17,7 @@ const MotionGraphDisplay: React.FC<{ question: QuizQuestion }> = ({ question }) 
       </div>
 
        <div className="w-full mb-3">
-        <h4 className="font-bold text-lg text-center text-white">
+        <h4 className="font-bold text-lg text-center">
           {renderTextWithMath(question.question)}
         </h4>
       </div>

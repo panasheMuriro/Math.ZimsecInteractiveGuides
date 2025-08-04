@@ -27,7 +27,7 @@ const CombinedShapeVisualizer1: React.FC<CombinedShapeVisualizerProps> = () => {
           <text x="130" y="25" textAnchor="middle" className="fill-red-500 font-bold text-xs">r</text>
         </svg>
       </div>
-      <div className="text-black text-center mb-2">
+      <div className=" text-center mb-2">
         <p className="font-semibold text-sm">Given Dimensions (Q1):</p>
         <ul className="list-disc list-inside text-xs">
           <li>Rectangle Length (l) = 10 cm</li>
@@ -57,7 +57,7 @@ const CombinedShapeVisualizer2: React.FC<CombinedShapeVisualizerProps> = () => {
           <text x="70" y="45" textAnchor="middle" className="fill-red-500 font-bold text-xs">r</text>
         </svg>
       </div>
-      <div className="text-black text-center mb-2">
+      <div className=" text-center mb-2">
         <p className="font-semibold text-sm">Given Dimensions (Q2):</p>
         <ul className="list-disc list-inside text-xs">
           <li>Square Side (s) = 8 cm</li>
@@ -88,7 +88,7 @@ const CombinedShapeVisualizer3: React.FC<CombinedShapeVisualizerProps> = () => {
           <text x="35" y="50" textAnchor="end" className="fill-red-500 font-bold text-xs">r</text>
         </svg>
       </div>
-      <div className="text-black text-center mb-2">
+      <div className=" text-center mb-2">
         <p className="font-semibold text-sm">Given Dimensions (Q3):</p>
         <ul className="list-disc list-inside text-xs">
           <li>Rectangle Length (l) = 12 cm</li>

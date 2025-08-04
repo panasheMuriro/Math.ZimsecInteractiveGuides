@@ -1,21 +1,21 @@
-import AddingSubtractingLikeTermsTool from "./Topic7.1/AddingSubtractingLikeTermsTool";
-import DividingAlgebraicTermsTool from "./Topic7.1/DividingAlgebraicTermsTool";
-import LikeTermsInteractive from "./Topic7.1/LikeTermsInteractive";
-import MultiplyingAlgebraicTermsTool from "./Topic7.1/MultiplyingAlgebraicTermsTool";
-import SubstitutionInExpressionsTool from "./Topic7.1/SubstitutionInExpressionsTool";
-import UnderstandingHCFTool from "./Topic7.2/UnderstandingHCFTool";
-import UnderstandingLCMTool from "./Topic7.2/UnderstandingLCMTool";
-import CommonFactorMethodTool from "./Topic7.3/CommonFactorMethodTool";
-import DifferenceOfTwoSquaresTool from "./Topic7.3/DifferenceOfTwoSquaresTool";
-import PerfectSquareTrinomialsTool from "./Topic7.3/PerfectSquareTrinomialsTool";
-import QuadraticFactoringA1Tool from "./Topic7.3/QuadraticFactoringA1Tool";
-import QuadraticFactoringANot1Tool from "./Topic7.3/QuadraticFactoringANot1Tool";
-import ExpandingSingleBracketsTool from "./Topic7.4/ExpandingSingleBracketsTool";
-import ExpandingTwoBracketsFOILTool from "./Topic7.4/ExpandingTwoBracketsFOILTool";
-import SpecialProductsTool from "./Topic7.4/SpecialProductsTool";
-import AddSubtractFractionsTool from "./Topic7.5/AddSubtractFractionsTool";
-import MultiplyDivideFractionsTool from "./Topic7.5/MultiplyDivideFractionsTool";
-import SimplifyingFractionsTool from "./Topic7.5/SimplifyingFractionsTool";
+import AddingSubtractingLikeTerms from "./Topic7.1/AddingSubtractingLikeTerms";
+import DividingAlgebraicTerms from "./Topic7.1/DividingAlgebraicTerms";
+import LikeTerms from "./Topic7.1/LikeTerms";
+import MultiplyingAlgebraicTerms from "./Topic7.1/MultiplyingAlgebraicTerms";
+import SubstitutionInExpressions from "./Topic7.1/SubstitutionInExpressions";
+import UnderstandingHCF from "./Topic7.2/UnderstandingHCF";
+import UnderstandingLCM from "./Topic7.2/UnderstandingLCM";
+import CommonFactorMethod from "./Topic7.3/CommonFactorMethod";
+import DifferenceOfTwoSquares from "./Topic7.3/DifferenceOfTwoSquares";
+import PerfectSquareTrinomials from "./Topic7.3/PerfectSquareTrinomials";
+import QuadraticFactoringA1 from "./Topic7.3/QuadraticFactoringA1";
+import QuadraticFactoringANot1 from "./Topic7.3/QuadraticFactoringANot1";
+import ExpandingSingleBrackets from "./Topic7.4/ExpandingSingleBrackets";
+import ExpandingTwoBracketsFOIL from "./Topic7.4/ExpandingTwoBracketsFOIL";
+import SpecialProducts from "./Topic7.4/SpecialProducts";
+import AddingSubtractingFractions from "./Topic7.5/AddSubtractFractions";
+import MultiplyingDividingFractions from "./Topic7.5/MultiplyingDividingFractions";
+import SimplifyingBasicFractions from "./Topic7.5/SimplifyingBasicFractions";
 import CompleteSquareA1Tool from "./Topic7.6/CompleteSquareA1Tool";
 import CompleteSquareANot1Tool from "./Topic7.6/CompleteSquareANot1Tool";
 import SolvingLinearEquationsTool from "./Topic7.7/SolvingLinearEquationsTool";
@@ -33,24 +33,24 @@ import SolvingExponentialEquationsTool from "./Topic7.9/SolvingExponentialEquati
 import SolvingLogarithmicEquationsTool from "./Topic7.9/SolvingLogarithmicEquationsTool";
 
 export const topic7Components: Record<string, React.ComponentType> = {
-  "like-terms": LikeTermsInteractive,
-  "add-subtract-terms": AddingSubtractingLikeTermsTool,
-  "multiply-terms": MultiplyingAlgebraicTermsTool,
-  "divide-terms": DividingAlgebraicTermsTool,
-  "substitution": SubstitutionInExpressionsTool,
-  'hcf': UnderstandingHCFTool,
-  "lcm": UnderstandingLCMTool,
-  "common-factor": CommonFactorMethodTool,
-  "difference-squares": DifferenceOfTwoSquaresTool,
-  "quadratic-a1": QuadraticFactoringA1Tool,
-  "quadratic-anot1": QuadraticFactoringANot1Tool,
-  "perfect-square": PerfectSquareTrinomialsTool,
-  "single-brackets": ExpandingSingleBracketsTool,
-  "foil-method": ExpandingTwoBracketsFOILTool,
-  "special-products": SpecialProductsTool,
-  "simplify-fractions": SimplifyingFractionsTool,
-  "add-subtract-fractions": AddSubtractFractionsTool,
-  "multiply-divide-fractions": MultiplyDivideFractionsTool,
+  "like-terms": LikeTerms,
+  "add-subtract-terms": AddingSubtractingLikeTerms,
+  "multiply-terms": MultiplyingAlgebraicTerms,
+  "divide-terms": DividingAlgebraicTerms,
+  "substitution": SubstitutionInExpressions,
+  'hcf': UnderstandingHCF,
+  "lcm": UnderstandingLCM,
+  "common-factor": CommonFactorMethod,
+  "difference-squares": DifferenceOfTwoSquares,
+  "quadratic-a1": QuadraticFactoringA1,
+  "quadratic-anot1": QuadraticFactoringANot1,
+  "perfect-square": PerfectSquareTrinomials,
+  "single-brackets": ExpandingSingleBrackets,
+  "foil-method": ExpandingTwoBracketsFOIL,
+  "special-products": SpecialProducts,
+  "simplify-fractions": SimplifyingBasicFractions,
+  "add-subtract-fractions": AddingSubtractingFractions,
+  "multiply-divide-fractions": MultiplyingDividingFractions,
   "complete-square-a1": CompleteSquareA1Tool,
   "complete-square-anot1": CompleteSquareANot1Tool,
   "linear-equations": SolvingLinearEquationsTool,
