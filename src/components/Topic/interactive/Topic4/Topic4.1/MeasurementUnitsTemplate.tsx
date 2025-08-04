@@ -127,7 +127,7 @@ const MeasurementUnitsTemplate: React.FC<MeasurementUnitsProps> = ({
 
   return (
     // 7. Apply a base background color to the main container
-    <div className={`max-w-md mx-auto rounded-xl shadow-lg p-6 space-y-6 ${colorScheme.primary} bg-opacity-100 text-white`}>
+    <div className={`max-w-md mx-auto rounded-3xl p-6 space-y-6 ${colorScheme.primary} bg-opacity-100 text-white border-4 border-black`}>
       <div className="text-center">
         <div className="mx-auto mb-2">{icon}</div>
         <h2 className="text-2xl font-bold">
@@ -137,10 +137,10 @@ const MeasurementUnitsTemplate: React.FC<MeasurementUnitsProps> = ({
       </div>
 
       {/* Tab Navigation */}
-      <div className={`flex ${colorScheme.secondary} rounded-lg p-1 mb-6`} >
+      <div className={`flex ${colorScheme.secondary} border-2 border-black rounded-lg p-1 mb-6`} >
         <button
           onClick={() => setActiveTab('scenarios')}
-          className={`flex-1 py-2 px-2 rounded-md text-xs font-medium transition-colors ${
+          className={`flex-1 py-2 px-2 rounded-md  text-xs font-medium transition-colors ${
             activeTab === 'scenarios'
               ? `${colorScheme.tertiary} text-gray-900` // Ensure good contrast
               : 'text-white hover:text-gray-200'
@@ -173,7 +173,7 @@ const MeasurementUnitsTemplate: React.FC<MeasurementUnitsProps> = ({
                     onClick={() => handleScenarioSelect(scenario)}
                     // 8. Simplify dynamic class names - use standard Tailwind classes
                     // Hover effects are kept simple or removed problematic dynamic parts
-                    className={`bg-white flex items-center p-4 border-2 border-gray-200 rounded-xl transition-all duration-300 text-left shadow-sm hover:shadow-md`}
+                    className={`bg-white flex items-center p-4 border-2 border-black rounded-xl transition-all duration-300 text-left shadow-sm hover:shadow-md`}
                   >
                     <div className="mr-4 text-gray-700">
                       {scenario.icon}
@@ -194,7 +194,7 @@ const MeasurementUnitsTemplate: React.FC<MeasurementUnitsProps> = ({
               >
                 ← Back to scenarios
               </button>
-              <div className={`bg-white p-5 rounded-xl border border-gray-200 shadow-sm`}>
+              <div className={`bg-white p-5 rounded-xl border-2 border-black shadow-sm`}>
                 <div className="flex items-start mb-3"> {/* Use items-start for better icon alignment */}
                   <div className="mr-3 mt-1 text-gray-700"> {/* Add margin-top for icon alignment */}
                     {selectedScenario.icon}
@@ -206,7 +206,7 @@ const MeasurementUnitsTemplate: React.FC<MeasurementUnitsProps> = ({
                 </div>
                 <p className="text-xs text-gray-600 italic bg-gray-50 p-3 rounded-lg">{selectedScenario.context}</p>
               </div>
-              <div className={`bg-white p-5 rounded-xl border border-gray-200 shadow-sm`}>
+              <div className={`bg-white p-5 rounded-xl border-2 border-black shadow-sm`}>
                 <h4 className="font-bold text-gray-800 mb-3 text-lg">Question:</h4>
                 <p className="text-gray-700 mb-4 text-md">{selectedScenario.question}</p>
 

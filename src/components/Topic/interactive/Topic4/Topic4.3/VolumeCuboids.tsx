@@ -27,7 +27,7 @@ const CuboidVisualizer: React.FC<CuboidVisualizerProps> = ({ question }) => {
                 <text x="130" y="25" textAnchor="start" className="fill-black font-bold text-xs">h</text>
               </svg>
             </div>
-            <div className="mt-4 text-white">
+            <div className="mt-4 text-black">
               <p className="font-semibold">Given Dimensions:</p>
               <ul className="list-disc list-inside">
                 <li>l = 10 cm</li>
@@ -55,7 +55,7 @@ const CuboidVisualizer: React.FC<CuboidVisualizerProps> = ({ question }) => {
                 <text x="87" y="22" textAnchor="start" className="fill-black font-bold text-xs">s</text>
               </svg>
             </div>
-            <div className="mt-4 text-white">
+            <div className="mt-4 text-black">
               <p className="font-semibold">Given Dimensions:</p>
               <ul className="list-disc list-inside">
                 <li>s = 5 cm</li>

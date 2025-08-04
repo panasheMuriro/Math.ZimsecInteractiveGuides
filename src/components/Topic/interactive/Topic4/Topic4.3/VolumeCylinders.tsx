@@ -45,7 +45,7 @@ const CylinderVisualizer: React.FC<CylinderVisualizerProps> = ({ question }) => 
                 <text x="25" y="75" textAnchor="start" className="fill-red-500 font-bold text-xs">h</text>
               </svg>
             </div>
-            <div className="mt-4 text-white">
+            <div className="mt-4 text-black">
               <p className="font-semibold">Given Dimensions:</p>
               <ul className="list-disc list-inside">
                 <li>r = 5 cm</li>
@@ -73,7 +73,7 @@ const CylinderVisualizer: React.FC<CylinderVisualizerProps> = ({ question }) => 
                   <text x="5" y="60" textAnchor="middle" className="fill-black font-bold text-xs rotate-90">h₁</text>
                   <text x="40" y="118" textAnchor="middle" className="fill-black font-bold text-xs">r</text>
                 </svg>
-                <span className="text-white text-xs mt-1">Cylinder 1</span>
+                <span className="text-black text-xs mt-1">Cylinder 1</span>
               </div>
 
               {/* Cylinder 2 */}
@@ -91,10 +91,10 @@ const CylinderVisualizer: React.FC<CylinderVisualizerProps> = ({ question }) => 
                   <text x="5" y="60" textAnchor="middle" className="fill-black font-bold text-xs rotate-90">h₂</text>
                   <text x="40" y="118" textAnchor="middle" className="fill-black font-bold text-xs">r</text>
                 </svg>
-                <span className="text-white text-xs mt-1">Cylinder 2</span>
+                <span className="text-black text-xs mt-1">Cylinder 2</span>
               </div>
             </div>
-            <div className="mt-4 text-white">
+            <div className="mt-4 text-black">
               <p className="font-semibold">Given Dimensions:</p>
               <ul className="list-disc list-inside text-xs">
                 <li>Both cylinders have the same radius (r = 4 cm)</li>

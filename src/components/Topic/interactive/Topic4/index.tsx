@@ -10,10 +10,10 @@ import Area from "./Topic4.2/Area";
 import CombinedShapeAreas from "./Topic4.2/CombinedShapeAreas";
 import CombinedShapePerimeters from "./Topic4.2/CombinedShapePerimeters";
 import PerimeterChallenge from "./Topic4.2/Perimeter";
-import SurfaceAreas from "./Topic4.2/SurfaceAreas";
-import VolumeCuboids from "./Topic4.2/VolumeCuboids";
-import VolumeCylinders from "./Topic4.2/VolumeCylinders";
-import VolumeDensity from "./Topic4.2/VolumeDensity";
+import SurfaceAreas from "./Topic4.3/SurfaceAreas";
+import VolumeCuboids from "./Topic4.3/VolumeCuboids";
+import VolumeCylinders from "./Topic4.3/VolumeCylinders";
+import VolumeDensity from "./Topic4.3/VolumeDensity";
 
 export const topic4Components: Record<string, React.ComponentType> = {
   "time-units": TimeUnits,

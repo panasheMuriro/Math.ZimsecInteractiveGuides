@@ -22,7 +22,7 @@ const SolidShapeVisualizer: React.FC<SolidShapeVisualizerProps> = ({ question })
                 <text x="87" y="22" textAnchor="start" className="fill-black font-bold text-xs">s</text>
               </svg>
             </div>
-            <div className="mt-4 text-white">
+            <div className="mt-4 text-black">
               <p className="font-semibold">Given Dimensions:</p>
               <ul className="list-disc list-inside">
                 <li>s = 6 cm</li>
@@ -43,7 +43,7 @@ const SolidShapeVisualizer: React.FC<SolidShapeVisualizerProps> = ({ question })
                 <text x="130" y="25" textAnchor="start" className="fill-black font-bold text-xs">h</text>
               </svg>
             </div>
-            <div className="mt-4 text-white">
+            <div className="mt-4 text-black">
               <p className="font-semibold">Given Dimensions:</p>
               <ul className="list-disc list-inside">
                 <li>l = 8 cm</li>
@@ -67,7 +67,7 @@ const SolidShapeVisualizer: React.FC<SolidShapeVisualizerProps> = ({ question })
                 <text x="15" y="75" textAnchor="middle" className="fill-black font-bold text-xs rotate-90">h</text>
               </svg>
             </div>
-            <div className="mt-4 text-white">
+            <div className="mt-4 text-black">
               <p className="font-semibold">Given Dimensions:</p>
               <ul className="list-disc list-inside">
                 <li>r = 4 cm</li>
@@ -88,7 +88,7 @@ const SolidShapeVisualizer: React.FC<SolidShapeVisualizerProps> = ({ question })
                 <text x="82.5" y="55" textAnchor="middle" className="fill-red-600 font-bold text-xs">r</text>
               </svg>
             </div>
-            <div className="mt-4 text-white">
+            <div className="mt-4 text-black">
               <p className="font-semibold">Given Dimensions:</p>
               <ul className="list-disc list-inside">
                 <li>r = 5 cm</li>

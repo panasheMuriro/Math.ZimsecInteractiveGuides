@@ -18,7 +18,7 @@ const ShapeAndDimensionsRenderer: React.FC<ShapeAndDimensionsRendererProps> = ({
               <div className="absolute left-0 top-1/2 transform translate-x-1 -translate-y-1/2 text-sm font-bold text-black bg-white/0 px-1">b</div>
               <div className="absolute right-0 top-1/2 transform -translate-x-1 -translate-y-1/2 text-sm font-bold text-black bg-white/0 px-1">b</div>
             </div>
-            <div className="mt-4 text-white">
+            <div className="mt-4 text-black">
               <p className="font-semibold">Given Dimensions:</p>
               <ul className="list-disc list-inside">
                 <li>a = 8 cm</li>
@@ -36,7 +36,7 @@ const ShapeAndDimensionsRenderer: React.FC<ShapeAndDimensionsRendererProps> = ({
               <div className="absolute left-0 top-1/2 transform translate-x-1 -translate-y-1/2 text-sm font-bold text-black bg-white/0 px-1">s</div>
               <div className="absolute right-0 top-1/2 transform -translate-x-1 -translate-y-1/2 text-sm font-bold text-black bg-white/0 px-1">s</div>
             </div>
-            <div className="mt-4 text-white">
+            <div className="mt-4 text-black">
               <p className="font-semibold">Given Dimensions:</p>
               <ul className="list-disc list-inside">
                 <li>s = 6 cm</li>
@@ -58,7 +58,7 @@ const ShapeAndDimensionsRenderer: React.FC<ShapeAndDimensionsRendererProps> = ({
                 <text x="63" y="57" textAnchor="middle" dominantBaseline="middle" className="fill-black font-bold text-sm">c</text>
               </svg>
             </div>
-            <div className="mt-4 text-white">
+            <div className="mt-4 text-black">
               <p className="font-semibold">Given Dimensions:</p>
               <ul className="list-disc list-inside">
                 <li>a = 5 cm</li>
@@ -78,7 +78,7 @@ const ShapeAndDimensionsRenderer: React.FC<ShapeAndDimensionsRendererProps> = ({
                 <text x="83" y="57" textAnchor="middle" dominantBaseline="baseline" className="fill-black font-bold text-sm">r</text>
               </svg>
             </div>
-            <div className="mt-4 text-white">
+            <div className="mt-4 text-black">
               <p className="font-semibold">Given Dimensions:</p>
               <ul className="list-disc list-inside">
                 <li>r = 7 cm</li>

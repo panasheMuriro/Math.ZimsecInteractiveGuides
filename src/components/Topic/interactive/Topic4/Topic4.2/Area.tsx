@@ -17,7 +17,7 @@ const ShapeAndDimensionsRenderer: React.FC<ShapeAndDimensionsRendererProps> = ({
               <div className="absolute left-0 top-1/2 transform translate-x-1 -translate-y-1/2 text-sm font-bold text-black bg-white/0 px-1">w</div>
               <div className="absolute right-0 top-1/2 transform -translate-x-1 -translate-y-1/2 text-sm font-bold text-black bg-white/0 px-1">w</div>
             </div>
-            <div className="mt-4 text-white">
+            <div className="mt-4 text-black">
               <p className="font-semibold">Given Dimensions:</p>
               <ul className="list-disc list-inside">
                 <li>l = 8 cm</li>
@@ -35,7 +35,7 @@ const ShapeAndDimensionsRenderer: React.FC<ShapeAndDimensionsRendererProps> = ({
               <div className="absolute left-0 top-1/2 transform translate-x-1 -translate-y-1/2 text-sm font-bold text-black bg-white/0 px-1">s</div>
               <div className="absolute right-0 top-1/2 transform -translate-x-1 -translate-y-1/2 text-sm font-bold text-black bg-white/0 px-1">s</div>
             </div>
-            <div className="mt-4 text-white">
+            <div className="mt-4 text-black">
               <p className="font-semibold">Given Dimensions:</p>
               <ul className="list-disc list-inside">
                 <li>s = 6 cm</li>
@@ -57,7 +57,7 @@ const ShapeAndDimensionsRenderer: React.FC<ShapeAndDimensionsRendererProps> = ({
                 <text x="100" y="95" textAnchor="middle" dominantBaseline="hanging" className="fill-black font-bold text-xs">b</text>
               </svg>
             </div>
-            <div className="mt-4 text-white">
+            <div className="mt-4 text-black">
               <p className="font-semibold">Given Dimensions:</p>
               <ul className="list-disc list-inside">
                 <li>b = 10 cm</li>
@@ -76,7 +76,7 @@ const ShapeAndDimensionsRenderer: React.FC<ShapeAndDimensionsRendererProps> = ({
                 <text x="85" y="58" textAnchor="middle" dominantBaseline="baseline" className="fill-black font-bold text-xs">r</text>
               </svg>
             </div>
-            <div className="mt-4 text-white">
+            <div className="mt-4 text-black">
               <p className="font-semibold">Given Dimensions:</p>
               <ul className="list-disc list-inside">
                 <li>r = 7 cm</li>
@@ -95,7 +95,7 @@ const ShapeAndDimensionsRenderer: React.FC<ShapeAndDimensionsRendererProps> = ({
                 <text x="35" y="55" textAnchor="start" dominantBaseline="middle" className="fill-red-500 font-bold text-xs">h</text>
               </svg>
             </div>
-            <div className="mt-4 text-white">
+            <div className="mt-4 text-black">
               <p className="font-semibold">Given Dimensions:</p>
               <ul className="list-disc list-inside">
                 <li>b = 9 cm</li>
