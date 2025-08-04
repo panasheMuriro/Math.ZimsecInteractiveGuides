@@ -26,8 +26,13 @@ const COLORS = {
   correctUnselectedBorder: '#2a9d8f', // Teal border
 };
 
-
-
+// Neubrutalism styles helper
+const neubrutalismBase = {
+  border: `3px solid ${COLORS.darkBlue}`,
+  borderRadius: '12px',
+  boxShadow: `4px 4px 0px rgba(38, 70, 83, 0.2)`, // COLORS.darkBlue with opacity
+  padding: '1rem',
+};
 
 export interface QuizQuestion {
   id?: string;
@@ -73,6 +78,7 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
   const [score, setScore] = useState<number>(0);
   const [attempts, setAttempts] = useState<number>(0);
   const [showExplanation, setShowExplanation] = useState<boolean>(false);
+  const [previousAttempts, setPreviousAttempts] = useState<Set<number>>(new Set()); // Track previously attempted questions
   const currentQuestion = questions[currentQuestionIndex];
 
   const getGridColsClass = (options: string[]): string => {
@@ -90,17 +96,28 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
     }
     return 'grid-cols-2';
   };
+
   const gridColsClass = getGridColsClass(currentQuestion.options);
 
   const checkAnswer = () => {
     if (selectedAnswer === null) return;
     const isCorrect = selectedAnswer === currentQuestion.correct;
+    
+    // Only increment attempts and potentially score if this is the first attempt at this question
+    if (!previousAttempts.has(currentQuestionIndex)) {
+      setAttempts(prev => prev + 1);
+      setPreviousAttempts(prev => new Set(prev).add(currentQuestionIndex));
+      
+      if (isCorrect) {
+        setScore(prev => prev + 1);
+      }
+    }
+    
     if (isCorrect) {
       setFeedback({
         message: 'Correct! ✓',
         isCorrect: true,
       });
-      setScore(score + 1);
     } else {
       setFeedback({
         message: `Incorrect.`,
@@ -108,7 +125,6 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
         correctAnswerText: currentQuestion.options[currentQuestion.correct]
       });
     }
-    setAttempts(attempts + 1);
   };
 
   const nextQuestion = () => {
@@ -125,15 +141,9 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
     setScore(0);
     setAttempts(0);
     setShowExplanation(false);
+    setPreviousAttempts(new Set());
     if (onReset) onReset();
   };
-
-  // const getFeedbackColor = () => {
-  //   if (!feedback) return '';
-  //   return feedback.isCorrect
-  //     ? `border-[${COLORS.correct}]` // Teal border
-  //     : `border-[${COLORS.incorrect}]`; // Red border
-  // };
 
   const renderExplanation = () => {
     return renderTextWithMath(currentQuestion.explanation)
@@ -155,39 +165,49 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
   };
 
   return (
-    <div 
-      className="p-6 rounded-3xl text-white shadow-xl max-w-md w-full border-4"
-      style={{ 
+    <div
+      style={{
+        ...neubrutalismBase,
+        maxWidth: '600px',
+        width: '100%',
+        margin: '0 auto',
+        padding: '1.5rem',
         backgroundColor: COLORS.teal, // Using teal as background
         borderColor: COLORS.darkBlue, // Dark blue border
-        color: COLORS.textOnLight // Dark text for contrast on light backgrounds
+        color: COLORS.textOnLight, // Dark text for contrast on light backgrounds
+        borderRadius: '20px',
+        boxShadow: `8px 8px 0px ${COLORS.darkBlue}`,
       }}
     >
       <div className="flex items-center justify-between mb-5">
-        <h3 
-          className="text-2xl font-bold flex items-center"
+        <h3
+          className="text-2xl font-extrabold flex items-center"
           style={{ color: COLORS.text }}
         >
           <span className="mr-2 text-3xl">{icon}</span> {title}
         </h3>
         <div className="flex gap-2">
-          <div 
-            className="text-sm font-bold px-3 py-1 rounded-full border-2"
+          <div
             style={{
+              ...neubrutalismBase,
               backgroundColor: COLORS.darkBlue,
               color: COLORS.text,
-              borderColor: COLORS.orange
+              borderColor: COLORS.orange,
+              fontWeight: 'bold',
+              fontSize: '0.875rem',
+              padding: '0.5rem 1rem',
             }}
           >
             {score}/{attempts || '0'}
           </div>
           <button
             onClick={resetQuiz}
-            className="rounded-full p-2 transition-all border-2"
             style={{
+              ...neubrutalismBase,
               backgroundColor: COLORS.red,
               color: COLORS.text,
-              borderColor: COLORS.text
+              borderColor: COLORS.text,
+              padding: '0.5rem',
             }}
             aria-label="Reset quiz"
           >
@@ -196,16 +216,18 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
         </div>
       </div>
 
-      <div 
-        className="rounded-2xl p-4 mb-5 shadow-sm border-2"
+      <div
         style={{
+          ...neubrutalismBase,
           backgroundColor: COLORS.orange,
-          borderColor: COLORS.darkBlue
+          borderColor: COLORS.darkBlue,
+          textAlign: 'center',
+          marginBottom: '1.25rem',
         }}
       >
         <div className="text-center">
-          <span 
-            className="text-sm font-bold"
+          <span
+            className="text-sm font-extrabold"
             style={{ color: COLORS.textOnLight }}
           >
             Question {currentQuestionIndex + 1} of {questions.length}
@@ -213,11 +235,12 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
         </div>
       </div>
 
-      <div 
-        className="rounded-2xl p-5 mb-5 shadow-sm border-2"
+      <div
         style={{
+          ...neubrutalismBase,
           backgroundColor: COLORS.infoBoxBg,
-          borderColor: COLORS.darkBlue
+          borderColor: COLORS.darkBlue,
+          marginBottom: '1.25rem',
         }}
       >
         {currentQuestion.CustomContentComponent ? (
@@ -225,8 +248,8 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
             <currentQuestion.CustomContentComponent question={currentQuestion} />
           </div>
         ) : (
-          <h4 
-            className="font-bold text-lg mb-4"
+          <h4
+            className="font-extrabold text-lg mb-4"
             style={{ color: COLORS.textOnLight }}
           >
             {currentQuestion.questionType === "math" ? <BlockMath math={currentQuestion.question} /> : renderTextWithMath(currentQuestion.question)}
@@ -238,9 +261,12 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
             <button
               key={index}
               onClick={() => setSelectedAnswer(index)}
-              disabled={!!feedback}
-              className={`py-3 px-2 rounded-xl font-bold transition-all duration-200 border-2 text-left`}
+              // Allow changing selection even after feedback
               style={{
+                ...neubrutalismBase,
+                padding: '1rem',
+                fontWeight: 'bold',
+                transition: 'all 0.2s',
                 backgroundColor: selectedAnswer === index
                   ? feedback
                     ? index === currentQuestion.correct
@@ -268,20 +294,37 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
                     : COLORS.darkBlue, // Dark blue border
                 transform: selectedAnswer === index && !feedback ? 'scale(0.98)' : 'none'
               }}
+              onMouseEnter={(e) => {
+                if (selectedAnswer !== index) {
+                  e.currentTarget.style.transform = 'scale(1.02)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (selectedAnswer !== index) {
+                  e.currentTarget.style.transform = '';
+                }
+              }}
+              className="transition-transform duration-200"
             >
-              {currentQuestion.optionType === "math" ?  <InlineMath math={option} />: renderTextWithMath(option)}
+              <span style={{ color: 'inherit' }}>
+                {currentQuestion.optionType === "math" ? <InlineMath math={option} /> : renderTextWithMath(option)}
+              </span>
             </button>
           ))}
         </div>
 
-        {selectedAnswer !== null && !feedback && (
+        {selectedAnswer !== null && (
           <button
             onClick={checkAnswer}
-            className="w-full rounded-xl p-3 font-bold transition-all duration-200 shadow-md mt-3 border-2"
             style={{
+              ...neubrutalismBase,
               backgroundColor: COLORS.orange,
               color: COLORS.textOnLight,
-              borderColor: COLORS.darkBlue
+              borderColor: COLORS.darkBlue,
+              fontWeight: 'bold',
+              width: '100%',
+              padding: '0.75rem',
+              marginTop: '0.75rem',
             }}
             onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.buttonHover}
             onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.orange}
@@ -292,66 +335,75 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
       </div>
 
       {feedback && (
-        <div 
-          className={`rounded-2xl p-5 mb-5 border-2`}
+        <div
           style={{
-            backgroundColor: feedback.isCorrect 
-              ? COLORS.feedbackCorrectBg 
+            ...neubrutalismBase,
+            borderColor: feedback.isCorrect
+              ? COLORS.correct
+              : COLORS.incorrect,
+            backgroundColor: feedback.isCorrect
+              ? COLORS.feedbackCorrectBg
               : COLORS.feedbackIncorrectBg,
-            borderColor: feedback.isCorrect 
-              ? COLORS.correct 
-              : COLORS.incorrect
+            marginTop: '1.25rem',
           }}
         >
           <div className="flex items-center mb-3">
             {feedback.isCorrect ? (
-              <CheckCircle 
-                size={24} 
-                style={{ color: COLORS.correct, marginRight: '0.5rem' }} 
+              <CheckCircle
+                size={24}
+                style={{ color: COLORS.correct, marginRight: '0.5rem' }}
               />
             ) : (
-              <XCircle 
-                size={24} 
-                style={{ color: COLORS.incorrect, marginRight: '0.5rem' }} 
+              <XCircle
+                size={24}
+                style={{ color: COLORS.incorrect, marginRight: '0.5rem' }}
               />
             )}
-            <p 
-              className="font-bold text-lg"
-              style={{ 
-                color: feedback.isCorrect ? COLORS.correct : COLORS.incorrect 
+            <p
+              className="font-extrabold text-lg"
+              style={{
+                color: feedback.isCorrect ? COLORS.correct : COLORS.incorrect
               }}
             >
               {feedback.message}
             </p>
             {!feedback.isCorrect && feedback.correctAnswerText && (
-              <div 
+              <div
                 className="ml-2 font-bold"
                 style={{ color: COLORS.textOnLight }}
               >
-                 {currentQuestion.optionType === 'text' ? renderTextWithMath(feedback.correctAnswerText) : <InlineMath math={feedback.correctAnswerText} />}
+                Correct answer: {currentQuestion.optionType === 'text' ? renderTextWithMath(feedback.correctAnswerText) : <InlineMath math={feedback.correctAnswerText} />}
               </div>
             )}
           </div>
+
           <button
             onClick={() => setShowExplanation(!showExplanation)}
-            className="flex items-center font-bold text-sm mb-3"
-            style={{ color: COLORS.orange }}
+            style={{
+              color: COLORS.orange,
+              fontWeight: 'medium',
+              fontSize: '0.875rem',
+              marginBottom: '0.75rem',
+              display: 'flex',
+              alignItems: 'center',
+            }}
             onMouseEnter={(e) => e.currentTarget.style.color = COLORS.buttonHover}
             onMouseLeave={(e) => e.currentTarget.style.color = COLORS.orange}
           >
             <HelpCircle className="mr-1" size={16} />
             {showExplanation ? 'Hide explanation' : 'Show explanation'}
           </button>
+
           {showExplanation && (
-            <div 
-              className="rounded-xl p-4 border-2"
+            <div
               style={{
+                ...neubrutalismBase,
                 backgroundColor: COLORS.infoBoxBg,
-                borderColor: COLORS.darkBlue
+                borderColor: COLORS.darkBlue,
               }}
             >
               <div className="w-full">
-                <div 
+                <div
                   className="w-full"
                   style={{ color: COLORS.textOnLight }}
                 >
@@ -363,14 +415,17 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
         </div>
       )}
 
-      <div className="flex gap-3">
+      <div className="flex gap-3 mb-5">
         <button
           onClick={nextQuestion}
-          className="flex-1 rounded-xl p-3 font-bold transition-all duration-200 shadow-md border-2"
           style={{
+            ...neubrutalismBase,
+            flex: 1,
+            padding: '0.75rem',
+            fontWeight: 'bold',
             backgroundColor: COLORS.red,
             color: COLORS.text,
-            borderColor: COLORS.text
+            borderColor: COLORS.text,
           }}
           onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.nextButtonHover}
           onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.darkBlue}
@@ -381,26 +436,28 @@ const MultipleChoiceInteractiveComponent: React.FC<MultipleChoiceInteractiveComp
         </button>
       </div>
 
-      <div 
-        className="mt-4 rounded-xl p-3 border-2"
+      <div
         style={{
+          ...neubrutalismBase,
           backgroundColor: COLORS.infoBoxBg,
-          borderColor: COLORS.darkBlue
+          borderColor: COLORS.darkBlue,
+          marginTop: '1rem',
+          fontSize: '0.875rem',
         }}
       >
-        <p 
-          className="font-bold mb-1"
+        <p
+          className="font-extrabold mb-1"
           style={{ color: COLORS.textOnLight }}
         >
           {rulesTitle}
         </p>
         <ul className="list-disc list-inside space-y-1">
           {rules.map((rule, index) => (
-            <li 
+            <li
               key={index}
               style={{ color: COLORS.textOnLight }}
             >
-              {renderTextWithMath(rule)} 
+              {renderTextWithMath(rule)}
             </li>
           ))}
         </ul>

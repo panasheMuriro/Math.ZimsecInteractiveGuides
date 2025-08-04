@@ -42,6 +42,7 @@ interface QuestionResult {
 interface MultiStepInteractiveComponentProps {
   title: string;
   icon: string;
+  // theme is now unused, but kept for interface compatibility
   theme: {
     from: string;
     to: string;
@@ -56,10 +57,32 @@ interface MultiStepInteractiveComponentProps {
   onReset?: () => void;
 }
 
+// Neubrutalism color palette
+const NEUBRUTALISM_COLORS = {
+  primaryDark: '#264653',    // Dark teal - for backgrounds, text
+  secondary: '#2a9d8f',      // Teal - for correct answers, accents
+  neutral: '#e9c46a',        // Sand yellow - for highlights, explanations
+  warning: '#f4a261',        // Orange - for warnings, incorrect answers
+  danger: '#e76f51',         // Salmon - for danger, resets, main background
+  white: '#ffffff',
+  lightGray: '#f0f0f0',
+  borderGray: '#d0d0d0',
+  shadowGray: 'rgba(0, 0, 0, 0.2)',
+};
+
+// Neubrutalism styles helper
+const neubrutalismBase = {
+  backgroundColor: NEUBRUTALISM_COLORS.white,
+  border: `3px solid ${NEUBRUTALISM_COLORS.borderGray}`,
+  borderRadius: '12px',
+  boxShadow: `4px 4px 0px ${NEUBRUTALISM_COLORS.shadowGray}`,
+  padding: '1rem',
+};
+
 const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentProps> = ({
   title,
   icon,
-  theme,
+  // theme, // Unused due to new styling
   rules,
   rulesTitle = 'Key Rules:',
   questions,
@@ -100,10 +123,8 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
       const newResults = [...prevResults];
       const newStepResults = [...newResults[currentQuestionIndex].stepResults];
       const currentResult = newStepResults[currentStepIndexWithinQuestion];
-
       // Determine if the selected option is different from the one used for the last check
       const isDifferentOption = optionIndex !== currentResult.previouslySelectedOptionIndex;
-
       newStepResults[currentStepIndexWithinQuestion] = {
         ...currentResult,
         lastSelectedOptionIndex: optionIndex,
@@ -113,7 +134,6 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
       newResults[currentQuestionIndex].stepResults = newStepResults;
       return newResults;
     });
-
     if (showExplanation[stepId]) {
         setShowExplanation(prev => ({ ...prev, [stepId]: false }));
     }
@@ -195,15 +215,10 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
     if (onReset) onReset();
   };
 
-  const getFeedbackColor = (isCorrect: boolean | null) => {
-    if (isCorrect === null) return '';
-    return isCorrect
-      ? 'bg-green-500/20 border-green-400'
-      : 'bg-amber-500/20 border-amber-400';
-  };
+ 
 
   const getGridColsClass = (options: string[]): string => {
-    const longOptionThreshold = 40;
+    const longOptionThreshold = 30;
     const hasLongOption = options.some(option => option.length > longOptionThreshold);
     const hasComplexKaTeX = options.some(option =>
       option.includes('\\frac') ||
@@ -227,123 +242,234 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
   }, [currentQuestionIndex, currentStepIndexWithinQuestion, questions.length, currentQuestion.steps.length]);
 
   return (
-    <div className={`bg-gradient-to-br ${theme.from} ${theme.to} p-6 rounded-3xl text-white shadow-xl max-w-md w-full`}>
-      <div className="flex items-center justify-between mb-5">
-        <h3 className="text-2xl font-bold flex items-center">
+    <div style={{
+      ...neubrutalismBase,
+      maxWidth: '600px',
+      width: '100%',
+      margin: '0 auto',
+      padding: '1.5rem',
+      backgroundColor: NEUBRUTALISM_COLORS.danger, // Salmon background
+      border: `4px solid ${NEUBRUTALISM_COLORS.primaryDark}`,
+      borderRadius: '20px',
+      boxShadow: `8px 8px 0px ${NEUBRUTALISM_COLORS.primaryDark}`,
+    }}>
+      {/* Header */}
+      <div className="flex items-center justify-between mb-5 flex-wrap">
+        <h3 className="text-2xl font-extrabold flex items-center" style={{ color: NEUBRUTALISM_COLORS.white }}>
           <span className="mr-2 text-3xl">{icon}</span> {title}
         </h3>
+
         <div className="flex gap-2">
-          <div className="bg-white/20 text-sm font-bold px-3 py-1 rounded-full">
+          <div style={{
+            ...neubrutalismBase,
+            backgroundColor: NEUBRUTALISM_COLORS.neutral,
+            borderColor: NEUBRUTALISM_COLORS.primaryDark,
+            fontWeight: 'bold',
+            fontSize: '0.875rem',
+            padding: '0.5rem 1rem',
+          }}>
             {score}/{attempts || '0'}
           </div>
           <button
             onClick={resetQuiz}
-            className="bg-white/20 hover:bg-white/30 rounded-full p-2 transition-all"
+            style={{
+              ...neubrutalismBase,
+              backgroundColor: NEUBRUTALISM_COLORS.primaryDark,
+              borderColor: NEUBRUTALISM_COLORS.white,
+              padding: '0.5rem',
+            }}
             aria-label="Reset quiz"
           >
-            <RotateCw className="w-5 h-5" />
+            <RotateCw className="w-5 h-5" style={{ color: NEUBRUTALISM_COLORS.white }} />
           </button>
         </div>
+
       </div>
 
+      {/* Progress Bar / Title */}
       {!finalSummary ? (
-        <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 mb-5 shadow-sm border border-white/10">
+        <div style={{
+          ...neubrutalismBase,
+          backgroundColor: NEUBRUTALISM_COLORS.white,
+          borderColor: NEUBRUTALISM_COLORS.secondary,
+          textAlign: 'center',
+          marginBottom: '1.25rem',
+        }}>
           <div className="text-center">
-            <span className="text-sm opacity-90">
+            <span className="text-sm opacity-90" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}>
               Question {currentQuestionIndex + 1} of {questions.length} |
               Step {currentStepIndexWithinQuestion + 1} of {currentQuestion.steps.length}
             </span>
-             <p className="font-bold mt-1">  {currentQuestion.title}</p>
+             <p className="font-bold mt-1" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}>  {currentQuestion.title}</p>
           </div>
         </div>
       ) : (
-         <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 mb-5 shadow-sm border border-white/10">
+        <div style={{
+          ...neubrutalismBase,
+          backgroundColor: NEUBRUTALISM_COLORS.white,
+          borderColor: NEUBRUTALISM_COLORS.secondary,
+          textAlign: 'center',
+          marginBottom: '1.25rem',
+        }}>
           <div className="text-center">
-            <span className="text-lg font-bold opacity-90">
+            <span className="text-lg font-bold opacity-90" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}>
               Final Summary
             </span>
           </div>
         </div>
       )}
 
+      {/* Main Content */}
       {!finalSummary ? (
-        <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-5 mb-5 shadow-sm border border-white/10">
+        <div style={{
+          ...neubrutalismBase,
+          backgroundColor: NEUBRUTALISM_COLORS.white,
+          borderColor: NEUBRUTALISM_COLORS.neutral,
+          marginBottom: '1.25rem',
+        }}>
           {currentStep.CustomContentComponent && (
             <div className="mb-4">
               <currentStep.CustomContentComponent step={currentStep} sharedValues={sharedValues} />
             </div>
           )}
-          <h4 className="font-bold text-lg mb-4">
+          <h4 className="font-extrabold text-lg mb-4" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}>
              {renderTextWithMath(currentStep.question)}
           </h4>
+          
+          {/* Options Grid */}
           <div className={`grid gap-3 mb-5 ${gridColsClass}`}>
             {currentStep.options.map((option, index) => {
               const isSelected = currentStepResult.lastSelectedOptionIndex === index;
               const isCorrectStatus = currentStepResult.isCorrect;
               const isCorrectOption = index === currentStep.correct;
+              
+              let buttonStyle = {
+                ...neubrutalismBase,
+                padding: '1rem',
+                fontWeight: 'bold',
+                transition: 'all 0.2s',
+                backgroundColor: NEUBRUTALISM_COLORS.lightGray,
+                borderColor: NEUBRUTALISM_COLORS.borderGray,
+              };
+
+              if (isSelected) {
+                if (isCorrectStatus === true) {
+                  buttonStyle = {
+                    ...buttonStyle,
+                    backgroundColor: NEUBRUTALISM_COLORS.secondary,
+                    borderColor: NEUBRUTALISM_COLORS.primaryDark,
+                  };
+                } else if (isCorrectStatus === false) {
+                  buttonStyle = {
+                    ...buttonStyle,
+                    backgroundColor: NEUBRUTALISM_COLORS.warning,
+                    borderColor: NEUBRUTALISM_COLORS.primaryDark,
+                  };
+                } else {
+                  buttonStyle = {
+                    ...buttonStyle,
+                    backgroundColor: NEUBRUTALISM_COLORS.neutral,
+                    borderColor: NEUBRUTALISM_COLORS.primaryDark,
+                  };
+                }
+              } else if (isCorrectStatus === true && isCorrectOption) {
+                buttonStyle = {
+                  ...buttonStyle,
+                  backgroundColor: `${NEUBRUTALISM_COLORS.secondary}80`, // 50% opacity
+                  borderColor: NEUBRUTALISM_COLORS.secondary,
+                };
+              }
+
+              // Apply transform on hover only if not already checked
+
               return (
                 <button
                   key={index}
                   onClick={() => handleAnswerSelect(index)}
-                  className={`py-3 px-2 rounded-xl font-bold transition-all duration-200 ${
-                    isSelected
-                      ? isCorrectStatus === true
-                        ? 'bg-green-500 text-white'
-                        : isCorrectStatus === false
-                          ? 'bg-red-500 text-white'
-                          : 'bg-white/40 text-white border-2 border-white'
-                      : isCorrectStatus === true && isCorrectOption
-                        ? 'bg-green-500/30 text-white border-2 border-green-400'
-                        : 'bg-white/20 hover:bg-white/30 text-white border-2 border-transparent'
-                  } ${isCorrectStatus === true || isCorrectStatus === false ? 'cursor-default' : 'hover:scale-[1.03]'}`}
+                  style={buttonStyle}
+                  onMouseEnter={(e) => {
+                    if (!(isCorrectStatus === true || isCorrectStatus === false)) {
+                      e.currentTarget.style.transform = 'scale(1.02)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = '';
+                  }}
+                  className="transition-transform duration-200"
                 >
-                  {currentStep.optionType == "math"? <BlockMath math={option}/> :renderTextWithMath(option)}
+                  <span style={{ color: NEUBRUTALISM_COLORS.primaryDark }}>
+                    {currentStep.optionType == "math"? <BlockMath math={option}/> :renderTextWithMath(option)}
+                  </span>
                 </button>
               );
             })}
           </div>
 
-          {/* Show Check Answer button when an option is selected and the answer hasn't been checked yet */}
+          {/* Check Answer Button */}
           {currentStepResult.lastSelectedOptionIndex !== null && currentStepResult.isCorrect === null && (
             <button
               onClick={checkAnswer}
-              className={`w-full ${theme.button} ${theme.buttonHover} rounded-xl p-3 font-bold transition-all duration-200 shadow-md mt-3`}
+              style={{
+                ...neubrutalismBase,
+                backgroundColor: NEUBRUTALISM_COLORS.secondary,
+                borderColor: NEUBRUTALISM_COLORS.primaryDark,
+                fontWeight: 'bold',
+                width: '100%',
+                padding: '0.75rem',
+                marginTop: '0.75rem',
+                color: NEUBRUTALISM_COLORS.white,
+              }}
             >
               Check Answer
             </button>
           )}
 
+          {/* Feedback Section */}
           {currentStepResult.isCorrect !== null && (
-            <div className={`rounded-2xl p-5 mt-5 backdrop-blur-sm border ${getFeedbackColor(currentStepResult.isCorrect)}`}>
+            <div style={{
+              ...neubrutalismBase,
+              borderColor: currentStepResult.isCorrect ? NEUBRUTALISM_COLORS.secondary : NEUBRUTALISM_COLORS.warning,
+              backgroundColor: currentStepResult.isCorrect ? `${NEUBRUTALISM_COLORS.secondary}20` : `${NEUBRUTALISM_COLORS.warning}20`,
+              marginTop: '1.25rem',
+            }}>
               <div className="flex items-center mb-3">
                 {currentStepResult.isCorrect ? (
-                  <CheckCircle className="text-green-300 mr-2" size={24} />
+                  <CheckCircle style={{ color: NEUBRUTALISM_COLORS.secondary, marginRight: '0.5rem' }} size={24} />
                 ) : (
-                  <XCircle className="text-amber-300 mr-2" size={24} />
+                  <XCircle style={{ color: NEUBRUTALISM_COLORS.warning, marginRight: '0.5rem' }} size={24} />
                 )}
-                <p className={`font-bold text-lg ${currentStepResult.isCorrect ? 'text-green-100' : 'text-amber-100'}`}>
+                <p className={`font-extrabold text-lg ${currentStepResult.isCorrect ? 'text-green-800' : 'text-amber-800'}`}>
                   {currentStepResult.isCorrect ? 'Correct! ✓' : 'Incorrect.'}
                 </p>
                 {!currentStepResult.isCorrect && (
-                  <div className="ml-2 font-bold text-white">
+                  <div className="ml-2 font-bold" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}>
                     Correct answer: {renderTextWithMath(currentStep.options[currentStep.correct])}
                   </div>
                 )}
               </div>
+              
+              {/* Show Explanation Button */}
               <button
                 onClick={() => {
                   const stepId = currentStep.id;
                   setShowExplanation(prev => ({ ...prev, [stepId]: !prev[stepId] }));
                 }}
-                className="flex items-center text-white/90 font-medium text-sm mb-3"
+                style={{ color: NEUBRUTALISM_COLORS.primaryDark, fontWeight: 'medium', fontSize: '0.875rem', marginBottom: '0.75rem' }}
+                className="flex items-center"
               >
                 <HelpCircle className="mr-1" size={16} />
                 {showExplanation[currentStep.id] ? 'Hide explanation' : 'Show explanation'}
               </button>
+              
+              {/* Explanation Content */}
               {showExplanation[currentStep.id] && (
-                <div className="bg-white/10 rounded-xl p-4">
+                <div style={{
+                  ...neubrutalismBase,
+                  backgroundColor: NEUBRUTALISM_COLORS.neutral,
+                  borderColor: NEUBRUTALISM_COLORS.primaryDark,
+                }}>
                   <div className="w-full">
-                    <div className="w-full">
+                    <div className="w-full" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}>
                        {renderTextWithMath(currentStep.explanation)}
                     </div>
                   </div>
@@ -353,17 +479,39 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
           )}
         </div>
       ) : (
-        <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-5 mb-5 shadow-sm border border-white/10">
-          <h4 className="font-bold text-lg mb-4 text-center">Quiz Completed!</h4>
-          <p className="mb-4 text-center">Your final score: <span className="font-bold">{score}</span> / <span className="font-bold">{attempts}</span> attempts</p>
+        /* Final Summary */
+        <div style={{
+          ...neubrutalismBase,
+          backgroundColor: NEUBRUTALISM_COLORS.white,
+          borderColor: NEUBRUTALISM_COLORS.neutral,
+          marginBottom: '1.25rem',
+        }}>
+          <h4 className="font-extrabold text-lg mb-4 text-center" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}>Quiz Completed!</h4>
+          <p className="mb-4 text-center" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}>Your final score: <span className="font-extrabold">{score}</span> / <span className="font-extrabold">{attempts}</span> attempts</p>
+          
+          {/* Shared Values Summary */}
           {renderSharedValuesSummary && (
-            <div className="mb-5 p-4 bg-white/10 rounded-xl">
-              <h5 className="font-bold mb-2">Values Calculated:</h5>
+            <div style={{
+              ...neubrutalismBase,
+              backgroundColor: NEUBRUTALISM_COLORS.neutral,
+              borderColor: NEUBRUTALISM_COLORS.primaryDark,
+              marginBottom: '1.25rem',
+            }}>
+              <h5 className="font-extrabold mb-2" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}>Values Calculated:</h5>
               {renderSharedValuesSummary(sharedValues)}
             </div>
           )}
-          <div className="mb-5 p-4 bg-white/10 rounded-xl max-h-60 overflow-y-auto">
-            <h5 className="font-bold mb-2">Question & Step Review:</h5>
+          
+          {/* Question & Step Review */}
+          <div style={{
+            ...neubrutalismBase,
+            backgroundColor: NEUBRUTALISM_COLORS.neutral,
+            borderColor: NEUBRUTALISM_COLORS.primaryDark,
+            maxHeight: '15rem',
+            overflowY: 'auto',
+            marginBottom: '1.25rem',
+          }}>
+            <h5 className="font-extrabold mb-2" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}>Question & Step Review:</h5>
             <ul className="space-y-4">
               {questions.map((question, qIndex) => {
                 const qResult = questionResults[qIndex];
@@ -375,35 +523,47 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
                     if (sr.isCorrect === true) correctQSteps++;
                 });
                 return (
-                  <li key={question.id} className="p-3 rounded-lg bg-white/5 border border-white/10">
+                  <li key={question.id} style={{
+                    ...neubrutalismBase,
+                    backgroundColor: NEUBRUTALISM_COLORS.lightGray,
+                    borderColor: NEUBRUTALISM_COLORS.borderGray,
+                    paddingLeft: '1rem',
+                  }}>
                     <div className="flex justify-between items-start mb-2">
-                      <span className="font-bold">Question {qIndex + 1}: {question.title}</span>
-                      <span className="text-sm">
-                        Score: <span className="font-bold">{correctQSteps}</span> / <span className="font-bold">{totalQSteps}</span>
+                      <span className="font-extrabold" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}>Question {qIndex + 1}: {question.title}</span>
+                      <span className="text-sm" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}>
+                        Score: <span className="font-extrabold">{correctQSteps}</span> / <span className="font-extrabold">{totalQSteps}</span>
                         {attemptedQSteps < totalQSteps && (
-                          <span className="text-gray-400"> ({totalQSteps - attemptedQSteps} skipped)</span>
+                          <span className="text-gray-600"> ({totalQSteps - attemptedQSteps} skipped)</span>
                         )}
                       </span>
                     </div>
-                    <ul className="pl-4 space-y-2 border-l-2 border-white/20">
+                    <ul className="pl-4 space-y-2 border-l-2 border-gray-400">
                       {question.steps.map((step, sIndex) => {
                         const sResult = qResult.stepResults[sIndex];
                         const wasAttempted = sResult.lastSelectedOptionIndex !== null;
                         const isLastCheckCorrect = sResult.isCorrect === true;
+                        
                         return (
-                          <li key={step.id} className="p-2 rounded bg-white/5 text-sm">
+                          <li key={step.id} style={{
+                            ...neubrutalismBase,
+                            backgroundColor: NEUBRUTALISM_COLORS.lightGray,
+                            borderColor: NEUBRUTALISM_COLORS.borderGray,
+                            padding: '0.5rem',
+                            fontSize: '0.875rem',
+                          }}>
                             <div className="flex justify-between items-start">
-                              <span className="font-medium">Step {sIndex + 1}:</span>
-                              <span className={isLastCheckCorrect ? 'text-green-300' : (wasAttempted ? 'text-amber-300' : 'text-gray-400')}>
+                              <span className="font-medium" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}>Step {sIndex + 1}:</span>
+                              <span className={isLastCheckCorrect ? 'text-green-700' : (wasAttempted ? 'text-amber-700' : 'text-gray-600')}>
                                 {isLastCheckCorrect ? '✓ Correct' : (wasAttempted ? '✗ Incorrect' : 'Skipped')}
                               </span>
                             </div>
-                            <p className="mt-1 truncate"><strong>Q:</strong> {renderTextWithMath(step.question)}</p>
+                            <p className="mt-1 truncate" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}><strong>Q:</strong> {renderTextWithMath(step.question)}</p>
                             {wasAttempted && (
-                              <p className="truncate"><strong>Your Answer:</strong> {renderTextWithMath(step.options[sResult.lastSelectedOptionIndex!])}</p>
+                              <p className="truncate" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}><strong>Your Answer:</strong> {renderTextWithMath(step.options[sResult.lastSelectedOptionIndex!])}</p>
                             )}
                             {(!isLastCheckCorrect || !wasAttempted) && (
-                              <p className="truncate"><strong>Correct Answer:</strong> {renderTextWithMath(step.options[step.correct])}</p>
+                              <p className="truncate" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}><strong>Correct Answer:</strong> {renderTextWithMath(step.options[step.correct])}</p>
                             )}
                           </li>
                         );
@@ -414,52 +574,88 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
               })}
             </ul>
           </div>
+          
+          {/* Restart Quiz Button */}
           <button
             onClick={resetQuiz}
-            className={`w-full ${theme.button} ${theme.buttonHover} rounded-xl p-3 font-bold transition-all duration-200 shadow-md`}
+            style={{
+              ...neubrutalismBase,
+              backgroundColor: NEUBRUTALISM_COLORS.secondary,
+              borderColor: NEUBRUTALISM_COLORS.primaryDark,
+              fontWeight: 'bold',
+              width: '100%',
+              padding: '0.75rem',
+              color: NEUBRUTALISM_COLORS.white,
+            }}
           >
             Restart Quiz
           </button>
         </div>
       )}
 
+      {/* Navigation Buttons */}
       {!finalSummary && (
         <div className="flex gap-3 mb-5">
           <button
             onClick={goToPreviousStep}
             disabled={currentQuestionIndex === 0 && currentStepIndexWithinQuestion === 0}
-            className={`flex items-center justify-center flex-1 py-3 rounded-xl font-bold transition-all ${
-              (currentQuestionIndex === 0 && currentStepIndexWithinQuestion === 0)
-                ? 'bg-gray-500/50 cursor-not-allowed'
-                : 'bg-white/20 hover:bg-white/30'
-            }`}
+            style={{
+              ...neubrutalismBase,
+              flex: 1,
+              padding: '0.75rem',
+              fontWeight: 'bold',
+              backgroundColor: (currentQuestionIndex === 0 && currentStepIndexWithinQuestion === 0) ? NEUBRUTALISM_COLORS.borderGray : NEUBRUTALISM_COLORS.lightGray,
+              borderColor: NEUBRUTALISM_COLORS.primaryDark,
+              color: NEUBRUTALISM_COLORS.primaryDark,
+              cursor: (currentQuestionIndex === 0 && currentStepIndexWithinQuestion === 0) ? 'not-allowed' : 'pointer',
+            }}
           >
-            <ChevronLeft className="mr-1" size={20} /> Previous
+            <ChevronLeft className="mr-1 inline" size={20} /> Previous
           </button>
+          
           <button
             onClick={goToNextStep}
             disabled={
               !(currentStepResult.isCorrect === true) &&
               !(currentQuestionIndex === questions.length - 1 && currentStepIndexWithinQuestion === currentQuestion.steps.length - 1)
             }
-            className={`flex items-center justify-center flex-1 py-3 rounded-xl font-bold transition-all ${
-              (currentStepResult.isCorrect === true) ||
-              (currentQuestionIndex === questions.length - 1 && currentStepIndexWithinQuestion === currentQuestion.steps.length - 1)
-                ? `${theme.button} ${theme.buttonHover}`
-                : 'bg-gray-500/50 cursor-not-allowed'
-            }`}
+            style={{
+              ...neubrutalismBase,
+              flex: 1,
+              padding: '0.75rem',
+              fontWeight: 'bold',
+              backgroundColor:
+                (currentStepResult.isCorrect === true) ||
+                (currentQuestionIndex === questions.length - 1 && currentStepIndexWithinQuestion === currentQuestion.steps.length - 1)
+                  ? NEUBRUTALISM_COLORS.secondary
+                  : NEUBRUTALISM_COLORS.borderGray,
+              borderColor: NEUBRUTALISM_COLORS.primaryDark,
+              color: NEUBRUTALISM_COLORS.white,
+              cursor:
+                (currentStepResult.isCorrect === true) ||
+                (currentQuestionIndex === questions.length - 1 && currentStepIndexWithinQuestion === currentQuestion.steps.length - 1)
+                  ? 'pointer'
+                  : 'not-allowed',
+            }}
           >
             {currentQuestionIndex === questions.length - 1 && currentStepIndexWithinQuestion === currentQuestion.steps.length - 1
               ? 'Finish'
               : 'Next'}
-            <ChevronRight className="ml-1" size={20} />
+            <ChevronRight className="ml-1 inline" size={20} />
           </button>
         </div>
       )}
 
-      <div className="mt-4 bg-white/10 rounded-xl p-3 text-sm">
-        <p className="font-bold mb-1">{rulesTitle}</p>
-        <ul className="list-disc list-inside space-y-1">
+      {/* Rules Section */}
+      <div style={{
+        ...neubrutalismBase,
+        backgroundColor: NEUBRUTALISM_COLORS.neutral,
+        borderColor: NEUBRUTALISM_COLORS.primaryDark,
+        marginTop: '1rem',
+        fontSize: '0.875rem',
+      }}>
+        <p className="font-extrabold mb-1" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}>{rulesTitle}</p>
+        <ul className="list-disc list-inside space-y-1" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}>
           {rules.map((rule, index) => (
             <li key={index}>{renderTextWithMath(rule)}</li>
           ))}
