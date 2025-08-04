@@ -29,10 +29,10 @@ import BaseArithmeticQuiz from "./Topic1.5/BaseArithmeticQuiz";
 import BaseConverter from "./Topic1.5/BaseConverter";
 import BaseEquationsQuiz from "./Topic1.5/BaseEquationsQuiz";
 import OtherBasesQuiz from "./Topic1.5/OtherBasesQuiz";
-import ScaleArea from "./Topic1.6/ScaleArea";
+import ScaleFactorAreaQuiz from "./Topic1.6/ScaleFactorAreaQuiz";
 import ScaleMeasurementsQuiz from "./Topic1.6/ScaleMeasurementsQuiz";
-import ScaleProblems from "./Topic1.6/ScaleProblems";
 import ScaleTypesQuiz from "./Topic1.6/ScaleTypesQuiz";
+import ScaleApplicationsQuiz from "./Topic1.6/ScaleApplicationsQuiz";
 
 
 export const topic1Components: Record<string, React.ComponentType> = {
@@ -73,6 +73,6 @@ export const topic1Components: Record<string, React.ComponentType> = {
   "base-equations": BaseEquationsQuiz,
   "scale-types": ScaleTypesQuiz,
   "scale-measurements": ScaleMeasurementsQuiz,
-  "area-scale": ScaleArea,
-  "scale-problems": ScaleProblems
+  "area-scale": ScaleFactorAreaQuiz,
+  "scale-problems": ScaleApplicationsQuiz
 };

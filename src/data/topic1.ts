@@ -1,16 +1,16 @@
 
 // import { Section, QuizQuestion, MathJaxConfig } from '../Topic1/types';
-import {Section, QuizQuestion} from "../types"
+import { Section, QuizQuestion } from "../types"
 
 export const sections: Section[] = [
-{
-  "title": "Number Concepts and Operations",
-  "icon": "🔢",
-  "content": "Number types are the foundation of mathematics. Let's explore the different families of numbers and operations step by step.",
-  "subsections": [
-    {
-      "title": "Number Types",
-      "content": `**NATURAL NUMBERS** ($\\mathbb{N}$)
+  {
+    "title": "Number Concepts and Operations",
+    "icon": "🔢",
+    "content": "Number types are the foundation of mathematics. Let's explore the different families of numbers and operations step by step.",
+    "subsections": [
+      {
+        "title": "Number Types",
+        "content": `**NATURAL NUMBERS** ($\\mathbb{N}$)
 These are counting numbers: $1, 2, 3, 4, 5, \\ldots$
 - Used for counting objects
 - Always positive
@@ -43,11 +43,11 @@ Numbers that cannot be expressed as fractions: $\\pi, e, \\sqrt{2}, \\sqrt{3}$
 
 **REAL NUMBERS** ($\\mathbb{R}$)
 All rational and irrational numbers combined - everything on the number line`,
-      "interactive": "number-types"
-    },
-    {
-      "title": "Factors and H.C.F.",
-      "content": `**FACTORS**
+        "interactive": "number-types"
+      },
+      {
+        "title": "Factors and H.C.F.",
+        "content": `**FACTORS**
 Numbers that divide evenly into another number
 - Factors of 12: $1, 2, 3, 4, 6, 12$
 - Factors of 18: $1, 2, 3, 6, 9, 18$
@@ -84,11 +84,11 @@ Find H.C.F. of 48 and 18:
 - Simplifying fractions to lowest terms
 - Sharing items equally among groups
 - Finding common measurements`,
-      "interactive": "factors-hcf"
-    },
-    {
-      "title": "Multiples and L.C.M.",
-      "content": `**MULTIPLES**
+        "interactive": "factors-hcf"
+      },
+      {
+        "title": "Multiples and L.C.M.",
+        "content": `**MULTIPLES**
 Results of multiplying a number by integers
 - Multiples of 3: $3, 6, 9, 12, 15, 18, 21, 24, \\ldots$
 - Multiples of 4: $4, 8, 12, 16, 20, 24, 28, 32, \\ldots$
@@ -136,11 +136,11 @@ $H.C.F.(a,b) \\times L.C.M.(a,b) = a \\times b$
 - Adding fractions with different denominators
 - Finding when events repeat together
 - Scheduling problems`,
-      "interactive": "multiples-lcm"
-    },
-    {
-      "title": "Directed Numbers",
-      "content": `**DIRECTED NUMBERS**
+        "interactive": "multiples-lcm"
+      },
+      {
+        "title": "Directed Numbers",
+        "content": `**DIRECTED NUMBERS**
 Numbers with direction (positive or negative)
 - Positive numbers: $+5, +10, +3.2$ (above zero)
 - Negative numbers: $-3, -7, -1.5$ (below zero)
@@ -164,11 +164,11 @@ Numbers with direction (positive or negative)
 **Practical Applications:**
 - Temperature changes, bank transactions, elevation changes
 - Using number lines to visualize operations`,
-      "interactive": "directed-numbers"
-    },
-    {
-      "title": "Fractions and Percentages",
-      "content": `**FRACTIONS**
+        "interactive": "directed-numbers"
+      },
+      {
+        "title": "Fractions and Percentages",
+        "content": `**FRACTIONS**
 Parts of a whole: $\\frac{numerator}{denominator}$
 - Proper fractions: $\\frac{3}{4}, \\frac{2}{5}$ (numerator < denominator)
 - Improper fractions: $\\frac{7}{4}, \\frac{9}{5}$ (numerator ≥ denominator)
@@ -193,11 +193,11 @@ Fractions out of 100: $\\frac{x}{100} = x\\%$
 - Finding percentage of a number: $25\\% \\text{ of } 80 = \\frac{25}{100} \\times 80 = 20$
 - Finding percentage increase/decrease
 - Practical applications: discounts, tax, interest`,
-      "interactive": "fractions-percentages"
-    },
-    {
-      "title": "Order of Operations",
-      "content": `**ORDER OF OPERATIONS (BODMAS/PEMDAS)**
+        "interactive": "fractions-percentages"
+      },
+      {
+        "title": "Order of Operations",
+        "content": `**ORDER OF OPERATIONS (BODMAS/PEMDAS)**
 Rules for evaluating mathematical expressions
 
 **B - Brackets** (Parentheses)
@@ -221,11 +221,11 @@ $2^3 + 4 \\times 5 = 8 + 20 = 28$
 - Combining integers, fractions, and decimals
 - Following order of operations consistently
 - Real-world problem solving applications`,
-      "interactive": "order-operations"
-    },
-    {
-      "title": "Squares and Square Roots",
-      "content": `**SQUARES**
+        "interactive": "order-operations"
+      },
+      {
+        "title": "Squares and Square Roots",
+        "content": `**SQUARES**
 A number multiplied by itself: $n^2 = n \\times n$
 - $3^2 = 3 \\times 3 = 9$
 - $(-4)^2 = (-4) \\times (-4) = 16$
@@ -246,11 +246,11 @@ The opposite of squaring: $\\sqrt{n^2} = n$
 - Area problems: finding side length of squares
 - Pythagorean theorem in right triangles
 - Distance calculations`,
-      "interactive": "squares-square-roots"
-    },
-    {
-      "title": "Cubes and Cube Roots",
-      "content": `**CUBES**
+        "interactive": "squares-square-roots"
+      },
+      {
+        "title": "Cubes and Cube Roots",
+        "content": `**CUBES**
 A number multiplied by itself three times: $n^3 = n \\times n \\times n$
 - $2^3 = 2 \\times 2 \\times 2 = 8$
 - $(-3)^3 = (-3) \\times (-3) \\times (-3) = -27$
@@ -271,11 +271,11 @@ The opposite of cubing: $\\sqrt[3]{n^3} = n$
 - Volume problems: finding side length of cubes
 - Scaling in three dimensions
 - Real-world applications in engineering and physics`,
-      "interactive": "cubes-cube-roots"
-    },
-    {
-      "title": "Number Patterns",
-      "content": `**ARITHMETIC SEQUENCES**
+        "interactive": "cubes-cube-roots"
+      },
+      {
+        "title": "Number Patterns",
+        "content": `**ARITHMETIC SEQUENCES**
 Patterns with constant difference between terms
 - Example: $2, 5, 8, 11, 14, \\ldots$ (difference = 3)
 - $n^{th}$ term formula: $a_n = a_1 + (n-1)d$
@@ -301,19 +301,19 @@ Each term is sum of previous two: $1, 1, 2, 3, 5, 8, 13, 21, \\ldots$
 - Check for multiplication/division relationships
 - Identify the rule and predict next terms
 - Real-world applications in nature, art, and science`,
-      "interactive": "number-patterns"
-    }
-  ]
-},
+        "interactive": "number-patterns"
+      }
+    ]
+  },
 
   {
-  "title": "Approximations and Estimations",
-  "icon": "📏",
-  "content": "Approximations help us work with numbers that are easier to handle while maintaining reasonable accuracy.",
-  "subsections": [
-    {
-      "title": "Rounding Off Numbers",
-      "content": `**ROUNDING OFF NUMBERS**
+    "title": "Approximations and Estimations",
+    "icon": "📏",
+    "content": "Approximations help us work with numbers that are easier to handle while maintaining reasonable accuracy.",
+    "subsections": [
+      {
+        "title": "Rounding Off Numbers",
+        "content": `**ROUNDING OFF NUMBERS**
 
 **Rules for Rounding:**
 - Look at the digit to the right of the place you're rounding to
@@ -346,11 +346,11 @@ When the digit is exactly 5, always round up:
 - Measurements in construction
 - Population statistics
 - Scientific data presentation`,
-      "interactive": "rounding-game"
-    },
-    {
-      "title": "Decimal Places and Significant Figures",
-      "content": `**DECIMAL PLACES (d.p.)**
+        "interactive": "rounding-game"
+      },
+      {
+        "title": "Decimal Places and Significant Figures",
+        "content": `**DECIMAL PLACES (d.p.)**
 Count digits after the decimal point:
 - $3.456$ has 3 decimal places
 - $0.2$ has 1 decimal place
@@ -386,11 +386,11 @@ Count meaningful digits from the first non-zero digit:
 **When to Use Each:**
 - Decimal places: Precise measurements, money
 - Significant figures: Scientific calculations, large numbers`,
-      "interactive": "decimal-places"
-    },
-    {
-      "title": "Estimations",
-      "content": `**ESTIMATIONS**
+        "interactive": "decimal-places"
+      },
+      {
+        "title": "Estimations",
+        "content": `**ESTIMATIONS**
 Make quick calculations easier by rounding numbers first:
 
 **Basic Estimation Strategies:**
@@ -427,11 +427,11 @@ Make quick calculations easier by rounding numbers first:
 Always estimate first to catch errors:
 - If $23 \\times 45$ gives you $10,035$, estimate: $20 \\times 50 = 1,000$ (calculator error!)
 - If $\\frac{144}{12}$ gives you $1.2$, estimate: $\\frac{120}{12} = 10$ (decimal point error!)`,
-      "interactive": "estimation-game"
-    },
-    {
-      "title": "Limits of Accuracy",
-      "content": `**LIMITS OF ACCURACY**
+        "interactive": "estimation-game"
+      },
+      {
+        "title": "Limits of Accuracy",
+        "content": `**LIMITS OF ACCURACY**
 Understanding the range of possible values for rounded numbers:
 
 **Basic Concept:**
@@ -478,18 +478,18 @@ When combining measurements, errors can compound:
 2. Find the halfway point below and above
 3. Write the inequality correctly
 4. Remember upper bound is exclusive (<, not ≤)`,
-      "interactive": "limits-accuracy"
-    }
-  ]
-},
-{
-  "title": "Ratios, Rates and Proportions",
-  "icon": "⚖️",
-  "content": "Ratios and proportions help us compare quantities and solve real-world problems.",
-  "subsections": [
-    {
-      "title": "Ratios",
-      "content": `**RATIOS**
+        "interactive": "limits-accuracy"
+      }
+    ]
+  },
+  {
+    "title": "Ratios, Rates and Proportions",
+    "icon": "⚖️",
+    "content": "Ratios and proportions help us compare quantities and solve real-world problems.",
+    "subsections": [
+      {
+        "title": "Ratios",
+        "content": `**RATIOS**
 Compare quantities of the same type (same units):
 
 **Definition:**
@@ -537,11 +537,11 @@ If the ratio of boys to girls is $3:4$ and there are $21$ students total:
 2. Write the ratio in simplest form
 3. Use the ratio to find unknown quantities
 4. Check your answer makes sense`,
-      "interactive": "ratio-quiz"
-    },
-    {
-      "title": "Rates",
-      "content": `**RATES**
+        "interactive": "ratio-quiz"
+      },
+      {
+        "title": "Rates",
+        "content": `**RATES**
 
 Compare quantities of different types with different units:
 
@@ -580,11 +580,11 @@ Rate = $\\frac{\\text{First quantity}}{\\text{Second quantity}}$
 - Calculating travel time and fuel costs
 - Determining work productivity
 - Analyzing sports performance statistics`,
-      "interactive": "rate-calculator"
-    },
-    {
-      "title": "Direct Proportion",
-      "content": `**DIRECT PROPORTION**
+        "interactive": "rate-calculator"
+      },
+      {
+        "title": "Direct Proportion",
+        "content": `**DIRECT PROPORTION**
 As one quantity increases, the other increases at the same rate:
 
 **Definition:**
@@ -644,11 +644,11 @@ If 5 pencils cost 2.50, how much do 12 pencils cost?
 - Salary calculations
 - Material costs in construction
 - Fuel consumption calculations`,
-      "interactive": "direct-proportion"
-    },
-    {
-      "title": "Inverse Proportion",
-      "content": `**INVERSE PROPORTION**
+        "interactive": "direct-proportion"
+      },
+      {
+        "title": "Inverse Proportion",
+        "content": `**INVERSE PROPORTION**
 As one quantity increases, the other decreases proportionally:
 
 **Definition:**
@@ -721,19 +721,19 @@ If $8$ machines can complete a job in $15$ days, how long will it take $12$ mach
 - Economics (supply vs demand)
 - Physics (gas laws, light intensity)
 - Engineering (gear ratios, lever systems)`,
-      "interactive": "inverse-proportion"
-    }
-  ]
-}
-,
- {
-  title: "Ordinary and Standard Form",
-  icon: "🔬",
-  content: `Standard form helps us write very large or very small numbers in a manageable way.`,
-  subsections: [
-    {
-      title: "Large Numbers in Standard Form",
-      content: `**LARGE NUMBERS**
+        "interactive": "inverse-proportion"
+      }
+    ]
+  }
+  ,
+  {
+    title: "Ordinary and Standard Form",
+    icon: "🔬",
+    content: `Standard form helps us write very large or very small numbers in a manageable way.`,
+    subsections: [
+      {
+        title: "Large Numbers in Standard Form",
+        content: `**LARGE NUMBERS**
 - $5,000,000 = 5 \\times 10^6$
 - $340,000,000 = 3.4 \\times 10^8$
 - $7,200,000,000 = 7.2 \\times 10^9$
@@ -756,11 +756,11 @@ For large numbers, count how many places you move the decimal point to the left.
 - Earth's mass: $5.97 \\times 10^{24}$ kg
 - Speed of light: $3 \\times 10^8$ m/s
 - World population: approximately $8 \\times 10^9$ people`,
-      interactive: "large-numbers"
-    },
-    {
-      title: "Small Numbers in Standard Form",
-      content: `**SMALL NUMBERS**
+        interactive: "large-numbers"
+      },
+      {
+        title: "Small Numbers in Standard Form",
+        content: `**SMALL NUMBERS**
 - $0.005 = 5 \\times 10^{-3}$
 - $0.00034 = 3.4 \\times 10^{-4}$
 - $0.000000072 = 7.2 \\times 10^{-8}$
@@ -784,11 +784,11 @@ For small numbers, count how many places you move the decimal point to the right
 - Mass of an electron: $9.11 \\times 10^{-31}$ kg
 - Thickness of human hair: $7 \\times 10^{-5}$ meters
 - Probability of winning lottery: approximately $1.4 \\times 10^{-8}$`,
-      interactive: "small-numbers"
-    },
-    {
-      title: "Standard Form Converter",
-      content: `**STANDARD FORM RULES**
+        interactive: "small-numbers"
+      },
+      {
+        title: "Standard Form Converter",
+        content: `**STANDARD FORM RULES**
 A number in standard form is written as: $a \\times 10^n$
 - Where $1 \\leq a < 10$
 - $n$ is an integer (positive for large numbers, negative for small numbers)
@@ -821,11 +821,11 @@ For small numbers:
 2. Practice identifying the first significant digit
 3. Count carefully - use your finger to track decimal movement
 4. Check your answer by converting back to ordinary form`,
-      interactive: "standard-form-converter"
-    },
-    {
-      title: "Operations in Standard Form",
-      content: `**PERFORMING OPERATIONS WITH STANDARD FORM**
+        interactive: "standard-form-converter"
+      },
+      {
+        title: "Operations in Standard Form",
+        content: `**PERFORMING OPERATIONS WITH STANDARD FORM**
 When working with numbers in standard form, we can perform arithmetic operations efficiently by using the laws of indices.
 
 **GENERAL PRINCIPLES:**
@@ -838,11 +838,11 @@ When working with numbers in standard form, we can perform arithmetic operations
 - $10^a \\times 10^b = 10^{a+b}$
 - $10^a \\div 10^b = 10^{a-b}$
 - $(10^a)^b = 10^{ab}$`,
-      interactive: "standard-form-operations-overview"
-    },
-    {
-      title: "Adding and Subtracting Numbers in Standard Form",
-      content: `**ADDING AND SUBTRACTING IN STANDARD FORM**
+        interactive: "standard-form-operations-overview"
+      },
+      {
+        title: "Adding and Subtracting Numbers in Standard Form",
+        content: `**ADDING AND SUBTRACTING IN STANDARD FORM**
 
 **METHOD 1: Convert to Ordinary Form**
 $3.2 \\times 10^5 + 4.7 \\times 10^4$
@@ -875,11 +875,11 @@ $5.2 \\times 10^7 + 3.1 \\times 10^6$
 - $(1.5 \\times 10^{-3}) + (4.2 \\times 10^{-4})$
   = $1.5 \\times 10^{-3} + 0.42 \\times 10^{-3}$
   = $1.92 \\times 10^{-3}$`,
-      interactive: "standard-form-addition-subtraction"
-    },
-    {
-      title: "Multiplying Numbers in Standard Form",
-      content: `**MULTIPLYING IN STANDARD FORM**
+        interactive: "standard-form-addition-subtraction"
+      },
+      {
+        title: "Multiplying Numbers in Standard Form",
+        content: `**MULTIPLYING IN STANDARD FORM**
 
 **BASIC RULE:**
 $(a \\times 10^m) \\times (b \\times 10^n) = (a \\times b) \\times 10^{m+n}$
@@ -909,11 +909,11 @@ $(2.4 \\times 10^7) \\times (5.0 \\times 10^{-3}) \\times (1.2 \\times 10^2)$
 - Always check if your coefficient is between 1 and 10
 - If coefficient ≥ 10, adjust by increasing the power
 - Practice mental arithmetic with the coefficients`,
-      interactive: "standard-form-multiplication"
-    },
-    {
-      title: "Dividing Numbers in Standard Form",
-      content: `**DIVIDING IN STANDARD FORM**
+        interactive: "standard-form-multiplication"
+      },
+      {
+        title: "Dividing Numbers in Standard Form",
+        content: `**DIVIDING IN STANDARD FORM**
 
 **BASIC RULE:**
 $(a \\times 10^m) \\div (b \\times 10^n) = \\frac{a}{b} \\times 10^{m-n}$
@@ -949,19 +949,19 @@ $(7.5 \\times 10^4) \\div (2.0 \\times 10^6)$
 - Sign errors with negative exponents
 - Not converting final answer to proper standard form
 - Calculation errors with coefficient division`,
-      interactive: "standard-form-division"
-    }
-  ]
-},
+        interactive: "standard-form-division"
+      }
+    ]
+  },
 
   {
-  title: "Number Bases",
-  icon: "💻",
-  content: `Number bases show us different ways to represent numbers, essential for computer science and mathematics.`,
-  subsections: [
-{
-  title: "Base 10 (Decimal)",
-  content: `**BASE 10 (DECIMAL)**
+    title: "Number Bases",
+    icon: "💻",
+    content: `Number bases show us different ways to represent numbers, essential for computer science and mathematics.`,
+    subsections: [
+      {
+        title: "Base 10 (Decimal)",
+        content: `**BASE 10 (DECIMAL)**
 Our everyday number system:
 - Uses digits $0, 1, 2, 3, 4, 5, 6, 7, 8, 9$
 - Each position represents a power of $10$
@@ -1018,12 +1018,11 @@ $$
 - Historically developed because humans have 10 fingers
 - Most natural counting system for everyday use
 - Foundation for our decimal system and currency`,
-  interactive: "base-10"
-},
-
-   {
-  title: "Base 2 (Binary)",
-  content: `**BASE 2 (BINARY)**
+        interactive: "base-10"
+      },
+      {
+        title: "Base 2 (Binary)",
+        content: `**BASE 2 (BINARY)**
 Computer language:
 - Uses only digits $0$ and $1$
 - Each position represents a power of $2$
@@ -1084,11 +1083,11 @@ $$
 - Digital circuits (on/off states)
 - Data storage and transmission
 - Programming and computer science`,
-  interactive: "base-2"
-},
-   {
-  title: "Other Number Bases",
-  content: `**BASE 8 (OCTAL)**
+        interactive: "base-2"
+      },
+      {
+        title: "Other Number Bases",
+        content: `**BASE 8 (OCTAL)**
 - Uses digits $0, 1, 2, 3, 4, 5, 6, 7$
 - Each position represents a power of $8$
 - $345_8 = 3\\times8^2 + 4\\times8^1 + 5\\times8^0 = 192 + 32 + 5 = 229_{10}$
@@ -1140,11 +1139,11 @@ For a number in base $n$, each digit must be less than $n$, and each position re
 - Octal: Legacy computer systems
 - Hexadecimal: Color codes, memory addresses
 - Other bases: Mathematical theory, specialized systems`,
-  interactive: "other-bases"
-},
-{
-  title: "Base Converter",
-  content: `**CONVERTING BETWEEN BASES**
+        interactive: "other-bases"
+      },
+      {
+        title: "Base Converter",
+        content: `**CONVERTING BETWEEN BASES**
 From base $10$ to other bases:
 - Divide by the target base repeatedly
 - Read remainders from bottom to top
@@ -1199,11 +1198,11 @@ $= 256 + 160 + 5 = 421_{10}$
 - Binary to Octal: Group binary digits in threes from right
 - Binary to Hexadecimal: Group binary digits in fours from right
 - Use conversion tables for quick reference`,
-  interactive: "base-converter"
-},
-   {
-  title: "Adding and Subtracting in Number Bases",
-  content: `**ADDITION IN DIFFERENT BASES**
+        interactive: "base-converter"
+      },
+      {
+        title: "Adding and Subtracting in Number Bases",
+        content: `**ADDITION IN DIFFERENT BASES**
 
 **BINARY ADDITION RULES:**
 - $0 + 0 = 0$
@@ -1281,11 +1280,11 @@ Result: $0010_2 = 2_{10}$
 - **Borrowing**: Add base value to current digit when borrowing
 - **Always verify**: Check answers by converting to base 10
 - **Digit limits**: Remember valid digits for each base`,
-  interactive: "base-arithmetic"
-},
-{
-  title: "Solving Equations Involving Number Bases",
-  content: `**EQUATIONS WITH UNKNOWN BASES**
+        interactive: "base-arithmetic"
+      },
+      {
+        title: "Solving Equations Involving Number Bases",
+        content: `**EQUATIONS WITH UNKNOWN BASES**
 
 **TYPE 1: Finding the Base**
 Solve: $25_b = 17_{10}$
@@ -1344,19 +1343,19 @@ Method:
 - Valid digits in base $n$: $0$ to $(n-1)$
 - Base must be ≥ 2 and an integer
 - Always check that solutions make sense in context`,
-  interactive: "base-equations"
-}
-  ]
-},
+        interactive: "base-equations"
+      }
+    ]
+  },
 
-{
- title: "Scales and Simple Map Problems",
- icon: "🗺️",
- content: `Scales help us represent large real-world distances on manageable maps and drawings. They are essential tools for navigation, construction, and design work.`,
- subsections: [
-   {
-     title: "Types of Scales",
-     content: `**TYPES OF SCALES**
+  {
+    title: "Scales and Simple Map Problems",
+    icon: "🗺️",
+    content: `Scales help us represent large real-world distances on manageable maps and drawings. They are essential tools for navigation, construction, and design work.`,
+    subsections: [
+      {
+        title: "Types of Scales",
+        content: `**TYPES OF SCALES**
 
 **Representative Fraction (RF):**
 - Written as a fraction: $\\frac{1}{50,000}$ or $1:50,000$
@@ -1378,11 +1377,11 @@ Method:
 If 2 cm on a map represents 5 km in reality:
 - Convert to same units: 5 km = 500,000 cm
 - Scale = $2:500,000 = 1:250,000$`,
-     interactive: "scale-types"
-   },
-   {
-     title: "Scale Measurements and Calculations",
-     content: `**MEASURING WITH SCALES**
+        interactive: "scale-types"
+      },
+      {
+        title: "Scale Measurements and Calculations",
+        content: `**MEASURING WITH SCALES**
 
 **Finding Real Distance:**
 - Map distance = 8 cm, Scale = $1:50,000$
@@ -1402,11 +1401,11 @@ If 2 cm on a map represents 5 km in reality:
 To draw a 50m building using scale $1:1000$:
 - Convert: 50 m = 5,000 cm
 - Drawing length = $5,000 \\div 1,000 = 5$ cm`,
-     interactive: "scale-measurements"
-   },
-   {
-     title: "Scale Factor and Area Calculations",
-     content: `**SCALE FACTOR**
+        interactive: "scale-measurements"
+      },
+      {
+        title: "Scale Factor and Area Calculations",
+        content: `**SCALE FACTOR**
 The ratio by which all linear dimensions are multiplied:
 - If scale = $1:500$, then scale factor = $\\frac{1}{500}$
 - Linear scale factor = $k$
@@ -1431,11 +1430,11 @@ When scale factor = $1:n$:
 - Given area factor = 250,000
 - Scale factor = $\\sqrt{250,000} = 500$
 - Therefore scale = $1:500$`,
-     interactive: "area-scale"
-   },
-   {
-     title: "Real-World Applications",
-     content: `**PRACTICAL APPLICATIONS**
+        interactive: "area-scale"
+      },
+      {
+        title: "Real-World Applications",
+        content: `**PRACTICAL APPLICATIONS**
 
 **Construction and Architecture:**
 - Building plans typically use scales like $1:100$ or $1:50$
@@ -1464,10 +1463,10 @@ A rectangular field measures 8 cm by 6 cm on a map with scale $1:5,000$.
 - Real length = $8 \\times 5,000 = 40,000$ cm = 400 m
 - Real width = $6 \\times 5,000 = 30,000$ cm = 300 m  
 - Real area = $400 \\times 300 = 120,000$ m² = 12 hectares`,
-     interactive: "scale-problems"
-   }
- ]
-}
+        interactive: "scale-problems"
+      }
+    ]
+  }
 ];
 
 

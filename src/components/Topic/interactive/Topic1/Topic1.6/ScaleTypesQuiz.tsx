@@ -1,169 +1,107 @@
-// ScaleTypesQuizData.ts
+// ScaleTypesQuiz.tsx (or .jsx)
 
-// Define the structure for a quiz question
-export interface ScaleTypesQuizQuestion {
-  id: string;
-  question: string; // Plain text question
-  choices: string[]; // Plain text choices
-  correctAnswer: string; // The correct choice (must match one of the choices)
-  explanation: string; // KaTeX string for the explanation
-}
+import React from 'react';
+import MultipleChoiceInteractiveComponent, { QuizQuestion } from '../../Templates/MultipleChoiceInteractiveComponent';
 
-export const scaleTypesQuizQuestions: ScaleTypesQuizQuestion[] = [
+// --- The Question Data ---
+const scaleTypesQuizQuestions: QuizQuestion[] = [
   {
-    id: "q1",
-    question: "What does the denominator in a Representative Fraction (RF) scale represent?",
-    choices: [
-      "The number of map units",
-      "The number of real-world units represented by 1 map unit",
-      "The ratio of map distance to ground distance",
-      "The length of the linear scale bar"
+    id: 'scale-type-rf-definition',
+    question: "What is a key characteristic of a Representative Fraction (RF) or Ratio Scale like $1:50,000$?",
+    options: [
+      "It is a graduated line printed on the map.",
+      "The numerator is always 1, and it shows the ratio of map distance to real distance.",
+      "It uses words to describe the scale (e.g., '1 inch equals 1 mile').",
+      "It only works for very small scale maps."
     ],
-    correctAnswer: "The number of real-world units represented by 1 map unit",
-    // Explanation can still use KaTeX for clarity on the scale format
-    explanation: "\\text{In an RF scale like } 1:50,000\\text{, the denominator (50,000)} \\\\ \\text{indicates how many real-world units (e.g., cm)} \\\\ \\text{are represented by a single unit (e.g., 1 cm) on the map.}"
+    correct: 1, // Index of the correct option
+    explanation: "An RF scale is written as a ratio (e.g., $1:50,000$) or fraction (e.g., $\\frac{1}{50,000}$) where the numerator is typically 1, and the denominator indicates how many real-world units correspond to 1 unit on the map.",
+    explanationType: 'text', // Explanation contains math
+    questionType: 'text', // Question is plain text with math rendered by helper
+    optionType: 'text' // Options are plain text with math rendered by helper
   },
   {
-    id: "q2",
-    question: "If a map has a scale of 1:100,000, what does this mean?",
-    choices: [
-      "1 unit on the map equals 100,000 units in reality",
-      "100,000 units on the map equals 1 unit in reality",
-      "The map is 100,000 times smaller than the area it represents",
-      "Both A and C are correct"
-    ],
-    correctAnswer: "Both A and C are correct",
-    explanation: "\\text{A scale of } 1:100,000 \\text{ means} \\\\ \\text{the linear dimensions on the map} \\\\ \\text{are 1/100,000th the size of the actual} \\\\ \\text{dimensions, so 1 unit on the map} \\\\ \\text{corresponds to 100,000 units in reality.}"
-  },
-  {
-    id: "q3",
-    question: "Which type of scale is shown as a graduated line on a map?",
-    choices: [
-      "Representative Fraction (RF)",
-      "Ratio Scale",
+    id: 'scale-type-linear-identification',
+    question: "What type of scale is a graduated line printed on a map that shows actual distances?",
+    options: [
+      "Representative Fraction (RF) Scale",
+      "Verbal Scale",
       "Linear Scale",
-      "Verbal Scale"
+      "Proportional Scale"
     ],
-    correctAnswer: "Linear Scale",
-    explanation: "\\text{A Linear Scale is a visual bar} \\\\ \\text{or line marked with real-world} \\\\ \\text{distances, allowing users to measure} \\\\ \\text{distances directly with a ruler.}"
+    correct: 2, // Index of "Linear Scale"
+    explanation: "A Linear Scale (also known as a Bar Scale) is a visual tool on a map, usually a line marked with units, that allows you to measure distances directly without calculations.",
+    explanationType: 'text',
+    questionType: 'text',
+    optionType: 'text'
   },
   {
-    id: "q4",
-    question: "If 3 cm on a map represents 15 km in reality, what is the RF scale?",
-    choices: [
-      "1:5",
-      "1:500,000",
-      "1:5,000",
-      "3:15"
+    id: 'scale-calculation-worded-to-rf',
+    question: "If 2 cm on a map represents 5 km in reality, what is the Representative Fraction (RF) scale?",
+    options: [
+      "$1:25,000$",
+      "$1:250,000$",
+      "$1:2,500,000$",
+      "$2:500,000$"
     ],
-    correctAnswer: "1:500,000",
-    explanation: "\\text{First, convert units: } 15 \\text{ km} = 1,500,000 \\text{ cm.} \\\\ \\text{Then, find the ratio: } 3 \\text{ cm (map)} : 1,500,000 \\text{ cm (real)} \\\\ \\text{Divide both sides by 3 to get the RF: } 1 : 500,000."
+    correct: 1, // Index of "$1:250,000$"
+    explanation: "First, convert units to the same base: $5 \\, \\mathrm{km} = 500,000 \\, \\mathrm{cm}$. \\\\ The scale is $2 \\, \\mathrm{cm} : 500,000 \\, \\mathrm{cm}$. \\\\ Simplify the ratio by dividing both sides by 2: $1 : 250,000$.",
+    explanationType: 'text',
+    questionType: 'text',
+    optionType: 'text' // Options contain math
   },
   {
-    id: "q5",
-    question: "What is a key characteristic of a Representative Fraction (RF) scale?",
-    choices: [
-      "It always uses a bar line",
-      "The numerator is always 1",
-      "It describes distance in words",
-      "It changes with map projection"
+    id: 'scale-understanding-rf-meaning',
+    question: "What does a map scale of $1:25,000$ mean?",
+    options: [
+      "1 unit on the map equals 25,000 units in reality.",
+      "1 unit in reality equals 25,000 units on the map.",
+      "The map is 25,000 times larger than the area it represents.",
+      "The map covers an area of 25,000 square units."
     ],
-    correctAnswer: "The numerator is always 1",
-    explanation: "\\text{An RF scale is written as a fraction (e.g., } \\frac{1}{50,000} \\text{)} \\\\ \\text{or a ratio (e.g., } 1:50,000 \\text{) where} \\\\ \\text{the numerator is consistently 1,} \\\\ \\text{and the denominator represents the scale factor.}"
+    correct: 0, // Index of "1 unit on the map equals 25,000 units in reality."
+    explanation: "In a scale like $1:25,000$, the first number (1) represents the distance on the map, and the second number (25,000) represents the corresponding distance in the real world. So, 1 cm on the map equals 25,000 cm in reality.",
+    explanationType: 'text',
+    questionType: 'text',
+    optionType: 'text'
   }
 ];
 
-
-// ScaleTypesQuizComponent.tsx
-import React, { useState, useCallback } from 'react';
-import {  BlockMath } from 'react-katex'; // Import BlockMath for explanations if needed
-import 'katex/dist/katex.min.css';
-import { QuizTemplate } from '../Topic1.2/QuizTemplate';
-
-
-const ScaleTypesQuizComponent: React.FC = () => {
-  // State for quiz logic
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-  const [showResult, setShowResult] = useState(false);
-  const [isCorrect, setIsCorrect] = useState(false);
-  const [score, setScore] = useState(0);
-  const [attempts, setAttempts] = useState(0);
-
-  const currentQuestion: ScaleTypesQuizQuestion = scaleTypesQuizQuestions[currentQuestionIndex];
-
-  // Handle selecting an answer
-  const handleSelectAnswer = useCallback((choice: string) => {
-    setSelectedAnswer(choice);
-    // Reset result state when a new answer is selected
-    if (showResult) {
-      setShowResult(false);
-    }
-  }, [showResult]);
-
-  // Handle checking the answer
-  const handleCheckAnswer = useCallback(() => {
-    if (selectedAnswer === null) return;
-
-    const correct = selectedAnswer === currentQuestion.correctAnswer;
-    setIsCorrect(correct);
-    setShowResult(true);
-    setAttempts(a => a + 1);
-    if (correct) {
-      setScore(s => s + 1);
-    }
-  }, [selectedAnswer, currentQuestion.correctAnswer]);
-
-  // Handle moving to a new question (or cycling)
-  const handleNewQuestion = useCallback(() => {
-    // Move to the next question, or loop back to the first
-    setCurrentQuestionIndex((prevIndex) => (prevIndex + 1) % scaleTypesQuizQuestions.length);
-    setSelectedAnswer(null);
-    setShowResult(false);
-    // Note: Score and attempts are not reset here, only on explicit reset
-  }, []);
-
-  // Custom renderer to display plain text choices
-  const renderPlainTextChoice = (choice: string) => {
-    // Simply return the plain text string
-    return <span>{choice}</span>;
-  };
-  const renderQuestion = (question: string) => {
-    return <span>{question}</span>;
+// --- The Component ---
+const ScaleTypesQuiz: React.FC = () => {
+  // Define theme and icon specific to Scale Types
+  // Note: Theme is unused in the provided MultipleChoice component, but kept for interface compatibility
+  const scaleTypesTheme = {
+    from: 'from-blue-500', // Unused
+    to: 'to-teal-400',    // Unused
+    button: 'bg-blue-600 hover:bg-blue-700', // Unused
+    buttonHover: 'hover:shadow-lg hover:shadow-blue-500/30' // Unused
   };
 
-   // Custom renderer to display explanations with KaTeX
-  const renderExplanation = (content: string) => {
-    // Use BlockMath for potentially longer explanations with line breaks
-    return <BlockMath math={content} />;
-  };
+  const scaleTypesIcon = "📏"; // Or use an icon component
 
+  // Define key rules for the quiz sidebar
+  const scaleTypesRules = [
+    "Representative Fraction (RF) Scale: Written as $1:n$ or $\\frac{1}{n}$ (e.g., $1:50,000$).",
+    "Linear Scale: A bar marked with units for direct measurement.",
+    "To find RF from worded scale: Convert units, then simplify the ratio (e.g., $2 \\, \\mathrm{cm} : 5 \\, \\mathrm{km}$).",
+    "RF numerator is usually 1. The denominator shows real-world units per map unit."
+  ];
 
   return (
     <div className="flex justify-center items-center">
-      <div className="w-full max-w-md">
-        {/* Pass the plain text question as the question prop */}
-        <QuizTemplate<string>
-          title="Types of Scales Quiz"
-          theme="green"
-          question={renderQuestion(currentQuestion.question)} // Render question as plain text
-          choices={currentQuestion.choices}
-          selectedAnswer={selectedAnswer}
-          onSelectAnswer={handleSelectAnswer}
-          showResult={showResult}
-          isCorrect={isCorrect}
-          correctAnswer={currentQuestion.correctAnswer}
-          explanation={renderExplanation(currentQuestion.explanation)} // Render explanation with KaTeX
-          score={score}
-          attempts={attempts}
-          onCheckAnswer={handleCheckAnswer}
-          onNewQuestion={handleNewQuestion}
-          disabled={showResult}
-          renderChoice={renderPlainTextChoice} // Render each choice as plain text
-        />
-      </div>
+      <MultipleChoiceInteractiveComponent
+        title="Types of Scales Quiz"
+        icon={scaleTypesIcon}
+        theme={scaleTypesTheme} // Passed but not used
+        rules={scaleTypesRules}
+        rulesTitle="Scale Rules:"
+        questions={scaleTypesQuizQuestions}
+        // Optional: onReset handler if needed
+        // onReset={() => console.log('Scale Types Quiz Reset')}
+      />
     </div>
   );
 };
 
-export default ScaleTypesQuizComponent;
+export default ScaleTypesQuiz;

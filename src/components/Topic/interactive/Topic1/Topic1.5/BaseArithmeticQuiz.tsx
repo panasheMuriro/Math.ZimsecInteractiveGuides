@@ -1,236 +1,134 @@
-import MultiStepInteractiveComponent, { InteractiveToolData, McqOptions, PracticeProblem, Step } from '../../Templates/MultiStepInteractiveComponent'; // Adjust path
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import MultipleStepInteractiveComponent, { MultiStepQuestion } from "../../Templates/MultipleStepInteractiveComponent";
 
-
-const baseArithmeticSteps: Step[] = [
-  {
-    id: "step1",
-    title: "Step 1: Align Numbers",
-    description: "Align the numbers vertically by their place values.",
-    type: 'mcq'
-  },
-  {
-    id: "step2",
-    title: "Step 2: Start from the Right",
-    description: "Begin the operation (addition/subtraction) from the rightmost column.",
-    type: 'mcq'
-  },
-  {
-    id: "column1",
-    title: "Column 1 (Rightmost)",
-    description: "Calculate the result for the rightmost column. What is the digit written down and the carry/borrow?",
-    type: 'mcq'
-  },
-  {
-    id: "column2",
-    title: "Column 2",
-    description: "Calculate the result for the next column, including any carry/borrow from the previous step.",
-    type: 'mcq'
-  },
-  {
-    id: "column3",
-    title: "Column 3",
-    description: "Continue the process for the next column.",
-    type: 'mcq'
-  },
-  {
-    id: "column4",
-    title: "Column 4 (Leftmost)",
-    description: "Calculate the result for the leftmost column, including any carry/borrow.",
-    type: 'mcq'
-  },
-  {
-    id: "final_carry_borrow",
-    title: "Final Carry/Borrow",
-    description: "Handle any final carry (for addition) or borrow (for subtraction).",
-    type: 'mcq'
-  },
-  {
-    id: "final_result",
-    title: "Final Result",
-    description: "Combine the digits from each column to form the final answer in the original base.",
-    type: 'mcq'
+// --- Helper Function for Summary ---
+const renderBaseArithmeticSummary = (sharedValues: { [key: string]: any }) => {
+  const entries = Object.entries(sharedValues);
+  if (entries.length === 0) {
+    return <p style={{ color: '#264653' }}>No calculations performed yet.</p>;
   }
-];
 
-// --- Problem 1: Binary Addition (1101_2 + 1011_2) ---
-const problemBinaryAdd: PracticeProblem = {
-  expression: "1101_2 + 1011_2",
-  solution: {
-    "step1": "\\begin{array}{r} 1101 \\\\ + 1011 \\\\ \\hline \\end{array}",
-    "step2": "\\text{Ready}",
-    "column1": "\\text{Write down: } 0\\text{, Carry: } 1",
-    "column2": "\\text{Write down: } 0\\text{, Carry: } 1",
-    "column3": "\\text{Write down: } 0\\text{, Carry: } 1",
-    "column4": "\\text{Write down: } 1\\text{, Carry: } 1",
-    "final_carry_borrow": "\\text{Write down final carry: } 1",
-    "final_result": "11000_2"
-  },
-  explanation: {
-    "step1": "Numbers are aligned so that digits in the same place value (units, twos, fours, etc.) are in the same column.",
-    "step2": "Starting from the units place (rightmost) ensures we handle carries/borrows correctly.",
-    "column1": "$1 + 1 = 10_2$. Write down $0$, carry $1$.",
-    "column2": "$0 + 1 + 1 \\text{ (carry)} = 10_2$. Write down $0$, carry $1$.",
-    "column3": "$1 + 0 + 1 \\text{ (carry)} = 10_2$. Write down $0$, carry $1$.",
-    "column4": "$1 + 1 + 1 \\text{ (carry)} = 11_2$. Write down $1$, carry $1$.",
-    "final_carry_borrow": "There is a final carry of $1$ which is written down at the front.",
-    "final_result": "Reading the written digits from left to right gives the result: $11000_2$."
-  },
-  hint: "In binary addition, $1+1=10_2$. Remember to carry the $1$. In subtraction, $0-1$ requires borrowing, turning $0$ into $10_2$."
+  return (
+    <ul className="space-y-2">
+      {entries.map(([key, value]) => (
+        <li key={key} className="flex justify-between items-center">
+          <span style={{ color: '#264653' }}>{key}:</span>
+          <span className="font-mono" style={{ color: '#264653' }}>{value}</span>
+        </li>
+      ))}
+    </ul>
+  );
 };
 
-const mcqOptionsBinaryAdd: McqOptions = {
-  "step1": ["\\begin{array}{r} 1101 \\\\ + 1011 \\\\ \\hline \\end{array}"],
-  "step2": ["\\text{Ready}"],
-  "column1": [
-    "\\text{Write down: } 1\\text{, Carry: } 0",
-    "\\text{Write down: } 0\\text{, Carry: } 1",
-    "\\text{Write down: } 1\\text{, Carry: } 1",
-    "\\text{Write down: } 0\\text{, Carry: } 0"
-  ],
-  "column2": [
-    "\\text{Write down: } 1\\text{, Carry: } 0",
-    "\\text{Write down: } 0\\text{, Carry: } 1",
-    "\\text{Write down: } 1\\text{, Carry: } 1",
-    "\\text{Write down: } 0\\text{, Carry: } 0"
-  ],
-  "column3": [
-    "\\text{Write down: } 1\\text{, Carry: } 0",
-    "\\text{Write down: } 0\\text{, Carry: } 1",
-    "\\text{Write down: } 1\\text{, Carry: } 1",
-    "\\text{Write down: } 0\\text{, Carry: } 0"
-  ],
-  "column4": [
-    "\\text{Write down: } 1\\text{, Carry: } 0",
-    "\\text{Write down: } 0\\text{, Carry: } 1",
-    "\\text{Write down: } 1\\text{, Carry: } 1",
-    "\\text{Write down: } 0\\text{, Carry: } 0"
-  ],
-  "final_carry_borrow": [
-    "\\text{No final carry/borrow}",
-    "\\text{Write down final carry: } 1",
-    "\\text{Write down final borrow: } 1",
-    "\\text{Write down final carry: } 0"
-  ],
-  "final_result": ["10000_2", "11000_2", "10100_2", "11100_2"]
-};
-
-// --- Problem 2: Base 8 Addition (347_8 + 256_8) ---
-const problemBase8Add: PracticeProblem = {
-  expression: "347_8 + 256_8",
-  solution: {
-    "step1": "\\begin{array}{r} 347 \\\\ + 256 \\\\ \\hline \\end{array}",
-    "step2": "\\text{Ready}",
-    "column1": "\\text{Write down: } 5\\text{, Carry: } 1",
-    "column2": "\\text{Write down: } 2\\text{, Carry: } 1",
-    "column3": "\\text{Write down: } 6\\text{, Carry: } 0",
-    "final_result": "625_8"
-  },
-  explanation: {
-    "step1": "Numbers are aligned so that digits in the same place value (units, eights, sixty-fours) are in the same column.",
-    "step2": "Start adding from the rightmost (units) column.",
-    "column1": "$7 + 6 = 13_{10}$. $13 \\div 8 = 1$ remainder $5$. Write down $5$, carry $1$.",
-    "column2": "$4 + 5 + 1 \\text{ (carry)} = 10_{10}$. $10 \\div 8 = 1$ remainder $2$. Write down $2$, carry $1$.",
-    "column3": "$3 + 2 + 1 \\text{ (carry)} = 6_{10}$. $6 < 8$, so write down $6$, carry $0$.",
-    "final_result": "Combining the digits gives the final result: $625_8$."
-  },
-  hint: "When adding in base 8, if the sum of a column is 8 or more, divide by 8. The quotient is carried, and the remainder is written down."
-};
-
-const mcqOptionsBase8Add: McqOptions = {
-  "step1": ["\\begin{array}{r} 347 \\\\ + 256 \\\\ \\hline \\end{array}"],
-  "step2": ["\\text{Ready}"],
-  "column1": [
-    "\\text{Write down: } 3\\text{, Carry: } 1",
-    "\\text{Write down: } 5\\text{, Carry: } 1",
-    "\\text{Write down: } 1\\text{, Carry: } 1",
-    "\\text{Write down: } 5\\text{, Carry: } 0"
-  ],
-  "column2": [
-    "\\text{Write down: } 0\\text{, Carry: } 1",
-    "\\text{Write down: } 2\\text{, Carry: } 1",
-    "\\text{Write down: } 2\\text{, Carry: } 0",
-    "\\text{Write down: } 1\\text{, Carry: } 1"
-  ],
-  "column3": [
-    "\\text{Write down: } 5\\text{, Carry: } 1",
-    "\\text{Write down: } 6\\text{, Carry: } 0",
-    "\\text{Write down: } 0\\text{, Carry: } 1",
-    "\\text{Write down: } 6\\text{, Carry: } 1"
-  ],
-  "final_result": ["526_8", "625_8", "562_8", "652_8"]
-};
-
-// --- Problem 3: Binary Subtraction (1101_2 - 1011_2) ---
-const problemBinarySub: PracticeProblem = {
-  expression: "1101_2 - 1011_2",
-  solution: {
-    "step1": "\\begin{array}{r} 1101 \\\\ - 1011 \\\\ \\hline \\end{array}",
-    "step2": "\\text{Ready}",
-    "column1": "\\text{Result: } 0",
-    "column2": "\\text{Borrowed, Result: } 1",
-    "column3": "\\text{Borrowed, Result: } 1",
-    "column4": "\\text{Result: } 0",
-    "final_result": "0010_2 \\text{ or } 10_2"
-  },
-  explanation: {
-    "step1": "Numbers are aligned so that digits in the same place value (units, twos, fours, etc.) are in the same column.",
-    "step2": "Subtract starting from the units place.",
-    "column1": "Column 1: $1 - 1 = 0$.",
-    "column2": "Column 2: $0 - 1$ needs borrow. Borrow from column 3, making this $10_2 - 1 = 1$.",
-    "column3": "Column 3: After lending 1 to column 2, it becomes $0$. Now $0 - 1$ needs borrow. Borrow from column 4, making this $10_2 - 1 = 1$.",
-    "column4": "Column 4: After lending 1 to column 3, it becomes $0$. $0 - 1$ (from subtrahend) = 0 (assuming leading zeros or final result interpretation).",
-    "final_result": "Reading the results of each column from left to right gives $0010_2$, which is typically written as $10_2$."
-  },
-  hint: "In binary subtraction, if you need to subtract $1$ from $0$, you must borrow $1$ from the next higher place value, turning the $0$ into $10_2$."
-};
-
-const mcqOptionsBinarySub: McqOptions = {
-  "step1": ["\\begin{array}{r} 1101 \\\\ - 1011 \\\\ \\hline \\end{array}"],
-  "step2": ["\\text{Ready}"],
-  "column1": [
-    "\\text{Result: } 0",
-    "\\text{Result: } 1",
-    "\\text{Borrow needed}",
-    "\\text{Carry generated}"
-  ],
-  "column2": [
-    "\\text{Result: } 0",
-    "\\text{Borrowed, Result: } 1",
-    "\\text{Result: } 1",
-    "\\text{No operation}"
-  ],
-  "column3": [
-    "\\text{Result: } 0",
-    "\\text{Borrowed, Result: } 1",
-    "\\text{Result: } 1",
-    "\\text{No operation}"
-  ],
-  "column4": [
-    "\\text{Result: } 0",
-    "\\text{Result: } 1",
-    "\\text{Borrowed, Result: } 1",
-    "\\text{No operation}"
-  ],
-  "final_result": ["1100_2", "0010_2 \\text{ or } 10_2", "0100_2", "1000_2"]
-};
-
-// --- Package Data Sets ---
-const baseArithmeticAllData: InteractiveToolData = {
-  title: "Base Arithmetic Quiz",
-  description: "Practice addition and subtraction in different number bases.",
-  steps: baseArithmeticSteps,
-  practiceProblems: [problemBinaryAdd, problemBase8Add, problemBinarySub],
-  mcqOptionsPerProblem: [mcqOptionsBinaryAdd, mcqOptionsBase8Add, mcqOptionsBinarySub],
-  theme: {
-    primaryColor: 'purple'
-  }
+// --- The Question Data ---
+const baseArithmeticQuestion: MultiStepQuestion = {
+  id: 'base-arithmetic-quiz',
+  title: 'Adding and Subtracting in Number Bases',
+  steps: [
+    {
+      id: 'ba-bin-add-rule',
+      question: "What happens when you add $1 + 1$ in binary?",
+      questionType: 'text',
+      options: [
+        "You get $2$",
+        "You get $10_2$ and carry $1$",
+        "You get $0$ and carry $1$",
+        "You get $1$ and carry $0$"
+      ],
+      optionType: 'text',
+      correct: 1, // Index of "You get $10_2$ and carry $1$"
+      explanation: "In binary, the digits are only 0 and 1. Adding $1 + 1$ equals $2$ in decimal, which is represented as $10_2$ in binary. You write down $0$ and carry $1$ to the next column.",
+      explanationType: 'text'
+    },
+    {
+      id: 'ba-bin-add-example',
+      question: "Calculate $1101_2 + 1011_2$.",
+      questionType: 'text',
+      options: [
+        "$10100_2$",
+        "$11000_2$",
+        "$10010_2$",
+        "$10110_2$"
+      ],
+      optionType: 'text',
+      correct: 1, // Index of "$11000_2$"
+      explanation: "Performing binary addition: $1+1=10$ (write 0, carry 1). $0+1+1=10$ (write 0, carry 1). $1+0+1=10$ (write 0, carry 1). $1+1+1=11$ (write 1, carry 1). Final carry is 1. Result is $11000_2$.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Binary Addition Result", "11000_2");
+      }
+    },
+    {
+      id: 'ba-base8-add-concept',
+      question: "When adding digits in base 8, what do you do if the sum is 8 or greater?",
+      questionType: 'text',
+      options: [
+        "You write the sum directly",
+        "You subtract 8 and carry 1",
+        "You divide the sum by 8, write the remainder, and carry the quotient",
+        "You stop and convert to decimal"
+      ],
+      optionType: 'text',
+      correct: 2, // Index of "You divide the sum by 8..."
+      explanation: "When the sum of digits in any base is greater than or equal to that base, you perform division. You write down the remainder and carry the quotient to the next column. For base 8, if the sum is 8 or more, divide by 8.",
+      explanationType: 'text'
+    },
+    {
+      id: 'ba-bin-sub-example',
+      question: "Calculate $1101_2 - 1011_2$.",
+      questionType: 'text',
+      options: [
+        "$100_2$",
+        "$10_2$",
+        "$110_2$",
+        "$1_2$"
+      ],
+      optionType: 'text',
+      correct: 1, // Index of "$10_2$"
+      explanation: "Performing binary subtraction: $1-1=0$. $0-1$ requires borrowing, so it becomes $10-1=1$. The next column $0$ (after lending) minus $0$ is $0$. The leftmost $1$ minus $1$ is $0$. Result is $0010_2$, which is $10_2$.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Binary Subtraction Result", "10_2");
+      }
+    },
+    {
+      id: 'ba-key-tip',
+      question: "What is a crucial tip for performing arithmetic in different bases?",
+      questionType: 'text',
+      options: [
+        "Always convert numbers to decimal first",
+        "Remember that carrying and borrowing rules are based on the base itself",
+        "Use a calculator for all steps",
+        "Ignore the base and add/subtract like base 10"
+      ],
+      optionType: 'text',
+      correct: 1, // Index of "Remember that carrying and borrowing..."
+      explanation: "The key to base arithmetic is understanding that carrying (when the sum is greater than or equal to the base) and borrowing (adding the base value to a digit) are defined by the specific base you are working in.",
+      explanationType: 'text'
+    }
+  ]
 };
 
 const BaseArithmeticQuiz: React.FC = () => {
+  const baseArithmeticRules = [
+    "Binary Addition: $0+0=0$, $0+1=1$, $1+0=1$, $1+1=10_2$ (carry 1).",
+    "Binary Subtraction: $0-0=0$, $1-0=1$, $1-1=0$, $0-1=1$ (borrow 1, becomes $10_2-1=1$).",
+    "Carrying: If sum of digits $\\geq$ base, divide sum by base. Write remainder, carry quotient.",
+    "Borrowing: Add the base value to the current digit when borrowing from the next column.",
+    "Always verify your answer by converting operands and result to base 10."
+  ];
 
   return (
-    <div className="flex flex-col items-center min-h-screen p-4">
-    <MultiStepInteractiveComponent toolData={baseArithmeticAllData} />
+    <div className="flex justify-center items-center my-8">
+      <MultipleStepInteractiveComponent
+        title="Base Arithmetic Practice"
+        icon="🔢"
+        rules={baseArithmeticRules}
+        rulesTitle="Arithmetic Rules:"
+        questions={[baseArithmeticQuestion]}
+        renderSharedValuesSummary={renderBaseArithmeticSummary}
+        // initialSharedValues, onReset if needed
+      />
     </div>
   );
 };

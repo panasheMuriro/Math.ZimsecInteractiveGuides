@@ -1,67 +1,70 @@
-// Base2QuizQuestions.ts
-import MultipleChoiceInteractiveComponent, { QuizQuestion } from "../../Templates/MultipleChoiceInteractiveComponent"; // Adjust path as needed
+
+import MultipleChoiceInteractiveComponent, { QuizQuestion } from "../../Templates/MultipleChoiceInteractiveComponent"; 
 
 const base2QuizQuestions: QuizQuestion[] = [
-  // Question 1: Standard Binary -> Expanded Form (Powers)
+  
   {
-   question: "\\text{What is the expanded } \\\\ \\text{form of } 1011_2 \\\\ \\text{ using powers of 2?}",
+    id: 'q1-standard-to-expanded-powers',
+    question: "What is the expanded form of $1011_2$ using powers of 2?",
     options: [
-      "1 \\times 2^4 + 0 \\times 2^3 + 1 \\times 2^2 + 1 \\times 2^1",
-      "1 \\times 2^3 + 0 \\times 2^2 + 1 \\times 2^1 + 1 \\times 2^0",
-      "1 \\times 2^2 + 0 \\times 2^1 + 1 \\times 2^0 + 1 \\times 2^{-1}",
-      "1 + 0 + 1 + 1"
+      "$1 \\times 2^4 + 0 \\times 2^3 + 1 \\times 2^2 + 1 \\times 2^1$",
+      "$1 \\times 2^3 + 0 \\times 2^2 + 1 \\times 2^1 + 1 \\times 2^0$",
+      "$1 \\times 2^2 + 0 \\times 2^1 + 1 \\times 2^0 + 1 \\times 2^{-1}$",
+      "$1 + 0 + 1 + 1$"
     ],
     correct: 1,
-    explanation: "Each binary digit is multiplied by the corresponding power of 2. The rightmost digit (1) is 2^0, then 1 is 2^1, 0 is 2^2, and the leftmost 1 is 2^3.",
-    explanationType: 'text' // Explanation is plain text
-  },
-
-  // Question 4: Expanded Form (Powers) -> Standard Binary
-  {
-     question: "\\text{Which binary number } \\\\ \\text{equals } 1 \\times 2^2 + 1 \\times 2^1 + \\\\ 0 \\times 2^0\\text{?}",
-    options: [
-      "101_2",
-      "110_2",
-      "011_2",
-      "111_2"
-    ],
-    correct: 1,
-    explanation: "Calculate the sum: (1 \\times 4) + (1 \\times 2) + (0 \\times 1) = 4 + 2 + 0 = 6. The binary for 6 is 110_2.",
-    explanationType: 'math' // Explanation contains math
-  },
-  // Question 5: Understanding Binary Place Values
-  {
-   question: "\\text{In binary, what power } \\\\ \\text{of 2 does the third digit } \\\\ \\text{from the right represent?}",
-    options: [
-      "2^0",
-      "2^1",
-      "2^2",
-      "2^3"
-    ],
-    correct: 2,
-    explanation: "Binary place values from right to left are 2^0, 2^1, 2^2, 2^3... The third digit from the right is in the 2^2 place.",
+    explanation: "Each binary digit is multiplied by the corresponding power of 2. The rightmost digit (1) is $2^0$, then 1 is $2^1$, 0 is $2^2$, and the leftmost 1 is $2^3$.",
     explanationType: 'text'
   },
-  // Question 6: Standard Binary -> Expanded Form (Powers) - Different Number
+
+  
   {
-   question: "\\text{What is the expanded } \\\\ \\text{form of } 10010_2 \\\\ \\text{ using powers of 2?}",
+    id: 'q2-expanded-powers-to-standard',
+    question: "Which binary number equals $1 \\times 2^2 + 1 \\times 2^1 + 0 \\times 2^0$?",
     options: [
-      "1 \\times 2^5 + 0 \\times 2^4 + 0 \\times 2^3 + 1 \\times 2^2 + 0 \\times 2^1",
-      "1 \\times 2^4 + 0 \\times 2^3 + 0 \\times 2^2 + 1 \\times 2^1 + 0 \\times 2^0",
-      "1 \\times 2^3 + 0 \\times 2^2 + 0 \\times 2^1 + 1 \\times 2^0 + 0 \\times 2^{-1}",
-      "1 \\times 2^4 + 1 \\times 2^1"
+      "$101_2$",
+      "$110_2$",
+      "$011_2$",
+      "$111_2$"
     ],
     correct: 1,
-    explanation: "The digits of 10010_2 represent powers 2^4, 2^3, 2^2, 2^1, 2^0 from left to right. So it's 1 \\times 2^4 + 0 \\times 2^3 + 0 \\times 2^2 + 1 \\times 2^1 + 0 \\times 2^0.",
-    explanationType: 'math'
+    explanation: "Calculate the sum: $(1 \\times 4) + (1 \\times 2) + (0 \\times 1) = 4 + 2 + 0 = 6$. The binary for 6 is $110_2$.",
+    explanationType: 'text'
+  },
+
+  
+  {
+    id: 'q3-understand-place-value',
+    question: "In binary, what power of 2 does the third digit from the right represent?",
+    options: [
+      "$2^0$",
+      "$2^1$",
+      "$2^2$",
+      "$2^3$"
+    ],
+    correct: 2,
+    explanation: "Binary place values from right to left are $2^0, 2^1, 2^2, 2^3...$ The third digit from the right is in the $2^2$ place.",
+    explanationType: 'text'
+  },
+
+  
+  {
+    id: 'q4-standard-to-expanded-powers-2',
+    question: "What is the expanded form of $10010_2$ using powers of 2?",
+    options: [
+      "$1 \\times 2^5 + 0 \\times 2^4 + 0 \\times 2^3 + 1 \\times 2^2 + 0 \\times 2^1$",
+      "$1 \\times 2^4 + 0 \\times 2^3 + 0 \\times 2^2 + 1 \\times 2^1 + 0 \\times 2^0$",
+      "$1 \\times 2^3 + 0 \\times 2^2 + 0 \\times 2^1 + 1 \\times 2^0 + 0 \\times 2^{-1}$",
+      "$1 \\times 2^4 + 1 \\times 2^1$"
+    ],
+    correct: 1,
+    explanation: "The digits of $10010_2$ represent powers $2^4, 2^3, 2^2, 2^1, 2^0$ from left to right. So it's $1 \\times 2^4 + 0 \\times 2^3 + 0 \\times 2^2 + 1 \\times 2^1 + 0 \\times 2^0$.",
+    explanationType: 'text'
   }
 ];
 
-// Base2QuizComponent.tsx (or .jsx)
-import React from 'react';
-
 const Base2Quiz: React.FC = () => {
-  // Define theme and icon specific to Base 2
+  
   const base2Theme = {
     from: 'from-purple-600',
     to: 'to-indigo-700',
@@ -69,9 +72,9 @@ const Base2Quiz: React.FC = () => {
     buttonHover: 'hover:shadow-lg hover:shadow-purple-600/30'
   };
 
-  const base2Icon = "🖥️"; // Or use an icon component
+  const base2Icon = "🖥️"; 
 
-  // Define key rules for the quiz sidebar - PLAIN TEXT NOW
+  
   const base2Rules = [
     "Binary uses only digits 0 and 1.",
     "Each position represents a power of 2 (1, 2, 4, 8, 16, ...).",
@@ -86,11 +89,11 @@ const Base2Quiz: React.FC = () => {
         title="Base 2 Quiz"
         icon={base2Icon}
         theme={base2Theme}
-        rules={base2Rules} // Pass plain text rules
+        rules={base2Rules} 
         rulesTitle="Binary Rules:"
         questions={base2QuizQuestions}
-        // Optional: onReset handler if needed
-        // onReset={() => console.log('Base 2 Quiz Reset')}
+        
+        
       />
     </div>
   );

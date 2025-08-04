@@ -51,7 +51,7 @@ export interface QuizQuestion {
 interface MultipleChoiceInteractiveComponentProps {
   title: string;
   icon: string;
-  theme: {
+  theme?: {
     from: string; // Not used with new color system
     to: string;   // Not used with new color system
     button: string; // Not used with new color system

@@ -1,176 +1,140 @@
-import MultiStepInteractiveComponent, { InteractiveToolData, McqOptions, PracticeProblem, Step } from '../../Templates/MultiStepInteractiveComponent';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// BaseConverterQuestions.ts
+import MultipleStepInteractiveComponent, { MultiStepQuestion } from '../../Templates/MultipleStepInteractiveComponent';
 
-// Define the generic steps for the conversion process
-const conversionSteps: Step[] = [
-  {
-    id: "step1",
-    title: "Step 1: First Division",
-    description: "Perform the first division. What is the quotient and remainder? (e.g., Q=5, R=1)",
-    type: 'mcq'
-  },
-  {
-    id: "step2",
-    title: "Step 2: Next Division",
-    description: "Take the quotient from the previous step. Perform the next division. What is the new quotient and remainder?",
-    type: 'mcq'
-  },
-  {
-    id: "step3",
-    title: "Step 3: Continue Dividing",
-    description: "Continue the process. Divide the last quotient. What is the new quotient and remainder?",
-    type: 'mcq'
-  },
-  {
-    id: "step4",
-    title: "Step 4: Keep Going...",
-    description: "Divide again. What is the quotient and remainder?",
-    type: 'mcq'
-  },
-  {
-    id: "step5",
-    title: "Step 5: Almost There...",
-    description: "Divide the quotient from the previous step. What is the result?",
-    type: 'mcq'
-  },
-  {
-    id: "step6",
-    title: "Step 6: Final Non-Zero Division",
-    description: "Perform the final division where the quotient is not zero. What are the results?",
-    type: 'mcq'
-  },
-  {
-    id: "final_step",
-    title: "Step 7: Final Division & Read Answer",
-    description: "Divide the last quotient. Read the final remainder. Now, read the remainders from \\textbf{bottom to top} to form the number in the new base.",
-    type: 'mcq'
+// --- Helper Function for Summary ---
+const renderBaseConverterSummary = (sharedValues: { [key: string]: any }) => {
+  const entries = Object.entries(sharedValues);
+  if (entries.length === 0) {
+    return <p style={{ color: '#264653' }}>No conversions performed yet.</p>;
   }
-];
 
-// --- Data for 78_10 to 2 ---
-const problem78to2: PracticeProblem = {
-  expression: "78_{10} \\rightarrow \\text{Base } 2",
-  solution: {
-    "step1": "Q=39, R=0",
-    "step2": "Q=19, R=1",
-    "step3": "Q=9, R=1",
-    "step4": "Q=4, R=1",
-    "step5": "Q=2, R=0",
-    "step6": "Q=1, R=0",
-    "final_step": "Q=0, R=1 \\text{. Read remainders: } 1001110_2"
-  },
-  // --- CORRECTED EXPLANATIONS with $...$ delimiters ---
-  explanation: {
-    "step1": "$78 \\div 2 = 39$ with a remainder of $0$.",
-    "step2": "$39 \\div 2 = 19$ with a remainder of $1$.",
-    "step3": "$19 \\div 2 = 9$ with a remainder of $1$.",
-    "step4": "$9 \\div 2 = 4$ with a remainder of $1$.",
-    "step5": "$4 \\div 2 = 2$ with a remainder of $0$.",
-    "step6": "$2 \\div 2 = 1$ with a remainder of $0$.",
-    "final_step": "$1 \\div 2 = 0$ with a remainder of $1$. Reading remainders from last to first: $1, 0, 0, 1, 1, 1, 0 \\rightarrow 1001110_2$."
-  },
-  hint: "Remember: Dividend $\\div$ Divisor $=$ Quotient remainder Remainder. The remainder is always less than the divisor ($0$ or $1$ for base 2)."
-};
-
-// MCQ Options for 78_10 to 2
-const mcqOptions78to2: McqOptions = {
-  "step1": ["Q=38, R=2", "Q=39, R=0", "Q=40, R=-2", "Q=39, R=1"],
-  "step2": ["Q=18, R=3", "Q=19, R=1", "Q=20, R=-1", "Q=9, R=1"],
-  "step3": ["Q=8, R=3", "Q=9, R=1", "Q=10, R=-1", "Q=4, R=1"],
-  "step4": ["Q=3, R=2", "Q=4, R=1", "Q=5, R=0", "Q=2, R=0"],
-  "step5": ["Q=1, R=2", "Q=2, R=0", "Q=3, R=-2", "Q=1, R=0"],
-  "step6": ["Q=0, R=2", "Q=1, R=0", "Q=2, R=-2", "Q=0, R=1"],
-  "final_step": [
-    "Q=0, R=1 \\text{. Read remainders: } 0110001_2",
-    "Q=0, R=1 \\text{. Read remainders: } 1001110_2",
-    "Q=1, R=0 \\text{. Read remainders: } 1001110_2",
-    "Q=1, R=0 \\text{. Read remainders: } 0110001_2"
-  ]
-};
-
-// --- Data for 152_10 to 8 ---
-const problem152to8: PracticeProblem = {
-  expression: "152_{10} \\rightarrow \\text{Base } 8",
-  solution: {
-    "step1": "Q=19, R=0",
-    "step2": "Q=2, R=3",
-    "step3": "Q=0, R=2", // Added missing step
-    "final_step": "Q=0, R=2 \\text{. Read remainders: } 230_8"
-    // Filled in solutions for intermediate steps
-  },
-  // --- CORRECTED EXPLANATIONS ---
-  explanation: {
-    "step1": "$152 \\div 8 = 19$ with a remainder of $0$.",
-    "step2": "$19 \\div 8 = 2$ with a remainder of $3$.",
-    "step3": "$2 \\div 8 = 0$ with a remainder of $2$.", // Added explanation
-    "final_step": "$0 \\div 8 = 0$ with a remainder of $0$. Reading remainders from last to first: $2, 3, 0 \\rightarrow 230_8$."
-     // Filled in explanations for intermediate steps
-  },
-  hint: "When dividing by $8$, the remainder must be between $0$ and $7$."
-};
-
-// MCQ Options for 152_10 to 8
-const mcqOptions152to8: McqOptions = {
-  "step1": ["Q=18, R=8", "Q=19, R=0", "Q=20, R=-8", "Q=19, R=1"],
-  "step2": ["Q=1, R=11", "Q=2, R=3", "Q=3, R=-1", "Q=0, R=19"],
-  "step3": ["Q=1, R=2", "Q=0, R=2", "Q=2, R=0", "Q=0, R=8"], // Added options for step 3
-  "final_step": [
-    "Q=0, R=2 \\text{. Read remainders: } 032_8",
-    "Q=0, R=2 \\text{. Read remainders: } 230_8",
-    "Q=2, R=0 \\text{. Read remainders: } 230_8",
-    "Q=2, R=0 \\text{. Read remainders: } 032_8"
-  ]
-};
-
-// --- Data for 255_10 to 16 ---
-const problem255to16: PracticeProblem = {
-  expression: "255_{10} \\rightarrow \\text{Base } 16",
-  solution: {
-    "step1": "Q=15, R=15", // 15 is F
-    "step2": "Q=0, R=15",  // 15 is F
-    "final_step": "Q=0, R=15 \\text{. Read remainders: } FF_{16}"
-    // Note: This conversion finishes quickly. We can reuse steps or adjust the template logic if needed.
-    // For now, we'll assume steps 3-6 are implicitly correct or skipped.
-  },
-  // --- CORRECTED EXPLANATIONS ---
-  explanation: {
-    "step1": "$255 \\div 16 = 15$ with a remainder of $15$ (which is $F$ in hexadecimal).",
-    "step2": "$15 \\div 16 = 0$ with a remainder of $15$ (which is $F$ in hexadecimal).",
-    "final_step": "$0 \\div 16 = 0$ with a remainder of $0$. Reading remainders from last to first: $F, F \\rightarrow FF_{16}$."
-  },
-  hint: "In hexadecimal (base 16), remainders $10$ to $15$ are represented by letters $A$ to $F$. The remainder is always less than $16$."
-};
-
-// MCQ Options for 255_10 to 16
-const mcqOptions255to16: McqOptions = {
-  "step1": ["Q=16, R=-1", "Q=15, R=15", "Q=14, R=31", "Q=10, R=95"],
-  "step2": ["Q=1, R=0", "Q=0, R=15", "Q=15, R=0", "Q=0, R=F"], // Include option with 'F'
-  "final_step": [
-    "Q=0, R=15 \\text{. Read remainders: } 0F_{16}",
-    "Q=0, R=15 \\text{. Read remainders: } FF_{16}",
-    "Q=15, R=0 \\text{. Read remainders: } FF_{16}",
-    "Q=F, R=F \\text{. Read remainders: } FF_{16}" // Include option with 'F'
-  ]
-};
-
-// Combine all problems into one quiz
-const baseConverterQuizDataAll: InteractiveToolData = {
-  title: "Base Conversion Quiz (Mixed Bases)",
-  description: "Convert numbers from base 10 to different bases using repeated division.",
-  steps: conversionSteps,
-  practiceProblems: [problem78to2, problem152to8, problem255to16],
-  mcqOptionsPerProblem: [mcqOptions78to2, mcqOptions152to8, mcqOptions255to16],
-  theme: {
-    primaryColor: 'indigo' // Use a different theme for the combined quiz
-  }
-};
-
-
-const BaseConverterQuizComponent: React.FC = () => {
   return (
-    <div className="flex flex-col items-center">
-       <MultiStepInteractiveComponent toolData={baseConverterQuizDataAll} />
+    <ul className="space-y-2">
+      {entries.map(([key, value]) => (
+        <li key={key} className="flex justify-between items-center">
+          <span style={{ color: '#264653' }}>{key}:</span>
+          <span className="font-mono" style={{ color: '#264653' }}>{value}</span>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+// --- The Question Data ---
+const baseConverterQuestion: MultiStepQuestion = {
+  id: 'base-converter-quiz',
+  title: 'Base Converter',
+  steps: [
+    {
+      id: 'bc-method-identify',
+      question: "What is the general method to convert a decimal number to another base?",
+      questionType: 'text',
+      options: [
+        "Multiply the number by the target base repeatedly",
+        "Divide the number by the target base repeatedly and read the remainders from bottom to top",
+        "Subtract the target base from the number repeatedly",
+        "Add the target base to the number repeatedly"
+      ],
+      optionType: 'text',
+      correct: 1, // Index of "Divide..."
+      explanation: "To convert from base 10 to another base, you repeatedly divide the number by the target base and collect the remainders. The remainders, read from the last division to the first, form the number in the new base.",
+      explanationType: 'text'
+    },
+    {
+      id: 'bc-dec-to-bin',
+      question: "Convert $11_{10}$ to binary ($base\\ 2$).",
+      questionType: 'text',
+      options: [
+        "$1011_2$",
+        "$1101_2$",
+        "$1110_2$",
+        "$1001_2$"
+      ],
+      optionType: 'text',
+      correct: 0, // Index of "$1011_2$"
+      explanation: "Divide by 2: $11\\div2=5\\ R1$, $5\\div2=2\\ R1$, $2\\div2=1\\ R0$, $1\\div2=0\\ R1$. Read remainders bottom to top: $1011_2$.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Decimal 11 to Binary", "1011_2");
+      }
+    },
+    {
+      id: 'bc-dec-to-oct',
+      question: "Convert $65_{10}$ to octal ($base\\ 8$).",
+      questionType: 'text',
+      options: [
+        "$101_8$",
+        "$110_8$",
+        "$102_8$",
+        "$121_8$"
+      ],
+      optionType: 'text',
+      correct: 0, // Index of "$101_8$"
+      explanation: "Divide by 8: $65\\div8=8\\ R1$, $8\\div8=1\\ R0$, $1\\div8=0\\ R1$. Read remainders bottom to top: $101_8$.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Decimal 65 to Octal", "101_8");
+      }
+    },
+    {
+      id: 'bc-hex-to-dec',
+      question: "Convert $2B_{16}$ (hexadecimal) to decimal ($base\\ 10$). Remember, B represents 11.",
+      questionType: 'text',
+      options: [
+        "$37_{10}$",
+        "$43_{10}$",
+        "$59_{10}$",
+        "$75_{10}$"
+      ],
+      optionType: 'text',
+      correct: 1, // Index of "$43_{10}$"
+      explanation: "Use place values: $2B_{16} = 2 \\times 16^1 + 11 \\times 16^0 = 2 \\times 16 + 11 \\times 1 = 32 + 11 = 43_{10}$.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Hex 2B to Decimal", "43_{10}");
+      }
+    },
+    {
+      id: 'bc-bin-to-hex',
+      question: "What is a quick way to convert a binary number like $11010110_2$ to hexadecimal?",
+      questionType: 'text',
+      options: [
+        "Add up all the binary digits",
+        "Group the binary digits into sets of three from the right",
+        "Group the binary digits into sets of four from the right",
+        "Divide the binary number by 16"
+      ],
+      optionType: 'text',
+      correct: 2, // Index of "Group... sets of four..."
+      explanation: "A shortcut for converting binary to hexadecimal is to group the binary digits into sets of four, starting from the right. Each group of four binary digits corresponds to one hexadecimal digit.",
+      explanationType: 'text'
+    }
+  ]
+};
+
+const BaseConverter: React.FC = () => {
+  const baseConverterRules = [
+    "To convert Decimal to Base N: Divide by N, record remainders, read remainders bottom-up.",
+    "To convert Base N to Decimal: Multiply each digit by N^(position), sum the results.",
+    "Shortcut - Binary to Octal: Group binary digits in threes from the right.",
+    "Shortcut - Binary to Hexadecimal: Group binary digits in fours from the right.",
+    "Remember Hex digits: A=10, B=11, C=12, D=13, E=14, F=15."
+  ];
+
+  return (
+    <div className="flex justify-center items-center my-8">
+      <MultipleStepInteractiveComponent
+        title="Base Converter Practice"
+        icon="🔄"
+        rules={baseConverterRules}
+        rulesTitle="Conversion Rules:"
+        questions={[baseConverterQuestion]}
+        renderSharedValuesSummary={renderBaseConverterSummary}
+        // initialSharedValues, onReset if needed
+      />
     </div>
   );
 };
 
-export default BaseConverterQuizComponent;
+export default BaseConverter;

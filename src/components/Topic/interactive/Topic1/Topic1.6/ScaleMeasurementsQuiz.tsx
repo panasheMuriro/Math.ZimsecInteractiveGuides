@@ -2,74 +2,84 @@
 import { QuizQuestion } from '../../Templates/MultipleChoiceInteractiveComponent'; // Adjust the path as needed
 
 
-
-export const scaleMeasurementsQuizQuestions: QuizQuestion[] = [
+const scaleMeasurementsQuizQuestions: QuizQuestion[] = [
   {
-    question: "A road on a map is $5 cm$ long. $1:25,000$. What is the real length?",
+    id: 'q1-map-to-real-length',
+    question: "A road on a map is $5 \\, \\mathrm{cm}$ long. The scale is $1:25,000$. What is the real length?",
     questionType: "text",
     options: [
-      "1.25 \\text{ km}",
-      "12.5 \\text{ km}",
-      "125 \\text{ km}",
-      "1250 \\text{ m}"
+      "$1.25 \\, \\mathrm{km}$",
+      "$12.5 \\, \\mathrm{km}$",
+      "$125 \\, \\mathrm{km}$",
+      "$1250 \\, \\mathrm{m}$"
     ],
+    optionType: 'text', // Assuming options should be rendered as math
     correct: 0, // 1.25 km
-    explanation: "5 \\text{ cm} \\times 25,000 = 125,000 \\text{ cm} \\\\ 125,000 \\text{ cm} = 1.25 \\text{ km}",
-    explanationType: 'math'
+    explanation: "$5 \\, \\mathrm{cm} \\times 25,000 = 125,000 \\, \\mathrm{cm}$. \\\\ $125,000 \\, \\mathrm{cm} = 1.25 \\, \\mathrm{km}$.",
+    explanationType: 'text'
   },
   {
-    question: "The real distance between two towns is 24 km. The map scale is 1:100,000. How long is the line on the map?",
+    id: 'q2-real-to-map-length',
+    question: "The real distance between two towns is $24 \\, \\mathrm{km}$. The map scale is $1:100,000$. How long is the line on the map?",
     questionType: "text",
     options: [
-      "2.4 \\text{ cm}",
-      "24 \\text{ cm}",
-      "0.24 \\text{ cm}",
-      "240 \\text{ cm}"
+      "$2.4 \\, \\mathrm{cm}$",
+      "$24 \\, \\mathrm{cm}$",
+      "$0.24 \\, \\mathrm{cm}$",
+      "$240 \\, \\mathrm{cm}$"
     ],
+    optionType: 'text',
     correct: 1, // 24 cm
-    explanation: "24 \\text{ km} = 2,400,000 \\text{ cm} \\\\ 2,400,000 \\text{ cm} \\div 100,000 = 24 \\text{ cm}",
-    explanationType: 'math'
-  },
-  {
-    question: "On a map, a river is 9 cm long. Its actual length is 18 km. What is the map scale?",
-     questionType: "text",
-    options: [
-      "1:20,000",
-      "1:200,000",
-      "1:2,000",
-      "2 \\text{ cm} : 1 \\text{ km}"
-    ],
-    correct: 1, // 1:200,000
-    explanation: "18 \\text{ km} = 1,800,000 \\text{ cm} \\\\ \\text{Scale} = 9 \\text{ cm} : 1,800,000 \\text{ cm} \\\\ \\text{Divide both by 9: } 1 : 200,000",
-    explanationType: 'math'
-  },
-  {
-    question: "You want to draw a 40 m wall using a scale of 1:500 .How long should the drawing be?",
-     questionType: "text",
-    options: [
-      "8 \\text{ cm}",
-      "0.8 \\text{ cm}",
-      "80 \\text{ cm}",
-      "8 \\text{ mm}"
-    ],
-    correct: 0, // 8 cm
-    explanation: "40 \\text{ m} = 4,000 \\text{ cm} \\\\ 4,000 \\text{ cm} \\div 500 = 8 \\text{ cm}",
-    explanationType: 'math'
-  },
-  {
-    question: "Which calculation finds the real distance from map distance?",
-questionType: "text",
-    options: [
-      "\\text{Map Distance} \\times \\text{Scale Denominator}",
-      "\\text{Map Distance} \\div \\text{Scale Denominator}",
-      "\\text{Scale Denominator} \\div \\text{Map Distance}",
-      "\\text{Map Distance} + \\text{Scale Denominator}"
-    ],
-    correct: 0, // Multiply
-    explanation: "\\text{To find the real distance, you multiply} \\\\ \\text{the measured map distance by the scale factor} \\\\ \\text{(the number after the colon).}",
+    explanation: "$24 \\, \\mathrm{km} = 2,400,000 \\, \\mathrm{cm}$. \\\\ $2,400,000 \\, \\mathrm{cm} \\div 100,000 = 24 \\, \\mathrm{cm}$.",
     explanationType: 'text'
+  },
+  {
+    id: 'q3-find-scale',
+    question: "On a map, a river is $9 \\, \\mathrm{cm}$ long. Its actual length is $18 \\, \\mathrm{km}$. What is the map scale?",
+    questionType: "text",
+    options: [
+      "$1:20,000$",
+      "$1:200,000$",
+      "$1:2,000$",
+      "$2 \\, \\mathrm{cm} : 1 \\, \\mathrm{km}$"
+    ],
+    optionType: 'text',
+    correct: 1, // 1:200,000
+    explanation: "$18 \\, \\mathrm{km} = 1,800,000 \\, \\mathrm{cm}$. \\\\ Scale is $9 \\, \\mathrm{cm} : 1,800,000 \\, \\mathrm{cm}$. \\\\ Divide both by 9: $1 : 200,000$.",
+    explanationType: 'text'
+  },
+  {
+    id: 'q4-drawing-length',
+    question: "You want to draw a $40 \\, \\mathrm{m}$ wall using a scale of $1:500$. How long should the drawing be?",
+    questionType: "text",
+    options: [
+      "$8 \\, \\mathrm{cm}$",
+      "$0.8 \\, \\mathrm{cm}$",
+      "$80 \\, \\mathrm{cm}$",
+      "$8 \\, \\mathrm{mm}$"
+    ],
+    optionType: 'text',
+    correct: 0, // 8 cm
+    explanation: "$40 \\, \\mathrm{m} = 4,000 \\, \\mathrm{cm}$. \\\\ $4,000 \\, \\mathrm{cm} \\div 500 = 8 \\, \\mathrm{cm}$.",
+    explanationType: 'text'
+  },
+  {
+    id: 'q5-calculation-principle',
+    question: "Which calculation finds the real distance from map distance?",
+    questionType: "text",
+    options: [
+      "$\\text{Map Distance} \\times \\text{Scale Denominator}$",
+      "$\\text{Map Distance} \\div \\text{Scale Denominator}$",
+      "$\\text{Scale Denominator} \\div \\text{Map Distance}$",
+      "$\\text{Map Distance} + \\text{Scale Denominator}$"
+    ],
+    optionType: 'text',
+    correct: 0, // Multiply
+    explanation: "To find the real distance, you multiply the measured map distance by the scale factor (the number after the colon).",
+    explanationType: 'text' // Explanation is descriptive text
   }
 ];
+
 
 
 // ScaleMeasurementsQuizComponent.tsx
@@ -106,9 +116,6 @@ const ScaleMeasurementsQuiz: React.FC = () => {
         rules={scaleMeasurementsRules}
         rulesTitle="Measurement Rules:"
         questions={scaleMeasurementsQuizQuestions}
-
-        // Optional: onReset handler if needed
-        // onReset={() => console.log('Scale Measurements Quiz Reset')}
       />
     </div>
   );
