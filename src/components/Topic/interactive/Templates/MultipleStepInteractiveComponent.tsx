@@ -43,7 +43,7 @@ interface MultiStepInteractiveComponentProps {
   title: string;
   icon: string;
   // theme is now unused, but kept for interface compatibility
-  theme: {
+  theme?: {
     from: string;
     to: string;
     button: string;
@@ -432,7 +432,7 @@ const MultipleStepInteractiveComponent: React.FC<MultiStepInteractiveComponentPr
               backgroundColor: currentStepResult.isCorrect ? `${NEUBRUTALISM_COLORS.secondary}20` : `${NEUBRUTALISM_COLORS.warning}20`,
               marginTop: '1.25rem',
             }}>
-              <div className="flex items-center mb-3">
+              <div className="flex items-center mb-3 flex-col">
                 {currentStepResult.isCorrect ? (
                   <CheckCircle style={{ color: NEUBRUTALISM_COLORS.secondary, marginRight: '0.5rem' }} size={24} />
                 ) : (
