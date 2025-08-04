@@ -126,15 +126,13 @@ switch (topicId) {
              {renderTextWithMath(currentContent.title)}
           </h3>
         )}
-        <div className="bg-[#fffef9] shadow-lg border border-[#e4ded4] rounded-2xl p-6 mb-6 prose max-w-none">
+        <div className="bg-[#fffef9] shadow-lg border-3 border-gray-500 rounded-2xl p-6 mb-6 prose max-w-none">
           <div className="prose max-w-none text-gray-900 leading-[30px] list-disc">
             <ReactMarkdown
               remarkPlugins={[remarkMath, remarkGfm]}
               rehypePlugins={[rehypeKatex]}
               components={{
                 code: CodeRendererComponent
-
-                // code:topicId == "8" ? SVGCodeRenderer: topicId == "6"? VariationCodeRenderer: GraphCodeRenderer
               }}
             >
               {currentContent.content}

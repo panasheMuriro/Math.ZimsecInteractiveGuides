@@ -1,20 +1,20 @@
-// OrderOfOperationsData.ts
 
-// Define the type for a single operation step
+
+
 export interface OperationStep {
-  // The expression at the start of this step (KaTeX string)
+  
   expression: string;
-  // The options presented to the user for the next operation
+  
   options: string[];
-  // The index of the correct option in the 'options' array
+  
   correctOptionIndex: number;
-  // A description of the operation performed (e.g., "Calculate 3 \\times 6")
+  
   operationDescription: string;
-  // The resulting expression after performing the operation (KaTeX string)
+  
   resultExpression: string;
 }
 
-// Define the type for the entire problem data
+
 export interface OrderOfOperationsProblem {
   title: string;
   icon: string;
@@ -24,52 +24,52 @@ export interface OrderOfOperationsProblem {
     button: string;
     buttonHover: string;
   };
-  // The initial expression to evaluate (KaTeX string)
+  
   initialExpression: string;
-  // The sequence of steps required to solve the problem
+  
   steps: OperationStep[];
-  // The final numerical answer
-  finalAnswer: string; // Keep as string to handle potential decimals/fractions easily
-  // Key rules for the sidebar/rules section
+  
+  finalAnswer: string; 
+  
   rules: string[];
   rulesTitle?: string;
 }
 
-// --- Example Problem Data ---
+
  const sampleOrderOfOperationsData: OrderOfOperationsProblem = {
   title: "Order of Operations",
-  icon: "⚙️", // Or a relevant Lucide icon
+  icon: "⚙️", 
   theme: {
-    from: "from-blue-500", // Example theme
+    from: "from-blue-500", 
     to: "to-cyan-600",
     button: "bg-cyan-500",
     buttonHover: "hover:bg-cyan-600",
   },
-  initialExpression: "2 + 3 \\times 6 - 4", // Initial expression (KaTeX)
+  initialExpression: "2 + 3 \\times 6 - 4", 
   steps: [
     {
       expression: "2 + 3 \\times 6 - 4",
-      options: ["2 + 3", "3 \\times 6", "6 - 4"], // Options presented
-      correctOptionIndex: 1, // Correct is "3 \\times 6"
-      operationDescription: "\\text{Calculate } 3 \\times 6", // Description (KaTeX)
-      resultExpression: "2 + 18 - 4", // Result after calculation (KaTeX)
+      options: ["2 + 3", "3 \\times 6", "6 - 4"], 
+      correctOptionIndex: 1, 
+      operationDescription: "\\text{Calculate } 3 \\times 6", 
+      resultExpression: "2 + 18 - 4", 
     },
     {
       expression: "2 + 18 - 4",
-      options: ["2 + 18", "18 - 4"], // Options presented
-      correctOptionIndex: 0, // Correct is "2 + 18"
-      operationDescription: "\\text{Calculate } 2 + 18", // Description (KaTeX)
-      resultExpression: "20 - 4", // Result after calculation (KaTeX)
+      options: ["2 + 18", "18 - 4"], 
+      correctOptionIndex: 0, 
+      operationDescription: "\\text{Calculate } 2 + 18", 
+      resultExpression: "20 - 4", 
     },
     {
       expression: "20 - 4",
-      options: ["20 - 4"], // Only one option left
-      correctOptionIndex: 0, // Correct is "20 - 4"
-      operationDescription: "\\text{Calculate } 20 - 4", // Description (KaTeX)
-      resultExpression: "16", // Final result (KaTeX)
+      options: ["20 - 4"], 
+      correctOptionIndex: 0, 
+      operationDescription: "\\text{Calculate } 20 - 4", 
+      resultExpression: "16", 
     },
   ],
-  finalAnswer: "16", // Final numerical answer
+  finalAnswer: "16", 
   rulesTitle: "BODMAS/PEMDAS:",
   rules: [
     "{B}rackets (Parentheses)",
@@ -80,12 +80,12 @@ export interface OrderOfOperationsProblem {
 };
 
 
-// OrderOfOperationsStepper.tsx
+
 import React, { useState } from 'react';
 import { BlockMath } from 'react-katex';
 import 'katex/dist/katex.min.css';
 import { RotateCw, CheckCircle, XCircle } from 'lucide-react';
-// Adjust import path
+
 
 interface OrderOfOperationsStepperProps {
   problem: OrderOfOperationsProblem;
@@ -97,15 +97,15 @@ const OrderOfOperationsStepper: React.FC<OrderOfOperationsStepperProps> = ({ pro
   const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
   const [selectedOptionIndex, setSelectedOptionIndex] = useState<number | null>(null);
   const [feedback, setFeedback] = useState<{ message: string; isCorrect: boolean } | null>(null);
-  const [isComplete, setIsComplete] = useState<boolean>(false); // Flag for final state
+  const [isComplete, setIsComplete] = useState<boolean>(false); 
 
-  // Get the current step data
+  
   const currentStep = steps[currentStepIndex];
-  // Determine the expression to display (initial or result of previous step)
+  
   const displayExpression = currentStepIndex === 0 ? initialExpression : steps[currentStepIndex - 1].resultExpression;
 
   const handleSelectOption = (index: number) => {
-    if (feedback) return; // Prevent selection after feedback is shown
+    if (feedback) return; 
     setSelectedOptionIndex(index);
   };
 
@@ -120,9 +120,9 @@ const OrderOfOperationsStepper: React.FC<OrderOfOperationsStepperProps> = ({ pro
         isCorrect: true,
       });
 
-      // Check if this is the last step
+      
       if (currentStepIndex === steps.length - 1) {
-        // Delay slightly to show feedback before final state
+        
         setTimeout(() => setIsComplete(true), 1000); 
       }
     } else {
@@ -130,17 +130,17 @@ const OrderOfOperationsStepper: React.FC<OrderOfOperationsStepperProps> = ({ pro
         message: 'Incorrect. Try again.',
         isCorrect: false,
       });
-      // Optional: Deselect on incorrect answer
-      // setSelectedOptionIndex(null); 
+      
+      
     }
   };
 
   const handleNextStep = () => {
-    // Move to the next step if not the last one
+    
     if (currentStepIndex < steps.length - 1) {
       setCurrentStepIndex(currentStepIndex + 1);
     }
-    // Reset selection and feedback for the next step
+    
     setSelectedOptionIndex(null);
     setFeedback(null);
   };
@@ -159,7 +159,7 @@ const OrderOfOperationsStepper: React.FC<OrderOfOperationsStepperProps> = ({ pro
       : 'bg-amber-500/20 border-amber-400';
   };
 
-  // If the problem is complete, show the final result
+  
   if (isComplete) {
     return (
       <div className={`bg-gradient-to-br ${theme.from} ${theme.to} p-6 rounded-3xl text-white shadow-xl max-w-md w-full`}>
@@ -250,7 +250,7 @@ const OrderOfOperationsStepper: React.FC<OrderOfOperationsStepperProps> = ({ pro
             <button
               key={index}
               onClick={() => handleSelectOption(index)}
-              disabled={!!feedback} // Disable after checking answer
+              disabled={!!feedback} 
               className={`w-full py-1 rounded-xl font-bold transition-all duration-200 text-left px-4 ${
                 selectedOptionIndex === index
                   ? feedback
@@ -331,7 +331,7 @@ const OrderOfOperationsStepper: React.FC<OrderOfOperationsStepperProps> = ({ pro
 
 
 
-// OrderOfOperationsQuizWrapper.tsx
+
 
 const OrderOfOperationsQuiz: React.FC = () => {
   return <OrderOfOperationsStepper problem={sampleOrderOfOperationsData} />;
