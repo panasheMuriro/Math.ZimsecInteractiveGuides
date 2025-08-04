@@ -1,132 +1,153 @@
-import React from 'react';
-import MultiStepInteractiveComponent, { InteractiveToolData } from "../../Templates/MultiStepInteractiveComponent"; // Adjust path as needed
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import MultipleStepInteractiveComponent, { MultiStepQuestion } from "../../Templates/MultipleStepInteractiveComponent";
 
-// --- Data for Simple Interest Calculations ---
-const simpleInterestData: InteractiveToolData = {
-  title: "Simple Interest Calculations",
-  description: "Learn to calculate interest earned and final amounts using the simple interest formula.",
-  theme: {
-    primaryColor: 'blue', // Blue theme for financial concepts
-    backgroundColorFrom: 'from-blue-50',
-    backgroundColorTo: 'to-cyan-100',
-  },
-  expressionSize: 'text-xl',
-  inlineExpression: true, // Makes the problem expression inline
-  mcqOptionRenderType: 'text', // Use renderTextWithMath for MCQ options
+// --- Helper Function for Summary ---
+const renderSimpleInterestSummary = (sharedValues: { [key: string]: any }) => {
+  const entries = Object.entries(sharedValues);
+  if (entries.length === 0) {
+    return <p style={{ color: '#264653' }}>No calculations performed yet.</p>;
+  }
+
+  return (
+    <ul className="space-y-2">
+      {entries.map(([key, value]) => (
+        <li key={key} className="flex justify-between items-center">
+          <span style={{ color: '#264653' }}>{key}:</span>
+          <span className="font-mono" style={{ color: '#264653' }}>
+            {/* Assume values are stored as numbers or number strings */}
+            £{typeof value === 'number' ? value.toFixed(2) : parseFloat(value).toFixed(2)}
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+// --- The Question Data ---
+const simpleInterestQuestion: MultiStepQuestion = {
+  id: 'simple-interest-quiz',
+  title: 'Simple Interest Calculations',
   steps: [
     {
-      id: "identify_variables",
-      title: "Identify the Variables",
-      description: "What are the Principal (P), Rate (R), and Time (T) from the problem?",
-      type: "mcq"
+      id: 'si-calculate-interest',
+      question: "Calculate the simple interest earned on £400 invested for 3 years at 6% per annum.",
+      questionType: 'text',
+      options: [
+        "£60",
+        "£72",
+        "£80",
+        "£90"
+      ],
+      optionType: 'text',
+      correct: 1, // Index of "£72"
+      explanation: "Formula: $I = \\frac{P \\times R \\times T}{100}$ \\\\ $I = \\frac{400 \\times 6 \\times 3}{100} = \\frac{7200}{100} = 72$.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Interest Earned (£400, 3y, 6%)", "72.00");
+      }
     },
     {
-      id: "calculate_interest",
-      title: "Calculate the Simple Interest (I)",
-      description: "Use the formula: $I = \\frac{P \\times R \\times T}{100}$",
-      type: "mcq"
+      id: 'si-calculate-amount',
+      question: "What is the total amount in the account after investing £800 for 2 years at 4.5% per annum simple interest?",
+      questionType: 'text',
+      options: [
+        "£864",
+        "£872",
+        "£880",
+        "£890"
+      ],
+      optionType: 'text',
+      correct: 1, // Index of "£872"
+      explanation: "First, find the interest: $I = \\frac{P \\times R \\times T}{100} = \\frac{800 \\times 4.5 \\times 2}{100} = \\frac{7200}{100} = 72$. \\\\ Then, Amount $A = P + I = 800 + 72 = 872$.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Total Amount (£800, 2y, 4.5%)", "872.00");
+      }
     },
     {
-      id: "calculate_amount",
-      title: "Calculate the Final Amount (A)",
-      description: "Use the formula: $A = P + I$",
-      type: "mcq"
-    }
-    // Optional advanced steps for finding P, R, or T could be added here
-    // {
-    //   id: "find_principal",
-    //   title: "Find the Principal (P)",
-    //   description: "If given I, R, and T, how would you find P?",
-    //   type: "mcq"
-    // }
-  ],
-  mcqOptionsPerProblem: [
-    // --- Problem 1: Basic Calculation ---
-    {
-      identify_variables: [
-        "P = $1000, R = 5%, T = 3 years", // Correct
-        "P = $150, R = 5%, T = 3 years",
-        "P = $1000, R = 3%, T = 5 years",
-        "P = $1150, R = 5%, T = 3 years"
+      id: 'si-find-principal',
+      question: "£90 simple interest was earned over 3 years at a rate of 5% per annum. What was the principal amount?",
+      questionType: 'text',
+      options: [
+        "£500",
+        "£550",
+        "£600",
+        "£650"
       ],
-      calculate_interest: [
-        "$150", // Correct (I = (1000*5*3)/100)
-        "$100",
-        "$50",
-        "$200"
-      ],
-      calculate_amount: [
-       "$1150", // Correct (A = P + I = 1000 + 150)
-       "$1200",
-       "$1100",
-       "$1050"
-      ]
-      // find_principal: [ ...options... ] // If advanced step is added
+      optionType: 'text',
+      correct: 2, // Index of "£600"
+      explanation: "Formula: $P = \\frac{100 \\times I}{R \\times T}$ \\\\ $P = \\frac{100 \\times 90}{5 \\times 3} = \\frac{9000}{15} = 600$.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Principal (I=£90, T=3y, R=5%)", "600.00");
+      }
     },
-    // --- Problem 2: Time Conversion ---
     {
-      identify_variables: [
-        "P = $800, R = 6%, T = 1.5 years", // Correct (18 months = 1.5 years)
-        "P = $800, R = 6%, T = 18 years",
-        "P = $800, R = 6%, T = 0.5 years",
-        "P = $800, R = 6%, T = 2 years"
+      id: 'si-find-rate',
+      question: "An investment of £1200 earned £108 simple interest over 2 years. What was the annual interest rate?",
+      questionType: 'text',
+      options: [
+        "4%",
+        "4.5%",
+        "5%",
+        "5.5%"
       ],
-      calculate_interest: [
-        "$72", // Correct (I = (800*6*1.5)/100)
-        "$48",
-        "$120",
-        "$96"
-      ],
-      calculate_amount: [
-       "$872", // Correct (A = P + I = 800 + 72)
-       "$848",
-       "$920",
-       "$728"
-      ]
-      // find_principal: [ ...options... ] // If advanced step is added
-    }
-  ],
-  practiceProblems: [
-    // --- Problem 1 Details ---
-    {
-      expression: "Calculate the simple interest and final amount. Principal = $1000, Rate = 5% per annum, Time = 3 years.",
-      solution: {
-        identify_variables: "P = $1000, R = 5%, T = 3 years",
-        calculate_interest: "$150",
-        calculate_amount: "$1150"
-      },
-      explanation: {
-        identify_variables: "The variables are given directly: Principal (P) is $1000, Rate (R) is 5%, and Time (T) is 3 years.",
-        calculate_interest: "Using the formula $I = \\frac{P \\times R \\times T}{100}$: $I = \\frac{1000 \\times 5 \\times 3}{100} = \\frac{15000}{100} = $150.",
-        calculate_amount: "The final amount is the principal plus the interest: $A = P + I = $1000 + $150 = $1150."
-      },
-      hint: "Identify P, R, and T. Use I = (P*R*T)/100. Then, A = P + I."
+      optionType: 'text',
+      correct: 1, // Index of "4.5%"
+      explanation: "Formula: $R = \\frac{100 \\times I}{P \\times T}$ \\\\ $R = \\frac{100 \\times 108}{1200 \\times 2} = \\frac{10800}{2400} = 4.5$%.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Interest Rate (P=£1200, I=£108, T=2y)", "4.5");
+      }
     },
-    // --- Problem 2 Details (Time Conversion) ---
     {
-      expression: "Find the simple interest earned and the final amount. Principal = $800, Rate = 6% per annum, Time = 18 months.",
-      solution: {
-        identify_variables: "P = $800, R = 6%, T = 1.5 years", // Note: T converted in solution description
-        calculate_interest: "$72",
-        calculate_amount: "$872"
-      },
-      explanation: {
-        identify_variables: "Principal (P) is $800, Rate (R) is 6%. Time is given as 18 months. Convert to years: $T = \\frac{18}{12} = 1.5$ years.",
-        calculate_interest: "Using the formula $I = \\frac{P \\times R \\times T}{100}$: $I = \\frac{800 \\times 6 \\times 1.5}{100} = \\frac{7200}{100} = $72.",
-        calculate_amount: "The final amount is the principal plus the interest: $A = P + I = $800 + $72 = $872."
-      },
-      hint: "Convert months to years. Use I = (P*R*T)/100. Then, A = P + I."
+      id: 'si-calculate-time-months',
+      question: "For how long (in months) must £500 be invested at 8% per annum to earn £40 in simple interest?",
+      questionType: 'text',
+      options: [
+        "10 months",
+        "12 months",
+        "15 months",
+        "18 months"
+      ],
+      optionType: 'text',
+      correct: 1, // Index of "12 months"
+      explanation: "First, find the time in years using the formula: $T = \\frac{100 \\times I}{P \\times R}$ \\\\ $T = \\frac{100 \\times 40}{500 \\times 8} = \\frac{4000}{4000} = 1$ year. \\\\ Convert years to months: $1 \\times 12 = 12$ months.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Time for £40 Interest (P=£500, R=8%)", "12 months");
+      }
     }
   ]
 };
 
-// --- Component using the data ---
+
+
 const SimpleInterest: React.FC = () => {
+  const simpleInterestRules = [
+    "Simple Interest Formula: $I = \\frac{P \\times R \\times T}{100}$",
+    "Amount Formula: $A = P + I = P(1 + \\frac{R \\times T}{100})$",
+    "Principal: $P = \\frac{100 \\times I}{R \\times T}$",
+    "Rate: $R = \\frac{100 \\times I}{P \\times T}$",
+    "Time: $T = \\frac{100 \\times I}{P \\times R}$",
+    "Interest is calculated only on the original principal.",
+    "Convert time to years if given in months (÷12) or days (÷365)."
+  ];
+
   return (
-    <MultiStepInteractiveComponent
-      toolData={simpleInterestData}
-    />
+    <div className="flex justify-center items-center">
+      <MultipleStepInteractiveComponent
+        title="Simple Interest"
+        icon="💷" // Or any other relevant icon like "📈" or "🏦"
+        theme={{ from: '', to: '', button: '', buttonHover: '' }} // Unused but required
+        rules={simpleInterestRules}
+        rulesTitle="Simple Interest Rules:"
+        questions={[simpleInterestQuestion]} // Pass the question object
+        renderSharedValuesSummary={renderSimpleInterestSummary} // Pass the summary renderer
+        // initialSharedValues, onReset if needed
+      />
+    </div>
   );
 };
 
-export default SimpleInterest;
+export default SimpleInterest

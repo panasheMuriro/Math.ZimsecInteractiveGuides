@@ -1,169 +1,131 @@
-import MultiStepInteractiveComponent, { InteractiveToolData } from "../../Templates/MultiStepInteractiveComponent";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// ConsumerArithmeticQuiz.tsx
+import React from 'react';
+import MultipleStepInteractiveComponent, { MultiStepQuestion } from '../../Templates/MultipleStepInteractiveComponent';
 
-// --- Updated Data with unescaped £ ---
-const consumerArithmeticData: InteractiveToolData = {
-  title: "Consumer Arithmetic: Discounts",
-  description: "Master calculating discounts and final prices.",
-  theme: {
-    primaryColor: 'amber',
-    backgroundColorFrom: 'from-amber-50',
-    backgroundColorTo: 'to-orange-100',
-  },
-  expressionSize: 'text-xl',
-  inlineExpression: true,
+// --- Helper Function for Summary ---
+const renderConsumerArithmeticSummary = (sharedValues: { [key: string]: any }) => {
+  const entries = Object.entries(sharedValues);
+  if (entries.length === 0) {
+    return <p style={{ color: '#264653' }}>No calculations performed yet.</p>;
+  }
+
+  return (
+    <ul className="space-y-2">
+      {entries.map(([key, value]) => (
+        <li key={key} className="flex justify-between items-center">
+          <span style={{ color: '#264653' }}>{key}:</span>
+          <span className="font-mono" style={{ color: '#264653' }}>£{parseFloat(value).toFixed(2)}</span>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+// --- The Question Data ---
+const consumerArithmeticQuestion: MultiStepQuestion = {
+  id: 'consumer-arithmetic-quiz',
+  title: 'Consumer Arithmetic and Discounts',
   steps: [
     {
-      id: "identify_formula",
-      title: "Identify the Formula",
-      description: "Which formula relates Marked Price, Selling Price, and Discount?",
-      type: "mcq"
-    },
-    {
-      id: "calculate_discount",
-      title: "Calculate the Discount Amount",
-      description: "Find the discount amount. Use £ for currency.", // Updated description
-      type: "mcq"
-    },
-    {
-      id: "calculate_final_price",
-      title: "Calculate the Final Price",
-      description: "What is the final price after applying the discount? Use £ for currency.", // Updated description
-      type: "mcq"
-    },
-    {
-      id: "find_discount_formula",
-      title: "Identify the Target Formula",
-      description: "To find the unknown discount percentage, which formula should you rearrange?",
-      type: "mcq"
-    },
-    {
-      id: "calculate_discount_percent",
-      title: "Calculate the Discount Percentage",
-      description: "What is the discount percentage?",
-      type: "mcq"
-    }
-  ],
-  mcqOptionsPerProblem: [
-    // Problem 1: Known discount %
-    {
-      identify_formula: [
-        "Discount = Marked Price + Selling Price",
-        "Discount = Marked Price - Selling Price", // Correct
-        "Discount = Selling Price - Marked Price",
-  "Discount\\% = Marked Price \\times Selling Price"
-      ],
-      calculate_discount: [
-        "£8", // Updated to £ (unescaped)
+      id: 'ca-discount-amount',
+      question: "A coat is marked at £80. It has a discount of 15%. How much is the discount?",
+      questionType: 'text',
+      options: [
         "£10",
         "£12",
-        "£15"
-      ],
-      calculate_final_price: [
-        "£30", // Updated to £ (unescaped)
-        "£32",
-        "£35",
-        "£40"
-      ],
-      find_discount_formula: [
-        "Discount% = \\frac{\\text{Discount Amount}}{\\text{Selling Price}} \\times 100\\%",
-        "Discount% = \\frac{\\text{Marked Price} - \\text{Selling Price}}{\\text{Marked Price}} \\times 100\\%", // Correct
-        "Discount% = (\\text{Marked Price} - \\text{Selling Price}) \\times 100\\%",
-        "Discount% = \\frac{\\text{Selling Price}}{\\text{Marked Price}} \\times 100\\%"
-      ],
-      calculate_discount_percent: [
-       "15\\%",
-       "18\\%",
-       "20\\%", // Correct
-       "25\\%"
-      ]
-    },
-    // Problem 2: Unknown discount %
-    {
-      identify_formula: [
-        "Discount = Marked Price + Selling Price",
-        "Discount = Marked Price - Selling Price", // Correct
-        "Discount = Selling Price - Marked Price",
-        "Discount\\% = Marked Price \\times Selling Price"
-      ],
-      calculate_discount: [
-        "£10",
-        "£12", // Correct
         "£15",
-        "£18"
+        "£68"
       ],
-      calculate_final_price: [
-        "£45",
-        "£48", // Correct (matches selling price given in problem text)
-        "£50",
-        "£55"
-      ],
-      find_discount_formula: [
-        "Discount% = \\frac{\\text{Discount Amount}}{\\text{Selling Price}} \\times 100\\%",
-        "Discount% = \\frac{\\text{Marked Price} - \\text{Selling Price}}{\\text{Marked Price}} \\times 100\\%", // Correct
-        "Discount% = (\\text{Marked Price} - \\text{Selling Price}) \\times 100\\%",
-        "Discount% = \\frac{\\text{Selling Price}}{\\text{Marked Price}} \\times 100\\%"
-      ],
-      calculate_discount_percent: [
-       "15\\%",
-       "18\\%",
-       "20\\%", // Correct
-       "25\\%"
-      ]
-    }
-  ],
-  practiceProblems: [
-    {
-      // Updated problem text and solutions to use £ (unescaped in text, escaped in KaTeX math mode)
-      expression: "A jacket is marked at £40. There is a 20% discount.",
-      solution: {
-        identify_formula: "Discount = Marked Price - Selling Price",
-        calculate_discount: "\\£8", // KaTeX math mode still needs \ for £
-        calculate_final_price: "\\£32", // KaTeX math mode still needs \ for £
-        find_discount_formula: "Discount\\% = \\frac{\\text{Marked Price} - \\text{Selling Price}}{\\text{Marked Price}} \\times 100\\%",
-        calculate_discount_percent: "20\\%"
-      },
-      // Updated explanations to use £ (KaTeX math mode still needs \ for £)
-      explanation: {
-        identify_formula: "The discount is the difference between the Marked Price and the Selling Price.",
-        calculate_discount: "Discount = Marked Price \\times Rate = \\£40 \\times 0.20 = \\£8.", // KaTeX math mode
-        calculate_final_price: "Final Price = Marked Price - Discount = \\£40 - \\£8 = \\£32.", // KaTeX math mode
-        find_discount_formula: "To find the percentage, calculate the discount amount as a fraction of the Marked Price.",
-        calculate_discount_percent: "The discount percentage is given as 20\\% in this problem."
-      },
-      // Updated hint to use £ (unescaped in regular text)
-      hint: "Discount is part of the Marked Price. Final Price is what's left after removing the discount. Use £ for currency."
+      optionType: 'text', // Options are plain text currency values
+      correct: 1, // Index of "£12"
+      explanation: "Discount = Marked Price × (Discount % / 100) Discount = £80 × (15 / 100) = £80 × 0.15 = £12.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Discount Amount (15%)", "12.00");
+      }
     },
     {
-      // Updated problem text and solutions to use £ (unescaped in text, escaped in KaTeX math mode)
-      expression: "A pair of shoes originally priced at \\£60 is on sale for \\£48. What is the discount percentage?",
-      solution: {
-        identify_formula: "Discount = Marked Price - Selling Price",
-        calculate_discount: "\\£12", // KaTeX math mode
-        calculate_final_price: "\\£48", // KaTeX math mode (Note: This is the selling price, not calculated from MP - Discount)
-        find_discount_formula: "Discount\\% = \\frac{\\text{Marked Price} - \\text{Selling Price}}{\\text{Marked Price}} \\times 100\\%",
-        calculate_discount_percent: "20\\%"
-      },
-      // Updated explanations to use £ (KaTeX math mode still needs \ for £)
-      explanation: {
-        identify_formula: "The discount amount is the difference between the Marked Price and the Selling Price.",
-        calculate_discount: "Discount Amount = \\£60 - \\£48 = \\£12.", // KaTeX math mode
-        calculate_final_price: "The final price is the selling price, which is \\£48.", // KaTeX math mode
-        find_discount_formula: "To find the percentage, you calculate the discount amount as a fraction of the original Marked Price.",
-        calculate_discount_percent: "Discount\\% = $\\frac{\\£12}{\\£60} \\times 100\\% = 20\\%$." // KaTeX math mode
-      },
-      // Updated hint to use £ (unescaped in regular text)
-      hint: "Find the difference between the original price and the sale price. Then express that difference as a percentage of the original price. Use £ for currency."
+      id: 'ca-final-price-single-discount',
+      question: "A pair of jeans costs £65. There is a 20% discount. What is the final price?",
+      questionType: 'text',
+      options: [
+        "£13",
+        "£50",
+        "£52",
+        "£78"
+      ],
+      optionType: 'text',
+      correct: 2, // Index of "£52"
+      explanation: "First, find the discount: £65 × (20 / 100) = £65 × 0.20 = £13. Final Price = Marked Price - Discount = £65 - £13 = £52.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Final Price (Single Discount)", "52.00");
+      }
+    },
+    {
+      id: 'ca-final-price-multiple-discounts',
+      question: "A gadget costs £120. It has a 10% discount followed by a further 5% discount on the new price. What is the final price?",
+      questionType: 'text',
+      options: [
+        "£102.60",
+        "£108.00",
+        "£114.00",
+        "£102.00"
+      ],
+      optionType: 'text',
+      correct: 0, // Index of "£102.60"
+      explanation: "Apply the first discount: £120 × (10 / 100) = £12. New price = £120 - £12 = £108. Apply the second discount: £108 × (5 / 100) = £5.40. Final Price = £108 - £5.40 = £102.60.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Final Price (Multiple Discounts)", "102.60");
+      }
+    },
+    {
+      id: 'ca-find-original-price',
+      question: "After a 25% discount, a book costs £22.50. What was its original marked price?",
+      questionType: 'text',
+      options: [
+        "£28.13",
+        "£30.00",
+        "£29.00",
+        "£27.50"
+      ],
+      optionType: 'text',
+      correct: 1, // Index of "£30.00"
+      explanation: "Let the Marked Price be MP. Final Price = MP - (MP × 25/100) = MP × (1 - 0.25) = MP × 0.75. We know Final Price = £22.50. So, MP × 0.75 = £22.50. MP = £22.50 / 0.75 = £30.00.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Original Marked Price", "30.00");
+      }
     }
   ]
 };
 
-// --- Component using the updated data ---
 const ConsumerArithmeticQuiz: React.FC = () => {
+  const consumerRules = [
+    "Cost Price (CP): Original price paid.",
+    "Marked Price (MP): Listed price before discounts.",
+    "Selling Price (SP) / Final Price: Price after discount.",
+    "Discount = MP - SP.",
+    "Discount % = (Discount / MP) × 100%.",
+    "Final Price = MP - (MP × Discount %).",
+    "For multiple discounts, apply them sequentially to the new price."
+  ];
+
   return (
-    <MultiStepInteractiveComponent
-      toolData={consumerArithmeticData}
-    />
+    <div className="flex justify-center items-center">
+      <MultipleStepInteractiveComponent
+        title="Consumer Arithmetic and Discounts"
+        icon="💷" // Or any other relevant icon like "🛍️" or "💰"
+        rules={consumerRules}
+        rulesTitle="Consumer Arithmetic Rules:"
+        questions={[consumerArithmeticQuestion]} // Pass the question object
+        renderSharedValuesSummary={renderConsumerArithmeticSummary} // Pass the summary renderer
+        // initialSharedValues, onReset if needed
+      />
+    </div>
   );
 };
 
-export default ConsumerArithmeticQuiz;
+export default ConsumerArithmeticQuiz

@@ -1,122 +1,130 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// CompoundInterestQuiz.tsx
 import React from 'react';
-import MultiStepInteractiveComponent, { InteractiveToolData } from "../../Templates/MultiStepInteractiveComponent"; // Adjust path as needed
+import MultipleStepInteractiveComponent, { MultiStepQuestion } from '../../Templates/MultipleStepInteractiveComponent';
+// renderTextWithtext is imported within the template
 
-// --- Data for Compound Interest Calculations ---
-const compoundInterestData: InteractiveToolData = {
-  title: "Compound Interest Calculations",
-  description: "Learn to calculate final amounts and compound interest using the formula A = P(1 + r/100)^t.",
-  theme: {
-    primaryColor: 'indigo', // Indigo theme for advanced financial concepts
-    backgroundColorFrom: 'from-indigo-50',
-    backgroundColorTo: 'to-purple-100',
-  },
-  expressionSize: 'text-xl',
-  inlineExpression: true, // Makes the problem expression inline
-  mcqOptionRenderType: 'text', // Use renderTextWithMath for MCQ options
+// --- Helper Function for Summary ---
+const renderCompoundInterestSummary = (sharedValues: { [key: string]: any }) => {
+  const entries = Object.entries(sharedValues);
+  if (entries.length === 0) {
+    return <p style={{ color: '#264653' }}>No calculations performed yet.</p>;
+  }
+
+  return (
+    <ul className="space-y-2">
+      {entries.map(([key, value]) => (
+        <li key={key} className="flex justify-between items-center">
+          <span style={{ color: '#264653' }}>{key}:</span>
+          <span className="font-mono" style={{ color: '#264653' }}>
+            {/* Assume values are stored as numbers or number strings */}
+            {key.includes("Time") || key.includes("Rate") ? value : `£${typeof value === 'number' ? value.toFixed(2) : parseFloat(value).toFixed(2)}`}
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+// --- The Multi-Step Question Data ---
+const compoundInterestQuestion: MultiStepQuestion = {
+  id: 'compound-interest-quiz',
+  title: 'Compound Interest Calculations',
   steps: [
     {
-      id: "identify_variables",
-      title: "Identify the Variables",
-      description: "What are the Principal (P), Rate (r), Time (t), and Compounding Frequency (n) from the problem?",
-      type: "mcq"
+      id: 'ci-identify-formula',
+      question: "Which formula is used to calculate the final amount (A) with annual compound interest?",
+      questionType: 'text',
+      options: [
+        "$A = P + \\frac{P \\times R \\times T}{100}$",
+        "$A = P(1 + \\frac{r}{100})^t$",
+        "$A = P(1 + \\frac{r}{n})^{nt}$",
+        "$A = P \\times e^{rt}$"
+      ],
+      optionType: 'text',
+      correct: 1, // Index of "$A = P(1 + \\frac{r}{100})^t$"
+      explanation: "The standard formula for compound interest compounded annually is $A = P(1 + \\frac{r}{100})^t$, where $P$ is the principal, $r$ is the annual rate, and $t$ is the time in years.",
+      explanationType: 'text'
     },
     {
-      id: "calculate_amount",
-      title: "Calculate the Final Amount (A)",
-      description: "Use the appropriate formula: $A = P(1 + \\frac{r}{100n})^{nt}$",
-      type: "mcq"
+      id: 'ci-calculate-amount',
+      question: "Calculate the final amount if £1000 is invested for 3 years at 5% per annum compound interest.",
+      questionType: 'text',
+      options: [
+        "£1150.00",
+        "£1157.63",
+        "£1160.00",
+        "£1175.00"
+      ],
+      optionType: 'text',
+      correct: 1, // Index of "£1157.63"
+      explanation: "Using the formula $A = P(1 + \\frac{r}{100})^t$: \\\\ $A = 1000(1 + \\frac{5}{100})^3 = 1000(1.05)^3 = 1000 \\times 1.157625 = 1157.63$.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Final Amount (Annual, £1000, 3y, 5%)", "1157.63");
+      }
     },
     {
-      id: "calculate_compound_interest",
-      title: "Calculate the Compound Interest (CI)",
-      description: "Use the formula: $CI = A - P$",
-      type: "mcq"
-    }
-  ],
-  mcqOptionsPerProblem: [
-    // --- Problem 1: Annual Compounding ---
-    {
-      identify_variables: [
-        "P = $2000, r = 5%, t = 4 years, n = 1 (annual)", // Correct
-        "P = $2000, r = 4%, t = 5 years, n = 1",
-        "P = $2500, r = 5%, t = 4 years, n = 1",
-        "P = $2000, r = 5%, t = 4 years, n = 4 (quarterly)"
+      id: 'ci-calculate-interest',
+      question: "Using the amount calculated (£1157.63), how much compound interest was earned on the £1000 investment?",
+      questionType: 'text',
+      options: [
+        "£150.00",
+        "£157.63",
+        "£160.00",
+        "£175.00"
       ],
-      calculate_amount: [
-        "$2431.01", // Correct (A = 2000*(1 + 0.05/1)^4 = 2000*(1.05)^4)
-        "$2400.00",
-        "$2500.00",
-        "$2450.00"
-      ],
-      calculate_compound_interest: [
-       "$431.01", // Correct (CI = A - P = 2431.01 - 2000)
-       "$400.00",
-       "$500.00",
-       "$450.00"
-      ]
+      optionType: 'text',
+      correct: 1, // Index of "£157.63"
+      explanation: "Compound Interest (CI) is the difference between the final amount (A) and the principal (P). \\\\ $CI = A - P = 1157.63 - 1000 = 157.63$.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Compound Interest Earned", "157.63");
+      }
     },
-    // --- Problem 2: Quarterly Compounding ---
     {
-      identify_variables: [
-        "P = $1500, r = 8%, t = 3 years, n = 4 (quarterly)", // Correct
-        "P = $1500, r = 3%, t = 8 years, n = 4",
-        "P = $1800, r = 8%, t = 3 years, n = 4",
-        "P = $1500, r = 8%, t = 3 years, n = 1 (annual)"
+      id: 'ci-rule-of-72',
+      question: "Using the Rule of 72, approximately how long will it take for the £1000 investment to double at an annual interest rate of 5%?",
+      questionType: 'text',
+      options: [
+        "10 years",
+        "12 years",
+        "14 years",
+        "15 years"
       ],
-      calculate_amount: [
-        "$1900.16", // Correct (A = 1500*(1 + 0.08/4)^(4*3) = 1500*(1.02)^12)
-        "$1860.00",
-        "$1950.00",
-        "$1850.00"
-      ],
-      calculate_compound_interest: [
-       "$400.16", // Correct (CI = A - P = 1900.16 - 1500)
-       "$360.00",
-       "$450.00",
-       "$350.00"
-      ]
-    }
-  ],
-  practiceProblems: [
-    // --- Problem 1 Details ---
-    {
-      expression: "Calculate the compound interest and final amount. Principal = $2000, Rate = 5% per annum, Time = 4 years, compounded annually.",
-      solution: {
-        identify_variables: "P = $2000, r = 5%, t = 4 years, n = 1 (annual)",
-        calculate_amount: "$2431.01", // Rounded to 2 decimal places for display
-        calculate_compound_interest: "$431.01"
-      },
-      explanation: {
-        identify_variables: "Principal (P) is $2000. Rate (r) is 5%. Time (t) is 4 years. It's compounded annually, so n = 1.",
-        calculate_amount: "Using the formula $A = P(1 + \\frac{r}{100n})^{nt}$: $A = 2000(1 + \\frac{5}{100 \\times 1})^{1 \\times 4} = 2000(1.05)^4$. Calculate $(1.05)^4 \\approx 1.21550625$. So, $A = 2000 \\times 1.21550625 = $2431.01$.",
-        calculate_compound_interest: "The compound interest is the final amount minus the principal: $CI = A - P = $2431.01 - $2000 = $431.01$."
-      },
-      hint: "Identify P, r, t, and n. Use A = P(1 + r/(100n))^(nt). Then, CI = A - P."
-    },
-    // --- Problem 2 Details (Quarterly Compounding) ---
-    {
-      expression: "Find the compound interest earned and the final amount. Principal = $1500, Rate = 8% per annum, Time = 3 years, compounded quarterly.",
-      solution: {
-        identify_variables: "P = $1500, r = 8%, t = 3 years, n = 4 (quarterly)",
-        calculate_amount: "$1900.16", // Rounded to 2 decimal places for display
-        calculate_compound_interest: "$400.16"
-      },
-      explanation: {
-        identify_variables: "Principal (P) is $1500. Rate (r) is 8%. Time (t) is 3 years. It's compounded quarterly, so n = 4 (4 times per year).",
-        calculate_amount: "Using the formula $A = P(1 + \\frac{r}{100n})^{nt}$: $A = 1500(1 + \\frac{8}{100 \\times 4})^{4 \\times 3} = 1500(1 + \\frac{8}{400})^{12} = 1500(1.02)^{12}$. Calculate $(1.02)^{12} \\approx 1.26824179$. So, $A = 1500 \\times 1.26824179 = $1900.16$.",
-        calculate_compound_interest: "The compound interest is the final amount minus the principal: $CI = A - P = $1900.16 - $1500 = $400.16$."
-      },
-      hint: "Identify P, r, t, and n (4 for quarterly). Use A = P(1 + r/(100n))^(nt). Then, CI = A - P."
+      optionType: 'text',
+      correct: 2, // Index of "14 years"
+      explanation: "Rule of 72: Time to double $\\approx \\frac{72}{\\text{interest rate}}$ \\\\ Time $\\approx \\frac{72}{5} = 14.4$ years, which is approximately 14 years.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Doubling Time (Rule of 72, 5%)", "14 years");
+      }
     }
   ]
 };
 
-// --- Component using the data ---
 const CompoundInterest: React.FC = () => {
+  const compoundInterestRules = [
+    "Annual Compounding: $A = P(1 + \\frac{r}{100})^t$",
+    "Compound Interest: $CI = A - P = P[(1 + \\frac{r}{100})^t - 1]$",
+    "More frequent compounding (quarterly, monthly) uses: $A = P(1 + \\frac{r}{100n})^{nt}$",
+    "Compound interest grows faster than simple interest over time.",
+    "Rule of 72: Time to double $\\approx \\frac{72}{\\text{interest rate}}$"
+  ];
+
   return (
-    <MultiStepInteractiveComponent
-      toolData={compoundInterestData}
-    />
+    <div className="flex justify-center items-center">
+      <MultipleStepInteractiveComponent
+        title="Compound Interest"
+        icon="💷" // Or any other relevant icon like "📈" or "🏦"
+        theme={{ from: '', to: '', button: '', buttonHover: '' }} // Unused but required
+        rules={compoundInterestRules}
+        rulesTitle="Compound Interest Rules:"
+        questions={[compoundInterestQuestion]} // Pass the question object
+        renderSharedValuesSummary={renderCompoundInterestSummary} // Pass the summary renderer
+        // initialSharedValues, onReset if needed
+      />
+    </div>
   );
 };
 

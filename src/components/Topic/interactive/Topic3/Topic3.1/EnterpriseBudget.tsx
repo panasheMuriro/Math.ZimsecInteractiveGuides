@@ -73,7 +73,7 @@ const ProfitLossSummary: React.FC<ProfitLossSummaryProps> = ({ question }) => {
       </div>
 
       {/* Profit/Loss Calculation Prompt */}
-      <div className="text-center py-2 font-semibold text-white">
+      <div className="text-center py-2 font-semibold text-black">
         <p>What is the Profit or Loss?</p>
         <p className="text-sm opacity-90">(Profit = Revenue - Expenses)</p>
       </div>

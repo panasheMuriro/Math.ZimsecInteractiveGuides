@@ -1,154 +1,151 @@
-import React from 'react';
-import MultiStepInteractiveComponent, { InteractiveToolData } from "../../Templates/MultiStepInteractiveComponent"; // Adjust path as needed
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import MultipleStepInteractiveComponent, { MultiStepQuestion } from "../../Templates/MultipleStepInteractiveComponent";
 
-// --- Data for Profit and Loss Calculations (Using £ correctly with renderTextWithMath) ---
-const profitLossData: InteractiveToolData = {
-  title: "Profit and Loss Calculations",
-  description: "Master essential business calculations for buying and selling.",
-  theme: {
-    primaryColor: 'green', // Green theme for financial concepts
-    backgroundColorFrom: 'from-green-50',
-    backgroundColorTo: 'to-emerald-100',
-  },
-  expressionSize: 'text-xl',
-  inlineExpression: true, // Makes the problem expression inline
-  // --- Key Addition: Tell the component to use renderTextWithMath for MCQ options ---
-  mcqOptionRenderType: 'text',
+// --- Helper Function for Summary ---
+const renderProfitLossSummary = (sharedValues: { [key: string]: any }) => {
+  const entries = Object.entries(sharedValues);
+  if (entries.length === 0) {
+    return <p style={{ color: '#264653' }}>No calculations performed yet.</p>;
+  }
+
+  return (
+    <ul className="space-y-2">
+      {entries.map(([key, value]) => (
+        <li key={key} className="flex justify-between items-center">
+          <span style={{ color: '#264653' }}>{key}:</span>
+          <span className="font-mono" style={{ color: '#264653' }}>
+            £{typeof value === 'number' ? value.toFixed(2) : parseFloat(value).toFixed(2)}
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+// --- The Question Data ---
+const profitLossQuestion: MultiStepQuestion = {
+  id: 'profit-loss-quiz',
+  title: 'Profit and Loss Calculations',
   steps: [
     {
-      id: "identify_cp_sp",
-      title: "Identify Cost Price (CP) and Selling Price (SP)",
-      description: "What are the CP and SP from the problem?",
-      type: "mcq"
+      id: 'pl-calculate-profit',
+      question: "A shopkeeper buys a book for £45 and sells it for £60. What is the profit?",
+      questionType: 'text',
+      options: [
+        "£10",
+        "£15",
+        "£20",
+        "£25"
+      ],
+      optionType: 'text',
+      correct: 1, // Index of "£15"
+      explanation: "Profit = Selling Price (SP) - Cost Price (CP) Profit = £60 - £45 = £15.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Profit (Book)", "15.00");
+      }
     },
     {
-      id: "determine_profit_or_loss",
-      title: "Is there a Profit or Loss?",
-      description: "Compare CP and SP.",
-      type: "mcq"
+      id: 'pl-calculate-profit-percent',
+      question: "An item is bought for £120 and sold for £150. What is the profit percentage?",
+      questionType: 'text',
+      options: [
+        "20%",
+        "25%",
+        "30%",
+        "35%"
+      ],
+      optionType: 'text',
+      correct: 1, // Index of "25%"
+      explanation: "Profit = SP - CP = £150 - £120 = £30. Profit% = (Profit / CP) × 100% Profit% = (£30 / £120) × 100% = 0.25 × 100% = 25%.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Profit Percentage", "25");
+      }
     },
     {
-      id: "calculate_amount",
-      title: "Calculate the Profit or Loss Amount",
-      description: "Use the correct formula: Profit = SP - CP or Loss = CP - SP.",
-      type: "mcq"
+      id: 'pl-find-selling-price',
+      question: "A trader wants to make a 20% profit on an item that cost £80. What should be the selling price?",
+      questionType: 'text',
+      options: [
+        "£90",
+        "£96",
+        "£100",
+        "£104"
+      ],
+      optionType: 'text',
+      correct: 1, // Index of "£96"
+      explanation: "Formula: SP = CP × (1 + Profit%/100) SP = £80 × (1 + 20/100) = £80 × (1 + 0.20) = £80 × 1.20 = £96.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Selling Price (20% Profit)", "96.00");
+      }
     },
     {
-      id: "calculate_percentage",
-      title: "Calculate the Profit or Loss Percentage",
-      description: "Use the formula based on CP: (Amount/CP) × 100%.",
-      type: "mcq"
-    }
-  ],
-  mcqOptionsPerProblem: [
-    // --- Problem 1: Basic Profit ---
-    {
-      identify_cp_sp: [
-        "CP = £80, SP = £100", // Correct (Plain text, rendered by renderTextWithMath)
-        "CP = £100, SP = £80",
-        "CP = £20, SP = £100",
-        "CP = £80, SP = £20"
+      id: 'pl-find-cost-price',
+      question: "An article is sold for £90, resulting in a 10% loss. What was the original cost price?",
+      questionType: 'text',
+      options: [
+        "£100",
+        "£99",
+        "£81",
+        "£110"
       ],
-      determine_profit_or_loss: [
-        "Profit", // Correct (Plain text)
-        "Loss",
-        "Break-even (No Profit, No Loss)",
-        "Cannot be determined"
-      ],
-      calculate_amount: [
-        "£20", // Correct (SP - CP = 100 - 80) (Plain text)
-        "£180",
-        "£80",
-        "£100"
-      ],
-      calculate_percentage: [
-       "20%", // Plain text %
-       "25%", // Correct Answer for this specific problem
-       "15%",
-       "10%"
-      ]
+      optionType: 'text',
+      correct: 0, // Index of "£100"
+      explanation: "Let CP be the Cost Price. Loss = CP - SP. Loss% = (Loss / CP) × 100%. We know SP = £90 and Loss% = 10%. So, 10 = ((CP - £90) / CP) × 100. 10/100 = (CP - £90) / CP. 0.1 × CP = CP - £90. £90 = CP - 0.1 × CP. £90 = CP × (1 - 0.1). £90 = CP × 0.9. CP = £90 / 0.9 = £100.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Cost Price (10% Loss)", "100.00");
+      }
     },
-    // --- Problem 2: Basic Loss ---
     {
-      identify_cp_sp: [
-        "CP = £150, SP = £120", // Correct (Plain text)
-        "CP = £120, SP = £150",
-        "CP = £30, SP = £120",
-        "CP = £150, SP = £30"
+      id: 'pl-profit-with-overheads',
+      question: "A retailer buys goods for £200 and spends £20 on transport. If he sells them for £275, what is his profit percentage based on total cost?",
+      questionType: 'text',
+      options: [
+        "25%",
+        "27.5%",
+        "22.5%",
+        "30%"
       ],
-      determine_profit_or_loss: [
-        "Profit",
-        "Loss", // Correct (Plain text)
-        "Break-even (No Profit, No Loss)",
-        "Cannot be determined"
-      ],
-      calculate_amount: [
-        "£30", // Correct (CP - SP = 150 - 120) (Plain text)
-        "£270",
-        "£120",
-        "£150"
-      ],
-      calculate_percentage: [
-       "15%", // Plain text %
-       "25%",
-       "20%", // Correct (Plain text %)
-       "10%"
-      ]
-    }
-  ],
-  practiceProblems: [
-    // --- Problem 1 Details ---
-    {
-      // Expression uses renderTextWithMath (inlineExpression: true)
-      expression: "An article was bought for £80 and sold for £100.",
-      solution: {
-        // Solutions for steps - Match the EXACT plain text strings from mcqOptionsPerProblem
-        // These are also rendered by renderTextWithMath due to mcqOptionRenderType: 'text'
-        identify_cp_sp: "CP = £80, SP = £100",
-        determine_profit_or_loss: "Profit",
-        calculate_amount: "£20",
-        calculate_percentage: "25%" // Consistent plain text
-      },
-      explanation: {
-        // Explanations use renderTextWithMath
-        identify_cp_sp: "The cost price (CP) is the price paid (£80). The selling price (SP) is the price received (£100).",
-        determine_profit_or_loss: "Since SP (£100) is greater than CP (£80), there is a Profit.",
-        calculate_amount: "Profit = SP - CP = £100 - £80 = £20.",
-        calculate_percentage: "Profit% = (Profit / CP) × 100% = (£20 / £80) × 100% = 25%."
-      },
-      // Hint uses renderTextWithMath
-      hint: "CP is the buying price, SP is the selling price. Profit occurs when SP > CP. Use £ for currency."
-    },
-    // --- Problem 2 Details ---
-    {
-      // Expression uses renderTextWithMath
-      expression: "A book was purchased for £150 and later sold for £120.",
-      solution: {
-        // Match the EXACT plain text strings
-        identify_cp_sp: "CP = £150, SP = £120",
-        determine_profit_or_loss: "Loss",
-        calculate_amount: "£30",
-        calculate_percentage: "20%" // Consistent plain text
-      },
-      explanation: {
-        // Explanations use renderTextWithMath
-        identify_cp_sp: "The cost price (CP) is the purchase price (£150). The selling price (SP) is the sale price (£120).",
-        determine_profit_or_loss: "Since CP (£150) is greater than SP (£120), there is a Loss.",
-        calculate_amount: "Loss = CP - SP = £150 - £120 = £30.",
-        calculate_percentage: "Loss% = (Loss / CP) × 100% = (£30 / £150) × 100% = 20%."
-      },
-      // Hint uses renderTextWithMath
-      hint: "CP is the buying price, SP is the selling price. Loss occurs when CP > SP. Use £ for currency."
+      optionType: 'text',
+      correct: 0, // Index of "25%"
+      explanation: "Total Cost Price (CP) = Purchase Price + Overheads = £200 + £20 = £220. Selling Price (SP) = £275. Profit = SP - CP = £275 - £220 = £55. Profit% = (Profit / Total CP) × 100% = (£55 / £220) × 100% = 0.25 × 100% = 25%.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Profit Percentage (With Overheads)", "25");
+      }
     }
   ]
 };
 
-// --- Component using the data ---
 const ProfitLoss: React.FC = () => {
+  const profitLossRules = [
+    "Cost Price (CP): Price paid to acquire goods.",
+    "Selling Price (SP): Price at which goods are sold.",
+    "Profit = SP - CP (if SP > CP).",
+    "Loss = CP - SP (if CP > SP).",
+    "Profit% = (Profit / CP) × 100%.",
+    "Loss% = (Loss / CP) × 100%.",
+    "SP = CP × (1 + Profit%/100).",
+    "CP = SP / (1 + Profit%/100).",
+    "Include overheads in total CP for accurate profit calculations."
+  ];
+
   return (
-    <MultiStepInteractiveComponent
-      toolData={profitLossData}
-    />
+    <div className="flex justify-center items-center">
+      <MultipleStepInteractiveComponent
+        title="Profit and Loss Calculations"
+        icon="📈" // Or any other relevant icon like "💰" or "🏪"
+        theme={{ from: '', to: '', button: '', buttonHover: '' }} // Unused but required
+        rules={profitLossRules}
+        rulesTitle="Profit & Loss Rules:"
+        questions={[profitLossQuestion]} // Pass the question object
+        renderSharedValuesSummary={renderProfitLossSummary} // Pass the summary renderer
+        // initialSharedValues, onReset if needed
+      />
+    </div>
   );
 };
 
