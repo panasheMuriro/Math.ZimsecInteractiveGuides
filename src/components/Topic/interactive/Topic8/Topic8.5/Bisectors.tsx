@@ -1,3 +1,4 @@
+// Bisectors.tsx
 import React, { useState, useEffect } from 'react';
 
 // --- Neubrutalism Styles & Colors ---
@@ -58,8 +59,8 @@ const getInfoBoxStyle = () => {
 };
 // --- End Neubrutalism Styles ---
 
-const BasicConstructions = () => {
-  type ConstructionType = 'perpendicular' | 'angleBisector' | 'parallel' | 'angle60';
+const Bisectors = () => {
+  type ConstructionType = 'perpendicular' | 'angleBisector';
   const [activeConstruction, setActiveConstruction] = useState<ConstructionType>('perpendicular');
   const [animationStep, setAnimationStep] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
@@ -113,27 +114,6 @@ const BasicConstructions = () => {
     return steps[currentStep - 1] || "Starting construction...";
   };
 
-  const getStepsForParallelLines = (currentStep: number) => {
-    const steps = [
-      "Choose any point X on line AB and join it to point P",
-      "With X as center and any suitable radius, draw an arc cutting PX at M and AB at N",
-      "With P as center and same radius, draw an arc cutting PX at Q",
-      "With Q as center and same radius as before, draw an arc cutting the previous arc at R",
-      "Join P and R to draw line CD",
-      "Line CD is parallel to line AB and passes through P"
-    ];
-    return steps[currentStep - 1] || "Starting construction...";
-  };
-
-  const getStepsForAngle60 = (currentStep: number) => {
-    const steps = [
-      "Draw a line segment OB with point O at the left end",
-      "Place compass at O and draw an arc meeting OB at point P",
-      "Place compass at P and draw an arc through O, intersecting the first arc at point A",
-      "Draw a line from O through A to form the 60° angle"
-    ];
-    return steps[currentStep - 1] || "Starting construction...";
-  };
 
   // --- Construction Illustration Components ---
   // 1. Perpendicular Line through a Point
@@ -371,216 +351,6 @@ const AngleBisectorConstruction: React.FC<{ step: number }> = ({ step }) => {
   );
 };
 
-// Parallel Lines Construction Component
-const ParallelLinesConstruction: React.FC<{ step: number }> = ({ step }) => {
-  const width = 400;
-  const height = 300;
-  const pointA = { x: 50, y: 200 };
-  const pointB = { x: 350, y: 200 };
-  const pointP = { x: 200, y: 100 };
-  const pointX = { x: 150, y: 200 };
-  const radius = 50;
-  const pxLength = Math.sqrt((pointP.x - pointX.x) ** 2 + (pointP.y - pointX.y) ** 2);
-  const ratio = radius / pxLength;
-  const pointM = {
-    x: pointX.x + ratio * (pointP.x - pointX.x),
-    y: pointX.y + ratio * (pointP.y - pointX.y)
-  };
-  const pointN = {
-    x: pointX.x - radius,
-    y: pointX.y
-  };
-  const pointQ = {
-    x: pointP.x - ratio * (pointP.x - pointX.x),
-    y: pointP.y - ratio * (pointP.y - pointX.y)
-  };
-  // Simplified calculation for point R at intersection
-  const pointR = {
-    x: pointQ.x - radius / 2,
-    y: pointQ.y - radius * 0.866
-  };
-  return (
-    <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} className="w-full">
-      <line
-        x1={pointA.x}
-        y1={pointA.y}
-        x2={pointB.x}
-        y2={pointB.y}
-        stroke="#94a3b8"
-        strokeWidth="2"
-      />
-      <text x={pointA.x - 20} y={pointA.y + 5} className="text-xs fill-gray-700">A</text>
-      <text x={pointB.x + 10} y={pointB.y + 5} className="text-xs fill-gray-700">B</text>
-      <circle cx={pointP.x} cy={pointP.y} r="4" fill="#3b82f6" />
-      <text x={pointP.x + 10} y={pointP.y - 5} className="text-xs fill-gray-700">P</text>
-      {step >= 1 && (
-        <line
-          x1={pointP.x}
-          y1={pointP.y}
-          x2={pointX.x}
-          y2={pointX.y}
-          stroke="#94a3b8"
-          strokeWidth="1.5"
-          strokeDasharray="3,3"
-        />
-      )}
-      {step >= 1 && (
-        <>
-          <circle cx={pointX.x} cy={pointX.y} r="3" fill="#3b82f6" />
-          <text x={pointX.x - 15} y={pointX.y + 20} className="text-xs fill-gray-700">X</text>
-        </>
-      )}
-      {step >= 2 && (
-        <circle
-          cx={pointX.x}
-          cy={pointX.y}
-          r={radius}
-          fill="none"
-          stroke="#ef4444"
-          strokeWidth="1.5"
-          strokeDasharray="4,4"
-        />
-      )}
-      {step >= 2 && (
-        <>
-          <circle cx={pointM.x} cy={pointM.y} r="3" fill="#ef4444" />
-          <circle cx={pointN.x} cy={pointN.y} r="3" fill="#ef4444" />
-          <text x={pointM.x + 5} y={pointM.y - 5} className="text-xs fill-gray-700">M</text>
-          <text x={pointN.x - 15} y={pointN.y + 20} className="text-xs fill-gray-700">N</text>
-        </>
-      )}
-      {step >= 3 && (
-        <circle
-          cx={pointP.x}
-          cy={pointP.y}
-          r={radius}
-          fill="none"
-          stroke="#10b981"
-          strokeWidth="1.5"
-          strokeDasharray="4,4"
-        />
-      )}
-      {step >= 3 && (
-        <>
-          <circle cx={pointQ.x} cy={pointQ.y} r="3" fill="#10b981" />
-          <text x={pointQ.x + 5} y={pointQ.y - 5} className="text-xs fill-gray-700">Q</text>
-        </>
-      )}
-      {step >= 4 && (
-        <circle
-          cx={pointQ.x}
-          cy={pointQ.y}
-          r={radius}
-          fill="none"
-          stroke="#8b5cf6"
-          strokeWidth="1.5"
-          strokeDasharray="4,4"
-        />
-      )}
-      {step >= 4 && (
-        <>
-          <circle cx={pointR.x} cy={pointR.y} r="4" fill="#8b5cf6" />
-          <text x={pointR.x + 10} y={pointR.y - 5} className="text-xs fill-gray-700">R</text>
-        </>
-      )}
-      {step >= 5 && (
-        <line
-          x1={pointP.x}
-          y1={pointP.y}
-          x2={pointR.x}
-          y2={pointR.y}
-          stroke="#3b82f6"
-          strokeWidth="2"
-        />
-      )}
-    </svg>
-  );
-};
-
-// 60-Degree Angle Construction Component
-const Angle60Construction: React.FC<{ step: number }> = ({ step }) => {
-  const width = 400;
-  const height = 300;
-  const pointO = { x: 100, y: 150 };
-  const pointB = { x: 300, y: 150 };
-  const radius = 80;
-  const pointP = { x: pointO.x + radius, y: pointO.y };
-  const pointA = {
-    x: pointO.x + radius * Math.cos(Math.PI / 3),
-    y: pointO.y - radius * Math.sin(Math.PI / 3)
-  };
-  return (
-    <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} className="w-full">
-      <line
-        x1={pointO.x}
-        y1={pointO.y}
-        x2={pointB.x}
-        y2={pointB.y}
-        stroke="#94a3b8"
-        strokeWidth="2"
-      />
-      <text x={pointO.x - 15} y={pointO.y + 5} className="text-xs fill-gray-700">O</text>
-      <text x={pointB.x + 5} y={pointB.y + 5} className="text-xs fill-gray-700">B</text>
-      {step >= 2 && (
-        <circle
-          cx={pointO.x}
-          cy={pointO.y}
-          r={radius}
-          fill="none"
-          stroke="#ef4444"
-          strokeWidth="1.5"
-          strokeDasharray="4,4"
-        />
-      )}
-      {step >= 2 && (
-        <>
-          <circle cx={pointP.x} cy={pointP.y} r="3" fill="#ef4444" />
-          <text x={pointP.x + 5} y={pointP.y + 15} className="text-xs fill-gray-700">P</text>
-        </>
-      )}
-      {step >= 3 && (
-        <circle
-          cx={pointP.x}
-          cy={pointP.y}
-          r={radius}
-          fill="none"
-          stroke="#10b981"
-          strokeWidth="1.5"
-          strokeDasharray="4,4"
-        />
-      )}
-      {step >= 3 && (
-        <>
-          <circle cx={pointA.x} cy={pointA.y} r="4" fill="#10b981" />
-          <text x={pointA.x + 10} y={pointA.y - 5} className="text-xs fill-gray-700">A</text>
-        </>
-      )}
-      {step >= 4 && (
-        <line
-          x1={pointO.x}
-          y1={pointO.y}
-          x2={pointA.x}
-          y2={pointA.y}
-          stroke="#3b82f6"
-          strokeWidth="2"
-        />
-      )}
-      {step >= 4 && (
-        <path
-          d={`M ${pointO.x + 30} ${pointO.y} A 30 30 0 0 1 ${pointA.x - 20} ${pointA.y + 15}`}
-          fill="none"
-          stroke="#3b82f6"
-          strokeWidth="1"
-        />
-      )}
-      {step >= 4 && (
-        <text x={pointO.x + 35} y={pointO.y - 10} className="text-xs fill-blue-600">60°</text>
-      )}
-    </svg>
-  );
-};
-
-
 
   // Construction data
   const constructionData: Record<ConstructionType, { name: string; maxSteps: number; description: string; IllustrationComponent: React.FC<{ step: number }> }> = {
@@ -595,19 +365,7 @@ const Angle60Construction: React.FC<{ step: number }> = ({ step }) => {
       maxSteps: 5,
       description: "Construct a line that bisects a given angle.",
       IllustrationComponent: AngleBisectorConstruction,
-    },
-    parallel: {
-      name: "Parallel Line",
-      maxSteps: 6,
-      description: "Construct a line parallel to a given line through a point not on the line.",
-      IllustrationComponent: ParallelLinesConstruction,
-    },
-    angle60: {
-      name: "60° Angle",
-      maxSteps: 4,
-      description: "Construct a 60-degree angle from a given line segment.",
-      IllustrationComponent: Angle60Construction,
-    },
+    }
   };
 
   const currentConstruction = constructionData[activeConstruction];
@@ -647,13 +405,12 @@ const Angle60Construction: React.FC<{ step: number }> = ({ step }) => {
     >
       <div className="mb-4 mt-3 text-white">
         <h2 className="text-xl font-bold mb-1 text-center">
-          Basic Geometric Constructions
+          Bisector Constructions
         </h2>
         <p className="text-sm text-center">
-          Step-by-step visual guide using compass and straightedge
+          Step-by-step visual guide for perpendicular and angle bisectors
         </p>
       </div>
-
       <div className="flex flex-col gap-4">
         {/* Construction Selector */}
         <div
@@ -684,7 +441,6 @@ const Angle60Construction: React.FC<{ step: number }> = ({ step }) => {
             ))}
           </div>
         </div>
-
         {/* Construction Visualization */}
         <div
           style={{
@@ -700,11 +456,9 @@ const Angle60Construction: React.FC<{ step: number }> = ({ step }) => {
           <p className="text-sm mb-3 text-center" style={{ color: NEUBRUTALISM_COLORS.primaryDark }}>
             {currentConstruction.description}
           </p>
-
-          <div className="flex justify-center mb-4 scale-120">
+          <div className="flex justify-center mb-4">
             <IllustrationComponent step={animationStep} />
           </div>
-
           {/* Controls */}
           <div className="flex justify-between items-center mb-3">
             <button
@@ -722,7 +476,6 @@ const Angle60Construction: React.FC<{ step: number }> = ({ step }) => {
             >
               Previous
             </button>
-
             <button
               onClick={togglePlay}
               style={getButtonStyle(false)}
@@ -735,7 +488,6 @@ const Angle60Construction: React.FC<{ step: number }> = ({ step }) => {
             >
               {isPlaying ? 'Pause' : 'Play'}
             </button>
-
             <button
               onClick={handleNext}
               disabled={animationStep === maxStepsForCurrent}
@@ -752,7 +504,6 @@ const Angle60Construction: React.FC<{ step: number }> = ({ step }) => {
               Next
             </button>
           </div>
-
           {/* Progress Bar */}
           <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4">
             <div
@@ -763,14 +514,11 @@ const Angle60Construction: React.FC<{ step: number }> = ({ step }) => {
               }}
             ></div>
           </div>
-
           {/* Step Description */}
           <div style={getInfoBoxStyle()}>
             <p style={{ color: NEUBRUTALISM_COLORS.primaryDark }}>
               <span className="font-bold">Step {animationStep}:</span> {getStepsForPerpendicular(animationStep) ||
-                getStepsForAngleBisector(animationStep) ||
-                getStepsForParallelLines(animationStep) ||
-                getStepsForAngle60(animationStep)}
+                getStepsForAngleBisector(animationStep)}
             </p>
           </div>
         </div>
@@ -779,4 +527,4 @@ const Angle60Construction: React.FC<{ step: number }> = ({ step }) => {
   );
 };
 
-export default BasicConstructions;
+export default Bisectors;

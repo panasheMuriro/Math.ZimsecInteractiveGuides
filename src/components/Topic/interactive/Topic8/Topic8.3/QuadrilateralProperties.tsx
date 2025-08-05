@@ -11,6 +11,25 @@ interface Quadrilateral {
   symmetryLines: [number, number, number, number][]; // [x1, y1, x2, y2] for symmetry lines
 }
 
+// --- Neubrutalism Styles & Colors ---
+const NEUBRUTALISM_COLORS = {
+  orange: '#f06543',     // Accents, Selected, Diagonals
+  lightGray: '#e8e9eb',  // Background, Cards, SVG background
+  cream: '#e0dfd5',      // Button Default, Highlights
+  darkGray: '#313638',   // Text, Lines, Borders, Symmetry Lines
+  yellow: '#f09d51',     // Accents, Highlights
+  white: '#ffffff',
+  shadow: 'rgba(49, 54, 56, 0.3)', // darkGray with opacity for shadow
+};
+
+const neubrutalismBase = {
+  border: `3px solid ${NEUBRUTALISM_COLORS.darkGray}`,
+  borderRadius: '12px',
+  boxShadow: `4px 4px 0px ${NEUBRUTALISM_COLORS.shadow}`,
+  padding: '1rem',
+};
+// --- End Neubrutalism Styles ---
+
 const QuadrilateralProperties: React.FC = () => {
   const [selectedQuad, setSelectedQuad] = useState<number>(0);
   const [showDiagonals, setShowDiagonals] = useState<boolean>(false);
@@ -112,33 +131,96 @@ const QuadrilateralProperties: React.FC = () => {
   ];
 
   const currentQuad = quadrilaterals[selectedQuad];
-//   const pointsString = currentQuad.points.map((p) => `${p.x},${p.y}`).join(' ');
   const pointsString = currentQuad.points.map((p) => `${p[0]},${p[1]}`).join(' ');
 
+  // --- Button Styling Helper ---
+  const getButtonStyle = (isActive: boolean) => {
+    return {
+      ...neubrutalismBase,
+      padding: '0.5rem 1rem',
+      fontSize: '0.875rem', // text-sm
+      fontWeight: 'bold',
+      backgroundColor: isActive ? NEUBRUTALISM_COLORS.orange : NEUBRUTALISM_COLORS.cream,
+      color: isActive ? NEUBRUTALISM_COLORS.white : NEUBRUTALISM_COLORS.darkGray,
+      borderColor: NEUBRUTALISM_COLORS.darkGray,
+      cursor: 'pointer',
+      transition: 'all 0.2s',
+      // Add hover effect inline
+      ...(isActive ? {} : { // No hover change for active buttons
+        ':hover': {
+          backgroundColor: NEUBRUTALISM_COLORS.lightGray,
+        }
+      })
+    };
+  };
+  // --- End Button Styling ---
+
   return (
-    <div className="p-4 bg-gradient-to-br from-[#379777] to-[#1B4242] font-sans rounded-2xl">
-      <h1 className="text-xl font-bold text-white mb-2 text-center">
-        Quadrilateral Properties
-      </h1>
-      <p className="text-sm text-white mb-4 text-center">
-        Explore special quadrilaterals and their properties
-      </p>
+    <div
+      style={{
+        ...neubrutalismBase,
+        maxWidth: '600px',
+        width: '100%',
+        margin: '0 auto',
+        padding: '1.5rem',
+        backgroundColor: NEUBRUTALISM_COLORS.orange, // Orange background
+        borderColor: NEUBRUTALISM_COLORS.darkGray,
+        color: NEUBRUTALISM_COLORS.darkGray,
+        borderRadius: '20px',
+        boxShadow: `8px 8px 0px ${NEUBRUTALISM_COLORS.darkGray}`,
+      }}
+    >
+      <div className="mb-4 mt-3 text-white">
+        <h1 className="text-xl font-bold mb-1 text-center">
+          Quadrilateral Properties
+        </h1>
+        <p className="text-sm text-center">
+          Explore special quadrilaterals and their properties
+        </p>
+      </div>
 
       <div className="flex flex-col gap-4">
         {/* Quadrilateral Visualization */}
-        <div className="bg-white/20 p-4 rounded-lg shadow-md">
-          <h2 className="text-base font-semibold mb-3 text-center text-white">{currentQuad.name}</h2>
+        <div
+          style={{
+            ...neubrutalismBase,
+            backgroundColor: NEUBRUTALISM_COLORS.lightGray,
+            borderColor: NEUBRUTALISM_COLORS.darkGray,
+            padding: '1rem',
+          }}
+        >
+          <h2
+            className="text-base font-bold mb-3 text-center"
+            style={{ color: NEUBRUTALISM_COLORS.darkGray }}
+          >
+            {currentQuad.name}
+          </h2>
           <div className="flex justify-center mb-3">
-            <svg width={svgSize} height={svgSize} className="border rounded-lg bg-gray-50">
+            <svg
+              width={svgSize}
+              height={svgSize}
+              className="border rounded-lg block"
+              style={{
+                border: `2px solid ${NEUBRUTALISM_COLORS.darkGray}`,
+                borderRadius: '12px',
+                backgroundColor: NEUBRUTALISM_COLORS.white,
+              }}
+            >
               {/* Quadrilateral */}
-              <polygon points={pointsString} fill="#bfdbfe" stroke="#2563eb" strokeWidth="3" />
+              <polygon
+                points={pointsString}
+                fill={NEUBRUTALISM_COLORS.cream}
+                stroke={NEUBRUTALISM_COLORS.darkGray}
+                strokeWidth="3"
+              />
               {/* Vertex labels */}
               {currentQuad.points.map((p, i) => (
                 <text
                   key={i}
                   x={p[0] + (p[0] > centerX ? 5 : -15)}
                   y={p[1] + (p[1] > centerY ? 10 : -5)}
-                  className="text-xs fill-gray-800"
+                  className="text-xs"
+                  style={{ fill: NEUBRUTALISM_COLORS.darkGray }}
                 >
                   {['A', 'B', 'C', 'D'][i]}
                 </text>
@@ -151,7 +233,7 @@ const QuadrilateralProperties: React.FC = () => {
                     y1={currentQuad.points[0][1]}
                     x2={currentQuad.points[2][0]}
                     y2={currentQuad.points[2][1]}
-                    stroke="#dc2626"
+                    stroke={NEUBRUTALISM_COLORS.orange}
                     strokeWidth="2"
                     strokeDasharray="4,4"
                   />
@@ -160,7 +242,7 @@ const QuadrilateralProperties: React.FC = () => {
                     y1={currentQuad.points[1][1]}
                     x2={currentQuad.points[3][0]}
                     y2={currentQuad.points[3][1]}
-                    stroke="#dc2626"
+                    stroke={NEUBRUTALISM_COLORS.orange}
                     strokeWidth="2"
                     strokeDasharray="4,4"
                   />
@@ -175,7 +257,7 @@ const QuadrilateralProperties: React.FC = () => {
                     y1={line[1]}
                     x2={line[2]}
                     y2={line[3]}
-                    stroke="#059669"
+                    stroke={NEUBRUTALISM_COLORS.darkGray} // Symmetry lines in dark gray
                     strokeWidth="2"
                     strokeDasharray="4,4"
                   />
@@ -185,16 +267,20 @@ const QuadrilateralProperties: React.FC = () => {
 
           {/* Quadrilateral Selector */}
           <div className="overflow-x-auto pb-2 mb-3">
-            <div className="flex gap-2 w-full flex-wrap">
+            <div className="flex gap-2 w-full flex-wrap justify-center">
               {quadrilaterals.map((quad, index) => (
                 <button
                   key={index}
                   onClick={() => setSelectedQuad(index)}
-                  className={`px-3 py-2 text-sm rounded-2xl transition-colors flex-shrink-0 ${
-                    selectedQuad === index
-                      ? 'bg-blue-500 text-white'
-                      : 'bg-white text-gray-700 hover:bg-gray-300'
-                  }`}
+                  style={getButtonStyle(selectedQuad === index)}
+                  onMouseEnter={(e) => {
+                    if (selectedQuad !== index)
+                      e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.lightGray;
+                  }}
+                  onMouseLeave={(e) => {
+                    if (selectedQuad !== index)
+                      e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.cream;
+                  }}
                 >
                   {quad.name}
                 </button>
@@ -203,27 +289,41 @@ const QuadrilateralProperties: React.FC = () => {
           </div>
 
           {/* Toggles for Diagonals and Symmetry */}
-          <div className="grid grid-cols-2 gap-2 mb-3">
+          <div className="grid grid-cols-2 gap-3 mb-3">
             <div>
-              <label className="flex items-center text-xs font-medium text-white">
+              <label
+                className="flex items-center text-sm font-bold"
+                style={{ color: NEUBRUTALISM_COLORS.darkGray }}
+              >
                 <input
                   type="checkbox"
                   checked={showDiagonals}
                   onChange={() => setShowDiagonals(!showDiagonals)}
                   disabled={!currentQuad.showDiagonals}
-                  className="mr-2"
+                  className="mr-2 w-4 h-4"
+                  style={{
+                    accentColor: NEUBRUTALISM_COLORS.orange,
+                    borderColor: NEUBRUTALISM_COLORS.darkGray,
+                  }}
                 />
-                Show <br/> Diagonals
+                Show Diagonals
               </label>
             </div>
             <div>
-              <label className="flex items-center text-xs font-medium text-white">
+              <label
+                className="flex items-center text-sm font-bold"
+                style={{ color: NEUBRUTALISM_COLORS.darkGray }}
+              >
                 <input
                   type="checkbox"
                   checked={showSymmetry}
                   onChange={() => setShowSymmetry(!showSymmetry)}
                   disabled={currentQuad.symmetryLines.length === 0}
-                  className="mr-2"
+                  className="mr-2 w-4 h-4"
+                  style={{
+                    accentColor: NEUBRUTALISM_COLORS.orange,
+                    borderColor: NEUBRUTALISM_COLORS.darkGray,
+                  }}
                 />
                 Show Symmetry Lines
               </label>
@@ -231,22 +331,28 @@ const QuadrilateralProperties: React.FC = () => {
           </div>
 
           {/* Properties Display */}
-          <div className="bg-gray-50 p-3 rounded-lg text-sm">
-            <p>
+          <div
+            style={{
+              ...neubrutalismBase,
+              backgroundColor: NEUBRUTALISM_COLORS.white,
+              borderColor: NEUBRUTALISM_COLORS.darkGray,
+              padding: '0.75rem',
+            }}
+          >
+            <p style={{ color: NEUBRUTALISM_COLORS.darkGray }}>
               <span className="font-medium">Sides:</span> {currentQuad.sides}
             </p>
-            <p>
+            <p style={{ color: NEUBRUTALISM_COLORS.darkGray }}>
               <span className="font-medium">Angles:</span> {currentQuad.angles}
             </p>
-            <p>
+            <p style={{ color: NEUBRUTALISM_COLORS.darkGray }}>
               <span className="font-medium">Diagonals:</span> {currentQuad.diagonals}
             </p>
-            <p>
+            <p style={{ color: NEUBRUTALISM_COLORS.darkGray }}>
               <span className="font-medium">Symmetry:</span> {currentQuad.symmetry}
             </p>
           </div>
         </div>
-
       </div>
     </div>
   );

@@ -20,12 +20,19 @@ import BasicConstructions from "./Topic8.5/BasicConstructions";
 import LineSymmetry from "./Topic8.6/LineSymmetry";
 import RotationalSymmetry from "./Topic8.6/RotationalSymmetry";
 import ShapeConstructions from "./Topic8.5/ShapeConstructions";
+import ParallelLinesTransversals from "./Topic8.1/ParallelLinesTransversals";
+import LocusPoint from "./Topic8.5/LocusPoint";
+import LocusTwoPoints from "./Topic8.5/LocusTwoPoints";
+import LocusLines from "./Topic8.5/LocusLines";
+import CompoundLoci from "./Topic8.5/CompoundLoci";
+import Bisectors from "./Topic8.5/Bisectors";
 
 export const topic8Components: Record<string, React.ComponentType> = {
   "angle-types": AngleTypesVisualizer,
   "protractor-usage": ProtractorMeasurementTool,
   "straight-line-angles": LinearAngles,
   "angles-around-point": AnglesAroundPointQuiz,
+  "parallel-lines": ParallelLinesTransversals, 
   "elevation-depression": AnglesOfElevationDepressionQuiz,
   "cardinal-directions": CardinalBearings,
   "compass-bearings": CompassBearings,
@@ -42,6 +49,11 @@ export const topic8Components: Record<string, React.ComponentType> = {
   "similar-shapes-problems": SimilarShapesProblems,
   "basic-constructions": BasicConstructions,
   "shape-constructions": ShapeConstructions,
+  "bisectors": Bisectors,
+  "locus-point":LocusPoint,
+  "locus-two-points": LocusTwoPoints,
+  "locus-lines": LocusLines,
+  "compound-loci": CompoundLoci,
   "line-symmetry": LineSymmetry,
   "rotational-symmetry": RotationalSymmetry,
 };

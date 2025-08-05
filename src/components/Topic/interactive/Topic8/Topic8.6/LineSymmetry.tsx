@@ -1,6 +1,73 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { ReactNode, useState } from "react";
 
+// --- New Color Palette ---
+const PALETTE = {
+  pink: "#e63946",
+  beige: "#f7e1d7",
+  offWhite: "#dedbd2",
+  sage: "#b0c4b1",
+  charcoal: "#4a5759",
+};
+
+// --- Neubrutalism Styles ---
+const neubrutalismBase = {
+  border: `3px solid ${PALETTE.charcoal}`,
+  borderRadius: '8px',
+  boxShadow: `4px 4px 0px ${PALETTE.charcoal}`,
+  transition: 'all 0.2s',
+};
+
+const getButtonStyle = (isActive: boolean) => {
+  return {
+    ...neubrutalismBase,
+    padding: '0.5rem 1rem',
+    fontSize: '0.875rem',
+    fontWeight: 'bold',
+    backgroundColor: isActive ? "#e29578" : PALETTE.offWhite,
+    color:isActive ? "#fff": PALETTE.charcoal,
+    cursor: 'pointer',
+    border: `3px solid ${PALETTE.charcoal}`,
+    boxShadow: `3px 3px 0px ${PALETTE.charcoal}`,
+    ':hover': {
+      backgroundColor: isActive ? PALETTE.sage : PALETTE.beige,
+      boxShadow: `2px 2px 0px ${PALETTE.charcoal}`,
+      transform: 'translate(1px, 1px)',
+    }
+  };
+};
+
+const getInfoBoxStyle = (variant: 'info' | 'description' = 'info') => {
+  return {
+    ...neubrutalismBase,
+    backgroundColor: variant === 'info' ? PALETTE.sage : PALETTE.offWhite,
+    borderColor: PALETTE.charcoal,
+    padding: '1rem',
+    width: '100%',
+    color: PALETTE.charcoal,
+    boxShadow: `4px 4px 0px ${PALETTE.charcoal}`,
+  };
+};
+
+const getStepButtonStyle = (isDisabled: boolean) => {
+  return {
+    ...neubrutalismBase,
+    padding: '0.75rem 1.5rem',
+    fontSize: '0.875rem',
+    fontWeight: 'bold',
+    backgroundColor: isDisabled ? PALETTE.beige : PALETTE.pink,
+    color:isDisabled ?  PALETTE.charcoal : "#fff",
+    cursor: isDisabled ? 'not-allowed' : 'pointer',
+    opacity: isDisabled ? 0.7 : 1,
+    ':hover': {
+      backgroundColor: PALETTE.pink,
+      boxShadow: `2px 2px 0px ${PALETTE.charcoal}`,
+      transform: 'translate(1px, 1px)',
+    }
+  };
+};
+
+// --- Main Component ---
 const LineSymmetry: React.FC = () => {
   const [shape, setShape] = useState<
     "equilateral-triangle" | "square" | "pentagon" | "rectangle" | "rhombus" | "isosceles-triangle" | "circle"
@@ -169,46 +236,46 @@ const LineSymmetry: React.FC = () => {
       case "equilateral-triangle": {
         const vertices = getPolygonVertices(center, 3, size);
         const pathData = `M${vertices[0].x},${vertices[0].y} L${vertices[1].x},${vertices[1].y} L${vertices[2].x},${vertices[2].y} Z`;
-        return <path d={pathData} stroke="white" strokeWidth="2" fill="none" />;
+        return <path d={pathData} stroke={PALETTE.charcoal} strokeWidth="2" fill="none" />;
       }
       case "square": {
         const vertices = getPolygonVertices(center, 4, size);
         const pathData = `M${vertices[0].x},${vertices[0].y} L${vertices[1].x},${vertices[1].y} L${vertices[2].x},${vertices[2].y} L${vertices[3].x},${vertices[3].y} Z`;
-        return <path d={pathData} stroke="white" strokeWidth="2" fill="none" />;
+        return <path d={pathData} stroke={PALETTE.charcoal} strokeWidth="2" fill="none" />;
       }
       case "pentagon": {
         const vertices = getPolygonVertices(center, 5, size);
         const pathData = `M${vertices[0].x},${vertices[0].y} L${vertices[1].x},${vertices[1].y} L${vertices[2].x},${vertices[2].y} L${vertices[3].x},${vertices[3].y} L${vertices[4].x},${vertices[4].y} Z`;
-        return <path d={pathData} stroke="white" strokeWidth="2" fill="none" />;
+        return <path d={pathData} stroke={PALETTE.charcoal} strokeWidth="2" fill="none" />;
       }
       case "rectangle":
         return (
           <>
-            <line x1={center.x - size} y1={center.y - 20} x2={center.x + size} y2={center.y - 20} stroke="white" strokeWidth="2" />
-            <line x1={center.x + size} y1={center.y - 20} x2={center.x + size} y2={center.y + 20} stroke="white" strokeWidth="2" />
-            <line x1={center.x + size} y1={center.y + 20} x2={center.x - size} y2={center.y + 20} stroke="white" strokeWidth="2" />
-            <line x1={center.x - size} y1={center.y + 20} x2={center.x - size} y2={center.y - 20} stroke="white" strokeWidth="2" />
+            <line x1={center.x - size} y1={center.y - 20} x2={center.x + size} y2={center.y - 20} stroke={PALETTE.charcoal} strokeWidth="2" />
+            <line x1={center.x + size} y1={center.y - 20} x2={center.x + size} y2={center.y + 20} stroke={PALETTE.charcoal} strokeWidth="2" />
+            <line x1={center.x + size} y1={center.y + 20} x2={center.x - size} y2={center.y + 20} stroke={PALETTE.charcoal} strokeWidth="2" />
+            <line x1={center.x - size} y1={center.y + 20} x2={center.x - size} y2={center.y - 20} stroke={PALETTE.charcoal} strokeWidth="2" />
           </>
         );
       case "rhombus":
         return (
           <>
-            <line x1={center.x - size} y1={center.y} x2={center.x} y2={center.y - size} stroke="white" strokeWidth="2" />
-            <line x1={center.x} y1={center.y - size} x2={center.x + size} y2={center.y} stroke="white" strokeWidth="2" />
-            <line x1={center.x + size} y1={center.y} x2={center.x} y2={center.y + size} stroke="white" strokeWidth="2" />
-            <line x1={center.x} y1={center.y + size} x2={center.x - size} y2={center.y} stroke="white" strokeWidth="2" />
+            <line x1={center.x - size} y1={center.y} x2={center.x} y2={center.y - size} stroke={PALETTE.charcoal} strokeWidth="2" />
+            <line x1={center.x} y1={center.y - size} x2={center.x + size} y2={center.y} stroke={PALETTE.charcoal} strokeWidth="2" />
+            <line x1={center.x + size} y1={center.y} x2={center.x} y2={center.y + size} stroke={PALETTE.charcoal} strokeWidth="2" />
+            <line x1={center.x} y1={center.y + size} x2={center.x - size} y2={center.y} stroke={PALETTE.charcoal} strokeWidth="2" />
           </>
         );
       case "isosceles-triangle":
         return (
           <>
-            <line x1={center.x - size} y1={center.y + 50} x2={center.x + size} y2={center.y + 50} stroke="white" strokeWidth="2" />
-            <line x1={center.x + size} y1={center.y + 50} x2={center.x} y2={center.y - 50} stroke="white" strokeWidth="2" />
-            <line x1={center.x} y1={center.y - 50} x2={center.x - size} y2={center.y + 50} stroke="white" strokeWidth="2" />
+            <line x1={center.x - size} y1={center.y + 50} x2={center.x + size} y2={center.y + 50} stroke={PALETTE.charcoal} strokeWidth="2" />
+            <line x1={center.x + size} y1={center.y + 50} x2={center.x} y2={center.y - 50} stroke={PALETTE.charcoal} strokeWidth="2" />
+            <line x1={center.x} y1={center.y - 50} x2={center.x - size} y2={center.y + 50} stroke={PALETTE.charcoal} strokeWidth="2" />
           </>
         );
       case "circle":
-        return <circle cx={center.x} cy={center.y} r={size} stroke="white" strokeWidth="2" fill="none" />;
+        return <circle cx={center.x} cy={center.y} r={size} stroke={PALETTE.charcoal} strokeWidth="2" fill="none" />;
       default:
         return null;
     }
@@ -229,7 +296,7 @@ const LineSymmetry: React.FC = () => {
             y1={p1.y}
             x2={p2.x}
             y2={p2.y}
-            stroke="white"
+            stroke={PALETTE.pink}
             strokeWidth="1"
             strokeDasharray="5"
           />
@@ -239,8 +306,8 @@ const LineSymmetry: React.FC = () => {
         const point = vertices[0]; // Top vertex
         const reflection = getReflectionPoint(point, symmetryLinesData[0].p1, symmetryLinesData[0].p2);
         lines.push(
-          <circle key="point1" cx={point.x} cy={point.y} r="3" fill="blue" />,
-          <circle key="point2" cx={reflection.x} cy={reflection.y} r="3" fill="blue" />
+          <circle key="point1" cx={point.x} cy={point.y} r="3" fill={PALETTE.pink} />,
+          <circle key="point2" cx={reflection.x} cy={reflection.y} r="3" fill={PALETTE.pink} />
         );
       }
     } else if (shape === "square" && step >= 1) {
@@ -251,7 +318,7 @@ const LineSymmetry: React.FC = () => {
             y1={center.y - size}
             x2={center.x}
             y2={center.y + size}
-            stroke="white"
+            stroke={PALETTE.pink}
             strokeWidth="1"
             strokeDasharray="5"
           />
@@ -264,7 +331,7 @@ const LineSymmetry: React.FC = () => {
             y1={center.y}
             x2={center.x + size}
             y2={center.y}
-            stroke="white"
+            stroke={PALETTE.pink}
             strokeWidth="1"
             strokeDasharray="5"
           />
@@ -277,7 +344,7 @@ const LineSymmetry: React.FC = () => {
             y1={center.y - size}
             x2={center.x + size}
             y2={center.y + size}
-            stroke="white"
+            stroke={PALETTE.pink}
             strokeWidth="1"
             strokeDasharray="5"
           />,
@@ -286,7 +353,7 @@ const LineSymmetry: React.FC = () => {
             y1={center.y + size}
             x2={center.x + size}
             y2={center.y - size}
-            stroke="white"
+            stroke={PALETTE.pink}
             strokeWidth="1"
             strokeDasharray="5"
           />
@@ -294,8 +361,8 @@ const LineSymmetry: React.FC = () => {
         const point = { x: center.x + size, y: center.y - size }; // Top-right corner
         const reflection = getReflectionPoint(point, { x: center.x, y: center.y - size }, { x: center.x, y: center.y + size });
         lines.push(
-          <circle key="point1" cx={point.x} cy={point.y} r="3" fill="blue" />,
-          <circle key="point2" cx={reflection.x} cy={reflection.y} r="3" fill="blue" />
+          <circle key="point1" cx={point.x} cy={point.y} r="3" fill={PALETTE.pink} />,
+          <circle key="point2" cx={reflection.x} cy={reflection.y} r="3" fill={PALETTE.pink} />
         );
       }
     } else if (shape === "pentagon" && step >= 1) {
@@ -309,7 +376,7 @@ const LineSymmetry: React.FC = () => {
             y1={p1.y}
             x2={p2.x}
             y2={p2.y}
-            stroke="white"
+            stroke={PALETTE.pink}
             strokeWidth="1"
             strokeDasharray="5"
           />
@@ -319,8 +386,8 @@ const LineSymmetry: React.FC = () => {
         const point = vertices[0]; // Top vertex
         const reflection = getReflectionPoint(point, symmetryLinesData[0].p1, symmetryLinesData[0].p2);
         lines.push(
-          <circle key="point1" cx={point.x} cy={point.y} r="3" fill="blue" />,
-          <circle key="point2" cx={reflection.x} cy={reflection.y} r="3" fill="blue" />
+          <circle key="point1" cx={point.x} cy={point.y} r="3" fill={PALETTE.pink} />,
+          <circle key="point2" cx={reflection.x} cy={reflection.y} r="3" fill={PALETTE.pink} />
         );
       }
     } else if (shape === "rectangle" && step >= 1) {
@@ -331,7 +398,7 @@ const LineSymmetry: React.FC = () => {
             y1={center.y - 20}
             x2={center.x}
             y2={center.y + 20}
-            stroke="white"
+            stroke={PALETTE.pink}
             strokeWidth="1"
             strokeDasharray="5"
           />
@@ -344,7 +411,7 @@ const LineSymmetry: React.FC = () => {
             y1={center.y}
             x2={center.x + size}
             y2={center.y}
-            stroke="white"
+            stroke={PALETTE.pink}
             strokeWidth="1"
             strokeDasharray="5"
           />
@@ -352,8 +419,8 @@ const LineSymmetry: React.FC = () => {
         const point = { x: center.x + size, y: center.y - 20 }; // Top-right corner
         const reflection = getReflectionPoint(point, { x: center.x, y: center.y - 20 }, { x: center.x, y: center.y + 20 });
         lines.push(
-          <circle key="point1" cx={point.x} cy={point.y} r="3" fill="blue" />,
-          <circle key="point2" cx={reflection.x} cy={reflection.y} r="3" fill="blue" />
+          <circle key="point1" cx={point.x} cy={point.y} r="3" fill={PALETTE.pink} />,
+          <circle key="point2" cx={reflection.x} cy={reflection.y} r="3" fill={PALETTE.pink} />
         );
       }
     } else if (shape === "rhombus" && step >= 1) {
@@ -364,7 +431,7 @@ const LineSymmetry: React.FC = () => {
             y1={center.y}
             x2={center.x + size}
             y2={center.y}
-            stroke="white"
+            stroke={PALETTE.pink}
             strokeWidth="1"
             strokeDasharray="5"
           />
@@ -377,7 +444,7 @@ const LineSymmetry: React.FC = () => {
             y1={center.y - size}
             x2={center.x}
             y2={center.y + size}
-            stroke="white"
+            stroke={PALETTE.pink}
             strokeWidth="1"
             strokeDasharray="5"
           />
@@ -385,8 +452,8 @@ const LineSymmetry: React.FC = () => {
         const point = { x: center.x + size, y: center.y }; // Right vertex
         const reflection = getReflectionPoint(point, { x: center.x - size, y: center.y }, { x: center.x + size, y: center.y });
         lines.push(
-          <circle key="point1" cx={point.x} cy={point.y} r="3" fill="blue" />,
-          <circle key="point2" cx={reflection.x} cy={reflection.y} r="3" fill="blue" />
+          <circle key="point1" cx={point.x} cy={point.y} r="3" fill={PALETTE.pink} />,
+          <circle key="point2" cx={reflection.x} cy={reflection.y} r="3" fill={PALETTE.pink} />
         );
       }
     } else if (shape === "isosceles-triangle" && step >= 1) {
@@ -396,7 +463,7 @@ const LineSymmetry: React.FC = () => {
           y1={center.y - 50}
           x2={center.x}
           y2={center.y + 50}
-          stroke="white"
+          stroke={PALETTE.pink}
           strokeWidth="1"
           strokeDasharray="5"
         />
@@ -404,8 +471,8 @@ const LineSymmetry: React.FC = () => {
       const point = { x: center.x + size, y: center.y + 50 }; // Right base vertex
       const reflection = getReflectionPoint(point, { x: center.x, y: center.y - 50 }, { x: center.x, y: center.y + 50 });
       lines.push(
-        <circle key="point1" cx={point.x} cy={point.y} r="3" fill="blue" />,
-        <circle key="point2" cx={reflection.x} cy={reflection.y} r="3" fill="blue" />
+        <circle key="point1" cx={point.x} cy={point.y} r="3" fill={PALETTE.pink} />,
+        <circle key="point2" cx={reflection.x} cy={reflection.y} r="3" fill={PALETTE.pink} />
       );
     } else if (shape === "circle" && step >= 1) {
       if (step >= 1) {
@@ -415,7 +482,7 @@ const LineSymmetry: React.FC = () => {
             y1={center.y - size}
             x2={center.x}
             y2={center.y + size}
-            stroke="white"
+            stroke={PALETTE.pink}
             strokeWidth="1"
             strokeDasharray="5"
           />
@@ -428,7 +495,7 @@ const LineSymmetry: React.FC = () => {
             y1={center.y}
             x2={center.x + size}
             y2={center.y}
-            stroke="white"
+            stroke={PALETTE.pink}
             strokeWidth="1"
             strokeDasharray="5"
           />,
@@ -437,7 +504,7 @@ const LineSymmetry: React.FC = () => {
             y1={center.y - size * 0.707}
             x2={center.x + size * 0.707}
             y2={center.y + size * 0.707}
-            stroke="white"
+            stroke={PALETTE.pink}
             strokeWidth="1"
             strokeDasharray="5"
           />
@@ -445,8 +512,8 @@ const LineSymmetry: React.FC = () => {
         const point = { x: center.x + size * 0.707, y: center.y - size * 0.707 }; // Point on circle
         const reflection = getReflectionPoint(point, { x: center.x, y: center.y - size }, { x: center.x, y: center.y + size });
         lines.push(
-          <circle key="point1" cx={point.x} cy={point.y} r="3" fill="blue" />,
-          <circle key="point2" cx={reflection.x} cy={reflection.y} r="3" fill="blue" />
+          <circle key="point1" cx={point.x} cy={point.y} r="3" fill={PALETTE.pink} />,
+          <circle key="point2" cx={reflection.x} cy={reflection.y} r="3" fill={PALETTE.pink} />
         );
       }
     }
@@ -473,16 +540,16 @@ const LineSymmetry: React.FC = () => {
   };
 
   return (
-    <div className="mx-auto p-4 bg-gradient-to-br from-[#F97A00] to-[#FF7A30]  rounded-2xl shadow-md">
-      <h3 className="text-lg font-semibold mb-4 text-center text-white">
+    <div style={{ ...neubrutalismBase, maxWidth: '600px', width: '100%', margin: '2rem auto', padding: '1.5rem', backgroundColor: PALETTE.sage, borderRadius: '20px', boxShadow: `8px 8px 0px ${PALETTE.charcoal}`}}>
+      <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1rem', textAlign: 'center', color: PALETTE.charcoal }}>
         Line Symmetry Visualizer
       </h3>
-      <p className="text-sm text-white mb-4 text-center">
+      <p style={{ fontSize: '0.875rem', color: PALETTE.charcoal, marginBottom: '1rem', textAlign: 'center' }}>
         Select a shape and step through to see its lines of symmetry.
       </p>
 
       {/* Shape Selector */}
-      <div className="flex flex-wrap justify-center gap-2 mb-6">
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
         {[
           { id: "equilateral-triangle", label: "Equilateral Triangle" },
           { id: "square", label: "Square" },
@@ -495,11 +562,7 @@ const LineSymmetry: React.FC = () => {
           <button
             key={id}
             onClick={() => handleShapeChange(id as any)}
-            className={`px-3 py-2 text-sm font-medium rounded-full border-1 border-black ${
-              shape === id
-                ? "bg-[#273F4F] text-white"
-                : "bg-white text-gray-700 hover:bg-gray-300"
-            }`}
+            style={getButtonStyle(shape === id)}
           >
             {label}
           </button>
@@ -507,44 +570,38 @@ const LineSymmetry: React.FC = () => {
       </div>
 
       {/* Visualization */}
-      <div className="flex justify-center rounded-lg">
-        <svg width="100%" height="200" viewBox="0 0 300 200" className="max-w-full">
+      <div style={{ ...neubrutalismBase, backgroundColor: PALETTE.offWhite, display: 'flex', justifyContent: 'center', borderRadius: '8px', padding: '1rem' }}>
+        <svg width="100%" height="200" className="scale-130" viewBox="0 0 300 200" style={{ maxWidth: '100%' }}>
           {renderShape()}
           {renderSymmetryLines() as ReactNode}
         </svg>
       </div>
 
       {/* Step Navigation */}
-      <div className="flex justify-between mt-4">
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
         <button
           onClick={handlePrevStep}
           disabled={step === 0}
-          className={`px-4 py-2 text-sm font-medium rounded-full border-1 border-black ${
-            step === 0 ? "bg-gray-300 cursor-not-allowed" : "bg-blue-500 text-white hover:bg-blue-600"
-          }`}
+          style={getStepButtonStyle(step === 0)}
         >
           Previous
         </button>
         <button
           onClick={handleNextStep}
           disabled={step === shapes[shape].steps.length - 1}
-          className={`px-4 py-2 text-sm font-medium rounded-full border-1 border-black ${
-            step === shapes[shape].steps.length - 1
-              ? "bg-gray-300 cursor-not-allowed"
-              : "bg-blue-500 text-white hover:bg-blue-600"
-          }`}
+          style={getStepButtonStyle(step === shapes[shape].steps.length - 1)}
         >
           Next
         </button>
       </div>
 
       {/* Feedback */}
-      <div className="text-sm text-white bg-white/20 p-4 rounded-lg mt-4">
-        <p>
-          <strong>Step {step + 1}:</strong> {shapes[shape].steps[step]}
+      <div style={{ ...getInfoBoxStyle('info'), backgroundColor: PALETTE.beige, marginTop: '1rem', padding: '1rem' }}>
+        <p style={{ fontSize: '0.875rem', color: PALETTE.charcoal }}>
+          <strong style={{ fontWeight: 'bold' }}>Step {step + 1}:</strong> {shapes[shape].steps[step]}
         </p>
-        <p className="mt-2">
-          This shape has {shapes[shape].symmetryLines === Infinity ? "infinite" : shapes[shape].symmetryLines} line(s) of symmetry. Corresponding points are equidistant from the mirror line.
+        <p style={{ fontSize: '0.875rem', color: PALETTE.charcoal, marginTop: '0.5rem' }}>
+          This shape has <strong style={{ fontWeight: 'bold' }}>{shapes[shape].symmetryLines === Infinity ? "infinite" : shapes[shape].symmetryLines}</strong> line(s) of symmetry. Corresponding points are equidistant from the mirror line.
         </p>
       </div>
     </div>

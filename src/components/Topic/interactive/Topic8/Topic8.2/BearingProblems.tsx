@@ -7,6 +7,25 @@ interface Step {
   svgContent: any;
 }
 
+// --- Neubrutalism Styles & Colors ---
+const NEUBRUTALISM_COLORS = {
+  cream: '#f4f1de',      // Background, Cards
+  orange: '#e07a5f',     // Accents, Selected, Reset Button, Ship Path
+  slate: '#3d405b',      // Text, Lines, Center Dot, Borders
+  teal: '#81b29a',       // Back Bearing, Correct, Highlights
+  yellow: '#f2cc8f',     // Accents, Highlights, Button Default
+  white: '#ffffff',
+  shadow: 'rgba(61, 64, 91, 0.3)', // slate with opacity for shadow
+};
+
+const neubrutalismBase = {
+  border: `3px solid ${NEUBRUTALISM_COLORS.slate}`,
+  borderRadius: '12px',
+  boxShadow: `4px 4px 0px ${NEUBRUTALISM_COLORS.shadow}`,
+  padding: '1rem',
+};
+// --- End Neubrutalism Styles ---
+
 const BearingProblems: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);
 
@@ -63,16 +82,16 @@ const BearingProblems: React.FC = () => {
             y1={centerY}
             x2={centerX}
             y2={centerY - svgSize * 0.4}
-            stroke="#94a3b8"
+            stroke={NEUBRUTALISM_COLORS.slate}
             strokeWidth="2"
             strokeDasharray="8,4"
           />
           {/* Point A */}
-          <circle cx={centerX} cy={centerY} r="4" fill="#2563eb" />
-          <text x={centerX - 10} y={centerY - 5} className="text-xs fill-gray-800">
+          <circle cx={centerX} cy={centerY} r="4" fill={NEUBRUTALISM_COLORS.slate} />
+          <text x={centerX - 10} y={centerY - 5} className="text-xs" style={{ fill: NEUBRUTALISM_COLORS.slate }}>
             A
           </text>
-          <text x={centerX} y={centerY - svgSize * 0.4 - 10} textAnchor="middle" className="text-sm font-bold fill-blue-600">
+          <text x={centerX} y={centerY - svgSize * 0.4 - 10} textAnchor="middle" className="text-sm font-bold" style={{ fill: NEUBRUTALISM_COLORS.teal }}>
             N
           </text>
         </>
@@ -89,7 +108,7 @@ const BearingProblems: React.FC = () => {
             y1={centerY}
             x2={centerX}
             y2={centerY - svgSize * 0.4}
-            stroke="#94a3b8"
+            stroke={NEUBRUTALISM_COLORS.slate}
             strokeWidth="2"
             strokeDasharray="8,4"
           />
@@ -99,27 +118,28 @@ const BearingProblems: React.FC = () => {
             y1={pointA.y}
             x2={pointB.x}
             y2={pointB.y}
-            stroke="#dc2626"
+            stroke={NEUBRUTALISM_COLORS.orange}
             strokeWidth="3"
             markerEnd="url(#arrowhead)"
           />
           {/* Points */}
-          <circle cx={pointA.x} cy={pointA.y} r="4" fill="#2563eb" />
-          <circle cx={pointB.x} cy={pointB.y} r="4" fill="#2563eb" />
-          <text x={pointA.x - 10} y={pointA.y - 5} className="text-xs fill-gray-800">
+          <circle cx={pointA.x} cy={pointA.y} r="4" fill={NEUBRUTALISM_COLORS.slate} />
+          <circle cx={pointB.x} cy={pointB.y} r="4" fill={NEUBRUTALISM_COLORS.slate} />
+          <text x={pointA.x - 10} y={pointA.y - 5} className="text-xs" style={{ fill: NEUBRUTALISM_COLORS.slate }}>
             A
           </text>
-          <text x={pointB.x + 5} y={pointB.y - 5} className="text-xs fill-gray-800">
+          <text x={pointB.x + 5} y={pointB.y - 5} className="text-xs" style={{ fill: NEUBRUTALISM_COLORS.slate }}>
             B
           </text>
-          <text x={centerX} y={centerY - svgSize * 0.4 - 10} textAnchor="middle" className="text-sm font-bold fill-blue-600">
+          <text x={centerX} y={centerY - svgSize * 0.4 - 10} textAnchor="middle" className="text-sm font-bold" style={{ fill: NEUBRUTALISM_COLORS.teal }}>
             N
           </text>
           <text
             x={(pointA.x + pointB.x) / 2}
             y={(pointA.y + pointB.y) / 2 - 20}
             textAnchor="middle"
-            className="text-xs fill-gray-600"
+            className="text-xs"
+            style={{ fill: NEUBRUTALISM_COLORS.slate }}
           >
             50km, 060°
           </text>
@@ -137,7 +157,7 @@ const BearingProblems: React.FC = () => {
             y1={centerY}
             x2={centerX}
             y2={centerY - svgSize * 0.4}
-            stroke="#94a3b8"
+            stroke={NEUBRUTALISM_COLORS.slate}
             strokeWidth="2"
             strokeDasharray="8,4"
           />
@@ -147,7 +167,7 @@ const BearingProblems: React.FC = () => {
             y1={pointA.y}
             x2={pointB.x}
             y2={pointB.y}
-            stroke="#dc2626"
+            stroke={NEUBRUTALISM_COLORS.orange}
             strokeWidth="3"
             markerEnd="url(#arrowhead)"
           />
@@ -157,31 +177,32 @@ const BearingProblems: React.FC = () => {
             y1={pointB.y}
             x2={pointC.x}
             y2={pointC.y}
-            stroke="#dc2626"
+            stroke={NEUBRUTALISM_COLORS.orange}
             strokeWidth="3"
             markerEnd="url(#arrowhead)"
           />
           {/* Points */}
-          <circle cx={pointA.x} cy={pointA.y} r="4" fill="#2563eb" />
-          <circle cx={pointB.x} cy={pointB.y} r="4" fill="#2563eb" />
-          <circle cx={pointC.x} cy={pointC.y} r="4" fill="#2563eb" />
-          <text x={pointA.x - 10} y={pointA.y - 5} className="text-xs fill-gray-800">
+          <circle cx={pointA.x} cy={pointA.y} r="4" fill={NEUBRUTALISM_COLORS.slate} />
+          <circle cx={pointB.x} cy={pointB.y} r="4" fill={NEUBRUTALISM_COLORS.slate} />
+          <circle cx={pointC.x} cy={pointC.y} r="4" fill={NEUBRUTALISM_COLORS.slate} />
+          <text x={pointA.x - 10} y={pointA.y - 5} className="text-xs" style={{ fill: NEUBRUTALISM_COLORS.slate }}>
             A
           </text>
-          <text x={pointB.x + 5} y={pointB.y - 5} className="text-xs fill-gray-800">
+          <text x={pointB.x + 5} y={pointB.y - 5} className="text-xs" style={{ fill: NEUBRUTALISM_COLORS.slate }}>
             B
           </text>
-          <text x={pointC.x + 5} y={pointC.y + 10} className="text-xs fill-gray-800">
+          <text x={pointC.x + 5} y={pointC.y + 10} className="text-xs" style={{ fill: NEUBRUTALISM_COLORS.slate }}>
             C
           </text>
-          <text x={centerX} y={centerY - svgSize * 0.4 - 10} textAnchor="middle" className="text-sm font-bold fill-blue-600">
+          <text x={centerX} y={centerY - svgSize * 0.4 - 10} textAnchor="middle" className="text-sm font-bold" style={{ fill: NEUBRUTALISM_COLORS.teal }}>
             N
           </text>
           <text
             x={(pointA.x + pointB.x) / 2}
             y={(pointA.y + pointB.y) / 2 - 20}
             textAnchor="middle"
-            className="text-xs fill-gray-600"
+            className="text-xs"
+            style={{ fill: NEUBRUTALISM_COLORS.slate }}
           >
             50km, 060°
           </text>
@@ -189,7 +210,8 @@ const BearingProblems: React.FC = () => {
             x={(pointB.x + pointC.x) / 2}
             y={(pointB.y + pointC.y) / 2 + 10}
             textAnchor="middle"
-            className="text-xs fill-gray-600"
+            className="text-xs"
+            style={{ fill: NEUBRUTALISM_COLORS.slate }}
           >
             30km, 150°
           </text>
@@ -209,7 +231,7 @@ const BearingProblems: React.FC = () => {
             y1={centerY}
             x2={centerX}
             y2={centerY - svgSize * 0.4}
-            stroke="#94a3b8"
+            stroke={NEUBRUTALISM_COLORS.slate}
             strokeWidth="2"
             strokeDasharray="8,4"
           />
@@ -219,7 +241,7 @@ const BearingProblems: React.FC = () => {
             y1={pointA.y}
             x2={pointB.x}
             y2={pointB.y}
-            stroke="#dc2626"
+            stroke={NEUBRUTALISM_COLORS.orange}
             strokeWidth="3"
             markerEnd="url(#arrowhead)"
           />
@@ -228,7 +250,7 @@ const BearingProblems: React.FC = () => {
             y1={pointB.y}
             x2={pointC.x}
             y2={pointC.y}
-            stroke="#dc2626"
+            stroke={NEUBRUTALISM_COLORS.orange}
             strokeWidth="3"
             markerEnd="url(#arrowhead)"
           />
@@ -238,32 +260,33 @@ const BearingProblems: React.FC = () => {
             y1={pointC.y}
             x2={pointA.x}
             y2={pointA.y}
-            stroke="#059669"
+            stroke={NEUBRUTALISM_COLORS.teal}
             strokeWidth="3"
             strokeDasharray="4,4"
             markerEnd="url(#back-arrowhead)"
           />
           {/* Points */}
-          <circle cx={pointA.x} cy={pointA.y} r="4" fill="#2563eb" />
-          <circle cx={pointB.x} cy={pointB.y} r="4" fill="#2563eb" />
-          <circle cx={pointC.x} cy={pointC.y} r="4" fill="#2563eb" />
-          <text x={pointA.x - 10} y={pointA.y - 5} className="text-xs fill-gray-800">
+          <circle cx={pointA.x} cy={pointA.y} r="4" fill={NEUBRUTALISM_COLORS.slate} />
+          <circle cx={pointB.x} cy={pointB.y} r="4" fill={NEUBRUTALISM_COLORS.slate} />
+          <circle cx={pointC.x} cy={pointC.y} r="4" fill={NEUBRUTALISM_COLORS.slate} />
+          <text x={pointA.x - 10} y={pointA.y - 5} className="text-xs" style={{ fill: NEUBRUTALISM_COLORS.slate }}>
             A
           </text>
-          <text x={pointB.x + 5} y={pointB.y - 5} className="text-xs fill-gray-800">
+          <text x={pointB.x + 5} y={pointB.y - 5} className="text-xs" style={{ fill: NEUBRUTALISM_COLORS.slate }}>
             B
           </text>
-          <text x={pointC.x + 5} y={pointC.y + 10} className="text-xs fill-gray-800">
+          <text x={pointC.x + 5} y={pointC.y + 10} className="text-xs" style={{ fill: NEUBRUTALISM_COLORS.slate }}>
             C
           </text>
-          <text x={centerX} y={centerY - svgSize * 0.4 - 10} textAnchor="middle" className="text-sm font-bold fill-blue-600">
+          <text x={centerX} y={centerY - svgSize * 0.4 - 10} textAnchor="middle" className="text-sm font-bold" style={{ fill: NEUBRUTALISM_COLORS.teal }}>
             N
           </text>
           <text
             x={(pointA.x + pointB.x) / 2}
             y={(pointA.y + pointB.y) / 2 - 20}
             textAnchor="middle"
-            className="text-xs fill-gray-600"
+            className="text-xs"
+            style={{ fill: NEUBRUTALISM_COLORS.slate }}
           >
             50km, 060°
           </text>
@@ -271,7 +294,8 @@ const BearingProblems: React.FC = () => {
             x={(pointB.x + pointC.x) / 2}
             y={(pointB.y + pointC.y) / 2 + 10}
             textAnchor="middle"
-            className="text-xs fill-gray-600"
+            className="text-xs"
+            style={{ fill: NEUBRUTALISM_COLORS.slate }}
           >
             30km, 150°
           </text>
@@ -279,7 +303,8 @@ const BearingProblems: React.FC = () => {
             x={(pointC.x + pointA.x) / 2}
             y={(pointC.y + pointA.y) / 2 + 20}
             textAnchor="middle"
-            className="text-xs fill-green-600"
+            className="text-xs"
+            style={{ fill: NEUBRUTALISM_COLORS.teal }}
           >
             {distanceHome.toFixed(1)}km, {bearingHome.toString().padStart(3, '0')}°
           </text>
@@ -288,77 +313,165 @@ const BearingProblems: React.FC = () => {
     },
   ];
 
-  return (
-    <div className="p-6 bg-gradient-to-br from-[#948979] to-[#3F4F44] font-sans rounded-2xl">
-      <h1 className="text-xl font-bold text-white mb-2 text-center">
-        Solving Bearing Problems
-      </h1>
-      <p className="text-sm text-white  mb-4 text-center">
-        Step through an example to learn how to solve bearing problems
-      </p>
+  // --- Button Styling Helper ---
+const getButtonStyle = (isActive: boolean) => {
+    return {
+      ...neubrutalismBase,
+      padding: '0.5rem 1rem',
+      fontSize: '0.875rem', // text-sm
+      fontWeight: 'bold',
+      backgroundColor: isActive ? NEUBRUTALISM_COLORS.teal : NEUBRUTALISM_COLORS.yellow,
+      color: isActive ? NEUBRUTALISM_COLORS.white : NEUBRUTALISM_COLORS.slate,
+      borderColor: NEUBRUTALISM_COLORS.slate,
+      cursor: 'pointer',
+      transition: 'all 0.2s',
+      // Add hover effect inline
+      ...(isActive ? {} : { // No hover change for active buttons
+        ':hover': {
+          backgroundColor: NEUBRUTALISM_COLORS.cream,
+        }
+      })
+    };
+  };
+  // --- End Button Styling ---
 
+  return (
+    <div
+      style={{
+        ...neubrutalismBase,
+        maxWidth: '600px',
+        width: '100%',
+        margin: '0 auto',
+        padding: '1.5rem',
+        backgroundColor: NEUBRUTALISM_COLORS.teal, // Teal background
+        borderColor: NEUBRUTALISM_COLORS.slate,
+        color: NEUBRUTALISM_COLORS.slate,
+        borderRadius: '20px',
+        boxShadow: `8px 8px 0px ${NEUBRUTALISM_COLORS.slate}`,
+      }}
+    >
+      <div className="mb-4 mt-3 text-white">
+        <h1 className="text-xl font-bold mb-1 text-center">
+          Solving Bearing Problems
+        </h1>
+        <p className="text-sm text-center">
+          Step through an example to learn how to solve bearing problems
+        </p>
+      </div>
       <div className="flex flex-col gap-4">
         {/* SVG Diagram */}
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h2 className="text-base font-semibold mb-3 text-center">
+        <div
+          style={{
+            ...neubrutalismBase,
+            backgroundColor: NEUBRUTALISM_COLORS.cream,
+            borderColor: NEUBRUTALISM_COLORS.slate,
+            padding: '1rem',
+          }}
+        >
+          <h2
+            className="text-base font-bold mb-3 text-center"
+            style={{ color: NEUBRUTALISM_COLORS.slate }}
+          >
             Example: Ship Navigation
           </h2>
-          <p className="text-sm text-gray-600 mb-3 text-center">
+          <p
+            className="text-sm mb-3 text-center"
+            style={{ color: NEUBRUTALISM_COLORS.slate }}
+          >
             A ship sails 50km on 060°, then 30km on 150°. Find the direct route home.
           </p>
           <div className="flex justify-center mb-3">
-            <svg width={svgSize} height={svgSize} className="border rounded-lg bg-gray-50">
+            <svg
+              width={svgSize}
+              height={svgSize}
+              className="border rounded-lg bg-gray-50 block"
+              style={{
+                border: `2px solid ${NEUBRUTALISM_COLORS.slate}`,
+                borderRadius: '12px',
+                backgroundColor: NEUBRUTALISM_COLORS.white,
+              }}
+            >
               {steps[currentStep].svgContent as ReactNode}
               <defs>
                 <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-                  <polygon points="0 0, 8 3, 0 6" fill="#dc2626" />
+                  <polygon points="0 0, 8 3, 0 6" fill={NEUBRUTALISM_COLORS.orange} />
                 </marker>
                 <marker id="back-arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-                  <polygon points="0 0, 8 3, 0 6" fill="#059669" />
+                  <polygon points="0 0, 8 3, 0 6" fill={NEUBRUTALISM_COLORS.teal} />
                 </marker>
               </defs>
             </svg>
           </div>
-
           {/* Step Navigation */}
           <div className="flex justify-between mb-3">
             <button
               onClick={() => setCurrentStep((prev) => Math.max(0, prev - 1))}
               disabled={currentStep === 0}
-              className="px-5 py-2 text-sm bg-gray-200 text-gray-700 rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed"
+              style={getButtonStyle(false)}
+              onMouseEnter={(e) => {
+                if (currentStep !== 0)
+                  e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.cream;
+              }}
+              onMouseLeave={(e) => {
+                if (currentStep !== 0)
+                  e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.yellow;
+              }}
             >
               Previous
             </button>
             <button
               onClick={() => setCurrentStep((prev) => Math.min(steps.length - 1, prev + 1))}
               disabled={currentStep === steps.length - 1}
-              className="px-5 py-2 text-sm bg-[#948979] text-white rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed"
+              style={getButtonStyle(false)}
+              onMouseEnter={(e) => {
+                if (currentStep !== steps.length - 1)
+                  e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.cream;
+              }}
+              onMouseLeave={(e) => {
+                if (currentStep !== steps.length - 1)
+                  e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.yellow;
+              }}
             >
               Next
             </button>
           </div>
-
           {/* Step Description */}
-          <div className="bg-gray-50 p-3 rounded-lg text-sm">
-            <h3 className="font-medium mb-1">{steps[currentStep].label}</h3>
-            <p>{steps[currentStep].description}</p>
+          <div
+            style={{
+              ...neubrutalismBase,
+              backgroundColor: NEUBRUTALISM_COLORS.white,
+              borderColor: NEUBRUTALISM_COLORS.slate,
+              padding: '0.75rem',
+            }}
+          >
+            <h3
+              className="font-medium mb-1"
+              style={{ color: NEUBRUTALISM_COLORS.slate }}
+            >
+              {steps[currentStep].label}
+            </h3>
+            <p style={{ color: NEUBRUTALISM_COLORS.slate }}>{steps[currentStep].description}</p>
           </div>
         </div>
-
         {/* Problem-Solving Strategy */}
-        <div className="bg-white/20 text-white p-4 rounded-lg shadow-md">
-          <div className="text-sm space-y-2">
-          
-              <span className="font-medium">Common Problem Types:</span>
-              <ul className="list-disc pl-4">
-                <li>
-                  <strong>Finding Final Position:</strong> Given start point, bearing, and distance, find end coordinates or new bearing.
-                </li>
-                <li>
-                  <strong>Navigation Problems:</strong> Given multiple legs of a journey, find final position or direct route home.
-                </li>
-              </ul>
-           
+        <div
+          style={{
+            ...neubrutalismBase,
+            backgroundColor: NEUBRUTALISM_COLORS.cream,
+            borderColor: NEUBRUTALISM_COLORS.slate,
+            padding: '1rem',
+          }}
+        >
+          <div className="text-sm space-y-2" style={{ color: NEUBRUTALISM_COLORS.slate }}>
+            <span className="font-medium">Common Problem Types:</span>
+            <ul className="list-disc pl-4">
+              <li>
+                <strong>Finding Final Position:</strong> Given start point, bearing, and distance, find end coordinates or new bearing.
+              </li>
+              <li>
+                <strong>Navigation Problems:</strong> Given multiple legs of a journey, find final position or direct route home.
+              </li>
+            </ul>
           </div>
         </div>
       </div>

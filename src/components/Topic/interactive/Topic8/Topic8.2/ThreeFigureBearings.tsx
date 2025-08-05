@@ -12,6 +12,27 @@ const ThreeFigureBearings = () => {
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
   const [sweepAngle, setSweepAngle] = useState<number>(0);
 
+  // --- Neubrutalism Styles & Colors (Aligned with Cardinal Bearings) ---
+  const NEUBRUTALISM_COLORS = {
+    blue: '#0081a7',       // Primary - Cardinal, Background Accents
+    teal: '#00afb9',       // Secondary - Intercardinal, Background
+    cream: '#fdfcdc',      // Background, Cards
+    orange: '#fed9b7',     // Accents, Half-wind, Highlights
+    red: '#f07167',        // Accents, Selected, Reset Button (Bearing Line)
+    green: '#38b000',      // Back Bearing
+    white: '#ffffff',
+    slate: '#334155',      // Text, Lines, Center Dot
+    shadow: 'rgba(0, 0, 0, 0.2)', // Shadows
+  };
+
+  const neubrutalismBase = {
+    border: `3px solid ${NEUBRUTALISM_COLORS.slate}`,
+    borderRadius: '12px',
+    boxShadow: `4px 4px 0px ${NEUBRUTALISM_COLORS.shadow}`,
+    padding: '1rem',
+  };
+  // --- End Neubrutalism Styles ---
+
   const examples: BearingExample[] = [
     { label: 'Due North', angle: 0 },
     { label: 'Northeast', angle: 45 },
@@ -65,38 +86,119 @@ const ThreeFigureBearings = () => {
   const currentAngle = parseInt(bearingAngle) || examples[currentExample].angle;
   const backBearing = calculateBackBearing(currentAngle);
 
+  // --- Button Styling Helper (Aligned with Cardinal Bearings) ---
+  const getButtonStyle = (index: number) => {
+    const isActive = currentExample === index;
+    return {
+      ...neubrutalismBase,
+      padding: '0.5rem 1rem',
+      fontSize: '0.875rem', // text-sm
+      fontWeight: 'bold',
+      backgroundColor: isActive ? NEUBRUTALISM_COLORS.teal : NEUBRUTALISM_COLORS.cream,
+      color: isActive ? NEUBRUTALISM_COLORS.white : NEUBRUTALISM_COLORS.slate,
+      borderColor: NEUBRUTALISM_COLORS.slate,
+      cursor: 'pointer',
+      transition: 'all 0.2s',
+      // Add hover effect inline
+      ...(isActive ? {} : { // No hover change for active buttons
+        ':hover': {
+          backgroundColor: NEUBRUTALISM_COLORS.orange,
+        }
+      })
+    };
+  };
+  // --- End Button Styling ---
+
   return (
-    <div className="p-6 bg-gradient-to-br from-[#03A6A1] to-[#096B68] font-sans rounded-2xl">
-      <h1 className="text-xl font-bold text-white mb-2 text-center">
-        Three-Figure Bearings
-      </h1>
-      <p className="text-sm text-white mb-4 text-center">
-        Learn how bearings are measured clockwise from North (000°–360°)
-      </p>
+    <div
+      style={{
+        ...neubrutalismBase,
+        maxWidth: '600px',
+        width: '100%',
+        margin: '0 auto',
+        padding: '1.5rem',
+        backgroundColor: NEUBRUTALISM_COLORS.teal, // Teal background
+        borderColor: NEUBRUTALISM_COLORS.slate,
+        color: NEUBRUTALISM_COLORS.slate,
+        borderRadius: '20px',
+        boxShadow: `8px 8px 0px ${NEUBRUTALISM_COLORS.slate}`,
+      }}
+    >
+      <div className="mb-4 mt-3 text-white">
+        <h1 className="text-xl font-bold mb-1 text-center">
+          Three-Figure Bearings
+        </h1>
+        <p className="text-sm text-center">
+          Learn how bearings are measured clockwise from North (000°–360°)
+        </p>
+      </div>
 
       <div className="flex flex-col gap-4">
         {/* Compass Display */}
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h2 className="text-base font-semibold mb-3 text-center">
+        <div
+          style={{
+            ...neubrutalismBase,
+            backgroundColor: NEUBRUTALISM_COLORS.cream,
+            borderColor: NEUBRUTALISM_COLORS.slate,
+            padding: '1rem',
+          }}
+        >
+          <h2
+            className="text-base font-bold mb-3 text-center"
+            style={{ color: NEUBRUTALISM_COLORS.slate }}
+          >
             Compass Visualization
           </h2>
           <div className="flex justify-center mb-3">
-            <svg width={svgSize} height={svgSize} className="border rounded-lg bg-gray-50">
+            <svg
+              width={svgSize}
+              height={svgSize}
+              className="border rounded-lg bg-gray-50 block"
+              style={{
+                border: `2px solid ${NEUBRUTALISM_COLORS.slate}`,
+                borderRadius: '12px',
+                backgroundColor: NEUBRUTALISM_COLORS.white,
+              }}
+            >
               {/* Background circles */}
-              <circle cx={centerX} cy={centerY} r={radius} fill="none" stroke="#e5e7eb" strokeWidth="2" />
+              <circle cx={centerX} cy={centerY} r={radius} fill="none" stroke={NEUBRUTALISM_COLORS.slate} strokeWidth="2" />
               <circle cx={centerX} cy={centerY} r={radius * 0.8} fill="none" stroke="#f3f4f6" strokeWidth="1" />
 
               {/* Cardinal directions */}
-              <text x={centerX} y={centerY - radius - 10} textAnchor="middle" className="text-sm font-bold fill-blue-600">
+              <text
+                x={centerX}
+                y={centerY - radius - 10}
+                textAnchor="middle"
+                className="text-sm font-bold"
+                style={{ fill: NEUBRUTALISM_COLORS.blue }}
+              >
                 N
               </text>
-              <text x={centerX + radius + 10} y={centerY + 5} textAnchor="middle" className="text-sm font-bold fill-green-600">
+              <text
+                x={centerX + radius + 10}
+                y={centerY + 5}
+                textAnchor="middle"
+                className="text-sm font-bold"
+                style={{ fill: NEUBRUTALISM_COLORS.teal }}
+              >
                 E
               </text>
-              <text x={centerX} y={centerY + radius + 15} textAnchor="middle" className="text-sm font-bold fill-red-600">
+              <text
+                x={centerX}
+                y={centerY + radius + 15}
+                textAnchor="middle"
+                className="text-sm font-bold"
+                style={{ fill: NEUBRUTALISM_COLORS.red }}
+              >
                 S
               </text>
-              <text x={centerX - radius - 10} y={centerY + 5} textAnchor="middle" className="text-sm font-bold fill-purple-600">
+              <text
+                x={centerX - radius - 10}
+                y={centerY + 5}
+                textAnchor="middle"
+                className="text-sm font-bold"
+                style={{ fill: '#8B5CF6' }} // Keeping purple for W from previous version
+              >
                 W
               </text>
 
@@ -106,7 +208,7 @@ const ThreeFigureBearings = () => {
                 y1={centerY}
                 x2={centerX}
                 y2={centerY - radius}
-                stroke="#94a3b8"
+                stroke={NEUBRUTALISM_COLORS.slate}
                 strokeWidth="2"
                 strokeDasharray="8,4"
               />
@@ -117,7 +219,7 @@ const ThreeFigureBearings = () => {
                 y1={centerY}
                 x2={polarToCartesian(centerX, centerY, radius, isAnimating ? sweepAngle : currentAngle).x}
                 y2={polarToCartesian(centerX, centerY, radius, isAnimating ? sweepAngle : currentAngle).y}
-                stroke="#dc2626"
+                stroke={NEUBRUTALISM_COLORS.red}
                 strokeWidth="3"
                 markerEnd="url(#arrowhead)"
               />
@@ -128,35 +230,35 @@ const ThreeFigureBearings = () => {
                 y1={centerY}
                 x2={polarToCartesian(centerX, centerY, radius, backBearing).x}
                 y2={polarToCartesian(centerX, centerY, radius, backBearing).y}
-                stroke="#059669"
+                stroke={NEUBRUTALISM_COLORS.green}
                 strokeWidth="3"
                 strokeDasharray="4,4"
                 markerEnd="url(#back-arrowhead)"
               />
 
               {/* Bearing label */}
-              <text x={centerX} y={centerY - 8} textAnchor="middle" className="text-lg font-bold fill-red-600">
+              <text x={centerX} y={centerY - 8} textAnchor="middle" className="text-lg font-bold" style={{ fill: NEUBRUTALISM_COLORS.red }}>
                 {currentAngle.toString().padStart(3, '0')}°
               </text>
-              <text x={centerX} y={centerY + 12} textAnchor="middle" className="text-xs fill-gray-600">
+              <text x={centerX} y={centerY + 12} textAnchor="middle" className="text-xs" style={{ fill: NEUBRUTALISM_COLORS.slate }}>
                 Bearing
               </text>
 
               {/* Back bearing label */}
-              <text x={centerX} y={centerY + 30} textAnchor="middle" className="text-lg font-bold fill-green-600">
+              <text x={centerX} y={centerY + 30} textAnchor="middle" className="text-lg font-bold" style={{ fill: NEUBRUTALISM_COLORS.green }}>
                 {backBearing.toString().padStart(3, '0')}°
               </text>
-              <text x={centerX} y={centerY + 50} textAnchor="middle" className="text-xs fill-gray-600">
+              <text x={centerX} y={centerY + 50} textAnchor="middle" className="text-xs" style={{ fill: NEUBRUTALISM_COLORS.slate }}>
                 Back Bearing
               </text>
 
               {/* Arrow markers */}
               <defs>
                 <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-                  <polygon points="0 0, 8 3, 0 6" fill="#dc2626" />
+                  <polygon points="0 0, 8 3, 0 6" fill={NEUBRUTALISM_COLORS.red} />
                 </marker>
                 <marker id="back-arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-                  <polygon points="0 0, 8 3, 0 6" fill="#059669" />
+                  <polygon points="0 0, 8 3, 0 6" fill={NEUBRUTALISM_COLORS.green} />
                 </marker>
               </defs>
             </svg>
@@ -164,7 +266,7 @@ const ThreeFigureBearings = () => {
 
           {/* Example buttons */}
           <div className="pb-2 mb-3">
-            <div className="flex gap-2 flex-wrap w-full">
+            <div className="flex gap-2 flex-wrap w-full justify-center">
               {examples.map((example, index) => (
                 <button
                   key={index}
@@ -172,11 +274,15 @@ const ThreeFigureBearings = () => {
                     setCurrentExample(index);
                     setBearingAngle(example.angle.toString());
                   }}
-                  className={`px-3 py-2 text-sm rounded-2xl transition-colors flex-shrink-0 ${
-                    currentExample === index
-                      ? 'bg-[#03A6A1] text-white'
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                  }`}
+                  style={getButtonStyle(index)}
+                  onMouseEnter={(e) => {
+                    if (currentExample !== index)
+                      e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.orange;
+                  }}
+                  onMouseLeave={(e) => {
+                    if (currentExample !== index)
+                      e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.cream;
+                  }}
                 >
                   {example.label} ({example.angle.toString().padStart(3, '0')}°)
                 </button>
@@ -186,7 +292,10 @@ const ThreeFigureBearings = () => {
 
           {/* Custom angle input */}
           <div className="mb-3">
-            <label className="block text-sm font-medium mb-1 text-gray-700">
+            <label
+              className="block text-sm font-bold mb-1"
+              style={{ color: NEUBRUTALISM_COLORS.slate }}
+            >
               Enter Bearing (0°–360°)
             </label>
             <input
@@ -195,21 +304,30 @@ const ThreeFigureBearings = () => {
               max="360"
               value={bearingAngle}
               onChange={(e) => setBearingAngle(e.target.value)}
-              className="w-full p-2 border border-[#03A6A1] border-3 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              style={{
+                ...neubrutalismBase,
+                width: '100%',
+                padding: '0.5rem',
+                fontSize: '0.875rem',
+                color: NEUBRUTALISM_COLORS.slate,
+                backgroundColor: NEUBRUTALISM_COLORS.white,
+                borderColor: NEUBRUTALISM_COLORS.teal,
+              }}
               placeholder="Enter angle (e.g., 065)"
             />
           </div>
 
-          <div className="text-center text-xs text-gray-600">
+          <div
+            className="text-center text-xs"
+            style={{ color: NEUBRUTALISM_COLORS.slate, fontWeight: '600' }}
+          >
             {isAnimating ? (
-              <span className="text-blue-600 font-semibold">🔄 Animating...</span>
+              <span style={{ color: NEUBRUTALISM_COLORS.blue }}>🔄 Animating...</span>
             ) : (
               <span>✅ Select or enter a bearing to visualize</span>
             )}
           </div>
         </div>
-
-
       </div>
     </div>
   );

@@ -5,6 +5,26 @@ interface Polygon {
   sides: number;
 }
 
+// --- Neubrutalism Styles & Colors (Aligned with previous components) ---
+const NEUBRUTALISM_COLORS = {
+  cream: '#f4f1de',      // Background, Cards
+  orange: '#e07a5f',     // Accents, Selected, Reset Button, Ship Path
+  slate: '#3d405b',      // Text, Lines, Center Dot, Borders
+  teal: '#81b29a',       // Back Bearing, Correct, Highlights
+  yellow: '#f2cc8f',     // Accents, Highlights, Button Default
+  white: '#ffffff',
+  blue: '#1d3557',       // Alternative dark for variety
+  shadow: 'rgba(61, 64, 91, 0.3)', // slate with opacity for shadow
+};
+
+const neubrutalismBase = {
+  border: `3px solid ${NEUBRUTALISM_COLORS.slate}`,
+  borderRadius: '12px',
+  boxShadow: `4px 4px 0px ${NEUBRUTALISM_COLORS.shadow}`,
+  padding: '1rem',
+};
+// --- End Neubrutalism Styles ---
+
 const PolygonClassification: React.FC = () => {
   const [selectedPolygon, setSelectedPolygon] = useState<number>(0);
   const [isRegular, setIsRegular] = useState<boolean>(true);
@@ -66,28 +86,84 @@ const PolygonClassification: React.FC = () => {
   const pointsArray = generatePolygonPointsArray(polygons[selectedPolygon].sides, isRegular, isConvex);
   const pointsString = pointsToString(pointsArray);
 
+  // --- Button Styling Helper ---
+  const getButtonStyle = (isActive: boolean) => {
+    return {
+      ...neubrutalismBase,
+      padding: '0.5rem 1rem',
+      fontSize: '0.875rem', // text-sm
+      fontWeight: 'bold',
+      backgroundColor: isActive ? NEUBRUTALISM_COLORS.teal : NEUBRUTALISM_COLORS.yellow,
+      color: isActive ? NEUBRUTALISM_COLORS.white : NEUBRUTALISM_COLORS.slate,
+      borderColor: NEUBRUTALISM_COLORS.slate,
+      cursor: 'pointer',
+      transition: 'all 0.2s',
+      // Add hover effect inline
+      ...(isActive ? {} : { // No hover change for active buttons
+        ':hover': {
+          backgroundColor: NEUBRUTALISM_COLORS.cream,
+        }
+      })
+    };
+  };
+  // --- End Button Styling ---
+
   return (
-    <div className="p-4 bg-gradient-to-br from-[#F29F58] to-[#FF8225] font-sans rounded-2xl">
-      <h1 className="text-xl font-bold text-white mb-2 text-center">
-        Polygon Classification
-      </h1>
-      <p className="text-sm text-white mb-4 text-center">
-        Explore polygons by number of sides, regularity, and convexity
-      </p>
+    <div
+      style={{
+        ...neubrutalismBase,
+        maxWidth: '600px',
+        width: '100%',
+        margin: '0 auto',
+        padding: '1.5rem',
+        backgroundColor: NEUBRUTALISM_COLORS.orange, // Orange background
+        borderColor: NEUBRUTALISM_COLORS.slate,
+        color: NEUBRUTALISM_COLORS.slate,
+        borderRadius: '20px',
+        boxShadow: `8px 8px 0px ${NEUBRUTALISM_COLORS.slate}`,
+      }}
+    >
+      <div className="mb-4 mt-3 text-white">
+        <h1 className="text-xl font-bold mb-1 text-center">
+          Polygon Classification
+        </h1>
+        <p className="text-sm text-center">
+          Explore polygons by number of sides, regularity, and convexity
+        </p>
+      </div>
 
       <div className="flex flex-col gap-4">
         {/* Polygon Visualization */}
-        <div className="bg-white/50 p-4 rounded-lg shadow-md">
-          <h2 className="text-base font-semibold mb-3 text-center">
+        <div
+          style={{
+            ...neubrutalismBase,
+            backgroundColor: NEUBRUTALISM_COLORS.cream,
+            borderColor: NEUBRUTALISM_COLORS.slate,
+            padding: '1rem',
+          }}
+        >
+          <h2
+            className="text-base font-bold mb-3 text-center"
+            style={{ color: NEUBRUTALISM_COLORS.slate }}
+          >
             {polygons[selectedPolygon].name} ({polygons[selectedPolygon].sides} sides)
           </h2>
           <div className="flex justify-center mb-3">
-            <svg width={svgSize} height={svgSize} className="border rounded-lg bg-gray-50">
+            <svg
+              width={svgSize}
+              height={svgSize}
+              className="border rounded-lg bg-gray-50 block"
+              style={{
+                border: `2px solid ${NEUBRUTALISM_COLORS.slate}`,
+                borderRadius: '12px',
+                backgroundColor: NEUBRUTALISM_COLORS.white,
+              }}
+            >
               {/* Polygon */}
               <polygon
                 points={pointsString}
-                fill={isRegular ? '#bfdbfe' : '#facc15'}
-                stroke="#2563eb"
+                fill={isRegular ? NEUBRUTALISM_COLORS.teal : NEUBRUTALISM_COLORS.yellow}
+                stroke={NEUBRUTALISM_COLORS.blue}
                 strokeWidth="3"
               />
               {/* Labels for vertices */}
@@ -96,7 +172,8 @@ const PolygonClassification: React.FC = () => {
                   key={i}
                   x={p.x + (p.x > centerX ? 5 : -15)}
                   y={p.y + (p.y > centerY ? 10 : -5)}
-                  className="text-xs fill-gray-800"
+                  className="text-xs"
+                  style={{ fill: NEUBRUTALISM_COLORS.slate }}
                 >
                   V{i + 1}
                 </text>
@@ -105,17 +182,21 @@ const PolygonClassification: React.FC = () => {
           </div>
 
           {/* Polygon Selector */}
-          <div className=" pb-2 mb-3">
-            <div className="flex gap-2 w-full flex-wrap">
+          <div className="pb-2 mb-3">
+            <div className="flex gap-2 w-full flex-wrap justify-center">
               {polygons.map((polygon, index) => (
                 <button
                   key={index}
                   onClick={() => setSelectedPolygon(index)}
-                  className={`px-3 py-2 text-sm rounded-2xl transition-colors flex-shrink-0 ${
-                    selectedPolygon === index
-                      ? 'bg-blue-500 text-white'
-                      : 'bg-white text-gray-700 hover:bg-gray-300'
-                  }`}
+                  style={getButtonStyle(selectedPolygon === index)}
+                  onMouseEnter={(e) => {
+                    if (selectedPolygon !== index)
+                      e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.cream;
+                  }}
+                  onMouseLeave={(e) => {
+                    if (selectedPolygon !== index)
+                      e.currentTarget.style.backgroundColor = NEUBRUTALISM_COLORS.yellow;
+                  }}
                 >
                   {polygon.name}
                 </button>
@@ -124,28 +205,50 @@ const PolygonClassification: React.FC = () => {
           </div>
 
           {/* Toggles for Regularity and Convexity */}
-          <div className="grid grid-cols-2 gap-2 mb-3">
+          <div className="grid grid-cols-2 gap-3 mb-3">
             <div>
-              <label className="block text-xs font-medium mb-1 text-gray-700">
+              <label
+                className="block text-sm font-bold mb-1"
+                style={{ color: NEUBRUTALISM_COLORS.slate }}
+              >
                 Regularity
               </label>
               <select
                 value={isRegular ? 'Regular' : 'Irregular'}
                 onChange={(e) => setIsRegular(e.target.value === 'Regular')}
-                className="w-full p-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                style={{
+                  ...neubrutalismBase,
+                  width: '100%',
+                  padding: '0.5rem',
+                  fontSize: '0.875rem',
+                  color: NEUBRUTALISM_COLORS.slate,
+                  backgroundColor: NEUBRUTALISM_COLORS.white,
+                  borderColor: NEUBRUTALISM_COLORS.teal,
+                }}
               >
                 <option value="Regular">Regular</option>
                 <option value="Irregular">Irregular</option>
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium mb-1 text-gray-700">
+              <label
+                className="block text-sm font-bold mb-1"
+                style={{ color: NEUBRUTALISM_COLORS.slate }}
+              >
                 Convexity
               </label>
               <select
                 value={isConvex ? 'Convex' : 'Concave'}
                 onChange={(e) => setIsConvex(e.target.value === 'Convex')}
-                className="w-full p-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                style={{
+                  ...neubrutalismBase,
+                  width: '100%',
+                  padding: '0.5rem',
+                  fontSize: '0.875rem',
+                  color: NEUBRUTALISM_COLORS.slate,
+                  backgroundColor: NEUBRUTALISM_COLORS.white,
+                  borderColor: NEUBRUTALISM_COLORS.teal,
+                }}
                 disabled={polygons[selectedPolygon].sides === 3} // Triangles are always convex
               >
                 <option value="Convex">Convex</option>
@@ -155,21 +258,26 @@ const PolygonClassification: React.FC = () => {
           </div>
 
           {/* Properties Display */}
-          <div className="bg-white/60 p-3 rounded-lg text-sm">
-            <p>
+          <div
+            style={{
+              ...neubrutalismBase,
+              backgroundColor: NEUBRUTALISM_COLORS.white,
+              borderColor: NEUBRUTALISM_COLORS.slate,
+              padding: '0.75rem',
+            }}
+          >
+            <p style={{ color: NEUBRUTALISM_COLORS.slate }}>
               <span className="font-medium">Exterior Angle:</span> {exteriorAngle.toFixed(1)}° (Sum of exterior angles = 360°)
             </p>
-            <p>
+            <p style={{ color: NEUBRUTALISM_COLORS.slate }}>
               <span className="font-medium">Regularity:</span> {isRegular ? 'All sides and angles equal' : 'Sides or angles unequal'}
             </p>
-            <p>
+            <p style={{ color: NEUBRUTALISM_COLORS.slate }}>
               <span className="font-medium">Convexity:</span>{' '}
               {isConvex ? 'All interior angles < 180°' : 'At least one interior angle > 180°'}
             </p>
           </div>
         </div>
-
-     
       </div>
     </div>
   );

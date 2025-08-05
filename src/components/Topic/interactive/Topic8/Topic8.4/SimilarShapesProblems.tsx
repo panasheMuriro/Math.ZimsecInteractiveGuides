@@ -23,25 +23,25 @@ const UnknownLengthsVisual: React.FC = () => {
         <polygon 
           points="20,80 50,30 70,80" 
           fill="none" 
-          stroke="#BFDBFE" // Light blue (tailwind blue-200)
+          stroke="#000" // Light blue (tailwind blue-200)
           strokeWidth="2"
         />
-        <text x="40" y="25" fontSize="8" fill="#BFDBFE">8 cm</text>
-        <text x="10" y="90" fontSize="8" fill="#BFDBFE">Small</text>
+        <text x="40" y="25" fontSize="8" fill="#000">8 cm</text>
+        <text x="10" y="90" fontSize="8" fill="#000">Small</text>
         
         {/* Larger Triangle */}
         <polygon 
           points="120,80 165,15 195,80" 
           fill="none" 
-          stroke="#A7F3D0" // Light green (tailwind green-200)
+          stroke="#000" // Light green (tailwind green-200)
           strokeWidth="2"
         />
-        <text x="150" y="10" fontSize="8" fill="#A7F3D0">? cm</text>
-        <text x="110" y="90" fontSize="8" fill="#A7F3D0">Large</text>
+        <text x="150" y="10" fontSize="8" fill="#000">? cm</text>
+        <text x="110" y="90" fontSize="8" fill="#000">Large</text>
         
         {/* Scale factor indicator */}
-        <text x="95" y="50" fontSize="10" fill="#E5E7EB">k = 2:3</text> {/* Gray-200 */}
-        <line x1="80" y1="45" x2="110" y2="45" stroke="#E5E7EB" strokeWidth="1" markerEnd="url(#arrow)" />
+        <text x="95" y="50" fontSize="10" fill="#000">k = 2:3</text> {/* Gray-200 */}
+        <line x1="80" y1="45" x2="110" y2="45" stroke="#000" strokeWidth="1" markerEnd="url(#arrow)" />
       </svg>
     </div>
   );

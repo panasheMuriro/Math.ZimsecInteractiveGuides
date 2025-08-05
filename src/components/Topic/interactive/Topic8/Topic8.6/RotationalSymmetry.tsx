@@ -1,6 +1,77 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { ReactNode, useState } from "react";
 
+// --- New Color Palette ---
+const PALETTE = {
+  charcoal: "#001219",
+  darkTeal: "#005f73",
+  teal: "#0a9396",
+  lightTeal: "#94d2bd",
+  lightGold: "#e9d8a6",
+  orange: "#ee9b00",
+  darkOrange: "#ca6702",
+  burntOrange: "#bb3e03",
+  red: "#ae2012",
+  darkRed: "#9b2226",
+};
+
+// --- Neubrutalism Styles ---
+const neubrutalismBase = {
+  border: `3px solid ${PALETTE.charcoal}`,
+  borderRadius: '8px',
+  boxShadow: `4px 4px 0px ${PALETTE.charcoal}9d`,
+  transition: 'all 0.2s',
+};
+
+const getButtonStyle = (isActive: boolean) => {
+  return {
+    ...neubrutalismBase,
+    padding: '0.5rem 1rem',
+    fontSize: '0.875rem',
+    fontWeight: 'bold',
+    backgroundColor: isActive ? PALETTE.orange : PALETTE.lightGold,
+    color: PALETTE.charcoal,
+    cursor: 'pointer',
+    border: `3px solid ${PALETTE.charcoal}`,
+    boxShadow: `3px 3px 0px ${PALETTE.charcoal}9d`,
+    ':hover': {
+      backgroundColor: isActive ? PALETTE.orange : PALETTE.lightTeal,
+      boxShadow: `2px 2px 0px ${PALETTE.charcoal}`,
+      transform: 'translate(1px, 1px)',
+    }
+  };
+};
+
+const getStepButtonStyle = (isDisabled: boolean) => {
+  return {
+    ...neubrutalismBase,
+    padding: '0.75rem 1.5rem',
+    fontSize: '0.875rem',
+    fontWeight: 'bold',
+    backgroundColor: isDisabled ? PALETTE.lightTeal : PALETTE.orange,
+    color: PALETTE.charcoal,
+    cursor: isDisabled ? 'not-allowed' : 'pointer',
+    opacity: isDisabled ? 0.7 : 1,
+    ':hover': {
+      backgroundColor: PALETTE.orange,
+      boxShadow: `2px 2px 0px ${PALETTE.charcoal}`,
+      transform: 'translate(1px, 1px)',
+    }
+  };
+};
+
+const getInfoBoxStyle = () => {
+  return {
+    ...neubrutalismBase,
+    backgroundColor: PALETTE.lightGold,
+    borderColor: PALETTE.charcoal,
+    padding: '1rem',
+    width: '100%',
+    color: PALETTE.charcoal,
+    boxShadow: `4px 4px 0px ${PALETTE.charcoal}9d`,
+  };
+};
+
 const RotationalSymmetry: React.FC = () => {
   const [shape, setShape] = useState<"equilateral-triangle" | "square">("equilateral-triangle");
   const [step, setStep] = useState<number>(0);
@@ -65,17 +136,27 @@ const RotationalSymmetry: React.FC = () => {
   };
 
   // Render the shape with optional rotation
-  const renderShape = (rotation: number = 0, isOriginal: boolean = true, center: { x: number; y: number }, size: number, sides: number) => {
+  const renderShape = (
+    rotation: number = 0,
+    isOriginal: boolean = true,
+    center: { x: number; y: number },
+    size: number,
+    sides: number
+  ) => {
     const vertices = getPolygonVertices(center, sides, size);
     const pathData = getPathData(vertices);
     return (
       <path
         d={pathData}
-        stroke={isOriginal ? "white" : "gray"}
+        stroke={isOriginal ? PALETTE.charcoal : PALETTE.darkTeal}
         strokeWidth={isOriginal ? "2" : "1"}
         fill="none"
         strokeDasharray={isOriginal ? "none" : "5"}
-        transform={rotation ? `rotate(${rotation}, ${center.x}, ${center.y})` : undefined}
+        style={{
+          transformOrigin: `${center.x}px ${center.y}px`,
+          transition: 'transform 0.5s ease-in-out',
+          transform: `rotate(${rotation}deg)`
+        }}
       />
     );
   };
@@ -83,22 +164,34 @@ const RotationalSymmetry: React.FC = () => {
   // Render the visualization based on the current step
   const renderVisualization = () => {
     const { center, order, angle, sides, size } = shapes[shape];
-    const elements:any[] = [];
+    const elements: any[] = [];
+    const currentRotation = step * angle;
 
-    // Step 0: Original shape
-    if (step >= 0) {
-      elements.push(renderShape(0, true, center, size, sides));
-    }
+    // Draw the main, rotating shape
+    elements.push(renderShape(currentRotation, true, center, size, sides));
 
-    // Steps 1 to order-1: Show rotated shapes
+    // Draw the static, faded shapes if they are part of the symmetric positions
     if (step >= 1) {
-      for (let i = 1; i <= Math.min(step, order - 1); i++) {
-        elements.push(renderShape(i * angle, false, center, size, sides));
+      for (let i = 1; i <= order - 1; i++) {
+        // Only render faded shapes if the current step is showing a rotation
+        if (i <= step) {
+          elements.push(
+            <path
+              key={`faded-${i}`}
+              d={getPathData(getPolygonVertices(center, sides, size))}
+              stroke={PALETTE.darkTeal}
+              strokeWidth="1"
+              fill="none"
+              strokeDasharray="5"
+              transform={`rotate(${i * angle}, ${center.x}, ${center.y})`}
+            />
+          );
+        }
       }
     }
 
     // Final step: Show a marked vertex and its rotated positions
-    if (step === order) {
+    if (step === shapes[shape].steps.length - 1) {
       const vertices = getPolygonVertices(center, sides, size);
       const vertex = vertices[0]; // Top vertex
       for (let i = 0; i < order; i++) {
@@ -107,7 +200,7 @@ const RotationalSymmetry: React.FC = () => {
           x: center.x + (vertex.x - center.x) * Math.cos(angleRad) - (vertex.y - center.y) * Math.sin(angleRad),
           y: center.y + (vertex.x - center.x) * Math.sin(angleRad) + (vertex.y - center.y) * Math.cos(angleRad)
         };
-        elements.push(<circle key={`vertex-${i}`} cx={rotatedVertex.x} cy={rotatedVertex.y} r="3" fill="blue" />);
+        elements.push(<circle key={`vertex-${i}`} cx={rotatedVertex.x} cy={rotatedVertex.y} r="4" fill={PALETTE.red} />);
       }
     }
 
@@ -132,16 +225,16 @@ const RotationalSymmetry: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-gradient-to-br from-[#03A6A1] to-[#00809D] rounded-lg shadow-md">
-      <h3 className="text-lg font-semibold mb-4 text-center text-white">
+    <div style={{ ...neubrutalismBase, maxWidth: '600px', width: '100%', margin: '2rem auto', padding: '1.5rem', backgroundColor: PALETTE.teal, borderRadius: '20px', boxShadow: `8px 8px 0px ${PALETTE.charcoal}` }}>
+      <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1rem', textAlign: 'center', color: PALETTE.charcoal }}>
         Rotational Symmetry Visualizer
       </h3>
-      <p className="text-sm text-white mb-4 text-center">
+      <p style={{ fontSize: '0.875rem', color: PALETTE.charcoal, marginBottom: '1rem', textAlign: 'center' }}>
         Select a shape and step through to see its rotational symmetry.
       </p>
 
       {/* Shape Selector */}
-      <div className="flex flex-wrap justify-center gap-2 mb-6">
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
         {[
           { id: "equilateral-triangle", label: "Equilateral Triangle" },
           { id: "square", label: "Square" }
@@ -149,11 +242,7 @@ const RotationalSymmetry: React.FC = () => {
           <button
             key={id}
             onClick={() => handleShapeChange(id as any)}
-            className={`px-3 py-2 text-sm font-medium rounded-full border-black border-1 ${
-              shape === id
-                ? "bg-[#FF7601] text-white"
-                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-            }`}
+            style={getButtonStyle(shape === id)}
           >
             {label}
           </button>
@@ -161,43 +250,37 @@ const RotationalSymmetry: React.FC = () => {
       </div>
 
       {/* Visualization */}
-      <div className="flex justify-center scale-120">
-        <svg width="100%" height="200" viewBox="0 0 300 200" className="max-w-full">
+      <div style={{ ...neubrutalismBase, backgroundColor: PALETTE.lightTeal, display: 'flex', justifyContent: 'center', borderRadius: '8px', padding: '1rem' }}>
+        <svg width="100%" height="200" viewBox="0 0 300 200" style={{ maxWidth: '100%' }}>
           {renderVisualization() as ReactNode}
         </svg>
       </div>
 
       {/* Step Navigation */}
-      <div className="flex justify-between mt-4">
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
         <button
           onClick={handlePrevStep}
           disabled={step === 0}
-          className={`px-4 py-2 text-sm font-medium rounded-full border-black border-1 ${
-            step === 0 ? "bg-gray-300 cursor-not-allowed" : "bg-blue-500 text-white hover:bg-blue-600"
-          }`}
+          style={getStepButtonStyle(step === 0)}
         >
           Previous
         </button>
         <button
           onClick={handleNextStep}
           disabled={step === shapes[shape].steps.length - 1}
-          className={`px-4 py-2 text-sm font-medium rounded-full border-black border-1 ${
-            step === shapes[shape].steps.length - 1
-              ? "bg-gray-300 cursor-not-allowed"
-              : "bg-blue-500 text-white hover:bg-blue-600"
-          }`}
+          style={getStepButtonStyle(step === shapes[shape].steps.length - 1)}
         >
           Next
         </button>
       </div>
 
       {/* Feedback */}
-      <div className="text-sm text-white bg-white/20 p-4 rounded-lg mt-4">
-        <p>
-          <strong>Step {step + 1}:</strong> {shapes[shape].steps[step]}
+      <div style={{ ...getInfoBoxStyle(), marginTop: '1rem', padding: '1rem' }}>
+        <p style={{ fontSize: '0.875rem', color: PALETTE.charcoal }}>
+          <strong style={{ fontWeight: 'bold' }}>Step {step + 1}:</strong> {shapes[shape].steps[step]}
         </p>
-        <p className="mt-2">
-          This shape has rotational symmetry of order {shapes[shape].order} with an angle of rotation of {shapes[shape].angle}°.
+        <p style={{ fontSize: '0.875rem', color: PALETTE.charcoal, marginTop: '0.5rem' }}>
+          This shape has rotational symmetry of order <strong style={{ fontWeight: 'bold' }}>{shapes[shape].order}</strong> with an angle of rotation of <strong style={{ fontWeight: 'bold' }}>{shapes[shape].angle}°</strong>.
         </p>
       </div>
     </div>
