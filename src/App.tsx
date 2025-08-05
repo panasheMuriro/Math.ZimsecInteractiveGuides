@@ -5,11 +5,13 @@ import QuizView from './components/Topic/views/QuizView'
 import QuizCompleteView from './components/Topic/views/QuizCompleteView'
 import TopicsList from './components/Topics/TopicList'
 import TopicLayout from './components/Topics/TopicLayout'
+import LandingPage from './components/Landing/LandingPage'
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<TopicsList />} />
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/home" element={<TopicsList />} />
       <Route path="/topics/:topicId" element={<TopicLayout />}>
         <Route index element={<HomeView />} />
         <Route path="study/:sectionIndex" element={<StudyView />} />

@@ -1,15 +1,13 @@
 // components/Topic/TopicLayout.tsx
-import { Outlet, useParams, Navigate } from 'react-router-dom';
-import { MathJaxContext } from 'better-react-mathjax';
-import { mathjaxConfig } from '../../config';
-import { topics } from '../../data/topics';
-import { useState } from 'react';
+import { Outlet, useParams, Navigate } from "react-router-dom";
+import { topics } from "../../data/topics";
+import { useState } from "react";
 
 const TopicLayout = () => {
   const { topicId } = useParams();
   const [completedSections] = useState<Set<number>>(new Set());
   const [quizScore, setQuizScore] = useState(0);
-  const topicData = topics.find(t => t.id === Number(topicId));
+  const topicData = topics.find((t) => t.id === Number(topicId));
 
   if (!topicData) {
     return <Navigate to="/" replace />;
@@ -20,16 +18,14 @@ const TopicLayout = () => {
     completedSections,
     quizState: {
       score: quizScore,
-      setScore: setQuizScore
-    }
+      setScore: setQuizScore,
+    },
   };
 
   return (
-    <MathJaxContext config={mathjaxConfig}>
-      <div className="font-sans">
-        <Outlet context={contextValue} />
-      </div>
-    </MathJaxContext>
+    <div className="font-sans">
+      <Outlet context={contextValue} />
+    </div>
   );
 };
 

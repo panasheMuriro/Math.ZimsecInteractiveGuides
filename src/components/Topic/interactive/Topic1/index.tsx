@@ -1,4 +1,3 @@
-import ScaleCalculator from "../ScaleCalculator";
 import CubesCubeRootsQuiz from "./Topic1.1/CubesCubeRootsQuiz";
 import DirectedNumbersQuiz from "./Topic1.1/DirectedNumbersQuiz";
 import FactorsHCF from "./Topic1.1/FactorsHCF";
@@ -37,8 +36,6 @@ import ScaleApplicationsQuiz from "./Topic1.6/ScaleApplicationsQuiz";
 
 export const topic1Components: Record<string, React.ComponentType> = {
   "rounding-game": RoundingGame,
-
-  "scale-calculator": ScaleCalculator,
   "number-types": NumberTypesQuiz,
   "factors-hcf": FactorsHCF,
   "multiples-lcm": MultiplesLCM,
