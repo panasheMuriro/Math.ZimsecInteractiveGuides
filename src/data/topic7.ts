@@ -1,4 +1,4 @@
-import {Section, QuizQuestion} from "../types";
+import { Section, QuizQuestion } from "../types";
 
 export const sections: Section[] = [
   {
@@ -790,7 +790,7 @@ Complete the square for $3x^2 + 6x + 12$
       }
     ]
   },
-   {
+  {
     title: "Solving Equations",
     icon: "⚖️",
     content: `Equations are like puzzles where you need to find the value of the variable that makes the equation true. Think of it as balancing a scale: both sides must be equal. This section covers solving linear, simultaneous, and quadratic equations, which are key skills in algebra.`,
@@ -840,9 +840,9 @@ Solve $4x - 5 = 11$
 - Answer: Add 5: $4x = 16$. Divide by 4: $x = 4$. Check: $4(4) - 5 = 16 - 5 = 11$ ✓.`,
         interactive: "linear-equations"
       },
-{
-    "title": "Solving Simultaneous Equations - Elimination Method",
-    "content": `**What are Simultaneous Equations?**
+      {
+        "title": "Solving Simultaneous Equations - Elimination Method",
+        "content": `**What are Simultaneous Equations?**
 These are two or more equations with the same variables, solved together to find values that work for all equations. Think of it as finding the point where two lines meet.
 
 **Why it Matters:**
@@ -883,11 +883,11 @@ $2x - y = 2$
 - Write each step clearly and double-check your arithmetic
 - Look for opportunities where one variable already has opposite coefficients
 - Use graph paper to visualize the lines intersecting if it helps`,
-    "interactive": "simultaneous-equations-elimination"
-  },
-  {
-    "title": "Solving Simultaneous Equations - Substitution Method",
-    "content": `**What are Simultaneous Equations?**
+        "interactive": "simultaneous-equations-elimination"
+      },
+      {
+        "title": "Solving Simultaneous Equations - Substitution Method",
+        "content": `**What are Simultaneous Equations?**
 These are two or more equations with the same variables, solved together to find values that work for all equations. Think of it as finding the point where two lines meet.
 
 **Why it Matters:**
@@ -931,12 +931,11 @@ $2x - y = 2$
 - Be careful with signs when substituting expressions
 - Write each step clearly and double-check substitutions
 - Use graph paper to visualize the lines intersecting if it helps`,
-    "interactive": "simultaneous-equations-substitution"
-  },
-     
- {
-    "title": "Solving Quadratic Equations - Factoring Method",
-    "content": `**What are Quadratic Equations?**
+        "interactive": "simultaneous-equations-substitution"
+      },
+      {
+        "title": "Solving Quadratic Equations - Factoring Method",
+        "content": `**What are Quadratic Equations?**
 Quadratic equations are polynomial equations of degree 2, written in the form $ax^2 + bx + c = 0$ where $a ≠ 0$. They represent parabolas when graphed and have at most two real solutions.
 
 **Why it Matters:**
@@ -973,11 +972,11 @@ Solve: $x^2 - 7x + 12 = 0$
 - Look for two numbers that multiply to $c$ and add to $b$
 - If $a ≠ 1$, consider factoring by grouping or using the ac method
 - Not all quadratics can be factored over the integers`,
-    "interactive": "quadratic-equations-factoring"
-  },
-{
-    "title": "Solving Quadratic Equations - Completing the Square",
-    "content": `**What are Quadratic Equations?**
+        "interactive": "quadratic-equations-factoring"
+      },
+      {
+        "title": "Solving Quadratic Equations - Completing the Square",
+        "content": `**What are Quadratic Equations?**
 Quadratic equations are polynomial equations of degree 2, written in the form $ax^2 + bx + c = 0$ where $a ≠ 0$. They represent parabolas when graphed and have at most two real solutions.
 
 **Why it Matters:**
@@ -1016,11 +1015,11 @@ Solve: $x^2 - 4x - 5 = 0$
 - Useful for converting to vertex form of a parabola
 - Be careful with signs when adding $(\\frac{b}{2})^2$
 - This method reveals the vertex of the parabola`,
-    "interactive": "quadratic-equations-completing-square"
-  },
-{
-    "title": "Solving Quadratic Equations - Quadratic Formula",
-    "content": `**What are Quadratic Equations?**
+        "interactive": "quadratic-equations-completing-square"
+      },
+      {
+        "title": "Solving Quadratic Equations - Quadratic Formula",
+        "content": `**What are Quadratic Equations?**
 Quadratic equations are polynomial equations of degree 2, written in the form $ax^2 + bx + c = 0$ where $a ≠ 0$. They represent parabolas when graphed and have at most two real solutions.
 
 **Why it Matters:**
@@ -1062,11 +1061,11 @@ Solve: $x^2 - 6x + 9 = 0$
 - Pay attention to signs when substituting values
 - The discriminant tells you about the nature of solutions
 - Memorize the formula: $x = \\frac{-b ± \\sqrt{b^2 - 4ac}}{2a}$`,
-    "interactive": "quadratic-equations-formula"
-  }
+        "interactive": "quadratic-equations-formula"
+      }
     ]
   },
-   {
+  {
     title: "Solving Inequalities",
     icon: "📏",
     content: `Inequalities are like equations, but instead of finding exact values, you find a range of values that make the statement true. Think of them as setting boundaries, like saying "you need to be taller than 1.2 meters to ride a roller coaster." This section covers linear and quadratic inequalities, and how to show their solutions on a number line or graph.`,
@@ -1233,7 +1232,7 @@ Graph $x + 2 > 1$
       }
     ]
   },
-    {
+  {
     title: "Indices and Logarithms",
     icon: "📈",
     content: `Indices (also called exponents) tell you how many times to multiply a number by itself, like a shortcut for repeated multiplication. Logarithms are the opposite—they help you find the exponent needed to produce a certain number. Think of indices as building a tower by stacking blocks, and logarithms as figuring out how many blocks were used. This section covers the rules of indices, solving exponential equations, and using logarithms to solve equations.`,

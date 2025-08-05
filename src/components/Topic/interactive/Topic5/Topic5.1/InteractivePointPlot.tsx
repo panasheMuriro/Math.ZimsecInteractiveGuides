@@ -52,7 +52,10 @@ const InteractivePointPlot: React.FC<InteractivePointPlotProps> = ({
   const [xCoord, setXCoord] = useState(initialX);
   const [yCoord, setYCoord] = useState(initialY);
   const [isAnimating, setIsAnimating] = useState(true);
-  const interactionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const interactionTimeoutRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  
+
+  
 
   
   const svgX = (width / 2) + xCoord * unitSize;
