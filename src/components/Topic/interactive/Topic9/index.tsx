@@ -1,6 +1,6 @@
 import DataClassification from "./Topic9.1/DataClassification";
 import DataCollection from "./Topic9.1/DataCollection";
-import DataRepresentationViz from "./Topic9.1/DataRepresentation";
+import DataRepresentation from "./Topic9.1/DataRepresentation";
 import Mean from "./Topic9.2/Mean";
 import MeasureSelection from "./Topic9.2/MeasureSelection";
 import Median from "./Topic9.2/Median";
@@ -13,7 +13,7 @@ import SemiIQR from "./Topic9.3/SemiIQR";
 export const topic9Components: Record<string, React.ComponentType> = {
   "data-collection": DataCollection,
   "data-classification": DataClassification,
-  "data-representation": DataRepresentationViz,
+  "data-representation": DataRepresentation,
   "mean-calculations": Mean,
   "median-calculations": Median,
   "mode-identification": Mode,
