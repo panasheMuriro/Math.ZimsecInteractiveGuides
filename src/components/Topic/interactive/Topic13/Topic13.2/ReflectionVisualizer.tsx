@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import { Move, X, Calculator } from "lucide-react";
 import { BlockMath, InlineMath } from "react-katex";
@@ -8,6 +9,23 @@ interface Point {
   y: number;
 }
 
+// --- Neubrutalism Styles & Colors with the new palette ---
+const PALETTE = {
+  darkBlueGreen: '#264653',
+  mediumTeal: '#2a9d8f',
+  vibrantYellow: '#e9c46a',
+  warmOrange: '#f4a261',
+  redOrange: '#e76f51',
+  offWhite: '#fbf8f1',
+};
+
+const neubrutalismBase = {
+  border: `3px solid ${PALETTE.darkBlueGreen}`,
+  borderRadius: '12px',
+  boxShadow: `4px 4px 0px ${PALETTE.darkBlueGreen}`,
+  padding: '1rem',
+};
+
 const ReflectionVisualizer: React.FC = () => {
   const points: Point[] = [
     { x: 1, y: 1 },
@@ -17,7 +35,6 @@ const ReflectionVisualizer: React.FC = () => {
   ];
 
   const [activeTab, setActiveTab] = useState<"reflect" | "find">("reflect");
-
   const [reflectionAxis, setReflectionAxis] = useState<string>("x-axis");
 
   const [pointA, setPointA] = useState<Point>({ x: 1, y: 2 });
@@ -41,13 +58,11 @@ const ReflectionVisualizer: React.FC = () => {
 
   const reflectPoints = () => {
     setShowReflected(true);
-
     setShowCalculatedAxis(false);
   };
 
   const calculateAxis = () => {
     setShowCalculatedAxis(true);
-
     setShowReflected(false);
   };
 
@@ -108,30 +123,50 @@ const ReflectionVisualizer: React.FC = () => {
   const calculatedAxis = findReflectionAxis();
 
   return (
-    <div className="w-full max-w-md mx-auto p-6 bg-gradient-to-br from-violet-500 to-fuchsia-600 rounded-2xl shadow-xl text-white">
+    <div
+      className="w-full max-w-md mx-auto p-6 rounded-2xl"
+      style={{
+        backgroundColor: PALETTE.warmOrange,
+        ...neubrutalismBase,
+        boxShadow: `8px 8px 0px ${PALETTE.darkBlueGreen}`,
+      }}
+    >
       {/* Title */}
-      <h2 className="text-2xl font-bold mb-5 flex items-center">
-        <Move className="mr-3" size={28} /> Reflection Visualizer
+      <h2 className="text-2xl font-bold mb-5 flex items-center" style={{ color: PALETTE.darkBlueGreen }}>
+        <Move className="mr-3" size={28} style={{ color: PALETTE.darkBlueGreen }} /> Reflection Visualizer
       </h2>
 
       {/* Tab Navigation */}
-      <div className="flex border-b border-white/30 mb-6">
+      <div className="flex mb-6" style={{ borderBottom: `3px solid ${PALETTE.darkBlueGreen}` }}>
         <button
-          className={`py-2 px-4 font-semibold rounded-t-lg transition-colors ${
-            activeTab === "reflect"
-              ? "bg-white/20 text-white"
-              : "bg-transparent text-white/70 hover:text-white hover:bg-white/10"
-          }`}
+          className={`py-2 px-4 font-semibold rounded-t-lg transition-colors`}
+          style={{
+            ...neubrutalismBase,
+            boxShadow: 'none',
+            borderBottom: 'none',
+            backgroundColor: activeTab === "reflect" ? PALETTE.offWhite : 'transparent',
+            color: PALETTE.darkBlueGreen,
+            borderBottomLeftRadius: '0',
+            borderBottomRightRadius: '0',
+            borderRight: 'none',
+            ...(activeTab === "reflect" ? {} : { border: 'none', boxShadow: 'none' })
+          }}
           onClick={() => setActiveTab("reflect")}
         >
           Reflect Shape
         </button>
         <button
-          className={`py-2 px-4 font-semibold rounded-t-lg transition-colors ${
-            activeTab === "find"
-              ? "bg-white/20 text-white"
-              : "bg-transparent text-white/70 hover:text-white hover:bg-white/10"
-          }`}
+          className={`py-2 px-4 font-semibold rounded-t-lg transition-colors`}
+          style={{
+            ...neubrutalismBase,
+            boxShadow: 'none',
+            borderBottom: 'none',
+            backgroundColor: activeTab === "find" ? PALETTE.offWhite : 'transparent',
+            color: PALETTE.darkBlueGreen,
+            borderBottomLeftRadius: '0',
+            borderBottomRightRadius: '0',
+            ...(activeTab === "find" ? {} : { border: 'none', boxShadow: 'none' })
+          }}
           onClick={() => setActiveTab("find")}
         >
           Find Axis
@@ -139,16 +174,29 @@ const ReflectionVisualizer: React.FC = () => {
       </div>
 
       {/* Tab Content */}
-      <div className="mb-6 p-4 bg-white/20 backdrop-blur-sm rounded-xl border border-white/30">
+      <div
+        className="mb-6 rounded-xl"
+        style={{
+          ...neubrutalismBase,
+          backgroundColor: PALETTE.offWhite,
+          borderColor: PALETTE.darkBlueGreen,
+        }}
+      >
         {activeTab === "reflect" ? (
           <>
-            <h3 className="text-lg font-semibold mb-3">
+            <h3 className="text-lg font-semibold mb-3" style={{ color: PALETTE.darkBlueGreen }}>
               Select Reflection Axis
             </h3>
             <select
               value={reflectionAxis}
               onChange={(e) => setReflectionAxis(e.target.value)}
-              className="w-full p-2.5 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50"
+              className="w-full p-2.5 rounded-lg border-2 focus:outline-none focus:ring-2"
+              style={{
+                backgroundColor: PALETTE.offWhite,
+                color: PALETTE.darkBlueGreen,
+                borderColor: PALETTE.darkBlueGreen,
+                boxShadow: `2px 2px 0px ${PALETTE.vibrantYellow}`,
+              }}
             >
               <option value="x-axis">X-axis</option>
               <option value="y-axis">Y-axis</option>
@@ -158,7 +206,12 @@ const ReflectionVisualizer: React.FC = () => {
             <div className="mt-4 flex justify-center">
               <button
                 onClick={reflectPoints}
-                className="flex items-center px-5 py-2.5 font-semibold bg-white text-violet-600 rounded-full shadow-md hover:bg-gray-100 transition-all duration-200 active:scale-95"
+                className="flex items-center px-5 py-2.5 font-semibold rounded-full transition-all duration-200 active:scale-95"
+                style={{
+                  backgroundColor: PALETTE.vibrantYellow,
+                  color: PALETTE.darkBlueGreen,
+                  ...neubrutalismBase
+                }}
               >
                 <Move className="mr-2" size={18} /> Reflect
               </button>
@@ -166,13 +219,13 @@ const ReflectionVisualizer: React.FC = () => {
           </>
         ) : (
           <>
-            <h3 className="text-lg font-semibold mb-3">Find Reflection Axis</h3>
-            <p className="text-sm mb-3 opacity-90">
+            <h3 className="text-lg font-semibold mb-3" style={{ color: PALETTE.darkBlueGreen }}>Find Reflection Axis</h3>
+            <p className="text-sm mb-3 opacity-90" style={{ color: PALETTE.darkBlueGreen }}>
               Enter a point and its image to calculate the reflection axis:
             </p>
             <div className="flex flex-wrap gap-4">
               <div>
-                <label className="block text-sm mb-1 opacity-90">
+                <label className="block text-sm mb-1 opacity-90" style={{ color: PALETTE.darkBlueGreen }}>
                   Point A (x, y)
                 </label>
                 <div className="flex space-x-2">
@@ -182,7 +235,14 @@ const ReflectionVisualizer: React.FC = () => {
                     onChange={(e) =>
                       handleCorrespondencePointChange(e, "x", false)
                     }
-                    className="w-20 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 text-center"
+                    className="w-20 p-2 rounded-lg border-2 focus:outline-none focus:ring-2"
+                    style={{
+                      backgroundColor: PALETTE.offWhite,
+                      color: PALETTE.darkBlueGreen,
+                      borderColor: PALETTE.darkBlueGreen,
+                      boxShadow: `2px 2px 0px ${PALETTE.vibrantYellow}`,
+                      WebkitAppearance: 'none',
+                    }}
                     step="0.5"
                   />
                   <input
@@ -191,13 +251,20 @@ const ReflectionVisualizer: React.FC = () => {
                     onChange={(e) =>
                       handleCorrespondencePointChange(e, "y", false)
                     }
-                    className="w-20 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 text-center"
+                    className="w-20 p-2 rounded-lg border-2 focus:outline-none focus:ring-2"
+                    style={{
+                      backgroundColor: PALETTE.offWhite,
+                      color: PALETTE.darkBlueGreen,
+                      borderColor: PALETTE.darkBlueGreen,
+                      boxShadow: `2px 2px 0px ${PALETTE.vibrantYellow}`,
+                      WebkitAppearance: 'none',
+                    }}
                     step="0.5"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-sm mb-1 opacity-90">
+                <label className="block text-sm mb-1 opacity-90" style={{ color: PALETTE.darkBlueGreen }}>
                   Point A' (x, y)
                 </label>
                 <div className="flex space-x-2">
@@ -207,7 +274,14 @@ const ReflectionVisualizer: React.FC = () => {
                     onChange={(e) =>
                       handleCorrespondencePointChange(e, "x", true)
                     }
-                    className="w-20 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 text-center"
+                    className="w-20 p-2 rounded-lg border-2 focus:outline-none focus:ring-2"
+                    style={{
+                      backgroundColor: PALETTE.offWhite,
+                      color: PALETTE.darkBlueGreen,
+                      borderColor: PALETTE.darkBlueGreen,
+                      boxShadow: `2px 2px 0px ${PALETTE.vibrantYellow}`,
+                      WebkitAppearance: 'none',
+                    }}
                     step="0.5"
                   />
                   <input
@@ -216,7 +290,14 @@ const ReflectionVisualizer: React.FC = () => {
                     onChange={(e) =>
                       handleCorrespondencePointChange(e, "y", true)
                     }
-                    className="w-20 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 text-center"
+                    className="w-20 p-2 rounded-lg border-2 focus:outline-none focus:ring-2"
+                    style={{
+                      backgroundColor: PALETTE.offWhite,
+                      color: PALETTE.darkBlueGreen,
+                      borderColor: PALETTE.darkBlueGreen,
+                      boxShadow: `2px 2px 0px ${PALETTE.vibrantYellow}`,
+                      WebkitAppearance: 'none',
+                    }}
                     step="0.5"
                   />
                 </div>
@@ -225,7 +306,12 @@ const ReflectionVisualizer: React.FC = () => {
             <div className="mt-4 flex justify-center">
               <button
                 onClick={calculateAxis}
-                className="flex items-center px-5 py-2.5 font-semibold bg-white text-green-600 rounded-full shadow-md hover:bg-gray-100 transition-all duration-200 active:scale-95"
+                className="flex items-center px-5 py-2.5 font-semibold rounded-full transition-all duration-200 active:scale-95"
+                style={{
+                  backgroundColor: PALETTE.vibrantYellow,
+                  color: PALETTE.darkBlueGreen,
+                  ...neubrutalismBase
+                }}
               >
                 <Calculator className="mr-2" size={18} /> Find Axis
               </button>
@@ -238,20 +324,32 @@ const ReflectionVisualizer: React.FC = () => {
       <div className="flex justify-center mb-6">
         <button
           onClick={reset}
-          className="flex items-center px-5 py-2.5 font-semibold bg-white/20 hover:bg-white/30 text-white rounded-full shadow-md transition-all duration-200 active:scale-95"
+          className="flex items-center px-5 py-2.5 font-semibold rounded-full transition-all duration-200 active:scale-95"
+          style={{
+            backgroundColor: PALETTE.redOrange,
+            color: PALETTE.darkBlueGreen,
+            ...neubrutalismBase
+          }}
         >
           <X className="mr-2" size={18} /> Reset
         </button>
       </div>
 
-      {/* SVG Visualization Canvas - White background */}
-      <div className="relative w-full h-80 bg-white rounded-xl border-2 border-white/50 overflow-hidden flex items-center justify-center">
+      {/* SVG Visualization Canvas */}
+      <div
+        className="relative w-full h-80 rounded-xl overflow-hidden flex items-center justify-center"
+        style={{
+          backgroundColor: PALETTE.offWhite,
+          ...neubrutalismBase,
+          padding: '1rem',
+        }}
+      >
         <svg
           width={gridCount * cellSize}
           height={gridCount * cellSize}
           className="absolute"
         >
-          {/* Grid Lines - Adjusted for white background */}
+          {/* Grid Lines */}
           {[...Array(gridCount + 1)].map((_, i) => (
             <g key={i}>
               <line
@@ -259,27 +357,29 @@ const ReflectionVisualizer: React.FC = () => {
                 y1={0}
                 x2={i * cellSize}
                 y2={gridCount * cellSize}
-                stroke="rgba(156, 163, 175, 0.5)"
+                stroke={PALETTE.mediumTeal}
                 strokeWidth="1"
+                strokeOpacity="0.4"
               />
               <line
                 x1={0}
                 y1={i * cellSize}
                 x2={gridCount * cellSize}
                 y2={i * cellSize}
-                stroke="rgba(156, 163, 175, 0.5)"
+                stroke={PALETTE.mediumTeal}
                 strokeWidth="1"
+                strokeOpacity="0.4"
               />
             </g>
           ))}
 
-          {/* Axes - Kept black for strong contrast */}
+          {/* Axes */}
           <line
             x1={(gridCount * cellSize) / 2}
             y1={0}
             x2={(gridCount * cellSize) / 2}
             y2={gridCount * cellSize}
-            stroke="#000000"
+            stroke={PALETTE.darkBlueGreen}
             strokeWidth="2"
           />
           <line
@@ -287,12 +387,11 @@ const ReflectionVisualizer: React.FC = () => {
             y1={(gridCount * cellSize) / 2}
             x2={gridCount * cellSize}
             y2={(gridCount * cellSize) / 2}
-            stroke="#000000"
+            stroke={PALETTE.darkBlueGreen}
             strokeWidth="2"
           />
 
-          {/* Reflection Lines (y=x and y=-x) - Adjusted for visibility */}
-          {/* These lines are shown based on the selected axis in the 'reflect' tab OR the calculated axis in the 'find' tab */}
+          {/* Reflection Lines (y=x and y=-x) */}
           {(reflectionAxis === "y=x" ||
             (showCalculatedAxis && calculatedAxis === "y=x")) && (
             <line
@@ -300,8 +399,8 @@ const ReflectionVisualizer: React.FC = () => {
               y1={gridCount * cellSize}
               x2={gridCount * cellSize}
               y2={0}
-              stroke="#4b5563"
-              strokeWidth="1"
+              stroke={PALETTE.darkBlueGreen}
+              strokeWidth="2"
               strokeDasharray="5,5"
             />
           )}
@@ -312,13 +411,13 @@ const ReflectionVisualizer: React.FC = () => {
               y1={0}
               x2={gridCount * cellSize}
               y2={gridCount * cellSize}
-              stroke="#4b5563"
-              strokeWidth="1"
+              stroke={PALETTE.darkBlueGreen}
+              strokeWidth="2"
               strokeDasharray="5,5"
             />
           )}
 
-          {/* X-axis scale labels - Darker for visibility */}
+          {/* X-axis scale labels */}
           {[...Array(gridCount + 1)].map((_, i) => {
             const xCoord = i - gridCount / 2;
             return (
@@ -326,7 +425,7 @@ const ReflectionVisualizer: React.FC = () => {
                 key={`x-${i}`}
                 x={i * cellSize}
                 y={(gridCount * cellSize) / 2 + 15}
-                fill="#374151"
+                fill={PALETTE.darkBlueGreen}
                 fontSize="10"
                 textAnchor="middle"
                 opacity="0.9"
@@ -336,7 +435,7 @@ const ReflectionVisualizer: React.FC = () => {
             );
           })}
 
-          {/* Y-axis scale labels - Darker for visibility */}
+          {/* Y-axis scale labels */}
           {[...Array(gridCount + 1)].map((_, i) => {
             const yCoord = gridCount / 2 - i;
             if (yCoord !== 0) {
@@ -345,7 +444,7 @@ const ReflectionVisualizer: React.FC = () => {
                   key={`y-${i}`}
                   x={(gridCount * cellSize) / 2 + 10}
                   y={i * cellSize + 5}
-                  fill="#374151"
+                  fill={PALETTE.darkBlueGreen}
                   fontSize="10"
                   textAnchor="start"
                   opacity="0.9"
@@ -357,7 +456,7 @@ const ReflectionVisualizer: React.FC = () => {
             return null;
           })}
 
-          {/* Original Quadrilateral - Kept blue */}
+          {/* Original Quadrilateral */}
           <polygon
             points={points
               .map(
@@ -367,13 +466,13 @@ const ReflectionVisualizer: React.FC = () => {
                   }`
               )
               .join(" ")}
-            fill="rgba(59, 130, 246, 0.6)"
-            stroke="#3b82f6"
+            fill={PALETTE.mediumTeal}
+            fillOpacity="0.6"
+            stroke={PALETTE.mediumTeal}
             strokeWidth="2"
           />
 
-          {/* Reflected Quadrilateral - Kept red, shown conditionally */}
-          {/* Show if 'reflect' action was performed OR if 'find axis' determined an axis and showCalculatedAxis is true */}
+          {/* Reflected Quadrilateral */}
           {showReflected ||
           (showCalculatedAxis && calculatedAxis !== "unknown") ? (
             <polygon
@@ -406,19 +505,20 @@ const ReflectionVisualizer: React.FC = () => {
                       })
                       .join(" ")
               }
-              fill="rgba(239, 68, 68, 0.6)"
-              stroke="#ef4444"
+              fill={PALETTE.redOrange}
+              fillOpacity="0.6"
+              stroke={PALETTE.redOrange}
               strokeWidth="2"
             />
           ) : null}
 
-          {/* Original Points Labels - Darker blue for contrast */}
+          {/* Original Points Labels */}
           {points.map((p, i) => (
             <text
               key={`orig-label-${i}`}
               x={p.x * cellSize + (gridCount * cellSize) / 2 + 6}
               y={(gridCount * cellSize) / 2 - p.y * cellSize - 6}
-              fill="#1e40af"
+              fill={PALETTE.darkBlueGreen}
               fontSize="11"
               fontWeight="500"
               pointerEvents="none"
@@ -427,8 +527,7 @@ const ReflectionVisualizer: React.FC = () => {
             </text>
           ))}
 
-          {/* Reflected Points Labels - Darker red for contrast, shown conditionally */}
-          {/* Show if 'reflect' action was performed OR if 'find axis' determined an axis and showCalculatedAxis is true */}
+          {/* Reflected Points Labels */}
           {(showReflected ||
             (showCalculatedAxis && calculatedAxis !== "unknown")) &&
             (showReflected
@@ -450,7 +549,7 @@ const ReflectionVisualizer: React.FC = () => {
                 key={`refl-label-${i}`}
                 x={p.x * cellSize + (gridCount * cellSize) / 2 + 6}
                 y={(gridCount * cellSize) / 2 - p.y * cellSize - 6}
-                fill="#b91c1c"
+                fill={PALETTE.redOrange}
                 fontSize="11"
                 fontWeight="500"
                 pointerEvents="none"
@@ -461,10 +560,17 @@ const ReflectionVisualizer: React.FC = () => {
         </svg>
       </div>
 
-      {/* Information Panel - Shows reflection results or axis calculation */}
-      <div className="mt-5 p-4 bg-white/15 backdrop-blur-sm rounded-xl border border-white/20 text-sm">
-        <p className="font-semibold mb-2">Original Vertices:</p>
-        <ul className="list-disc list-inside space-y-1">
+      {/* Information Panel */}
+      <div
+        className="mt-5 rounded-xl text-sm"
+        style={{
+          ...neubrutalismBase,
+          backgroundColor: PALETTE.offWhite,
+          borderColor: PALETTE.darkBlueGreen,
+        }}
+      >
+        <p className="font-semibold mb-2" style={{ color: PALETTE.darkBlueGreen }}>Original Vertices:</p>
+        <ul className="list-disc list-inside space-y-1" style={{ color: PALETTE.darkBlueGreen }}>
           {points.map((p, i) => (
             <li key={`info-orig-${i}`} className="font-mono">
               <InlineMath math={`A_{${i + 1}}(${p.x}, ${p.y})`} />
@@ -472,13 +578,12 @@ const ReflectionVisualizer: React.FC = () => {
           ))}
         </ul>
 
-        {/* Show reflected vertices and matrix info if 'reflect' tab action was performed */}
         {showReflected && (
           <>
-            <p className="font-semibold mt-3 mb-2">
+            <p className="font-semibold mt-3 mb-2" style={{ color: PALETTE.darkBlueGreen }}>
               Reflected Vertices (over {reflectionAxis}):
             </p>
-            <ul className="list-disc list-inside space-y-1">
+            <ul className="list-disc list-inside space-y-1" style={{ color: PALETTE.darkBlueGreen }}>
               {reflectedPoints.map((p, i) => (
                 <li key={`info-refl-${i}`} className="font-mono">
                   <InlineMath math={`A_{${i + 1}}'(${p.x}, ${p.y})`} />
@@ -486,18 +591,18 @@ const ReflectionVisualizer: React.FC = () => {
               ))}
             </ul>
 
-            <div className="mt-3 pt-3 border-t border-white/20">
-              <p className="font-semibold mb-2">Reflection Matrix:</p>
-              <div className="flex justify-center my-2">
+            <div className="mt-3 pt-3 border-t-2" style={{ borderColor: PALETTE.mediumTeal }}>
+              <p className="font-semibold mb-2" style={{ color: PALETTE.darkBlueGreen }}>Reflection Matrix:</p>
+              <div className="flex justify-center my-2" style={{ color: PALETTE.darkBlueGreen }}>
                 <BlockMath math={getReflectionMatrix()} />
               </div>
 
-              <p className="font-semibold mb-2 mt-3">How Reflection Works:</p>
-              <p className="mb-2">
+              <p className="font-semibold mb-2 mt-3" style={{ color: PALETTE.darkBlueGreen }}>How Reflection Works:</p>
+              <p className="mb-2" style={{ color: PALETTE.darkBlueGreen }}>
                 Each point's coordinate vector is multiplied by the matrix for
                 the {reflectionAxis}:
               </p>
-              <ul className="list-disc list-inside space-y-1">
+              <ul className="list-disc list-inside space-y-1" style={{ color: PALETTE.darkBlueGreen }}>
                 {points.map((p, i) => (
                   <li key={`process-refl-${i}`} className="font-mono text-xs">
                     <BlockMath
@@ -514,28 +619,27 @@ const ReflectionVisualizer: React.FC = () => {
           </>
         )}
 
-        {/* Show calculated axis info if 'find axis' tab action was performed */}
         {showCalculatedAxis && (
-          <div className="mt-3 pt-3 border-t border-white/20">
-            <p className="font-semibold mb-2">Calculated Reflection Axis:</p>
-            <p>
+          <div className="mt-3 pt-3 border-t-2" style={{ borderColor: PALETTE.mediumTeal }}>
+            <p className="font-semibold mb-2" style={{ color: PALETTE.darkBlueGreen }}>Calculated Reflection Axis:</p>
+            <p style={{ color: PALETTE.darkBlueGreen }}>
               From <InlineMath math={`A(${pointA.x}, ${pointA.y})`} /> to{" "}
               <InlineMath math={`A'(${pointAPrime.x}, ${pointAPrime.y})`} />:
             </p>
-            <p className="my-2 text-center font-bold text-lg">
+            <p className="my-2 text-center font-bold text-lg" style={{ color: PALETTE.darkBlueGreen }}>
               {calculatedAxis !== "unknown" ? (
                 <InlineMath math={`\text{Axis: } ${calculatedAxis}`} />
               ) : (
                 "Axis: Not a standard line (x-axis, y-axis, y=x, or y=-x)"
               )}
             </p>
-            <p className="mt-2 font-semibold">Explanation:</p>
-            <p>
+            <p className="mt-2 font-semibold" style={{ color: PALETTE.darkBlueGreen }}>Explanation:</p>
+            <p style={{ color: PALETTE.darkBlueGreen }}>
               To find the reflection axis, we compare the coordinates of{" "}
               <InlineMath math={`A(${pointA.x}, ${pointA.y})`} /> and{" "}
               <InlineMath math={`A'(${pointAPrime.x}, ${pointAPrime.y})`} />:
             </p>
-            <ul className="list-disc list-inside space-y-1 mt-1">
+            <ul className="list-disc list-inside space-y-1 mt-1" style={{ color: PALETTE.darkBlueGreen }}>
               <li className="text-xs">
                 If <InlineMath math="x = x' \text{ and } y = -y'" />, the axis
                 is the x-axis.
@@ -553,20 +657,19 @@ const ReflectionVisualizer: React.FC = () => {
                 is the line y=-x.
               </li>
             </ul>
-            <p className="mt-2 text-xs italic">
+            <p className="mt-2 text-xs italic" style={{ color: PALETTE.darkBlueGreen }}>
               In this case:{" "}
               <InlineMath
-                math={`(${pointA.x}, ${pointA.y}) \to (${pointAPrime.x}, ${pointAPrime.y})`}
+                math={`(${pointA.x}, ${pointA.y}) \\to (${pointAPrime.x}, ${pointAPrime.y})`}
               />
             </p>
 
-            {/* If an axis was calculated, also show the reflected shape based on that axis */}
             {calculatedAxis !== "unknown" && (
               <>
-                <p className="font-semibold mt-3 mb-2">
+                <p className="font-semibold mt-3 mb-2" style={{ color: PALETTE.darkBlueGreen }}>
                   Reflected Vertices (using calculated axis '{calculatedAxis}'):
                 </p>
-                <ul className="list-disc list-inside space-y-1">
+                <ul className="list-disc list-inside space-y-1" style={{ color: PALETTE.darkBlueGreen }}>
                   {points.map((p, i) => {
                     let reflectedP = p;
                     if (calculatedAxis === "x-axis")

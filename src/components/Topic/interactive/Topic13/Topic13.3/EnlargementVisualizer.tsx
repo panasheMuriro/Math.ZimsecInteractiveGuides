@@ -8,6 +8,22 @@ interface Point {
   y: number;
 }
 
+// New Color Palette for Neubrutalist Style
+const PALETTE = {
+  cream: "#f4f1de",
+  terraCotta: "#e07a5f",
+  darkBlue: "#3d405b",
+  sageGreen: "#81b29a",
+  mustard: "#f2cc8f",
+};
+
+const neubrutalismBase = {
+  border: `3px solid ${PALETTE.darkBlue}`,
+  borderRadius: "12px",
+  boxShadow: `4px 4px 0px ${PALETTE.darkBlue}`,
+  padding: "1rem",
+};
+
 const EnlargementVisualizer: React.FC = () => {
   const points: Point[] = [
     { x: 1, y: 1 },
@@ -55,13 +71,11 @@ const EnlargementVisualizer: React.FC = () => {
 
   const enlargePoints = () => {
     setShowEnlarged(true);
-
     setShowCalculated(false);
   };
 
   const calculateEnlargement = () => {
     setShowCalculated(true);
-
     setShowEnlarged(false);
   };
 
@@ -116,30 +130,60 @@ const EnlargementVisualizer: React.FC = () => {
   const { scaleFactor: calculatedK } = calculateScaleFactorAndCenter();
 
   return (
-    <div className="w-full max-w-md mx-auto p-6 bg-gradient-to-br from-amber-500 to-orange-500 rounded-2xl shadow-xl text-white">
+    <div
+      className="w-full max-w-md mx-auto p-6 rounded-2xl"
+      style={{
+        backgroundColor: PALETTE.sageGreen,
+        ...neubrutalismBase,
+        boxShadow: `8px 8px 0px ${PALETTE.darkBlue}`,
+      }}
+    >
       {/* Title */}
-      <h2 className="text-2xl font-bold mb-5 flex items-center">
+      <h2
+        className="text-2xl font-bold mb-5 flex items-center"
+        style={{ color: PALETTE.darkBlue }}
+      >
         <ZoomIn className="mr-3" size={28} /> Enlargement Visualizer
       </h2>
 
-      {/* Tab Navigation - Styled like RotationVisualizer */}
-      <div className="flex border-b border-white/30 mb-6">
+      {/* Tab Navigation */}
+      <div className="flex border-b-4" style={{ borderColor: PALETTE.darkBlue }}>
         <button
-          className={`py-2 px-4 font-semibold rounded-t-lg transition-colors ${
+          className={`py-2 px-4 font-semibold transition-colors rounded-t-lg ${
             activeTab === "enlarge"
-              ? "bg-white/20 text-white"
-              : "bg-transparent text-white/70 hover:text-white hover:bg-white/10"
+              ? "rounded-b-none"
+              : "bg-transparent hover:bg-white/10"
           }`}
+          style={
+            activeTab === "enlarge"
+              ? {
+                  backgroundColor: PALETTE.terraCotta,
+                  color: PALETTE.darkBlue,
+                  border: `3px solid ${PALETTE.darkBlue}`,
+                  borderBottom: "none",
+                }
+              : { color: PALETTE.darkBlue, opacity: "0.7" }
+          }
           onClick={() => setActiveTab("enlarge")}
         >
           Enlarge Shape
         </button>
         <button
-          className={`py-2 px-4 font-semibold rounded-t-lg transition-colors ${
+          className={`py-2 px-4 font-semibold transition-colors rounded-t-lg ${
             activeTab === "find"
-              ? "bg-white/20 text-white"
-              : "bg-transparent text-white/70 hover:text-white hover:bg-white/10"
+              ? "rounded-b-none"
+              : "bg-transparent hover:bg-white/10"
           }`}
+          style={
+            activeTab === "find"
+              ? {
+                  backgroundColor: PALETTE.terraCotta,
+                  color: PALETTE.darkBlue,
+                  border: `3px solid ${PALETTE.darkBlue}`,
+                  borderBottom: "none",
+                }
+              : { color: PALETTE.darkBlue, opacity: "0.7" }
+          }
           onClick={() => setActiveTab("find")}
         >
           Find Enlargement
@@ -147,27 +191,49 @@ const EnlargementVisualizer: React.FC = () => {
       </div>
 
       {/* Tab Content */}
-      <div className="mb-6 p-4 bg-white/20 backdrop-blur-sm rounded-xl border border-white/30">
+      <div
+        className="mb-6 p-4 rounded-xl"
+        style={{
+          ...neubrutalismBase,
+          backgroundColor: PALETTE.cream,
+          borderColor: PALETTE.darkBlue,
+        }}
+      >
         {activeTab === "enlarge" ? (
           <>
-            <h3 className="text-lg font-semibold mb-3">
+            <h3
+              className="text-lg font-semibold mb-3"
+              style={{ color: PALETTE.darkBlue }}
+            >
               Set Enlargement Parameters
             </h3>
             <div className="grid grid-cols-1 gap-4">
               <div>
-                <label className="block text-sm mb-1 opacity-90">
+                <label
+                  className="block text-sm mb-1 opacity-90"
+                  style={{ color: PALETTE.darkBlue }}
+                >
                   Scale Factor (k)
                 </label>
                 <input
                   type="number"
                   value={scaleFactor}
                   onChange={handleScaleFactorChange}
-                  className="w-full p-2.5 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50"
+                  className="w-full p-2.5 rounded-lg border-2 focus:outline-none focus:ring-2"
+                  style={{
+                    backgroundColor: PALETTE.mustard,
+                    color: PALETTE.darkBlue,
+                    borderColor: PALETTE.darkBlue,
+                    boxShadow: `2px 2px 0px ${PALETTE.terraCotta}`,
+                  }}
                   step="0.5"
                 />
               </div>
               <div>
-                <label className="block text-sm mb-1 opacity-90">
+                <label
+                  className="block text-sm mb-1 opacity-90"
+                  style={{ color: PALETTE.darkBlue }}
+                >
                   Center (h, k)
                 </label>
                 <div className="flex space-x-2">
@@ -175,14 +241,28 @@ const EnlargementVisualizer: React.FC = () => {
                     type="number"
                     value={center.x}
                     onChange={(e) => handleCenterChange(e, "x")}
-                    className="w-20 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 text-center"
+                    className="w-20 p-2 rounded-lg border-2 focus:outline-none focus:ring-2"
+                    style={{
+                      backgroundColor: PALETTE.mustard,
+                      color: PALETTE.darkBlue,
+                      borderColor: PALETTE.darkBlue,
+                      boxShadow: `2px 2px 0px ${PALETTE.terraCotta}`,
+                      WebkitAppearance: "none",
+                    }}
                     step="0.5"
                   />
                   <input
                     type="number"
                     value={center.y}
                     onChange={(e) => handleCenterChange(e, "y")}
-                    className="w-20 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 text-center"
+                    className="w-20 p-2 rounded-lg border-2 focus:outline-none focus:ring-2"
+                    style={{
+                      backgroundColor: PALETTE.mustard,
+                      color: PALETTE.darkBlue,
+                      borderColor: PALETTE.darkBlue,
+                      boxShadow: `2px 2px 0px ${PALETTE.terraCotta}`,
+                      WebkitAppearance: "none",
+                    }}
                     step="0.5"
                   />
                 </div>
@@ -191,7 +271,13 @@ const EnlargementVisualizer: React.FC = () => {
             <div className="mt-4 flex justify-center">
               <button
                 onClick={enlargePoints}
-                className="flex items-center px-5 py-2.5 font-semibold bg-white text-amber-600 rounded-full shadow-md hover:bg-gray-100 transition-all duration-200 active:scale-95"
+                className="flex items-center px-5 py-2.5 font-semibold rounded-full transition-all duration-200 active:scale-95"
+                style={{
+                  backgroundColor: PALETTE.terraCotta,
+                  color: PALETTE.darkBlue,
+                  ...neubrutalismBase,
+                  padding: "0.75rem 1.25rem",
+                }}
               >
                 <ZoomIn className="mr-2" size={18} /> Enlarge
               </button>
@@ -199,16 +285,25 @@ const EnlargementVisualizer: React.FC = () => {
           </>
         ) : (
           <>
-            <h3 className="text-lg font-semibold mb-3">
+            <h3
+              className="text-lg font-semibold mb-3"
+              style={{ color: PALETTE.darkBlue }}
+            >
               Find Scale Factor and Center
             </h3>
-            <p className="text-sm mb-3 opacity-90">
+            <p
+              className="text-sm mb-3 opacity-90"
+              style={{ color: PALETTE.darkBlue }}
+            >
               Enter a point and its image to calculate the scale factor
               (assuming center is origin):
             </p>
             <div className="flex flex-wrap gap-4">
               <div>
-                <label className="block text-sm mb-1 opacity-90">
+                <label
+                  className="block text-sm mb-1 opacity-90"
+                  style={{ color: PALETTE.darkBlue }}
+                >
                   Point A (x, y)
                 </label>
                 <div className="flex space-x-2">
@@ -218,7 +313,14 @@ const EnlargementVisualizer: React.FC = () => {
                     onChange={(e) =>
                       handleCorrespondencePointChange(e, "x", false)
                     }
-                    className="w-20 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 text-center"
+                    className="w-20 p-2 rounded-lg border-2 focus:outline-none focus:ring-2"
+                    style={{
+                      backgroundColor: PALETTE.mustard,
+                      color: PALETTE.darkBlue,
+                      borderColor: PALETTE.darkBlue,
+                      boxShadow: `2px 2px 0px ${PALETTE.terraCotta}`,
+                      WebkitAppearance: "none",
+                    }}
                     step="0.5"
                   />
                   <input
@@ -227,13 +329,23 @@ const EnlargementVisualizer: React.FC = () => {
                     onChange={(e) =>
                       handleCorrespondencePointChange(e, "y", false)
                     }
-                    className="w-20 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 text-center"
+                    className="w-20 p-2 rounded-lg border-2 focus:outline-none focus:ring-2"
+                    style={{
+                      backgroundColor: PALETTE.mustard,
+                      color: PALETTE.darkBlue,
+                      borderColor: PALETTE.darkBlue,
+                      boxShadow: `2px 2px 0px ${PALETTE.terraCotta}`,
+                      WebkitAppearance: "none",
+                    }}
                     step="0.5"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-sm mb-1 opacity-90">
+                <label
+                  className="block text-sm mb-1 opacity-90"
+                  style={{ color: PALETTE.darkBlue }}
+                >
                   Point A' (x', y')
                 </label>
                 <div className="flex space-x-2">
@@ -243,7 +355,14 @@ const EnlargementVisualizer: React.FC = () => {
                     onChange={(e) =>
                       handleCorrespondencePointChange(e, "x", true)
                     }
-                    className="w-20 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 text-center"
+                    className="w-20 p-2 rounded-lg border-2 focus:outline-none focus:ring-2"
+                    style={{
+                      backgroundColor: PALETTE.mustard,
+                      color: PALETTE.darkBlue,
+                      borderColor: PALETTE.darkBlue,
+                      boxShadow: `2px 2px 0px ${PALETTE.terraCotta}`,
+                      WebkitAppearance: "none",
+                    }}
                     step="0.5"
                   />
                   <input
@@ -252,7 +371,14 @@ const EnlargementVisualizer: React.FC = () => {
                     onChange={(e) =>
                       handleCorrespondencePointChange(e, "y", true)
                     }
-                    className="w-20 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 text-center"
+                    className="w-20 p-2 rounded-lg border-2 focus:outline-none focus:ring-2"
+                    style={{
+                      backgroundColor: PALETTE.mustard,
+                      color: PALETTE.darkBlue,
+                      borderColor: PALETTE.darkBlue,
+                      boxShadow: `2px 2px 0px ${PALETTE.terraCotta}`,
+                      WebkitAppearance: "none",
+                    }}
                     step="0.5"
                   />
                 </div>
@@ -261,7 +387,13 @@ const EnlargementVisualizer: React.FC = () => {
             <div className="mt-4 flex justify-center">
               <button
                 onClick={calculateEnlargement}
-                className="flex items-center px-5 py-2.5 font-semibold bg-white text-green-600 rounded-full shadow-md hover:bg-gray-100 transition-all duration-200 active:scale-95"
+                className="flex items-center px-5 py-2.5 font-semibold rounded-full transition-all duration-200 active:scale-95"
+                style={{
+                  backgroundColor: PALETTE.terraCotta,
+                  color: PALETTE.darkBlue,
+                  ...neubrutalismBase,
+                  padding: "0.75rem 1.25rem",
+                }}
               >
                 <Calculator className="mr-2" size={18} /> Find Enlargement
               </button>
@@ -274,20 +406,33 @@ const EnlargementVisualizer: React.FC = () => {
       <div className="flex justify-center mb-6">
         <button
           onClick={reset}
-          className="flex items-center px-5 py-2.5 font-semibold bg-white/20 hover:bg-white/30 text-white rounded-full shadow-md transition-all duration-200 active:scale-95"
+          className="flex items-center px-5 py-2.5 font-semibold rounded-full transition-all duration-200 active:scale-95"
+          style={{
+            backgroundColor: PALETTE.mustard,
+            color: PALETTE.darkBlue,
+            ...neubrutalismBase,
+            padding: "0.75rem 1.25rem",
+          }}
         >
           <X className="mr-2" size={18} /> Reset
         </button>
       </div>
 
-      {/* SVG Visualization Canvas - White background */}
-      <div className="relative w-full h-80 bg-white rounded-xl border-2 border-white/50 overflow-hidden flex items-center justify-center">
+      {/* SVG Visualization Canvas */}
+      <div
+        className="relative w-full h-80 rounded-xl overflow-hidden flex items-center justify-center"
+        style={{
+          backgroundColor: PALETTE.cream,
+          ...neubrutalismBase,
+          padding: "1rem",
+        }}
+      >
         <svg
           width={gridCount * cellSize}
           height={gridCount * cellSize}
           className="absolute"
         >
-          {/* Grid Lines - Adjusted for white background */}
+          {/* Grid Lines */}
           {[...Array(gridCount + 1)].map((_, i) => (
             <g key={i}>
               <line
@@ -295,27 +440,29 @@ const EnlargementVisualizer: React.FC = () => {
                 y1={0}
                 x2={i * cellSize}
                 y2={gridCount * cellSize}
-                stroke="rgba(156, 163, 175, 0.5)"
+                stroke={PALETTE.mustard}
                 strokeWidth="1"
+                strokeOpacity="0.8"
               />
               <line
                 x1={0}
                 y1={i * cellSize}
                 x2={gridCount * cellSize}
                 y2={i * cellSize}
-                stroke="rgba(156, 163, 175, 0.5)"
+                stroke={PALETTE.mustard}
                 strokeWidth="1"
+                strokeOpacity="0.8"
               />
             </g>
           ))}
 
-          {/* Axes - Kept black for strong contrast */}
+          {/* Axes */}
           <line
             x1={(gridCount * cellSize) / 2}
             y1={0}
             x2={(gridCount * cellSize) / 2}
             y2={gridCount * cellSize}
-            stroke="#000000"
+            stroke={PALETTE.darkBlue}
             strokeWidth="2"
           />
           <line
@@ -323,11 +470,11 @@ const EnlargementVisualizer: React.FC = () => {
             y1={(gridCount * cellSize) / 2}
             x2={gridCount * cellSize}
             y2={(gridCount * cellSize) / 2}
-            stroke="#000000"
+            stroke={PALETTE.darkBlue}
             strokeWidth="2"
           />
 
-          {/* X-axis scale labels - Darker for visibility */}
+          {/* X-axis scale labels */}
           {[...Array(gridCount + 1)].map((_, i) => {
             const xCoord = i - gridCount / 2;
             return (
@@ -335,7 +482,7 @@ const EnlargementVisualizer: React.FC = () => {
                 key={`x-${i}`}
                 x={i * cellSize}
                 y={(gridCount * cellSize) / 2 + 15}
-                fill="#374151"
+                fill={PALETTE.darkBlue}
                 fontSize="10"
                 textAnchor="middle"
                 opacity="0.9"
@@ -345,7 +492,7 @@ const EnlargementVisualizer: React.FC = () => {
             );
           })}
 
-          {/* Y-axis scale labels - Darker for visibility */}
+          {/* Y-axis scale labels */}
           {[...Array(gridCount + 1)].map((_, i) => {
             const yCoord = gridCount / 2 - i;
             if (yCoord !== 0) {
@@ -354,7 +501,7 @@ const EnlargementVisualizer: React.FC = () => {
                   key={`y-${i}`}
                   x={(gridCount * cellSize) / 2 + 10}
                   y={i * cellSize + 5}
-                  fill="#374151"
+                  fill={PALETTE.darkBlue}
                   fontSize="10"
                   textAnchor="start"
                   opacity="0.9"
@@ -366,7 +513,7 @@ const EnlargementVisualizer: React.FC = () => {
             return null;
           })}
 
-          {/* Original Quadrilateral - Kept blue */}
+          {/* Original Quadrilateral */}
           <polygon
             points={points
               .map(
@@ -376,12 +523,13 @@ const EnlargementVisualizer: React.FC = () => {
                   }`
               )
               .join(" ")}
-            fill="rgba(59, 130, 246, 0.6)"
-            stroke="#3b82f6"
+            fill={PALETTE.terraCotta}
+            fillOpacity="0.6"
+            stroke={PALETTE.terraCotta}
             strokeWidth="2"
           />
 
-          {/* Enlarged Quadrilateral - Kept red, shown conditionally */}
+          {/* Enlarged Quadrilateral - shown conditionally */}
           {(showEnlarged || showCalculated) && (
             <polygon
               points={enlargedPoints
@@ -392,8 +540,9 @@ const EnlargementVisualizer: React.FC = () => {
                     }`
                 )
                 .join(" ")}
-              fill="rgba(239, 68, 68, 0.6)"
-              stroke="#ef4444"
+              fill={PALETTE.mustard}
+              fillOpacity="0.6"
+              stroke={PALETTE.mustard}
               strokeWidth="2"
             />
           )}
@@ -404,7 +553,7 @@ const EnlargementVisualizer: React.FC = () => {
               cx={center.x * cellSize + (gridCount * cellSize) / 2}
               cy={(gridCount * cellSize) / 2 - center.y * cellSize}
               r="4"
-              fill="#10b981"
+              fill={PALETTE.darkBlue}
             />
           )}
 
@@ -418,7 +567,7 @@ const EnlargementVisualizer: React.FC = () => {
                   y1={(gridCount * cellSize) / 2 - center.y * cellSize}
                   x2={p.x * cellSize + (gridCount * cellSize) / 2}
                   y2={(gridCount * cellSize) / 2 - p.y * cellSize}
-                  stroke="#3b82f6"
+                  stroke={PALETTE.terraCotta}
                   strokeWidth="1"
                   strokeDasharray="5,5"
                 />
@@ -432,20 +581,20 @@ const EnlargementVisualizer: React.FC = () => {
                   y2={
                     (gridCount * cellSize) / 2 - enlargedPoints[i].y * cellSize
                   }
-                  stroke="#ef4444"
+                  stroke={PALETTE.mustard}
                   strokeWidth="1"
                   strokeDasharray="5,5"
                 />
               </g>
             ))}
 
-          {/* Original Points Labels - Darker blue for contrast */}
+          {/* Original Points Labels */}
           {points.map((p, i) => (
             <text
               key={`orig-label-${i}`}
               x={p.x * cellSize + (gridCount * cellSize) / 2 + 6}
               y={(gridCount * cellSize) / 2 - p.y * cellSize - 6}
-              fill="#1e40af"
+              fill={PALETTE.darkBlue}
               fontSize="11"
               fontWeight="500"
               pointerEvents="none"
@@ -454,14 +603,14 @@ const EnlargementVisualizer: React.FC = () => {
             </text>
           ))}
 
-          {/* Enlarged/Calculated Points Labels - Darker red for contrast, shown conditionally */}
+          {/* Enlarged/Calculated Points Labels - shown conditionally */}
           {(showEnlarged || showCalculated) &&
             enlargedPoints.map((p, i) => (
               <text
                 key={`enl-label-${i}`}
                 x={p.x * cellSize + (gridCount * cellSize) / 2 + 6}
                 y={(gridCount * cellSize) / 2 - p.y * cellSize - 6}
-                fill="#b91c1c"
+                fill={PALETTE.darkBlue}
                 fontSize="11"
                 fontWeight="500"
                 pointerEvents="none"
@@ -472,8 +621,16 @@ const EnlargementVisualizer: React.FC = () => {
         </svg>
       </div>
 
-      {/* Information Panel - Shows enlargement results or calculation */}
-      <div className="mt-5 p-4 bg-white/15 backdrop-blur-sm rounded-xl border border-white/20 text-sm">
+      {/* Information Panel */}
+      <div
+        className="mt-5 p-4 rounded-xl text-sm"
+        style={{
+          ...neubrutalismBase,
+          backgroundColor: PALETTE.cream,
+          borderColor: PALETTE.darkBlue,
+          color: PALETTE.darkBlue,
+        }}
+      >
         <p className="font-semibold mb-2">Original Vertices:</p>
         <ul className="list-disc list-inside space-y-1">
           {points.map((p, i) => (
@@ -483,7 +640,6 @@ const EnlargementVisualizer: React.FC = () => {
           ))}
         </ul>
 
-        {/* Show enlarged vertices and matrix info if 'enlarge' tab action was performed */}
         {showEnlarged && (
           <>
             <p className="font-semibold mt-3 mb-2">
@@ -498,7 +654,10 @@ const EnlargementVisualizer: React.FC = () => {
               ))}
             </ul>
 
-            <div className="mt-3 pt-3 border-t border-white/20">
+            <div
+              className="mt-3 pt-3 border-t-2"
+              style={{ borderColor: PALETTE.darkBlue }}
+            >
               <p className="font-semibold mb-2">
                 Enlargement Matrix (for origin-centered only):
               </p>
@@ -535,9 +694,11 @@ const EnlargementVisualizer: React.FC = () => {
           </>
         )}
 
-        {/* Show calculated enlargement info if 'find enlargement' tab action was performed */}
         {showCalculated && (
-          <div className="mt-3 pt-3 border-t border-white/20">
+          <div
+            className="mt-3 pt-3 border-t-2"
+            style={{ borderColor: PALETTE.darkBlue }}
+          >
             <p className="font-semibold mb-2">
               Calculated Enlargement (Assuming Origin Center):
             </p>
@@ -557,11 +718,6 @@ const EnlargementVisualizer: React.FC = () => {
                 />
               </span>
             </p>
-            {/* <p className="my-2 text-center">
-              Center: <span className="font-bold">
-                <InlineMath math={`(${isNaN(calculatedCenter.x) ? '?' : calculatedCenter.x}, ${isNaN(calculatedCenter.y) ? '?' : calculatedCenter.y})`} />
-              </span>
-            </p> */}
             <p className="mt-2 font-semibold">Explanation:</p>
             <p>
               If the center of enlargement is the origin (0, 0), the scale

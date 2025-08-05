@@ -1,11 +1,29 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import { Move, X, Calculator, Eye, FileText } from "lucide-react";
 import { BlockMath, InlineMath } from "react-katex";
 import "katex/dist/katex.min.css";
 
+// --- Neubrutalism Styles & Colors with the new palette ---
+const PALETTE = {
+  darkBlueGreen: "#264653",
+  mediumTeal: "#2a9d8f",
+  vibrantYellow: "#e9c46a",
+  warmOrange: "#f4a261",
+  redOrange: "#e76f51",
+  offWhite: "#fbf8f1",
+};
+
+const neubrutalismBase = {
+  border: `3px solid ${PALETTE.darkBlueGreen}`,
+  borderRadius: "12px",
+  boxShadow: `4px 4px 0px ${PALETTE.darkBlueGreen}9D`,
+  padding: "1rem",
+};
+
 interface Point {
-  x: number;
-  y: number;
+x: number;
+y: number;
 }
 
 const ShearVisualizer: React.FC = () => {
@@ -42,9 +60,9 @@ const ShearVisualizer: React.FC = () => {
   ) => {
     const value = parseFloat(e.target.value) || 0;
     if (isPrime) {
-      setPointAPrime((prev) => ({ ...prev, [axis]: value }));
+      setPointAPrime((prev: any) => ({ ...prev, [axis]: value }));
     } else {
-      setPointA((prev) => ({ ...prev, [axis]: value }));
+      setPointA((prev: any) => ({ ...prev, [axis]: value }));
     }
 
     if (showResult) setShowResult(false);
@@ -112,257 +130,278 @@ const ShearVisualizer: React.FC = () => {
   } = describeShear();
 
   return (
-    <div className="w-full max-w-md mx-auto p-6 bg-gradient-to-br from-teal-500 to-green-700 rounded-2xl shadow-xl text-white">
+    <div
+      className="w-full max-w-md mx-auto p-6 rounded-2xl"
+      style={{
+        backgroundColor: PALETTE.mediumTeal,
+        ...neubrutalismBase,
+        boxShadow: `8px 8px 0px ${PALETTE.darkBlueGreen}`,
+      }}
+    >
       {/* Title */}
-      <h2 className="text-2xl font-bold mb-5 flex items-center">
-        <Move className="mr-3" size={28} /> Shear Visualizer
+      <h2
+        className="text-2xl font-bold mb-5 flex items-center"
+        style={{ color: PALETTE.offWhite }}
+      >
+        <Move className="mr-3" size={28} style={{ color: PALETTE.darkBlueGreen }} /> Shear Visualizer
       </h2>
 
-      {/* Tab Navigation - Styled like RotationVisualizer */}
-      <div className="flex flex-wrap border-b border-white/30 mb-6">
+      {/* Tab Navigation - Neubrutalism style */}
+      <div className="flex flex-wrap border-b-2 mb-6" style={{ borderColor: PALETTE.darkBlueGreen }}>
         <button
-          className={`py-2 px-3 text-sm font-semibold rounded-t-lg transition-colors ${
+          className={`py-2 px-3 text-sm font-semibold transition-all ${
             mode === "draw"
-              ? "bg-white/20 text-white"
-              : "bg-transparent text-white/70 hover:text-white hover:bg-white/10"
+              ? "bg-white"
+              : "bg-transparent text-gray-700/80 hover:bg-gray-100/50"
           }`}
+          style={{
+            ...neubrutalismBase,
+            boxShadow: "none",
+            borderBottom: "none",
+            borderRadius: "10px 10px 0 0",
+            backgroundColor: mode === "draw" ? PALETTE.offWhite : "transparent",
+            color:mode === "draw"?  PALETTE.darkBlueGreen:PALETTE.offWhite ,
+          }}
           onClick={() => setMode("draw")}
         >
           <Eye className="inline mr-1" size={16} /> Draw Shear
         </button>
         <button
-          className={`py-2 px-3 text-sm font-semibold rounded-t-lg transition-colors ${
+          className={`py-2 px-3 text-sm font-semibold transition-all ${
             mode === "compute"
-              ? "bg-white/20 text-white"
-              : "bg-transparent text-white/70 hover:text-white hover:bg-white/10"
+              ? "bg-white"
+              : "bg-transparent text-gray-700/80 hover:bg-gray-100/50"
           }`}
+          style={{
+            ...neubrutalismBase,
+            boxShadow: "none",
+            borderBottom: "none",
+            borderRadius: "10px 10px 0 0",
+            backgroundColor: mode === "compute" ? PALETTE.offWhite : "transparent",
+            color:mode === "compute"?  PALETTE.darkBlueGreen:PALETTE.offWhite ,
+          }}
           onClick={() => setMode("compute")}
         >
-          <Calculator className="inline mr-1" size={16} /> Compute Coordinates
+          <Calculator className="inline mr-1" size={16} /> Compute
         </button>
         <button
-          className={`py-2 px-3 text-sm font-semibold rounded-t-lg transition-colors ${
-            mode === "invariant"
-              ? "bg-white/20 text-white"
-              : "bg-transparent text-white/70 hover:text-white hover:bg-white/10"
-          }`}
-          onClick={() => setMode("invariant")}
-        >
-          Invariant Line
-        </button>
-        <button
-          className={`py-2 px-3 text-sm font-semibold rounded-t-lg transition-colors ${
+          className={`py-2 px-3 text-sm font-semibold transition-all ${
             mode === "describe"
-              ? "bg-white/20 text-white"
-              : "bg-transparent text-white/70 hover:text-white hover:bg-white/10"
+              ? "bg-white"
+              : "bg-transparent text-gray-700/80 hover:bg-gray-100/50"
           }`}
+          style={{
+            ...neubrutalismBase,
+            boxShadow: "none",
+            borderBottom: "none",
+            borderRadius: "10px 10px 0 0",
+            backgroundColor: mode === "describe" ? PALETTE.offWhite : "transparent",
+            color:mode === "describe"?  PALETTE.darkBlueGreen:PALETTE.offWhite ,
+          }}
           onClick={() => setMode("describe")}
         >
-          <FileText className="inline mr-1" size={16} /> Describe Shear
+          <FileText className="inline mr-1" size={16} /> Describe
         </button>
       </div>
 
       {/* Mode Content */}
-      <div className="mb-6 p-4 bg-white/20 backdrop-blur-sm rounded-xl border border-white/30">
-        {(mode === "draw" || mode === "compute" || mode === "invariant") && (
+      <div
+        className="mb-6 rounded-xl"
+        style={{
+          ...neubrutalismBase,
+          backgroundColor: PALETTE.offWhite,
+          borderColor: PALETTE.darkBlueGreen,
+        }}
+      >
+        <h3 className="text-lg font-semibold mb-3" style={{ color: PALETTE.darkBlueGreen }}>
+          {mode === "draw" && "Shear Parameters"}
+          {mode === "compute" && "Compute Point"}
+          {mode === "describe" && "Describe Shear"}
+        </h3>
+        {/* Draw & Compute Controls */}
+        {(mode === "draw" || mode === "compute") && (
           <>
-            <h3 className="text-lg font-semibold mb-3">
-              {mode === "draw" && "Set Shear Parameters"}
-              {mode === "compute" && "Set Parameters & Point"}
-              {mode === "invariant" && "Find Invariant Line"}
-            </h3>
             <div className="flex gap-4 mb-4">
               <button
-                className={`flex-1 py-2 px-4 text-sm font-semibold rounded-lg transition-colors ${
-                  shearAxis === "x-axis"
-                    ? "bg-white text-teal-600"
-                    : "bg-white/30 text-white hover:bg-white/40"
-                }`}
+                className={`flex-1 py-2 px-4 text-sm font-semibold rounded-lg transition-colors active:scale-95`}
+                style={{
+                  ...neubrutalismBase,
+                  boxShadow: `3px 3px 0px ${
+                    shearAxis === "x-axis" ? PALETTE.warmOrange : PALETTE.mediumTeal
+                  }`,
+                  backgroundColor:
+                    shearAxis === "x-axis" ? PALETTE.vibrantYellow : PALETTE.offWhite,
+                  color: PALETTE.darkBlueGreen,
+                  borderColor: PALETTE.darkBlueGreen,
+                  border: `2px solid ${PALETTE.darkBlueGreen}`,
+                }}
                 onClick={() => setShearAxis("x-axis")}
               >
                 Parallel to X-axis
               </button>
               <button
-                className={`flex-1 py-2 px-4 text-sm font-semibold rounded-lg transition-colors ${
-                  shearAxis === "y-axis"
-                    ? "bg-white text-teal-600"
-                    : "bg-white/30 text-white hover:bg-white/40"
-                }`}
+                className={`flex-1 py-2 px-4 text-sm font-semibold rounded-lg transition-colors active:scale-95`}
+                style={{
+                  ...neubrutalismBase,
+                  boxShadow: `3px 3px 0px ${
+                    shearAxis === "y-axis" ? PALETTE.warmOrange : PALETTE.mediumTeal
+                  }`,
+                  backgroundColor:
+                    shearAxis === "y-axis" ? PALETTE.vibrantYellow : PALETTE.offWhite,
+                  color: PALETTE.darkBlueGreen,
+                  borderColor: PALETTE.darkBlueGreen,
+                  border: `2px solid ${PALETTE.darkBlueGreen}`,
+                }}
                 onClick={() => setShearAxis("y-axis")}
               >
                 Parallel to Y-axis
               </button>
             </div>
             <div className="mb-4">
-              <label className="block text-sm mb-1 opacity-90">
+              <label className="block text-sm mb-1 opacity-90" style={{ color: PALETTE.darkBlueGreen }}>
                 Shear Factor (k)
               </label>
               <input
                 type="number"
                 value={k}
                 onChange={handleKChange}
-                className="w-full p-2.5 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50"
+                className="w-full p-2.5 rounded-lg border-2 focus:outline-none focus:ring-2"
+                style={{
+                  backgroundColor: PALETTE.offWhite,
+                  color: PALETTE.darkBlueGreen,
+                  borderColor: PALETTE.darkBlueGreen,
+                  boxShadow: `2px 2px 0px ${PALETTE.vibrantYellow}`,
+                  WebkitAppearance: "none",
+                }}
                 step="0.5"
               />
             </div>
-
-            {mode === "compute" && (
-              <>
-                <p className="text-sm my-3 opacity-90">
-                  Enter a point to see its image under the current shear:
-                </p>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm mb-1 opacity-90">
-                      Point A (x, y)
-                    </label>
-                    <div className="flex space-x-2">
-                      <input
-                        type="number"
-                        value={pointA.x}
-                        onChange={(e) => handlePointChange(e, "x", false)}
-                        className="w-20 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 text-center"
-                        step="0.5"
-                      />
-                      <input
-                        type="number"
-                        value={pointA.y}
-                        onChange={(e) => handlePointChange(e, "y", false)}
-                        className="w-20 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 text-center"
-                        step="0.5"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm mb-1 opacity-90">
-                      Point A' (x', y')
-                    </label>
-                    <div className="flex space-x-2">
-                      <input
-                        type="number"
-                        value={pointAPrime.x}
-                        readOnly
-                        className="w-20 p-2 bg-gray-200 text-gray-500 rounded-lg border border-gray-300 text-center"
-                        step="0.5"
-                      />
-                      <input
-                        type="number"
-                        value={pointAPrime.y}
-                        readOnly
-                        className="w-20 p-2 bg-gray-200 text-gray-500 rounded-lg border border-gray-300 text-center"
-                        step="0.5"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
-            <div className="mt-4 flex justify-center">
-              <button
-                onClick={applyAction}
-                className={`flex items-center px-5 py-2.5 font-semibold rounded-full shadow-md hover:bg-gray-100 transition-all duration-200 active:scale-95 ${
-                  mode === "draw"
-                    ? "bg-white text-teal-600"
-                    : mode === "compute"
-                    ? "bg-white text-green-600"
-                    : "bg-white text-purple-600"
-                }`}
-              >
-                {mode === "draw" && <Eye className="mr-2" size={18} />}
-                {mode === "compute" && (
-                  <Calculator className="mr-2" size={18} />
-                )}
-                {mode === "invariant" && "Show Invariant Line"}
-                {mode === "draw" && "Show Shear"}
-                {mode === "compute" && "Compute"}
-              </button>
-            </div>
           </>
         )}
 
-        {mode === "describe" && (
-          <>
-            <h3 className="text-lg font-semibold mb-3">
-              Describe Shear Transformation
-            </h3>
-            <p className="text-sm mb-3 opacity-90">
-              Enter a point and its image to determine the shear axis and
-              factor:
-            </p>
-            <div className="grid grid-cols-2 gap-4 mb-2">
-              <div>
-                <label className="block text-sm mb-1 opacity-90">
-                  Point A (x, y)
-                </label>
-                <div className="flex space-x-2">
-                  <input
-                    type="number"
-                    value={pointA.x}
-                    onChange={(e) => handlePointChange(e, "x", false)}
-                    className="w-20 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 text-center"
-                    step="0.5"
-                  />
-                  <input
-                    type="number"
-                    value={pointA.y}
-                    onChange={(e) => handlePointChange(e, "y", false)}
-                    className="w-20 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 text-center"
-                    step="0.5"
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm mb-1 opacity-90">
-                  Point A' (x', y')
-                </label>
-                <div className="flex space-x-2">
-                  <input
-                    type="number"
-                    value={pointAPrime.x}
-                    onChange={(e) => handlePointChange(e, "x", true)}
-                    className="w-20 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 text-center"
-                    step="0.5"
-                  />
-                  <input
-                    type="number"
-                    value={pointAPrime.y}
-                    onChange={(e) => handlePointChange(e, "y", true)}
-                    className="w-20 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 text-center"
-                    step="0.5"
-                  />
-                </div>
+        {/* Compute & Describe Controls */}
+        {(mode === "compute" || mode === "describe") && (
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm mb-1 opacity-90" style={{ color: PALETTE.darkBlueGreen }}>
+                Point A
+              </label>
+              <div className="flex space-x-2">
+                <input
+                  type="number"
+                  value={pointA.x}
+                  onChange={(e) => handlePointChange(e, "x", false)}
+                  className="w-full p-2 rounded-lg border-2 focus:outline-none focus:ring-2 text-center"
+                  style={{
+                    backgroundColor: PALETTE.offWhite,
+                    color: PALETTE.darkBlueGreen,
+                    borderColor: PALETTE.darkBlueGreen,
+                    boxShadow: `2px 2px 0px ${PALETTE.vibrantYellow}`,
+                  }}
+                  step="0.5"
+                />
+                <input
+                  type="number"
+                  value={pointA.y}
+                  onChange={(e) => handlePointChange(e, "y", false)}
+                  className="w-full p-2 rounded-lg border-2 focus:outline-none focus:ring-2 text-center"
+                  style={{
+                    backgroundColor: PALETTE.offWhite,
+                    color: PALETTE.darkBlueGreen,
+                    borderColor: PALETTE.darkBlueGreen,
+                    boxShadow: `2px 2px 0px ${PALETTE.vibrantYellow}`,
+                  }}
+                  step="0.5"
+                />
               </div>
             </div>
-            <div className="mt-4 flex justify-center">
-              <button
-                onClick={applyAction}
-                className="flex items-center px-5 py-2.5 font-semibold bg-white text-green-600 rounded-full shadow-md hover:bg-gray-100 transition-all duration-200 active:scale-95"
-              >
-                <Calculator className="mr-2" size={18} /> Describe
-              </button>
+            <div>
+              <label className="block text-sm mb-1 opacity-90" style={{ color: PALETTE.darkBlueGreen }}>
+                Point A'
+              </label>
+              <div className="flex space-x-2">
+                <input
+                  type="number"
+                  value={mode === "compute" ? (shearAxis === "x-axis" ? pointA.x + k * pointA.y : pointA.x) : pointAPrime.x}
+                  onChange={(e) => handlePointChange(e, "x", true)}
+                  readOnly={mode === "compute"}
+                  className="w-full p-2 rounded-lg border-2 focus:outline-none focus:ring-2 text-center"
+                  style={{
+                    backgroundColor: mode === "compute" ? `${PALETTE.offWhite}80` : PALETTE.offWhite,
+                    color: mode === "compute" ? `${PALETTE.darkBlueGreen}90` : PALETTE.darkBlueGreen,
+                    borderColor: PALETTE.darkBlueGreen,
+                    boxShadow: `2px 2px 0px ${PALETTE.vibrantYellow}`,
+                  }}
+                  step="0.5"
+                />
+                <input
+                  type="number"
+                  value={mode === "compute" ? (shearAxis === "x-axis" ? pointA.y : pointA.y + k * pointA.x) : pointAPrime.y}
+                  onChange={(e) => handlePointChange(e, "y", true)}
+                  readOnly={mode === "compute"}
+                  className="w-full p-2 rounded-lg border-2 focus:outline-none focus:ring-2 text-center"
+                  style={{
+                    backgroundColor: mode === "compute" ? `${PALETTE.offWhite}80` : PALETTE.offWhite,
+                    color: mode === "compute" ? `${PALETTE.darkBlueGreen}90` : PALETTE.darkBlueGreen,
+                    borderColor: PALETTE.darkBlueGreen,
+                    boxShadow: `2px 2px 0px ${PALETTE.vibrantYellow}`,
+                  }}
+                  step="0.5"
+                />
+              </div>
             </div>
-          </>
+          </div>
         )}
       </div>
 
-      {/* Action Buttons - Reset (Always visible) */}
-      <div className="flex justify-center mb-6">
+      {/* Action Buttons */}
+      <div className="flex justify-center space-x-4 mb-6 h-12">
+        <button
+          onClick={applyAction}
+          className={`flex items-center px-5 py-2.5 font-semibold rounded-full transition-all duration-200 active:scale-95`}
+          style={{
+            backgroundColor: PALETTE.vibrantYellow,
+            color: PALETTE.darkBlueGreen,
+            ...neubrutalismBase,
+            boxShadow: `3px 3px 0px ${PALETTE.darkBlueGreen}9d`,
+          }}
+        >
+          {mode === "draw" && <Eye className="mr-2" size={18} />}
+          {mode === "compute" && <Calculator className="mr-2" size={18} />}
+          {mode === "describe" && <FileText className="mr-2" size={18} />}
+          {mode === "draw" && "Show Shear"}
+          {mode === "compute" && "Compute"}
+          {mode === "describe" && "Describe"}
+        </button>
         <button
           onClick={reset}
-          className="flex items-center px-5 py-2.5 font-semibold bg-white/20 hover:bg-white/30 text-white rounded-full shadow-md transition-all duration-200 active:scale-95"
+          className="flex items-center px-5 py-2.5 font-semibold rounded-full transition-all duration-200 active:scale-95"
+          style={{
+            backgroundColor: PALETTE.warmOrange,
+            color: PALETTE.darkBlueGreen,
+            ...neubrutalismBase,
+            boxShadow: `3px 3px 0px ${PALETTE.darkBlueGreen}9d`,
+          }}
         >
           <X className="mr-2" size={18} /> Reset
         </button>
       </div>
 
-      {/* SVG Visualization Canvas - White background */}
-      <div className="relative w-full h-80 bg-white rounded-xl border-2 border-white/50 overflow-hidden flex items-center justify-center">
+      {/* SVG Visualization Canvas */}
+      <div
+        className="relative w-full h-80 rounded-xl overflow-hidden flex items-center justify-center"
+        style={{
+          backgroundColor: PALETTE.offWhite,
+          ...neubrutalismBase,
+          padding: "1rem",
+        }}
+      >
         <svg
           width={gridCount * cellSize}
           height={gridCount * cellSize}
           className="absolute"
         >
-          {/* Grid Lines - Adjusted for white background */}
+          {/* Grid Lines */}
           {[...Array(gridCount + 1)].map((_, i) => (
             <g key={i}>
               <line
@@ -370,27 +409,28 @@ const ShearVisualizer: React.FC = () => {
                 y1={0}
                 x2={i * cellSize}
                 y2={gridCount * cellSize}
-                stroke="rgba(156, 163, 175, 0.5)"
+                stroke={PALETTE.mediumTeal}
                 strokeWidth="1"
+                strokeOpacity="0.4"
               />
               <line
                 x1={0}
                 y1={i * cellSize}
                 x2={gridCount * cellSize}
                 y2={i * cellSize}
-                stroke="rgba(156, 163, 175, 0.5)"
+                stroke={PALETTE.mediumTeal}
                 strokeWidth="1"
+                strokeOpacity="0.4"
               />
             </g>
           ))}
-
-          {/* Axes - Kept black for strong contrast */}
+          {/* Axes */}
           <line
             x1={(gridCount * cellSize) / 2}
             y1={0}
             x2={(gridCount * cellSize) / 2}
             y2={gridCount * cellSize}
-            stroke="#000000"
+            stroke={PALETTE.darkBlueGreen}
             strokeWidth="2"
           />
           <line
@@ -398,11 +438,10 @@ const ShearVisualizer: React.FC = () => {
             y1={(gridCount * cellSize) / 2}
             x2={gridCount * cellSize}
             y2={(gridCount * cellSize) / 2}
-            stroke="#000000"
+            stroke={PALETTE.darkBlueGreen}
             strokeWidth="2"
           />
-
-          {/* X-axis scale labels - Darker for visibility */}
+          {/* X-axis scale labels */}
           {[...Array(gridCount + 1)].map((_, i) => {
             const xCoord = i - gridCount / 2;
             return (
@@ -410,7 +449,7 @@ const ShearVisualizer: React.FC = () => {
                 key={`x-${i}`}
                 x={i * cellSize}
                 y={(gridCount * cellSize) / 2 + 15}
-                fill="#374151"
+                fill={PALETTE.darkBlueGreen}
                 fontSize="10"
                 textAnchor="middle"
                 opacity="0.9"
@@ -419,8 +458,7 @@ const ShearVisualizer: React.FC = () => {
               </text>
             );
           })}
-
-          {/* Y-axis scale labels - Darker for visibility */}
+          {/* Y-axis scale labels */}
           {[...Array(gridCount + 1)].map((_, i) => {
             const yCoord = gridCount / 2 - i;
             if (yCoord !== 0) {
@@ -429,7 +467,7 @@ const ShearVisualizer: React.FC = () => {
                   key={`y-${i}`}
                   x={(gridCount * cellSize) / 2 + 10}
                   y={i * cellSize + 5}
-                  fill="#374151"
+                  fill={PALETTE.darkBlueGreen}
                   fontSize="10"
                   textAnchor="start"
                   opacity="0.9"
@@ -440,86 +478,55 @@ const ShearVisualizer: React.FC = () => {
             }
             return null;
           })}
-
-          {/* Invariant Line - Shown for 'draw', 'invariant', 'describe' modes when result is shown */}
-          {showResult &&
-            (mode === "draw" ||
-              mode === "invariant" ||
-              mode === "describe") && (
-              <>
-                {/* Invariant line for shear parallel to x-axis (y-axis line x=0) */}
-                {shearAxis === "x-axis" && (
-                  <line
-                    x1={(gridCount * cellSize) / 2}
-                    y1={0}
-                    x2={(gridCount * cellSize) / 2}
-                    y2={gridCount * cellSize}
-                    stroke="#10b981"
-                    strokeWidth="2"
-                    strokeDasharray="5,5"
-                  />
-                )}
-                {/* Invariant line for shear parallel to y-axis (x-axis line y=0) */}
-                {shearAxis === "y-axis" && (
-                  <line
-                    x1={0}
-                    y1={(gridCount * cellSize) / 2}
-                    x2={gridCount * cellSize}
-                    y2={(gridCount * cellSize) / 2}
-                    stroke="#10b981"
-                    strokeWidth="2"
-                    strokeDasharray="5,5"
-                  />
-                )}
-                {/* If 'describe' mode and a shear was calculated, show that invariant line too */}
-                {mode === "describe" &&
-                  calculatedAxis !== "unknown" &&
-                  calculatedAxis === "x-axis" && (
-                    <line
-                      x1={(gridCount * cellSize) / 2}
-                      y1={0}
-                      x2={(gridCount * cellSize) / 2}
-                      y2={gridCount * cellSize}
-                      stroke="#8b5cf6"
-                      strokeWidth="1"
-                      strokeDasharray="3,3"
-                    />
-                  )}
-                {mode === "describe" &&
-                  calculatedAxis !== "unknown" &&
-                  calculatedAxis === "y-axis" && (
-                    <line
-                      x1={0}
-                      y1={(gridCount * cellSize) / 2}
-                      x2={gridCount * cellSize}
-                      y2={(gridCount * cellSize) / 2}
-                      stroke="#8b5cf6"
-                      strokeWidth="1"
-                      strokeDasharray="3,3"
-                    />
-                  )}
-              </>
-            )}
-
-          {/* Original Quadrilateral - Kept blue, shown for 'draw', 'invariant' modes */}
-          {(mode === "draw" || mode === "invariant") && (
-            <polygon
-              points={points
-                .map(
-                  (p) =>
-                    `${p.x * cellSize + (gridCount * cellSize) / 2},${
-                      (gridCount * cellSize) / 2 - p.y * cellSize
-                    }`
-                )
-                .join(" ")}
-              fill="rgba(59, 130, 246, 0.6)"
-              stroke="#3b82f6"
-              strokeWidth="2"
-            />
+          {/* Invariant Line */}
+          {showResult && (mode === "draw" || mode === "describe") && (
+            <>
+              {(shearAxis === "x-axis" || calculatedAxis === "x-axis") && (
+                <line
+                  x1={(gridCount * cellSize) / 2}
+                  y1={0}
+                  x2={(gridCount * cellSize) / 2}
+                  y2={gridCount * cellSize}
+                  stroke={
+                    mode === "draw" ? PALETTE.vibrantYellow : PALETTE.redOrange
+                  }
+                  strokeWidth="2"
+                  strokeDasharray="5,5"
+                />
+              )}
+              {(shearAxis === "y-axis" || calculatedAxis === "y-axis") && (
+                <line
+                  x1={0}
+                  y1={(gridCount * cellSize) / 2}
+                  x2={gridCount * cellSize}
+                  y2={(gridCount * cellSize) / 2}
+                  stroke={
+                    mode === "draw" ? PALETTE.vibrantYellow : PALETTE.redOrange
+                  }
+                  strokeWidth="2"
+                  strokeDasharray="5,5"
+                />
+              )}
+            </>
           )}
 
-          {/* Sheared Quadrilateral - Kept red, shown conditionally for 'draw', 'invariant' modes */}
-          {(mode === "draw" || mode === "invariant") && showResult && (
+          {/* Original Quadrilateral */}
+          <polygon
+            points={points
+              .map(
+                (p) =>
+                  `${p.x * cellSize + (gridCount * cellSize) / 2},${
+                    (gridCount * cellSize) / 2 - p.y * cellSize
+                  }`
+              )
+              .join(" ")}
+            fill={PALETTE.mediumTeal}
+            fillOpacity="0.6"
+            stroke={PALETTE.mediumTeal}
+            strokeWidth="2"
+          />
+          {/* Sheared Quadrilateral */}
+          {showResult && (
             <polygon
               points={shearedPoints
                 .map(
@@ -529,13 +536,14 @@ const ShearVisualizer: React.FC = () => {
                     }`
                 )
                 .join(" ")}
-              fill="rgba(239, 68, 68, 0.6)"
-              stroke="#ef4444"
+              fill={PALETTE.redOrange}
+              fillOpacity="0.6"
+              stroke={PALETTE.redOrange}
               strokeWidth="2"
             />
           )}
 
-          {/* Points for Compute Mode */}
+          {/* Points & Labels */}
           {mode === "compute" && (
             <>
               {/* Original Point A */}
@@ -543,23 +551,21 @@ const ShearVisualizer: React.FC = () => {
                 cx={pointA.x * cellSize + (gridCount * cellSize) / 2}
                 cy={(gridCount * cellSize) / 2 - pointA.y * cellSize}
                 r="4"
-                fill="#3b82f6"
+                fill={PALETTE.darkBlueGreen}
               />
               <text
                 x={pointA.x * cellSize + (gridCount * cellSize) / 2 + 6}
                 y={(gridCount * cellSize) / 2 - pointA.y * cellSize - 6}
-                fill="#1e40af"
+                fill={PALETTE.darkBlueGreen}
                 fontSize="11"
                 fontWeight="500"
                 pointerEvents="none"
               >
                 A({pointA.x},{pointA.y})
               </text>
-
-              {/* Image Point A' - shown conditionally */}
+              {/* Image Point A' */}
               {showResult && (
                 <>
-                  {/* Calculate A' based on current shear parameters */}
                   <circle
                     cx={
                       (shearAxis === "x-axis"
@@ -576,7 +582,7 @@ const ShearVisualizer: React.FC = () => {
                         cellSize
                     }
                     r="4"
-                    fill="#ef4444"
+                    fill={PALETTE.redOrange}
                   />
                   <text
                     x={
@@ -595,27 +601,18 @@ const ShearVisualizer: React.FC = () => {
                         cellSize -
                       6
                     }
-                    fill="#b91c1c"
+                    fill={PALETTE.redOrange}
                     fontSize="11"
                     fontWeight="500"
                     pointerEvents="none"
                   >
-                    A'(
-                    {shearAxis === "x-axis"
-                      ? pointA.x + k * pointA.y
-                      : pointA.x}
-                    ,
-                    {shearAxis === "x-axis"
-                      ? pointA.y
-                      : pointA.y + k * pointA.x}
-                    )
+                    A'({shearAxis === "x-axis" ? pointA.x + k * pointA.y : pointA.x}, {shearAxis === "x-axis" ? pointA.y : pointA.y + k * pointA.x})
                   </text>
                 </>
               )}
             </>
           )}
 
-          {/* Points for Describe Mode */}
           {mode === "describe" && (
             <>
               {/* Original Point A */}
@@ -623,84 +620,83 @@ const ShearVisualizer: React.FC = () => {
                 cx={pointA.x * cellSize + (gridCount * cellSize) / 2}
                 cy={(gridCount * cellSize) / 2 - pointA.y * cellSize}
                 r="4"
-                fill="#3b82f6"
+                fill={PALETTE.darkBlueGreen}
               />
               <text
                 x={pointA.x * cellSize + (gridCount * cellSize) / 2 + 6}
                 y={(gridCount * cellSize) / 2 - pointA.y * cellSize - 6}
-                fill="#1e40af"
+                fill={PALETTE.darkBlueGreen}
                 fontSize="11"
                 fontWeight="500"
                 pointerEvents="none"
               >
                 A({pointA.x},{pointA.y})
               </text>
-
-              {/* Image Point A' - shown conditionally */}
-              {showResult && (
-                <>
-                  <circle
-                    cx={pointAPrime.x * cellSize + (gridCount * cellSize) / 2}
-                    cy={(gridCount * cellSize) / 2 - pointAPrime.y * cellSize}
-                    r="4"
-                    fill="#ef4444"
-                  />
-                  <text
-                    x={
-                      pointAPrime.x * cellSize + (gridCount * cellSize) / 2 + 6
-                    }
-                    y={
-                      (gridCount * cellSize) / 2 - pointAPrime.y * cellSize - 6
-                    }
-                    fill="#b91c1c"
-                    fontSize="11"
-                    fontWeight="500"
-                    pointerEvents="none"
-                  >
-                    A'({pointAPrime.x},{pointAPrime.y})
-                  </text>
-                </>
-              )}
+              {/* Image Point A' */}
+              <circle
+                cx={pointAPrime.x * cellSize + (gridCount * cellSize) / 2}
+                cy={(gridCount * cellSize) / 2 - pointAPrime.y * cellSize}
+                r="4"
+                fill={PALETTE.redOrange}
+              />
+              <text
+                x={pointAPrime.x * cellSize + (gridCount * cellSize) / 2 + 6}
+                y={(gridCount * cellSize) / 2 - pointAPrime.y * cellSize - 6}
+                fill={PALETTE.redOrange}
+                fontSize="11"
+                fontWeight="500"
+                pointerEvents="none"
+              >
+                A'({pointAPrime.x},{pointAPrime.y})
+              </text>
             </>
           )}
         </svg>
       </div>
 
-      {/* Information Panel - Shows results based on mode */}
-      <div className="mt-5 p-4 bg-white/15 backdrop-blur-sm rounded-xl border border-white/20 text-sm">
-        <p className="font-semibold mb-2">Original Vertices:</p>
-        <ul className="list-disc list-inside space-y-1">
+      {/* Information Panel */}
+      <div
+        className="mt-5 p-4 rounded-xl text-sm"
+        style={{
+          ...neubrutalismBase,
+          backgroundColor: PALETTE.offWhite,
+          borderColor: PALETTE.darkBlueGreen,
+        }}
+      >
+        <p className="font-semibold mb-2" style={{ color: PALETTE.darkBlueGreen }}>Original Vertices:</p>
+        <ul className="list-disc list-inside space-y-1" style={{ color: PALETTE.darkBlueGreen }}>
           {points.map((p, i) => (
             <li key={`info-orig-${i}`} className="font-mono">
               <InlineMath math={`A_{${i + 1}}(${p.x}, ${p.y})`} />
             </li>
           ))}
         </ul>
-
-        {/* Show sheared vertices info if 'draw' or 'invariant' mode action was performed */}
+        {/* Sheared vertices info */}
         {(mode === "draw" || mode === "invariant") && showResult && (
           <>
-            <p className="font-semibold mt-3 mb-2">
+            <p className="font-semibold mt-3 mb-2" style={{ color: PALETTE.darkBlueGreen }}>
               Sheared Vertices (
               {shearAxis === "x-axis"
                 ? `Parallel to X-axis, k=${k}`
                 : `Parallel to Y-axis, k=${k}`}
               ):
             </p>
-            <ul className="list-disc list-inside space-y-1">
+            <ul className="list-disc list-inside space-y-1" style={{ color: PALETTE.darkBlueGreen }}>
               {shearedPoints.map((p, i) => (
                 <li key={`info-shear-${i}`} className="font-mono">
                   <InlineMath math={`A_{${i + 1}}'(${p.x}, ${p.y})`} />
                 </li>
               ))}
             </ul>
-
-            <div className="mt-3 pt-3 border-t border-white/20">
-              <p className="font-semibold mb-2">How Shear Works:</p>
-              <p className="mb-2">
+            <div
+              className="mt-3 pt-3 border-t-2"
+              style={{ borderColor: PALETTE.mediumTeal }}
+            >
+              <p className="font-semibold mb-2" style={{ color: PALETTE.darkBlueGreen }}>How Shear Works:</p>
+              <p className="mb-2" style={{ color: PALETTE.darkBlueGreen }}>
                 Each point <InlineMath math="(x, y)" /> is transformed:
               </p>
-              <ul className="list-disc list-inside space-y-1">
+              <ul className="list-disc list-inside space-y-1" style={{ color: PALETTE.darkBlueGreen }}>
                 {shearAxis === "x-axis" ? (
                   <li className="font-mono text-xs">
                     <InlineMath math={`(x, y) \to (x + ${k} \\cdot y, y)`} />
@@ -711,30 +707,27 @@ const ShearVisualizer: React.FC = () => {
                   </li>
                 )}
               </ul>
-              <p className="mt-2 text-xs italic">
-                {shearAxis === "x-axis"
-                  ? "Points move horizontally. The y-coordinate (and the y-axis) is invariant."
-                  : "Points move vertically. The x-coordinate (and the x-axis) is invariant."}
-              </p>
             </div>
           </>
         )}
-
-        {/* Show computed point info if 'compute' mode action was performed */}
+        {/* Computed point info */}
         {mode === "compute" && showResult && (
-          <div className="mt-3 pt-3 border-t border-white/20">
-            <p className="font-semibold mb-2">
+          <div
+            className="mt-3 pt-3 border-t-2"
+            style={{ borderColor: PALETTE.mediumTeal }}
+          >
+            <p className="font-semibold mb-2" style={{ color: PALETTE.darkBlueGreen }}>
               Computed Image (
               {shearAxis === "x-axis"
                 ? `Parallel to X-axis, k=${k}`
                 : `Parallel to Y-axis, k=${k}`}
               ):
             </p>
-            <p>
+            <p style={{ color: PALETTE.darkBlueGreen }}>
               Original point <InlineMath math={`A(${pointA.x}, ${pointA.y})`} />{" "}
               is transformed to:
             </p>
-            <p className="my-2 text-center font-bold">
+            <p className="my-2 text-center font-bold" style={{ color: PALETTE.darkBlueGreen }}>
               <InlineMath
                 math={`A'(${
                   shearAxis === "x-axis" ? pointA.x + k * pointA.y : pointA.x
@@ -756,46 +749,24 @@ const ShearVisualizer: React.FC = () => {
             </div>
           </div>
         )}
-
-        {/* Show invariant line info if 'invariant' mode action was performed */}
-        {mode === "invariant" && showResult && (
-          <div className="mt-3 pt-3 border-t border-white/20">
-            <p className="font-semibold mb-2">Invariant Line:</p>
-            <p>
-              For a shear transformation, the invariant line is the line
-              parallel to the direction of the shear. Points on this line do not
-              move.
-            </p>
-            <ul className="list-disc list-inside space-y-1 mt-2">
-              <li>
-                Shear parallel to the <strong>X-axis</strong>: The invariant
-                line is the <strong>Y-axis</strong> (<InlineMath math="x = 0" />
-                ).
-              </li>
-              <li>
-                Shear parallel to the <strong>Y-axis</strong>: The invariant
-                line is the <strong>X-axis</strong> (<InlineMath math="y = 0" />
-                ).
-              </li>
-            </ul>
-          </div>
-        )}
-
-        {/* Show description info if 'describe' mode action was performed */}
+        {/* Description info */}
         {mode === "describe" && showResult && (
-          <div className="mt-3 pt-3 border-t border-white/20">
-            <p className="font-semibold mb-2">
+          <div
+            className="mt-3 pt-3 border-t-2"
+            style={{ borderColor: PALETTE.mediumTeal }}
+          >
+            <p className="font-semibold mb-2" style={{ color: PALETTE.darkBlueGreen }}>
               Described Shear Transformation:
             </p>
             {calculatedAxis !== "unknown" ? (
               <>
-                <p>
+                <p style={{ color: PALETTE.darkBlueGreen }}>
                   Based on points{" "}
                   <InlineMath math={`A(${pointA.x}, ${pointA.y})`} /> and{" "}
                   <InlineMath math={`A'(${pointAPrime.x}, ${pointAPrime.y})`} />
                   :
                 </p>
-                <ul className="list-disc list-inside space-y-1 my-2">
+                <ul className="list-disc list-inside space-y-1 my-2" style={{ color: PALETTE.darkBlueGreen }}>
                   <li>
                     Axis of Shear:{" "}
                     <span className="font-bold">{calculatedAxis}</span>
@@ -811,17 +782,11 @@ const ShearVisualizer: React.FC = () => {
                     <span className="font-bold">{calculatedInvariant}</span>
                   </li>
                 </ul>
-                <p className="mt-2 text-xs italic">
-                  This was determined because the invariant coordinate remained
-                  unchanged, and the change in the other coordinate was
-                  proportional to the invariant one.
-                </p>
               </>
             ) : (
-              <p>
+              <p style={{ color: PALETTE.darkBlueGreen }}>
                 Could not determine a unique shear transformation from these
-                points. They might not represent a simple shear, or more
-                information is needed.
+                points.
               </p>
             )}
           </div>

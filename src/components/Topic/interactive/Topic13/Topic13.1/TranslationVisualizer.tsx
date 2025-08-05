@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
 import { Move, X, Plus } from 'lucide-react';
 
@@ -5,6 +6,23 @@ interface Point {
   x: number;
   y: number;
 }
+
+// --- Neubrutalism Styles & Colors with the new palette ---
+const PALETTE = {
+  darkBlueGreen: '#264653',
+  mediumTeal: '#2a9d8f',
+  vibrantYellow: '#e9c46a',
+  warmOrange: '#f4a261',
+  redOrange: '#e76f51',
+  offWhite: '#fbf8f1',
+};
+
+const neubrutalismBase = {
+  border: `3px solid ${PALETTE.darkBlueGreen}`,
+  borderRadius: '12px',
+  boxShadow: `4px 4px 0px ${PALETTE.darkBlueGreen}9d`,
+  padding: '1rem',
+};
 
 const TranslationVisualizer: React.FC = () => {
   
@@ -17,8 +35,9 @@ const TranslationVisualizer: React.FC = () => {
   
   const [vector, setVector] = useState<Point>({ x: -3, y: 2 });
 
-  
-  const [showTranslated, setShowTranslated] = useState(false);
+  // Use a state to control the animated translation
+  const [isTranslated, setIsTranslated] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   
   const handleVectorChange = (e: React.ChangeEvent<HTMLInputElement>, axis: 'x' | 'y') => {
@@ -28,14 +47,22 @@ const TranslationVisualizer: React.FC = () => {
 
   
   const translatePoints = () => {
-    setShowTranslated(true);
+    if (!isTranslated) {
+      setIsAnimating(true);
+      // Trigger the translation with a slight delay to allow the `isTranslated` state to be registered
+      setTimeout(() => {
+        setIsTranslated(true);
+      }, 50);
+      // Reset the animating state after the animation duration
+      setTimeout(() => {
+        setIsAnimating(false);
+      }, 1050);
+    }
   };
 
   
   const reset = () => {
-    setShowTranslated(false);
-    
-    
+    setIsTranslated(false);
   };
 
   
@@ -48,68 +75,112 @@ const TranslationVisualizer: React.FC = () => {
     y: point.y + vector.y,
   }));
 
+  const translatedTransform = `translate(${isTranslated ? vector.x * cellSize : 0}px, ${isTranslated ? -vector.y * cellSize : 0}px)`;
+
   return (
     
-    <div className="w-full max-w-md mx-auto p-6 bg-gradient-to-br from-teal-500 to-emerald-500 rounded-2xl shadow-xl text-white">
+    <div
+      className="w-full max-w-md mx-auto p-6 rounded-2xl"
+      style={{
+        backgroundColor: PALETTE.mediumTeal,
+        ...neubrutalismBase,
+        boxShadow: `8px 8px 0px ${PALETTE.darkBlueGreen}`,
+      }}
+    >
 
       {/* Title */}
-      <h2 className="text-2xl font-bold mb-5 flex items-center">
-        <Move className="mr-3" size={28} /> Translation Visualizer
+      <h2 className="text-2xl font-bold mb-5 flex items-center" style={{ color: PALETTE.darkBlueGreen }}>
+        <Move className="mr-3" size={28} style={{ color: PALETTE.darkBlueGreen }} /> Translation Visualizer
       </h2>
 
       {/* Vector Input Section */}
-      <div className="mb-6 p-4 bg-white/20 backdrop-blur-sm rounded-xl border border-white/30">
-        <h3 className="text-lg font-semibold mb-3">Translation Vector</h3>
+      <div
+        className="mb-6 rounded-xl"
+        style={{
+          ...neubrutalismBase,
+          backgroundColor: PALETTE.offWhite,
+          borderColor: PALETTE.darkBlueGreen,
+        }}
+      >
+        <h3 className="text-lg font-semibold mb-3" style={{ color: PALETTE.darkBlueGreen }}>Translation Vector</h3>
         <div className="flex space-x-6">
           <div>
-            <label className="block text-sm mb-1 opacity-90">X Component</label>
+            <label className="block text-sm mb-1 opacity-90" style={{ color: PALETTE.darkBlueGreen }}>X Component</label>
             <input
               type="number"
               value={vector.x}
               onChange={(e) => handleVectorChange(e, 'x')}
-              className="w-24 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50"
+              className="w-24 p-2 rounded-lg border-2 focus:outline-none focus:ring-2"
+              style={{
+                backgroundColor: PALETTE.offWhite,
+                color: PALETTE.darkBlueGreen,
+                borderColor: PALETTE.darkBlueGreen,
+                boxShadow: `2px 2px 0px ${PALETTE.vibrantYellow}`,
+                WebkitAppearance: 'none',
+              }}
               step="0.5"
             />
           </div>
           <div>
-            <label className="block text-sm mb-1 opacity-90">Y Component</label>
+            <label className="block text-sm mb-1 opacity-90" style={{ color: PALETTE.darkBlueGreen }}>Y Component</label>
             <input
               type="number"
               value={vector.y}
               onChange={(e) => handleVectorChange(e, 'y')}
-              className="w-24 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50"
+              className="w-24 p-2 rounded-lg border-2 focus:outline-none focus:ring-2"
+              style={{
+                backgroundColor: PALETTE.offWhite,
+                color: PALETTE.darkBlueGreen,
+                borderColor: PALETTE.darkBlueGreen,
+                boxShadow: `2px 2px 0px ${PALETTE.vibrantYellow}`,
+                WebkitAppearance: 'none',
+              }}
               step="0.5"
             />
           </div>
         </div>
-        <p className="text-sm mt-3 font-medium">
-          Vector: <span className="font-mono bg-black/20 px-2 py-1 rounded">[{vector.x}, {vector.y}]</span>
+        <p className="text-sm mt-3 font-medium" style={{ color: PALETTE.darkBlueGreen }}>
+          Vector: <span className="font-mono px-2 py-1 rounded" style={{ backgroundColor: `${PALETTE.vibrantYellow}80` }}>[{vector.x}, {vector.y}]</span>
         </p>
       </div>
 
       {/* Action Buttons */}
-      <div className="flex justify-center space-x-4 mb-6">
+      <div className="flex justify-center space-x-4 mb-6 h-12">
         <button
           onClick={translatePoints}
-          disabled={showTranslated} 
-          className={`flex items-center px-5 py-2.5 font-semibold rounded-full shadow-md transition-all duration-200 ${
-            showTranslated
-              ? 'bg-gray-400 cursor-not-allowed'
-              : 'bg-white text-teal-600 hover:bg-gray-100 active:scale-95'
+          disabled={isTranslated || isAnimating} 
+          className={`flex items-center px-5 py-2.5 font-semibold rounded-full transition-all duration-200 active:scale-95 ${
+            isTranslated || isAnimating
+              ? 'bg-gray-400 cursor-not-allowed text-gray-700'
+              : ''
           }`}
+          style={isTranslated || isAnimating ? {} : { backgroundColor: PALETTE.vibrantYellow, color: PALETTE.darkBlueGreen, ...neubrutalismBase }}
         >
           <Plus className="mr-2" size={18} /> Translate
         </button>
         <button
           onClick={reset}
-          className="flex items-center px-5 py-2.5 font-semibold bg-white/20 hover:bg-white/30 text-white rounded-full shadow-md transition-all duration-200 active:scale-95"
+          disabled={!isTranslated || isAnimating}
+          className={`flex items-center px-5 py-2.5 font-semibold rounded-full transition-all duration-200 active:scale-95 ${
+            !isTranslated || isAnimating
+              ? 'bg-gray-400 cursor-not-allowed text-gray-700'
+              : ''
+          }`}
+          style={!isTranslated || isAnimating ? {} : { backgroundColor: PALETTE.warmOrange, color: PALETTE.darkBlueGreen, ...neubrutalismBase }}
         >
           <X className="mr-2" size={18} /> Reset
         </button>
       </div>
 
       {/* SVG Visualization Canvas - Background is now white */}
-      <div className="relative w-full h-80 bg-white rounded-xl border-2 border-white/50 overflow-hidden flex items-center justify-center">
+      <div
+        className="relative w-full h-80 rounded-xl overflow-hidden flex items-center justify-center"
+        style={{
+          backgroundColor: PALETTE.offWhite,
+          ...neubrutalismBase,
+          padding: '1rem',
+        }}
+      >
         <svg
           width={gridCount * cellSize}
           height={gridCount * cellSize}
@@ -124,16 +195,18 @@ const TranslationVisualizer: React.FC = () => {
                 y1={0}
                 x2={i * cellSize}
                 y2={gridCount * cellSize}
-                stroke="rgba(156, 163, 175, 0.5)" 
+                stroke={PALETTE.mediumTeal}
                 strokeWidth="1"
+                strokeOpacity="0.4"
               />
               <line
                 x1={0}
                 y1={i * cellSize}
                 x2={gridCount * cellSize}
                 y2={i * cellSize}
-                stroke="rgba(156, 163, 175, 0.5)"
+                stroke={PALETTE.mediumTeal}
                 strokeWidth="1"
+                strokeOpacity="0.4"
               />
             </g>
           ))}
@@ -144,7 +217,7 @@ const TranslationVisualizer: React.FC = () => {
             y1={0}
             x2={gridCount * cellSize / 2}
             y2={gridCount * cellSize}
-            stroke="#000000"
+            stroke={PALETTE.darkBlueGreen}
             strokeWidth="2"
           />
           <line
@@ -152,7 +225,7 @@ const TranslationVisualizer: React.FC = () => {
             y1={gridCount * cellSize / 2}
             x2={gridCount * cellSize}
             y2={gridCount * cellSize / 2}
-            stroke="#000000"
+            stroke={PALETTE.darkBlueGreen}
             strokeWidth="2"
           />
 
@@ -164,7 +237,7 @@ const TranslationVisualizer: React.FC = () => {
                 key={`x-${i}`}
                 x={i * cellSize}
                 y={gridCount * cellSize / 2 + 15}
-                fill="#374151" 
+                fill={PALETTE.darkBlueGreen}
                 fontSize="10"
                 textAnchor="middle"
                 opacity="0.9"
@@ -183,7 +256,7 @@ const TranslationVisualizer: React.FC = () => {
                   key={`y-${i}`}
                   x={gridCount * cellSize / 2 + 10}
                   y={i * cellSize + 5}
-                  fill="#374151" 
+                  fill={PALETTE.darkBlueGreen}
                   fontSize="10"
                   textAnchor="start"
                   opacity="0.9"
@@ -195,35 +268,39 @@ const TranslationVisualizer: React.FC = () => {
             return null;
           })}
 
-          {/* Original Triangle - Kept blue */}
+          {/* Original Triangle */}
           <polygon
             points={points
               .map((p) => `${p.x * cellSize + gridCount * cellSize / 2},${gridCount * cellSize / 2 - p.y * cellSize}`)
               .join(' ')}
-            fill="rgba(59, 130, 246, 0.6)" 
-            stroke="#3b82f6" 
+            fill={PALETTE.mediumTeal}
+            fillOpacity="0.6"
+            stroke={PALETTE.mediumTeal} 
             strokeWidth="2"
           />
 
-          {/* Translated Triangle - Kept red */}
-          {showTranslated && (
-            <polygon
-              points={translatedPoints
-                .map((p) => `${p.x * cellSize + gridCount * cellSize / 2},${gridCount * cellSize / 2 - p.y * cellSize}`)
-                .join(' ')}
-              fill="rgba(239, 68, 68, 0.6)" 
-              stroke="#ef4444" 
-              strokeWidth="2"
-            />
-          )}
+          {/* Translated Triangle (The "ghost" shape) */}
+          <polygon
+            points={points
+              .map((p) => `${p.x * cellSize + gridCount * cellSize / 2},${gridCount * cellSize / 2 - p.y * cellSize}`)
+              .join(' ')}
+            fill={PALETTE.redOrange}
+            fillOpacity="0.6"
+            stroke={PALETTE.redOrange} 
+            strokeWidth="2"
+            style={{
+              transition: 'transform 1s ease-in-out',
+              transform: translatedTransform
+            }}
+          />
 
-          {/* Original Points Labels - Kept dark blueish for contrast */}
+          {/* Original Points Labels */}
           {points.map((p, i) => (
             <text
               key={`orig-label-${i}`}
               x={p.x * cellSize + gridCount * cellSize / 2 + 6}
               y={gridCount * cellSize / 2 - p.y * cellSize - 6}
-              fill="#1e40af" 
+              fill={PALETTE.darkBlueGreen} 
               fontSize="11"
               fontWeight="500"
               pointerEvents="none" 
@@ -232,28 +309,39 @@ const TranslationVisualizer: React.FC = () => {
             </text>
           ))}
 
-          {/* Translated Points Labels - Kept dark redish for contrast */}
-          {showTranslated &&
-            translatedPoints.map((p, i) => (
-              <text
-                key={`trans-label-${i}`}
-                x={p.x * cellSize + gridCount * cellSize / 2 + 6}
-                y={gridCount * cellSize / 2 - p.y * cellSize - 6}
-                fill="#b91c1c" 
-                fontSize="11"
-                fontWeight="500"
-                pointerEvents="none"
-              >
-                A{i + 1}'({p.x},{p.y})
-              </text>
-            ))}
+          {/* Translated Points Labels (follow the animation) */}
+          {points.map((p, i) => (
+            <text
+              key={`trans-label-${i}`}
+              x={p.x * cellSize + gridCount * cellSize / 2 + 6}
+              y={gridCount * cellSize / 2 - p.y * cellSize - 6}
+              fill={PALETTE.redOrange}
+              fontSize="11"
+              fontWeight="500"
+              pointerEvents="none"
+              style={{
+                transition: 'transform 1s ease-in-out',
+                transform: translatedTransform,
+                opacity: isTranslated ? 1 : 0
+              }}
+            >
+              A{i + 1}'({translatedPoints[i].x}, {translatedPoints[i].y})
+            </text>
+          ))}
         </svg>
       </div>
 
       {/* Information Panel */}
-      <div className="mt-5 p-4 bg-white/15 backdrop-blur-sm rounded-xl border border-white/20 text-sm">
-        <p className="font-semibold mb-2">Original Vertices:</p>
-        <ul className="list-disc list-inside space-y-1">
+      <div
+        className="mt-5 rounded-xl text-sm"
+        style={{
+          ...neubrutalismBase,
+          backgroundColor: PALETTE.offWhite,
+          borderColor: PALETTE.darkBlueGreen,
+        }}
+      >
+        <p className="font-semibold mb-2" style={{ color: PALETTE.darkBlueGreen }}>Original Vertices:</p>
+        <ul className="list-disc list-inside space-y-1" style={{ color: PALETTE.darkBlueGreen }}>
           {points.map((p, i) => (
             <li key={`info-orig-${i}`} className="font-mono">
               A{i + 1}: ({p.x}, {p.y})
@@ -261,23 +349,23 @@ const TranslationVisualizer: React.FC = () => {
           ))}
         </ul>
 
-        {showTranslated && (
+        {isTranslated && (
           <>
-            <p className="font-semibold mt-3 mb-2">Translated Vertices:</p>
-            <ul className="list-disc list-inside space-y-1">
+            <p className="font-semibold mt-3 mb-2" style={{ color: PALETTE.darkBlueGreen }}>Translated Vertices:</p>
+            <ul className="list-disc list-inside space-y-1" style={{ color: PALETTE.darkBlueGreen }}>
               {translatedPoints.map((p, i) => (
                 <li key={`info-trans-${i}`} className="font-mono">
-                  A{i + 1}': ({p.x}, {p.y})
+                  A{i + 1}'({p.x}, {p.y})
                 </li>
               ))}
             </ul>
 
-            <div className="mt-3 pt-3 border-t border-white/20">
-              <p className="font-semibold mb-2">How Translation Works:</p>
-              <p className="mb-2">
+            <div className="mt-3 pt-3 border-t-2" style={{ borderColor: PALETTE.mediumTeal }}>
+              <p className="font-semibold mb-2" style={{ color: PALETTE.darkBlueGreen }}>How Translation Works:</p>
+              <p className="mb-2" style={{ color: PALETTE.darkBlueGreen }}>
                 Each point (x, y) is moved by adding the vector components:
               </p>
-              <ul className="list-disc list-inside space-y-1">
+              <ul className="list-disc list-inside space-y-1" style={{ color: PALETTE.darkBlueGreen }}>
                 {points.map((p, i) => (
                   <li key={`process-${i}`} className="font-mono text-xs">
                     A{i + 1}({p.x}, {p.y}) → ({p.x} + {vector.x}, {p.y} + {vector.y}) = A{i + 1}'({translatedPoints[i].x}, {translatedPoints[i].y})

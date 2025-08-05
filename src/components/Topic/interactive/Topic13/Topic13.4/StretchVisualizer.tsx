@@ -3,6 +3,16 @@ import { Move, X, Calculator, Eye, FileText } from "lucide-react";
 import { BlockMath, InlineMath } from "react-katex";
 import "katex/dist/katex.min.css";
 
+// A neubrutalism-inspired color palette for high contrast
+const NEUBRUTAL_PALETTE = {
+  background: "#f9f7f3", // Soft off-white
+  black: "#1a1a1a",      // A very dark grey
+  shadowBlack: "#1a1a1a9D", // Dark grey with 9D opacity
+  primaryAccent: "#0fa3b1", // Original dark teal
+  secondaryAccent: "#f7a072", // Original peach for stretched shape
+  tertiaryAccent: "#eddea4", // Original light yellow for controls
+};
+
 interface Point {
   x: number;
   y: number;
@@ -34,14 +44,12 @@ const StretchVisualizer: React.FC = () => {
   const handleK1Change = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value) || 1;
     setK1(value);
-
     if (showResult) setShowResult(false);
   };
 
   const handleK2Change = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value) || 1;
     setK2(value);
-
     if (showResult) setShowResult(false);
   };
 
@@ -56,7 +64,6 @@ const StretchVisualizer: React.FC = () => {
     } else {
       setPointA((prev) => ({ ...prev, [axis]: value }));
     }
-
     if (showResult) setShowResult(false);
   };
 
@@ -94,89 +101,109 @@ const StretchVisualizer: React.FC = () => {
 
   const getStretchMatrix = () => {
     if (stretchType === "one-way") {
-      return "\\begin{pmatrix} " + k1 + " & 0 \\\\ 0 & 1 \\end{pmatrix}";
+      return `\\begin{pmatrix} ${k1} & 0 \\\\ 0 & 1 \\end{pmatrix}`;
     } else {
       return (
-        "\\begin{pmatrix} " + k1 + " & 0 \\\\ 0 & " + k2 + " \\end{pmatrix}"
+        `\\begin{pmatrix} ${k1} & 0 \\\\ 0 & ${k2} \\end{pmatrix}`
       );
     }
   };
 
+  // Common styling for neubrutalistic elements
+  const neubrutalButton = (isActive: boolean = false) => `
+    flex-1 py-2 px-4 text-sm font-semibold rounded-xl
+    border-2 border-${NEUBRUTAL_PALETTE.black}
+    active:translate-y-0 active:shadow-none
+    transition-all duration-100
+    ${isActive ? `shadow-[4px_4px_0px_0px_${NEUBRUTAL_PALETTE.shadowBlack}]` : `shadow-[2px_2px_0px_0px_${NEUBRUTAL_PALETTE.shadowBlack}]`}
+  `;
+
   return (
-    <div className="w-full max-w-md mx-auto p-6 bg-gradient-to-br from-sky-500 to-cyan-500 rounded-2xl shadow-xl text-white">
+    <div
+      className="w-full max-w-md mx-auto p-6 rounded-2xl border-4"
+      style={{
+        backgroundColor: NEUBRUTAL_PALETTE.tertiaryAccent,
+        borderColor: NEUBRUTAL_PALETTE.black,
+        boxShadow: `8px 8px 0px 0px ${NEUBRUTAL_PALETTE.black}`,
+        color: NEUBRUTAL_PALETTE.black,
+      }}
+    >
       {/* Title */}
       <h2 className="text-2xl font-bold mb-5 flex items-center">
         <Move className="mr-3" size={28} /> Stretch Visualizer
       </h2>
 
-      {/* Tab Navigation - Styled like RotationVisualizer */}
-      <div className="flex flex-wrap border-b border-white/30 mb-6">
+      {/* Tab Navigation */}
+      <div className="flex flex-wrap mb-6">
         <button
-          className={`py-2 px-3 text-sm font-semibold rounded-t-lg transition-colors ${
-            mode === "draw"
-              ? "bg-white/20 text-white"
-              : "bg-transparent text-white/70 hover:text-white hover:bg-white/10"
-          }`}
+          className={neubrutalButton(mode === "draw")}
+          style={{
+            backgroundColor: mode === "draw" ? NEUBRUTAL_PALETTE.primaryAccent : NEUBRUTAL_PALETTE.background,
+            color: mode === "draw" ? NEUBRUTAL_PALETTE.background : NEUBRUTAL_PALETTE.black,
+          }}
           onClick={() => setMode("draw")}
         >
           <Eye className="inline mr-1" size={16} /> Draw Stretch
         </button>
         <button
-          className={`py-2 px-3 text-sm font-semibold rounded-t-lg transition-colors ${
-            mode === "compute"
-              ? "bg-white/20 text-white"
-              : "bg-transparent text-white/70 hover:text-white hover:bg-white/10"
-          }`}
+          className={neubrutalButton(mode === "compute")}
+          style={{
+            backgroundColor: mode === "compute" ? NEUBRUTAL_PALETTE.primaryAccent : NEUBRUTAL_PALETTE.background,
+            color: mode === "compute" ? NEUBRUTAL_PALETTE.background : NEUBRUTAL_PALETTE.black,
+          }}
           onClick={() => setMode("compute")}
         >
           <Calculator className="inline mr-1" size={16} /> Compute Coordinates
         </button>
         <button
-          className={`py-2 px-3 text-sm font-semibold rounded-t-lg transition-colors ${
-            mode === "invariant"
-              ? "bg-white/20 text-white"
-              : "bg-transparent text-white/70 hover:text-white hover:bg-white/10"
-          }`}
+          className={neubrutalButton(mode === "invariant")}
+          style={{
+            backgroundColor: mode === "invariant" ? NEUBRUTAL_PALETTE.primaryAccent : NEUBRUTAL_PALETTE.background,
+            color: mode === "invariant" ? NEUBRUTAL_PALETTE.background : NEUBRUTAL_PALETTE.black,
+          }}
           onClick={() => setMode("invariant")}
         >
           Invariant Line
         </button>
         <button
-          className={`py-2 px-3 text-sm font-semibold rounded-t-lg transition-colors ${
-            mode === "describe"
-              ? "bg-white/20 text-white"
-              : "bg-transparent text-white/70 hover:text-white hover:bg-white/10"
-          }`}
+          className={neubrutalButton(mode === "describe")}
+          style={{
+            backgroundColor: mode === "describe" ? NEUBRUTAL_PALETTE.primaryAccent : NEUBRUTAL_PALETTE.background,
+            color: mode === "describe" ? NEUBRUTAL_PALETTE.background : NEUBRUTAL_PALETTE.black,
+          }}
           onClick={() => setMode("describe")}
         >
-          <FileText className="inline mr-1" size={16} /> Describe Stretch
+          <FileText className="inline mr-1" size={16} /> Describe
         </button>
       </div>
 
       {/* Mode Content */}
-      <div className="mb-6 p-4 bg-white/20 backdrop-blur-sm rounded-xl border border-white/30">
+      <div
+        className="mb-6 p-4 rounded-xl border-2"
+        style={{
+          backgroundColor: NEUBRUTAL_PALETTE.background,
+          borderColor: NEUBRUTAL_PALETTE.black,
+          boxShadow: `4px 4px 0px 0px ${NEUBRUTAL_PALETTE.shadowBlack}`,
+        }}
+      >
         {mode === "draw" && (
           <>
-            <h3 className="text-lg font-semibold mb-3">
-              Set Stretch Parameters
-            </h3>
+            <h3 className="text-lg font-bold mb-3">Set Stretch Parameters</h3>
             <div className="flex gap-4 mb-4">
               <button
-                className={`flex-1 py-2 px-4 text-sm font-semibold rounded-lg transition-colors ${
-                  stretchType === "one-way"
-                    ? "bg-white text-sky-600"
-                    : "bg-white/30 text-white hover:bg-white/40"
-                }`}
+                className={neubrutalButton(stretchType === "one-way")}
+                style={{
+                  backgroundColor: stretchType === "one-way" ? NEUBRUTAL_PALETTE.secondaryAccent : NEUBRUTAL_PALETTE.tertiaryAccent,
+                }}
                 onClick={() => setStretchType("one-way")}
               >
                 One-Way (X-axis)
               </button>
               <button
-                className={`flex-1 py-2 px-4 text-sm font-semibold rounded-lg transition-colors ${
-                  stretchType === "two-way"
-                    ? "bg-white text-sky-600"
-                    : "bg-white/30 text-white hover:bg-white/40"
-                }`}
+                className={neubrutalButton(stretchType === "two-way")}
+                style={{
+                  backgroundColor: stretchType === "two-way" ? NEUBRUTAL_PALETTE.secondaryAccent : NEUBRUTAL_PALETTE.tertiaryAccent,
+                }}
                 onClick={() => setStretchType("two-way")}
               >
                 Two-Way
@@ -184,27 +211,37 @@ const StretchVisualizer: React.FC = () => {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm mb-1 opacity-90">
+                <label className="block text-sm font-semibold mb-1">
                   X-axis Factor (k₁)
                 </label>
                 <input
                   type="number"
                   value={k1}
                   onChange={handleK1Change}
-                  className="w-full p-2.5 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50"
+                  className="w-full p-2.5 rounded-lg border-2 font-bold"
+                  style={{
+                    backgroundColor: NEUBRUTAL_PALETTE.background,
+                    borderColor: NEUBRUTAL_PALETTE.black,
+                    boxShadow: `2px 2px 0px 0px ${NEUBRUTAL_PALETTE.shadowBlack}`,
+                  }}
                   step="0.5"
                 />
               </div>
               {stretchType === "two-way" && (
                 <div>
-                  <label className="block text-sm mb-1 opacity-90">
+                  <label className="block text-sm font-semibold mb-1">
                     Y-axis Factor (k₂)
                   </label>
                   <input
                     type="number"
                     value={k2}
                     onChange={handleK2Change}
-                    className="w-full p-2.5 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50"
+                    className="w-full p-2.5 rounded-lg border-2 font-bold"
+                    style={{
+                      backgroundColor: NEUBRUTAL_PALETTE.background,
+                      borderColor: NEUBRUTAL_PALETTE.black,
+                      boxShadow: `2px 2px 0px 0px ${NEUBRUTAL_PALETTE.shadowBlack}`,
+                    }}
                     step="0.5"
                   />
                 </div>
@@ -213,7 +250,12 @@ const StretchVisualizer: React.FC = () => {
             <div className="mt-4 flex justify-center">
               <button
                 onClick={applyAction}
-                className="flex items-center px-5 py-2.5 font-semibold bg-white text-sky-600 rounded-full shadow-md hover:bg-gray-100 transition-all duration-200 active:scale-95"
+                className="flex items-center px-5 py-2.5 font-bold rounded-full border-2 border-black
+                         shadow-[4px_4px_0px_0px_#1a1a1a9D] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_#1a1a1a9D]
+                         active:translate-y-0 active:shadow-[2px_2px_0px_0px_#1a1a1a9D] transition-all duration-100"
+                style={{
+                  backgroundColor: NEUBRUTAL_PALETTE.secondaryAccent,
+                }}
               >
                 <Eye className="mr-2" size={18} /> Show Stretch
               </button>
@@ -223,26 +265,24 @@ const StretchVisualizer: React.FC = () => {
 
         {mode === "compute" && (
           <>
-            <h3 className="text-lg font-semibold mb-3">
+            <h3 className="text-lg font-bold mb-3">
               Compute Image Coordinates
             </h3>
             <div className="flex gap-4 mb-4">
               <button
-                className={`flex-1 py-2 px-4 text-sm font-semibold rounded-lg transition-colors ${
-                  stretchType === "one-way"
-                    ? "bg-white text-sky-600"
-                    : "bg-white/30 text-white hover:bg-white/40"
-                }`}
+                className={neubrutalButton(stretchType === "one-way")}
+                style={{
+                  backgroundColor: stretchType === "one-way" ? NEUBRUTAL_PALETTE.secondaryAccent : NEUBRUTAL_PALETTE.tertiaryAccent,
+                }}
                 onClick={() => setStretchType("one-way")}
               >
                 One-Way (X-axis)
               </button>
               <button
-                className={`flex-1 py-2 px-4 text-sm font-semibold rounded-lg transition-colors ${
-                  stretchType === "two-way"
-                    ? "bg-white text-sky-600"
-                    : "bg-white/30 text-white hover:bg-white/40"
-                }`}
+                className={neubrutalButton(stretchType === "two-way")}
+                style={{
+                  backgroundColor: stretchType === "two-way" ? NEUBRUTAL_PALETTE.secondaryAccent : NEUBRUTAL_PALETTE.tertiaryAccent,
+                }}
                 onClick={() => setStretchType("two-way")}
               >
                 Two-Way
@@ -250,38 +290,48 @@ const StretchVisualizer: React.FC = () => {
             </div>
             <div className="grid grid-cols-1 gap-4 mb-2">
               <div>
-                <label className="block text-sm mb-1 opacity-90">
+                <label className="block text-sm font-semibold mb-1">
                   X-axis Factor (k₁)
                 </label>
                 <input
                   type="number"
                   value={k1}
                   onChange={handleK1Change}
-                  className="w-full p-2.5 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50"
+                  className="w-full p-2.5 rounded-lg border-2 font-bold"
+                  style={{
+                    backgroundColor: NEUBRUTAL_PALETTE.background,
+                    borderColor: NEUBRUTAL_PALETTE.black,
+                    boxShadow: `2px 2px 0px 0px ${NEUBRUTAL_PALETTE.shadowBlack}`,
+                  }}
                   step="0.5"
                 />
               </div>
               {stretchType === "two-way" && (
                 <div>
-                  <label className="block text-sm mb-1 opacity-90">
+                  <label className="block text-sm font-semibold mb-1">
                     Y-axis Factor (k₂)
                   </label>
                   <input
                     type="number"
                     value={k2}
                     onChange={handleK2Change}
-                    className="w-full p-2.5 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50"
+                    className="w-full p-2.5 rounded-lg border-2 font-bold"
+                    style={{
+                      backgroundColor: NEUBRUTAL_PALETTE.background,
+                      borderColor: NEUBRUTAL_PALETTE.black,
+                      boxShadow: `2px 2px 0px 0px ${NEUBRUTAL_PALETTE.shadowBlack}`,
+                    }}
                     step="0.5"
                   />
                 </div>
               )}
             </div>
-            <p className="text-sm my-3 opacity-90">
-              Enter a point to see its image under the current stretch:
+            <p className="text-sm font-semibold my-3">
+              Enter a point to see its image:
             </p>
             <div className="grid grid-cols-1 gap-4">
               <div>
-                <label className="block text-sm mb-1 opacity-90">
+                <label className="block text-sm font-semibold mb-1">
                   Point A (x, y)
                 </label>
                 <div className="flex space-x-2">
@@ -289,20 +339,30 @@ const StretchVisualizer: React.FC = () => {
                     type="number"
                     value={pointA.x}
                     onChange={(e) => handlePointChange(e, "x", false)}
-                    className="w-20 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 text-center"
+                    className="w-20 p-2 rounded-lg border-2 font-bold text-center"
+                    style={{
+                      backgroundColor: NEUBRUTAL_PALETTE.background,
+                      borderColor: NEUBRUTAL_PALETTE.black,
+                      boxShadow: `2px 2px 0px 0px ${NEUBRUTAL_PALETTE.shadowBlack}`,
+                    }}
                     step="0.5"
                   />
                   <input
                     type="number"
                     value={pointA.y}
                     onChange={(e) => handlePointChange(e, "y", false)}
-                    className="w-20 p-2 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 text-center"
+                    className="w-20 p-2 rounded-lg border-2 font-bold text-center"
+                    style={{
+                      backgroundColor: NEUBRUTAL_PALETTE.background,
+                      borderColor: NEUBRUTAL_PALETTE.black,
+                      boxShadow: `2px 2px 0px 0px ${NEUBRUTAL_PALETTE.shadowBlack}`,
+                    }}
                     step="0.5"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-sm mb-1 opacity-90">
+                <label className="block text-sm font-semibold mb-1">
                   Point A' (x', y')
                 </label>
                 <div className="flex space-x-2">
@@ -310,14 +370,24 @@ const StretchVisualizer: React.FC = () => {
                     type="number"
                     value={pointAPrime.x}
                     readOnly
-                    className="w-20 p-2 bg-gray-200 text-gray-500 rounded-lg border border-gray-300 text-center"
+                    className="w-20 p-2 rounded-lg border-2 font-bold text-center"
+                    style={{
+                      backgroundColor: NEUBRUTAL_PALETTE.tertiaryAccent,
+                      borderColor: NEUBRUTAL_PALETTE.black,
+                      boxShadow: `2px 2px 0px 0px ${NEUBRUTAL_PALETTE.shadowBlack}`,
+                    }}
                     step="0.5"
                   />
                   <input
                     type="number"
                     value={pointAPrime.y}
                     readOnly
-                    className="w-20 p-2 bg-gray-200 text-gray-500 rounded-lg border border-gray-300 text-center"
+                    className="w-20 p-2 rounded-lg border-2 font-bold text-center"
+                    style={{
+                      backgroundColor: NEUBRUTAL_PALETTE.tertiaryAccent,
+                      borderColor: NEUBRUTAL_PALETTE.black,
+                      boxShadow: `2px 2px 0px 0px ${NEUBRUTAL_PALETTE.shadowBlack}`,
+                    }}
                     step="0.5"
                   />
                 </div>
@@ -326,7 +396,12 @@ const StretchVisualizer: React.FC = () => {
             <div className="mt-4 flex justify-center">
               <button
                 onClick={applyAction}
-                className="flex items-center px-5 py-2.5 font-semibold bg-white text-green-600 rounded-full shadow-md hover:bg-gray-100 transition-all duration-200 active:scale-95"
+                className="flex items-center px-5 py-2.5 font-bold rounded-full border-2 border-black
+                         shadow-[4px_4px_0px_0px_#1a1a1a9D] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_#1a1a1a9D]
+                         active:translate-y-0 active:shadow-[2px_2px_0px_0px_#1a1a1a9D] transition-all duration-100"
+                style={{
+                  backgroundColor: NEUBRUTAL_PALETTE.secondaryAccent,
+                }}
               >
                 <Calculator className="mr-2" size={18} /> Compute
               </button>
@@ -336,28 +411,25 @@ const StretchVisualizer: React.FC = () => {
 
         {mode === "invariant" && (
           <>
-            <h3 className="text-lg font-semibold mb-3">Find Invariant Line</h3>
-            <p className="text-sm mb-3 opacity-90">
-              Set stretch parameters to see the invariant line(s). Points on
-              these lines do not move.
+            <h3 className="text-lg font-bold mb-3">Find Invariant Line</h3>
+            <p className="text-sm font-semibold mb-3">
+              Set stretch parameters to see the invariant line(s).
             </p>
             <div className="flex gap-4 mb-4">
               <button
-                className={`flex-1 py-2 px-4 text-sm font-semibold rounded-lg transition-colors ${
-                  stretchType === "one-way"
-                    ? "bg-white text-sky-600"
-                    : "bg-white/30 text-white hover:bg-white/40"
-                }`}
+                className={neubrutalButton(stretchType === "one-way")}
+                style={{
+                  backgroundColor: stretchType === "one-way" ? NEUBRUTAL_PALETTE.secondaryAccent : NEUBRUTAL_PALETTE.tertiaryAccent,
+                }}
                 onClick={() => setStretchType("one-way")}
               >
                 One-Way (X-axis)
               </button>
               <button
-                className={`flex-1 py-2 px-4 text-sm font-semibold rounded-lg transition-colors ${
-                  stretchType === "two-way"
-                    ? "bg-white text-sky-600"
-                    : "bg-white/30 text-white hover:bg-white/40"
-                }`}
+                className={neubrutalButton(stretchType === "two-way")}
+                style={{
+                  backgroundColor: stretchType === "two-way" ? NEUBRUTAL_PALETTE.secondaryAccent : NEUBRUTAL_PALETTE.tertiaryAccent,
+                }}
                 onClick={() => setStretchType("two-way")}
               >
                 Two-Way
@@ -365,27 +437,37 @@ const StretchVisualizer: React.FC = () => {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm mb-1 opacity-90">
+                <label className="block text-sm font-semibold mb-1">
                   X-axis Factor (k₁)
                 </label>
                 <input
                   type="number"
                   value={k1}
                   onChange={handleK1Change}
-                  className="w-full p-2.5 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50"
+                  className="w-full p-2.5 rounded-lg border-2 font-bold"
+                  style={{
+                    backgroundColor: NEUBRUTAL_PALETTE.background,
+                    borderColor: NEUBRUTAL_PALETTE.black,
+                    boxShadow: `2px 2px 0px 0px ${NEUBRUTAL_PALETTE.shadowBlack}`,
+                  }}
                   step="0.5"
                 />
               </div>
               {stretchType === "two-way" && (
                 <div>
-                  <label className="block text-sm mb-1 opacity-90">
+                  <label className="block text-sm font-semibold mb-1">
                     Y-axis Factor (k₂)
                   </label>
                   <input
                     type="number"
                     value={k2}
                     onChange={handleK2Change}
-                    className="w-full p-2.5 bg-white/90 text-gray-800 rounded-lg border border-white/50 focus:outline-none focus:ring-2 focus:ring-white/50"
+                    className="w-full p-2.5 rounded-lg border-2 font-bold"
+                    style={{
+                      backgroundColor: NEUBRUTAL_PALETTE.background,
+                      borderColor: NEUBRUTAL_PALETTE.black,
+                      boxShadow: `2px 2px 0px 0px ${NEUBRUTAL_PALETTE.shadowBlack}`,
+                    }}
                     step="0.5"
                   />
                 </div>
@@ -394,7 +476,12 @@ const StretchVisualizer: React.FC = () => {
             <div className="mt-4 flex justify-center">
               <button
                 onClick={applyAction}
-                className="flex items-center px-5 py-2.5 font-semibold bg-white text-purple-600 rounded-full shadow-md hover:bg-gray-100 transition-all duration-200 active:scale-95"
+                className="flex items-center px-5 py-2.5 font-bold rounded-full border-2 border-black
+                         shadow-[4px_4px_0px_0px_#1a1a1a9D] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_#1a1a1a9D]
+                         active:translate-y-0 active:shadow-[2px_2px_0px_0px_#1a1a1a9D] transition-all duration-100"
+                style={{
+                  backgroundColor: NEUBRUTAL_PALETTE.secondaryAccent,
+                }}
               >
                 Show Invariant Line
               </button>
@@ -404,36 +491,32 @@ const StretchVisualizer: React.FC = () => {
 
         {mode === "describe" && (
           <div>
-            <h3 className="text-lg font-semibold mb-3">
+            <h3 className="text-lg font-bold mb-3">
               Describe Stretch Transformation
             </h3>
             <p className="mb-2">
               A stretch transformation scales points along one or two axes
               relative to an invariant line.
             </p>
-            <ul className="list-disc list-inside space-y-2 text-sm">
+            <ul className="list-disc list-inside space-y-2 text-sm font-semibold">
               <li>
-                <span className="font-semibold">One-Way Stretch:</span>{" "}
+                <span className="font-bold">One-Way Stretch:</span>{" "}
                 Stretches points parallel to one axis (e.g., X-axis) while
-                leaving points on the perpendicular axis (Y-axis) unchanged. The
-                invariant line is the axis perpendicular to the stretch
-                direction.
+                leaving points on the perpendicular axis (Y-axis) unchanged.
               </li>
               <li>
-                <span className="font-semibold">Two-Way Stretch:</span>{" "}
+                <span className="font-bold">Two-Way Stretch:</span>{" "}
                 Stretches points along both the X-axis and Y-axis independently.
-                The only invariant point is usually the origin, unless{" "}
-                <InlineMath math="k_1=1" /> or <InlineMath math="k_2=1" />.
               </li>
               <li>
-                <span className="font-semibold">Invariant Line/Point:</span> A
+                <span className="font-bold">Invariant Line/Point:</span> A
                 line (or point) that remains unchanged by the transformation.
                 For a one-way stretch along the X-axis, the invariant line is
                 the Y-axis (<InlineMath math="x=0" />
                 ).
               </li>
               <li>
-                <span className="font-semibold">Matrix Representation:</span>{" "}
+                <span className="font-bold">Matrix Representation:</span>{" "}
                 The transformation can be represented by a matrix.
                 <div className="flex justify-center my-2">
                   <BlockMath math={getStretchMatrix()} />
@@ -455,20 +538,32 @@ const StretchVisualizer: React.FC = () => {
       <div className="flex justify-center mb-6">
         <button
           onClick={reset}
-          className="flex items-center px-5 py-2.5 font-semibold bg-white/20 hover:bg-white/30 text-white rounded-full shadow-md transition-all duration-200 active:scale-95"
+          className="flex items-center px-5 py-2.5 font-bold rounded-full border-2 border-black
+                     shadow-[4px_4px_0px_0px_#1a1a1a9D] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_#1a1a1a9D]
+                     active:translate-y-0 active:shadow-[2px_2px_0px_0px_#1a1a1a9D] transition-all duration-100"
+          style={{
+            backgroundColor: NEUBRUTAL_PALETTE.tertiaryAccent,
+          }}
         >
           <X className="mr-2" size={18} /> Reset
         </button>
       </div>
 
-      {/* SVG Visualization Canvas - White background */}
-      <div className="relative w-full h-80 bg-white rounded-xl border-2 border-white/50 overflow-hidden flex items-center justify-center">
+      {/* SVG Visualization Canvas */}
+      <div
+        className="relative w-full h-80 rounded-xl border-4 overflow-hidden flex items-center justify-center"
+        style={{
+          backgroundColor: NEUBRUTAL_PALETTE.background,
+          borderColor: NEUBRUTAL_PALETTE.black,
+          boxShadow: `4px 4px 0px 0px ${NEUBRUTAL_PALETTE.shadowBlack}`,
+        }}
+      >
         <svg
           width={gridCount * cellSize}
           height={gridCount * cellSize}
           className="absolute"
         >
-          {/* Grid Lines - Adjusted for white background */}
+          {/* Grid Lines */}
           {[...Array(gridCount + 1)].map((_, i) => (
             <g key={i}>
               <line
@@ -476,7 +571,8 @@ const StretchVisualizer: React.FC = () => {
                 y1={0}
                 x2={i * cellSize}
                 y2={gridCount * cellSize}
-                stroke="rgba(156, 163, 175, 0.5)"
+                stroke={NEUBRUTAL_PALETTE.black}
+                strokeOpacity="0.1"
                 strokeWidth="1"
               />
               <line
@@ -484,19 +580,20 @@ const StretchVisualizer: React.FC = () => {
                 y1={i * cellSize}
                 x2={gridCount * cellSize}
                 y2={i * cellSize}
-                stroke="rgba(156, 163, 175, 0.5)"
+                stroke={NEUBRUTAL_PALETTE.black}
+                strokeOpacity="0.1"
                 strokeWidth="1"
               />
             </g>
           ))}
 
-          {/* Axes - Kept black for strong contrast */}
+          {/* Axes */}
           <line
             x1={(gridCount * cellSize) / 2}
             y1={0}
             x2={(gridCount * cellSize) / 2}
             y2={gridCount * cellSize}
-            stroke="#000000"
+            stroke={NEUBRUTAL_PALETTE.black}
             strokeWidth="2"
           />
           <line
@@ -504,11 +601,11 @@ const StretchVisualizer: React.FC = () => {
             y1={(gridCount * cellSize) / 2}
             x2={gridCount * cellSize}
             y2={(gridCount * cellSize) / 2}
-            stroke="#000000"
+            stroke={NEUBRUTAL_PALETTE.black}
             strokeWidth="2"
           />
 
-          {/* X-axis scale labels - Darker for visibility */}
+          {/* X-axis scale labels */}
           {[...Array(gridCount + 1)].map((_, i) => {
             const xCoord = i - gridCount / 2;
             return (
@@ -516,17 +613,17 @@ const StretchVisualizer: React.FC = () => {
                 key={`x-${i}`}
                 x={i * cellSize}
                 y={(gridCount * cellSize) / 2 + 15}
-                fill="#374151"
+                fill={NEUBRUTAL_PALETTE.black}
                 fontSize="10"
                 textAnchor="middle"
-                opacity="0.9"
+                fontWeight="bold"
               >
                 {xCoord}
               </text>
             );
           })}
 
-          {/* Y-axis scale labels - Darker for visibility */}
+          {/* Y-axis scale labels */}
           {[...Array(gridCount + 1)].map((_, i) => {
             const yCoord = gridCount / 2 - i;
             if (yCoord !== 0) {
@@ -535,10 +632,10 @@ const StretchVisualizer: React.FC = () => {
                   key={`y-${i}`}
                   x={(gridCount * cellSize) / 2 + 10}
                   y={i * cellSize + 5}
-                  fill="#374151"
+                  fill={NEUBRUTAL_PALETTE.black}
                   fontSize="10"
                   textAnchor="start"
-                  opacity="0.9"
+                  fontWeight="bold"
                 >
                   {yCoord}
                 </text>
@@ -557,7 +654,7 @@ const StretchVisualizer: React.FC = () => {
                   y1={0}
                   x2={(gridCount * cellSize) / 2}
                   y2={gridCount * cellSize}
-                  stroke="#10b981"
+                  stroke={NEUBRUTAL_PALETTE.primaryAccent}
                   strokeWidth="2"
                   strokeDasharray="5,5"
                 />
@@ -569,7 +666,7 @@ const StretchVisualizer: React.FC = () => {
                   y1={(gridCount * cellSize) / 2}
                   x2={gridCount * cellSize}
                   y2={(gridCount * cellSize) / 2}
-                  stroke="#10b981"
+                  stroke={NEUBRUTAL_PALETTE.primaryAccent}
                   strokeWidth="2"
                   strokeDasharray="5,5"
                 />
@@ -577,7 +674,7 @@ const StretchVisualizer: React.FC = () => {
             </>
           )}
 
-          {/* Original Quadrilateral - Kept blue, shown for 'draw', 'invariant' modes */}
+          {/* Original Quadrilateral - Shown for 'draw', 'invariant' modes */}
           {(mode === "draw" || mode === "invariant") && (
             <polygon
               points={points
@@ -588,13 +685,14 @@ const StretchVisualizer: React.FC = () => {
                     }`
                 )
                 .join(" ")}
-              fill="rgba(59, 130, 246, 0.6)"
-              stroke="#3b82f6"
+              fill={NEUBRUTAL_PALETTE.primaryAccent}
+              fillOpacity="0.6"
+              stroke={NEUBRUTAL_PALETTE.black}
               strokeWidth="2"
             />
           )}
 
-          {/* Stretched Quadrilateral - Kept red, shown conditionally for 'draw', 'invariant' modes */}
+          {/* Stretched Quadrilateral - shown conditionally for 'draw', 'invariant' modes */}
           {(mode === "draw" || mode === "invariant") && showResult && (
             <polygon
               points={stretchedPoints
@@ -605,8 +703,9 @@ const StretchVisualizer: React.FC = () => {
                     }`
                 )
                 .join(" ")}
-              fill="rgba(239, 68, 68, 0.6)"
-              stroke="#ef4444"
+              fill={NEUBRUTAL_PALETTE.secondaryAccent}
+              fillOpacity="0.8"
+              stroke={NEUBRUTAL_PALETTE.black}
               strokeWidth="2"
             />
           )}
@@ -619,14 +718,14 @@ const StretchVisualizer: React.FC = () => {
                 cx={pointA.x * cellSize + (gridCount * cellSize) / 2}
                 cy={(gridCount * cellSize) / 2 - pointA.y * cellSize}
                 r="4"
-                fill="#3b82f6"
+                fill={NEUBRUTAL_PALETTE.primaryAccent}
               />
               <text
                 x={pointA.x * cellSize + (gridCount * cellSize) / 2 + 6}
                 y={(gridCount * cellSize) / 2 - pointA.y * cellSize - 6}
-                fill="#1e40af"
+                fill={NEUBRUTAL_PALETTE.black}
                 fontSize="11"
-                fontWeight="500"
+                fontWeight="bold"
                 pointerEvents="none"
               >
                 A({pointA.x},{pointA.y})
@@ -644,7 +743,7 @@ const StretchVisualizer: React.FC = () => {
                         cellSize
                     }
                     r="4"
-                    fill="#ef4444"
+                    fill={NEUBRUTAL_PALETTE.secondaryAccent}
                   />
                   <text
                     x={
@@ -656,9 +755,9 @@ const StretchVisualizer: React.FC = () => {
                         cellSize -
                       6
                     }
-                    fill="#b91c1c"
+                    fill={NEUBRUTAL_PALETTE.black}
                     fontSize="11"
-                    fontWeight="500"
+                    fontWeight="bold"
                     pointerEvents="none"
                   >
                     A'({pointA.x * k1},
@@ -671,9 +770,16 @@ const StretchVisualizer: React.FC = () => {
         </svg>
       </div>
 
-      {/* Information Panel - Shows results based on mode */}
-      <div className="mt-5 p-4 bg-white/15 backdrop-blur-sm rounded-xl border border-white/20 text-sm">
-        <p className="font-semibold mb-2">Original Vertices:</p>
+      {/* Information Panel */}
+      <div
+        className="mt-5 p-4 rounded-xl text-sm font-semibold border-2"
+        style={{
+          backgroundColor: NEUBRUTAL_PALETTE.background,
+          borderColor: NEUBRUTAL_PALETTE.black,
+          boxShadow: `4px 4px 0px 0px ${NEUBRUTAL_PALETTE.shadowBlack}`,
+        }}
+      >
+        <p className="font-bold mb-2">Original Vertices:</p>
         <ul className="list-disc list-inside space-y-1">
           {points.map((p, i) => (
             <li key={`info-orig-${i}`} className="font-mono">
@@ -685,7 +791,7 @@ const StretchVisualizer: React.FC = () => {
         {/* Show stretched vertices info if 'draw' or 'invariant' mode action was performed */}
         {(mode === "draw" || mode === "invariant") && showResult && (
           <>
-            <p className="font-semibold mt-3 mb-2">
+            <p className="font-bold mt-3 mb-2">
               Stretched Vertices (
               {stretchType === "one-way"
                 ? `One-Way, k₁=${k1}`
@@ -700,8 +806,8 @@ const StretchVisualizer: React.FC = () => {
               ))}
             </ul>
 
-            <div className="mt-3 pt-3 border-t border-white/20">
-              <p className="font-semibold mb-2">How Stretch Works:</p>
+            <div className="mt-3 pt-3 border-t-2" style={{borderColor: NEUBRUTAL_PALETTE.black}}>
+              <p className="font-bold mb-2">How Stretch Works:</p>
               <p className="mb-2">
                 Each point <InlineMath math="(x, y)" /> is transformed:
               </p>
@@ -724,19 +830,14 @@ const StretchVisualizer: React.FC = () => {
                   ))
                 )}
               </ul>
-              <p className="mt-2 text-xs italic">
-                {stretchType === "one-way"
-                  ? "Only the x-coordinate is scaled. The y-coordinate (and the y-axis) is invariant."
-                  : "Both coordinates are scaled independently."}
-              </p>
             </div>
           </>
         )}
 
         {/* Show computed point info if 'compute' mode action was performed */}
         {mode === "compute" && showResult && (
-          <div className="mt-3 pt-3 border-t border-white/20">
-            <p className="font-semibold mb-2">
+          <div className="mt-3 pt-3 border-t-2" style={{borderColor: NEUBRUTAL_PALETTE.black}}>
+            <p className="font-bold mb-2">
               Computed Image (
               {stretchType === "one-way"
                 ? `One-Way, k₁=${k1}`
@@ -770,42 +871,33 @@ const StretchVisualizer: React.FC = () => {
 
         {/* Show invariant line info if 'invariant' mode action was performed */}
         {mode === "invariant" && showResult && (
-          <div className="mt-3 pt-3 border-t border-white/20">
-            <p className="font-semibold mb-2">Invariant Line(s):</p>
+          <div className="mt-3 pt-3 border-t-2" style={{borderColor: NEUBRUTAL_PALETTE.black}}>
+            <p className="font-bold mb-2">Invariant Line(s):</p>
             <ul className="list-disc list-inside space-y-1">
               {stretchType === "one-way" && (
                 <li>
-                  For a one-way stretch along the X-axis (parallel to the
-                  Y-axis), the invariant line is the Y-axis itself (
-                  <InlineMath math="x = 0" />
-                  ). Points on this line do not move.
+                  The invariant line is the Y-axis (<InlineMath math="x = 0" />
+                  ).
                 </li>
               )}
               {stretchType === "two-way" && k1 === 1 && k2 !== 1 && (
                 <li>
-                  Since <InlineMath math="k_1 = 1" />, the Y-axis (
-                  <InlineMath math="x = 0" />) is invariant.
+                  The Y-axis (<InlineMath math="x = 0" />) is invariant.
                 </li>
               )}
               {stretchType === "two-way" && k2 === 1 && k1 !== 1 && (
                 <li>
-                  Since <InlineMath math="k_2 = 1" />, the X-axis (
-                  <InlineMath math="y = 0" />) is invariant.
+                  The X-axis (<InlineMath math="y = 0" />) is invariant.
                 </li>
               )}
               {stretchType === "two-way" && k1 === 1 && k2 === 1 && (
                 <li>
-                  Since both <InlineMath math="k_1 = 1" /> and{" "}
-                  <InlineMath math="k_2 = 1" />, every point is invariant. This
-                  is the identity transformation.
+                  Every point is invariant. This is the identity transformation.
                 </li>
               )}
               {stretchType === "two-way" && k1 !== 1 && k2 !== 1 && (
                 <li>
-                  For a general two-way stretch where both{" "}
-                  <InlineMath math="k_1 \neq 1" /> and{" "}
-                  <InlineMath math="k_2 \neq 1" />, the only invariant point is
-                  the origin (0, 0).
+                  The only invariant point is the origin (0, 0).
                 </li>
               )}
             </ul>
