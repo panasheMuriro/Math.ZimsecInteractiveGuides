@@ -21,7 +21,7 @@ const ExperimentalProbabilityVisualizer: React.FC = () => {
   const experimentalProbability = trials.length > 0 ? (headsCount / trials.length).toFixed(2) : '0.00';
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-[#F4F1DE] rounded-2xl shadow-xl text-gray-800 font-sans border-4 border-[#3D405B]">
+    <div className="max-w-md mx-auto p-6 bg-[#F4F1DE] rounded-2xl shadow-xl text-gray-800 font-sans border-4 border-[#3D405B]"  style={{  boxShadow: `4px 4px 0px #000000`,}}>
       <section className="mb-6">
         <h2 className="text-xl font-bold mb-3 text-center text-[#3D405B] tracking-wide">COIN FLIP EXPERIMENT</h2>
         <div className="flex justify-center mb-4">

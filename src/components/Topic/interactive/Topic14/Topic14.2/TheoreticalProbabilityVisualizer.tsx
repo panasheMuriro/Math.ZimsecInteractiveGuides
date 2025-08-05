@@ -51,7 +51,7 @@ const TheoreticalProbabilityVisualizer: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-[#E09F3E] border-4 border-[#1D3557] shadow-[8px_8px_0_0_#1D3557] font-sans">
+    <div className="max-w-md mx-auto p-6 bg-[#E09F3E] border-4 border-[#1D3557] shadow-[8px_8px_0_0_#1D3557] font-sans rounded-2xl">
       <section className="mb-6">
         <h2 className="text-2xl font-bold mb-4 text-center text-[#1D3557] tracking-wider">DRAW A CARD</h2>
         <p className="text-base mb-4 text-center text-[#1D3557] font-bold">

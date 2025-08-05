@@ -90,7 +90,7 @@ const ProbabilityVisualizer: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-[#E9C46A] border-4 border-black rounded-2xl font-sans">
+    <div className="max-w-md mx-auto p-6 bg-[#E9C46A] border-4 border-black rounded-2xl font-sans" style={{  boxShadow: `4px 4px 0px #000000`,}}>
       <section className="mb-6">
         <h2 className="text-2xl font-extrabold mb-4 text-center text-black underline decoration-2 underline-offset-4">ROLL A DIE</h2>
         <div className="bg-white border-3 border-black rounded-xl p-4 mb-6">

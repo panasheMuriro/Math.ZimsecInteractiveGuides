@@ -43,10 +43,10 @@ const SingleEventsVisualizer: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-[#2A9D8F] border-4 border-black shadow-[8px_8px_0_0_#000000] font-sans">
+    <div className="max-w-md mx-auto p-6 bg-[#2A9D8F] border-4 border-black shadow-[8px_8px_0_0_#000000] font-sans rounded-2xl">
       <section className="mb-6">
-        <h2 className="text-2xl font-extrabold mb-4 text-center text-black underline decoration-2 underline-offset-4">ROLL FOR EVEN NUMBERS</h2>
-        <div className="bg-[#E9C46A] border-4 border-black shadow-[4px_4px_0_0_#000000] p-4 mb-6">
+        <h2 className="text-2xl font-extrabold mb-4 text-center text-black underline decoration-2">ROLL FOR EVEN NUMBERS</h2>
+        <div className="bg-[#E9C46A] border-4 border-black shadow-[4px_4px_0_0_#000000] p-4 mb-6 rounded-2xl">
           <p className="text-base mb-3 text-center text-black font-extrabold">
             Probability of Rolling an Even Number:
             <BlockMath math="P(\text{even}) = \frac{3}{6} = \frac{1}{2}" />
