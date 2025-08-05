@@ -1,181 +1,442 @@
-// SolvingLinearEquationsTool.tsx
-import MultiStepInteractiveComponent, { InteractiveToolData } from '../../Templates/MultiStepInteractiveComponent'; // Adjust path as needed
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// SolvingLinearEquationsQuiz.tsx
+import React from 'react';
+import MultipleStepInteractiveComponent, { MultiStepQuestion } from '../../Templates/MultipleStepInteractiveComponent';
 
-// Define data for Solving Linear Equations
-const solvingLinearEquationsData: InteractiveToolData = {
-  title: "Solving Linear Equations",
-  description: "Find the value of the variable that makes a linear equation true. Learn to solve equations with one variable.",
-  theme: {
-    primaryColor: 'blue', // Specify the primary color theme
-    backgroundColorFrom: 'blue-50', // Specify the 'from' color for the background gradient
-    backgroundColorTo: 'cyan-100'   // Specify the 'to' color for the background gradient
-  },
+// --- Helper Function for Summary (if needed) ---
+const renderLinearEquationsSummary = (sharedValues: { [key: string]: any }) => {
+  const entries = Object.entries(sharedValues);
+  if (entries.length === 0) {
+    return <p style={{ color: '#264653' }}>No specific solutions calculated.</p>;
+  }
+
+  return (
+    <ul className="space-y-2">
+      {entries.map(([key, value]) => (
+        <li key={key} className="flex justify-between items-center">
+          <span style={{ color: '#264653' }}>{key}:</span>
+          <span className="font-mono" style={{ color: '#264653' }}>{value}</span>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+// --- Multi-Step Question 1: Concept and Structure ---
+const leConceptQuestion: MultiStepQuestion = {
+  id: 'le-concept',
+  title: 'Understanding Linear Equations',
   steps: [
     {
-      id: "simplifiedEquation",
-      title: "Step 1: Simplify Both Sides",
-      description: "Combine like terms and clear fractions/decimals if necessary. What does the equation look like after simplification?",
-      type: "mcq"
+      id: 'lec-identify',
+      question: "Which of the following is a linear equation in one variable?",
+      questionType: 'text',
+      options: [
+        "$x^2 + 3x = 5$",
+        "$\\sqrt{x} + 2 = 7$",
+        "$3x - 4 = 2x + 1$",
+        "$\\frac{1}{x} = 5$"
+      ],
+      optionType: 'text', // Options contain text
+      correct: 2, // Index of the correct option
+      explanation: "A linear equation in one variable has the variable raised only to the power of 1 (e.g., $x$, $3x$, $-4x$) and does not involve roots, fractions with the variable in the denominator, or other non-linear operations. $3x - 4 = 2x + 1$ fits this definition.",
+      explanationType: 'text'
     },
     {
-      id: "variableTermsMoved",
-      title: "Step 2: Move Variable Terms",
-      description: "Get all terms containing the variable on one side of the equation. What does the equation look like after this step?",
-      type: "mcq"
+      id: 'lec-goal',
+      question: "What is the main goal when solving a linear equation like $2x + 1 = 7$?",
+      questionType: 'text',
+      options: [
+        "To find the value of the variable that makes the equation true",
+        "To graph the equation",
+        "To factor the left side",
+        "To make the variable equal to zero"
+      ],
+      optionType: 'text', // Options are plain text
+      correct: 0, // Index of the correct option
+      explanation: "The goal of solving an equation is to determine the specific value(s) of the variable that satisfy the equation, making both sides equal.",
+      explanationType: 'text'
     },
     {
-      id: "constantTermsMoved",
-      title: "Step 3: Move Constant Terms",
-      description: "Get all constant terms (numbers) on the opposite side of the equation from the variable. What does the equation look like now?",
-      type: "mcq"
-    },
-    {
-      id: "isolatedVariable",
-      title: "Step 4: Isolate the Variable",
-      description: "Perform the final operation (multiplication or division) to get the variable by itself. What is the value of the variable?",
-      type: "mcq"
-    },
-    {
-      id: "checkSubstitution",
-      title: "Step 5: Check Your Answer",
-      description: "Substitute the found value back into the *original* equation. What is the result of the left-hand side?",
-      type: "mcq"
-    },
-    {
-      id: "checkVerification",
-      title: "Step 6: Verify the Solution",
-      description: "Is the left-hand side equal to the right-hand side after substitution?",
-      type: "mcq"
-    }
-  ],
-  mcqOptionsPerProblem: [
-    // --- Problem 1: 2x + 3 = 7 ---
-    {
-      simplifiedEquation: ["2x + 3 = 7", "2x = 7 - 3", "2x = 4", "x + 3 = 7"],
-      variableTermsMoved: ["2x = 7 - 3", "2x + 3 = 7", "2x = 4", "x = 7 - 3"],
-      constantTermsMoved: ["2x = 7 - 3", "2x = 4", "2x + 3 = 7", "x = 4"],
-      isolatedVariable: ["x = 2", "2x = 4", "x = 4/2", "x = 1"],
-      checkSubstitution: ["2(2) + 3 = 7", "4 + 3 = 7", "7 = 7", "2x + 3"],
-      checkVerification: ["Yes, LHS = RHS", "No, LHS ≠ RHS", "LHS = 4", "RHS = 7"]
-    },
-    // --- Problem 2: 3(2x - 1) = 15 ---
-    {
-      simplifiedEquation: ["6x - 3 = 15", "3(2x - 1) = 15", "6x = 15 + 3", "2x - 1 = 5"],
-      variableTermsMoved: ["6x = 15 + 3", "6x - 3 = 15", "6x = 18", "6x - 15 = 3"],
-      constantTermsMoved: ["6x = 15 + 3", "6x = 18", "6x - 3 = 15", "6x = 12"],
-      isolatedVariable: ["x = 3", "6x = 18", "x = 18/6", "x = 6"],
-      checkSubstitution: ["3(2(3) - 1) = 15", "3(6 - 1) = 15", "3(5) = 15", "15 = 15"],
-      checkVerification: ["Yes, LHS = RHS", "No, LHS ≠ RHS", "LHS = 18", "RHS = 15"]
-    },
-    // --- Problem 3: \frac{x}{2} + 4 = 7 ---
-    {
-      simplifiedEquation: ["x + 8 = 14", "\\frac{x}{2} + 4 = 7", "x = 14 - 8", "\\frac{x}{2} = 3"],
-      variableTermsMoved: ["x = 14 - 8", "x + 8 = 14", "x = 6", "x = 14"],
-      constantTermsMoved: ["x = 14 - 8", "x = 6", "x + 8 = 14", "x = 14"],
-      isolatedVariable: ["x = 6", "x = 6", "x = 6", "x = 6"], // All options are the same, consider variations or explanations
-      checkSubstitution: ["\\frac{6}{2} + 4 = 7", "3 + 4 = 7", "7 = 7", "\\frac{x}{2} + 4"],
-      checkVerification: ["Yes, LHS = RHS", "No, LHS ≠ RHS", "LHS = 6", "RHS = 7"]
-    },
-     // --- Problem 4: 4x - 5 = 11 (Practice Example) ---
-     {
-        simplifiedEquation: ["4x - 5 = 11", "4x = 11 + 5", "4x = 16", "x - 5 = 11"],
-        variableTermsMoved: ["4x = 11 + 5", "4x - 5 = 11", "4x = 16", "x = 11 + 5"],
-        constantTermsMoved: ["4x = 11 + 5", "4x = 16", "4x - 5 = 11", "4x = 6"],
-        isolatedVariable: ["x = 4", "4x = 16", "x = 16/4", "x = 1"],
-        checkSubstitution: ["4(4) - 5 = 11", "16 - 5 = 11", "11 = 11", "4x - 5"],
-        checkVerification: ["Yes, LHS = RHS", "No, LHS ≠ RHS", "LHS = 16", "RHS = 11"]
-      }
-  ],
-  practiceProblems: [
-    // --- Problem 1: 2x + 3 = 7 ---
-    {
-      expression: "2x + 3 = 7",
-      solution: {
-        simplifiedEquation: "2x + 3 = 7", // Already simplified
-        variableTermsMoved: "2x = 7 - 3", // Move +3
-        constantTermsMoved: "2x = 4",     // Calculate 7-3
-        isolatedVariable: "x = 2",        // Divide by 2
-        checkSubstitution: "2(2) + 3 = 7",// Substitute x=2
-        checkVerification: "Yes, LHS = RHS" // 4+3=7, which is true
-      },
-      explanation: {
-        simplifiedEquation: "The equation $2x + 3 = 7$ is already in its simplest form. There are no like terms to combine or fractions to clear.",
-        variableTermsMoved: "The variable term is $2x$. It is already on the left side. We need to move the constant term $+3$ to the right side. We do this by subtracting $3$ from both sides: $2x + 3 - 3 = 7 - 3$.",
-        constantTermsMoved: "After subtracting $3$ from both sides, the equation becomes $2x = 7 - 3$. Simplifying the right side gives $2x = 4$.",
-        isolatedVariable: "The variable $x$ is currently multiplied by $2$. To isolate $x$, we divide both sides of the equation by $2$: $\\frac{2x}{2} = \\frac{4}{2}$.",
-        checkSubstitution: "To check the solution $x = 2$, substitute $2$ for $x$ in the *original* equation $2x + 3 = 7$. This gives the left-hand side (LHS) as $2(2) + 3$.",
-        checkVerification: "Calculate the LHS: $2(2) + 3 = 4 + 3 = 7$. The right-hand side (RHS) of the original equation is $7$. Since LHS ($7$) equals RHS ($7$), the solution $x = 2$ is correct."
-      },
-      hint: "What is the opposite of adding 3? Use that to move the constant term. Then, how do you 'undo' multiplying by 2?"
-    },
-    // --- Problem 2: 3(2x - 1) = 15 ---
-    {
-      expression: "3(2x - 1) = 15",
-      solution: {
-        simplifiedEquation: "6x - 3 = 15", // Expand the left side
-        variableTermsMoved: "6x = 15 + 3", // Move -3
-        constantTermsMoved: "6x = 18",     // Calculate 15+3
-        isolatedVariable: "x = 3",         // Divide by 6
-        checkSubstitution: "3(2(3) - 1) = 15", // Substitute x=3
-        checkVerification: "Yes, LHS = RHS" // 3(6-1)=3(5)=15, which is true
-      },
-      explanation: {
-        simplifiedEquation: "The left side of the equation $3(2x - 1) = 15$ has parentheses. First, use the distributive property to expand it: $3 \\times 2x = 6x$ and $3 \\times (-1) = -3$. This gives $6x - 3 = 15$.",
-        variableTermsMoved: "The variable term is $6x$. It is already on the left side. We need to move the constant term $-3$ to the right side. We do this by adding $3$ to both sides: $6x - 3 + 3 = 15 + 3$.",
-        constantTermsMoved: "After adding $3$ to both sides, the equation becomes $6x = 15 + 3$. Simplifying the right side gives $6x = 18$.",
-        isolatedVariable: "The variable $x$ is currently multiplied by $6$. To isolate $x$, we divide both sides of the equation by $6$: $\\frac{6x}{6} = \\frac{18}{6}$.",
-        checkSubstitution: "To check the solution $x = 3$, substitute $3$ for $x$ in the *original* equation $3(2x - 1) = 15$. This gives the LHS as $3(2(3) - 1)$.",
-        checkVerification: "Calculate the LHS step-by-step: $2(3) = 6$, then $6 - 1 = 5$, then $3 \\times 5 = 15$. The RHS is $15$. Since LHS ($15$) equals RHS ($15$), the solution $x = 3$ is correct."
-      },
-      hint: "Start by expanding the parentheses on the left. Then, what is the opposite of subtracting 3? Finally, how do you 'undo' multiplying by 6?"
-    },
-    // --- Problem 3: \frac{x}{2} + 4 = 7 ---
-    {
-      expression: "\\frac{x}{2} + 4 = 7",
-      solution: {
-        simplifiedEquation: "x + 8 = 14", // Multiply all terms by 2
-        variableTermsMoved: "x = 14 - 8", // Move +8
-        constantTermsMoved: "x = 6",      // Calculate 14-8
-        isolatedVariable: "x = 6",        // Variable is already isolated
-        checkSubstitution: "\\frac{6}{2} + 4 = 7", // Substitute x=6
-        checkVerification: "Yes, LHS = RHS" // 3+4=7, which is true
-      },
-      explanation: {
-        simplifiedEquation: "The equation $\\frac{x}{2} + 4 = 7$ contains a fraction. To simplify, we can clear the fraction by multiplying every term on both sides by the denominator, which is $2$: $2(\\frac{x}{2}) + 2(4) = 2(7)$. This simplifies to $x + 8 = 14$.",
-        variableTermsMoved: "The variable term is $x$. It is already on the left side. We need to move the constant term $+8$ to the right side. We do this by subtracting $8$ from both sides: $x + 8 - 8 = 14 - 8$.",
-        constantTermsMoved: "After subtracting $8$ from both sides, the equation becomes $x = 14 - 8$. Simplifying the right side gives $x = 6$.",
-        isolatedVariable: "The variable $x$ is now by itself on the left side of the equation. The solution is $x = 6$.",
-        checkSubstitution: "To check the solution $x = 6$, substitute $6$ for $x$ in the *original* equation $\\frac{x}{2} + 4 = 7$. This gives the LHS as $\\frac{6}{2} + 4$.",
-        checkVerification: "Calculate the LHS: $\\frac{6}{2} = 3$, then $3 + 4 = 7$. The RHS is $7$. Since LHS ($7$) equals RHS ($7$), the solution $x = 6$ is correct."
-      },
-      hint: "To get rid of the fraction, multiply everything by the bottom number (the denominator). Then, how do you move the constant term? Is the variable isolated at the end?"
-    },
-     // --- Problem 4: 4x - 5 = 11 ---
-     {
-        expression: "4x - 5 = 11",
-        solution: {
-            simplifiedEquation: "4x - 5 = 11", // Already simplified
-            variableTermsMoved: "4x = 11 + 5", // Move -5
-            constantTermsMoved: "4x = 16",     // Calculate 11+5
-            isolatedVariable: "x = 4",         // Divide by 4
-            checkSubstitution: "4(4) - 5 = 11", // Substitute x=4
-            checkVerification: "Yes, LHS = RHS" // 16-5=11, which is true
-        },
-        explanation: {
-            simplifiedEquation: "The equation $4x - 5 = 11$ is already in its simplest form. There are no like terms to combine or fractions to clear.",
-            variableTermsMoved: "The variable term is $4x$. It is already on the left side. We need to move the constant term $-5$ to the right side. We do this by adding $5$ to both sides: $4x - 5 + 5 = 11 + 5$.",
-            constantTermsMoved: "After adding $5$ to both sides, the equation becomes $4x = 11 + 5$. Simplifying the right side gives $4x = 16$.",
-            isolatedVariable: "The variable $x$ is currently multiplied by $4$. To isolate $x$, we divide both sides of the equation by $4$: $\\frac{4x}{4} = \\frac{16}{4}$.",
-            checkSubstitution: "To check the solution $x = 4$, substitute $4$ for $x$ in the *original* equation $4x - 5 = 11$. This gives the LHS as $4(4) - 5$.",
-            checkVerification: "Calculate the LHS: $4(4) = 16$, then $16 - 5 = 11$. The RHS is $11$. Since LHS ($11$) equals RHS ($11$), the solution $x = 4$ is correct."
-        },
-        hint: "What is the opposite of subtracting 5? Use that to move the constant term. Then, how do you 'undo' multiplying by 4?"
+      id: 'lec-balance',
+      question: "Why is it important to perform the same operation on both sides of an equation?",
+      questionType: 'text',
+      options: [
+        "To make the equation longer",
+        "To keep the equation balanced, like a scale",
+        "To change the value of the variable",
+        "It's not necessary"
+      ],
+      optionType: 'text', // Options are plain text
+      correct: 1, // Index of the correct option
+      explanation: "Think of an equation like a balanced scale. Whatever you do to one side, you must do to the other side to maintain the balance (equality). This ensures the solution remains valid.",
+      explanationType: 'text'
     }
   ]
 };
 
-export default function SolvingLinearEquationsTool() {
+// --- Multi-Step Question 2: Simple Two-Step Equation ---
+const simpleEquationQuestion: MultiStepQuestion = {
+  id: 'simple-equation',
+  title: 'Solving a Simple Linear Equation',
+  steps: [
+    {
+      id: 'seq-isolate',
+      question: "Solve $4x + 6 = 18$. What is the FIRST step to isolate the term with $x$?",
+      questionType: 'text',
+      options: [
+        "Add 6 to both sides",
+        "Subtract 6 from both sides",
+        "Divide both sides by 4",
+        "Multiply both sides by 6"
+      ],
+      optionType: 'text', // Options contain text
+      correct: 1, // Index of the correct option
+      explanation: "To isolate the term with $x$ ($4x$), you need to eliminate the constant term on the same side ($+6$). You do this by performing the inverse operation, which is subtraction. Subtract 6 from both sides.",
+      explanationType: 'text'
+    },
+    {
+      id: 'seq-subtract',
+      question: "Subtract 6 from both sides of $4x + 6 = 18$. What equation do you get?",
+      questionType: 'text',
+      options: [
+        "$4x = 12$",
+        "$4x = 24$",
+        "$4x + 0 = 12$",
+        "$4x - 6 = 12$"
+      ],
+      optionType: 'text', // Options contain text
+      correct: 0, // Index of the correct option
+      explanation: "Perform the subtraction on both sides: Left side: $4x + 6 - 6 = 4x + 0 = 4x$. Right side: $18 - 6 = 12$. The new equation is $4x = 12$.",
+      explanationType: 'text'
+    },
+    {
+      id: 'seq-solve-for-x',
+      question: "Now, solve for $x$ in $4x = 12$. What operation do you perform?",
+      questionType: 'text',
+      options: [
+        "Add 4 to both sides",
+        "Subtract 4 from both sides",
+        "Multiply both sides by 4",
+        "Divide both sides by 4"
+      ],
+      optionType: 'text', // Options are plain text
+      correct: 3, // Index of the correct option
+      explanation: "To isolate $x$ from $4x$, you need to undo the multiplication by 4. The inverse operation of multiplication is division. Divide both sides by 4.",
+      explanationType: 'text'
+    },
+    {
+      id: 'seq-divide',
+      question: "Divide both sides of $4x = 12$ by 4. What is the value of $x$?",
+      questionType: 'text',
+      options: [
+        "$x = 3$",
+        "$x = 48$",
+        "$x = 8$",
+        "$x = 16$"
+      ],
+      optionType: 'text', // Options contain text
+      correct: 0, // Index of the correct option
+      explanation: "Perform the division on both sides: Left side: $4x \\div 4 = x$. Right side: $12 \\div 4 = 3$. Therefore, $x = 3$.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Solution (4x + 6 = 18)", "x = 3");
+      }
+    }
+  ]
+};
+
+// --- Multi-Step Question 3: Multi-Step Equation (Distribution) ---
+const multiStepEquationQuestion: MultiStepQuestion = {
+  id: 'multi-step-equation',
+  title: 'Solving a Multi-Step Linear Equation',
+  steps: [
+    {
+      id: 'mse-expand',
+      question: "Solve $2(x + 3) = 16$. What is the FIRST step?",
+      questionType: 'text',
+      options: [
+        "Add 3 to both sides",
+        "Subtract 3 from both sides",
+        "Divide both sides by 2",
+        "Expand the brackets using the distributive property"
+      ],
+      optionType: 'text', // Options are plain text
+      correct: 3, // Index of the correct option
+      explanation: "The expression $2(x + 3)$ is grouped together. To simplify the left side, you need to expand (or distribute) the 2 to both terms inside the parentheses.",
+      explanationType: 'text'
+    },
+    {
+      id: 'mse-distribute',
+      question: "Apply the distributive property: $2(x + 3)$. What is the result?",
+      questionType: 'text',
+      options: [
+        "$2x + 3$",
+        "$2x + 6$",
+        "$2x + 5$",
+        "$2x + 23$"
+      ],
+      optionType: 'text', // Options contain text
+      correct: 1, // Index of the correct option
+      explanation: "Multiply the 2 by each term inside the parentheses: $2 \\times x = 2x$ and $2 \\times 3 = 6$. So, $2(x + 3) = 2x + 6$. The equation becomes $2x + 6 = 16$.",
+      explanationType: 'text'
+    },
+    {
+      id: 'mse-isolate',
+      question: "Now solve $2x + 6 = 16$. What is the next step to isolate the term with $x$?",
+      questionType: 'text',
+      options: [
+        "Add 6 to both sides",
+        "Subtract 6 from both sides",
+        "Divide both sides by 2",
+        "Multiply both sides by 6"
+      ],
+      optionType: 'text', // Options contain text
+      correct: 1, // Index of the correct option
+      explanation: "To isolate $2x$, you need to eliminate the constant term $+6$ on the same side. Subtract 6 from both sides.",
+      explanationType: 'text'
+    },
+    {
+      id: 'mse-subtract',
+      question: "Subtract 6 from both sides of $2x + 6 = 16$. What equation do you get?",
+      questionType: 'text',
+      options: [
+        "$2x = 10$",
+        "$2x = 22$",
+        "$2x + 0 = 10$",
+        "$2x - 6 = 10$"
+      ],
+      optionType: 'text', // Options contain text
+      correct: 0, // Index of the correct option
+      explanation: "Perform the subtraction on both sides: Left side: $2x + 6 - 6 = 2x + 0 = 2x$. Right side: $16 - 6 = 10$. The new equation is $2x = 10$.",
+      explanationType: 'text'
+    },
+    {
+      id: 'mse-solve-for-x',
+      question: "Finally, solve for $x$ in $2x = 10$. What is the value of $x$?",
+      questionType: 'text',
+      options: [
+        "$x = 5$",
+        "$x = 20$",
+        "$x = 8$",
+        "$x = 12$"
+      ],
+      optionType: 'text', // Options contain text
+      correct: 0, // Index of the correct option
+      explanation: "To isolate $x$ from $2x$, divide both sides by 2: $2x \\div 2 = x$ and $10 \\div 2 = 5$. Therefore, $x = 5$.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Solution (2(x+3) = 16)", "x = 5");
+      }
+    }
+  ]
+};
+
+// --- Multi-Step Question 4: Equation with Fractions ---
+const fractionEquationQuestion: MultiStepQuestion = {
+  id: 'fraction-equation',
+  title: 'Solving an Equation with Fractions',
+  steps: [
+    {
+      id: 'fe-clear-fractions',
+      question: "Solve $\\frac{x}{3} + 2 = 5$. What is a good strategy for the FIRST step?",
+      questionType: 'text',
+      options: [
+        "Add 2 to both sides",
+        "Subtract 2 from both sides",
+        "Multiply both sides by the denominator (3) to clear the fraction",
+        "Divide both sides by 3"
+      ],
+      optionType: 'text', // Options are plain text
+      correct: 2, // Index of the correct option
+      explanation: "While you could subtract 2 first, a common strategy when fractions are present is to eliminate them early. You can do this by multiplying every term in the equation by the denominator of the fraction.",
+      explanationType: 'text'
+    },
+    {
+      id: 'fe-multiply-by-denominator',
+      question: "Multiply every term in $\\frac{x}{3} + 2 = 5$ by 3. What is the result?",
+      questionType: 'text',
+      options: [
+        "$x + 6 = 15$",
+        "$3x + 6 = 15$",
+        "$\\frac{x}{9} + 6 = 15$",
+        "$x + 2 = 5$"
+      ],
+      optionType: 'text', // Options contain text
+      correct: 0, // Index of the correct option
+      explanation: "Apply the multiplication to each term: $3 \\times \\frac{x}{3} = x$, $3 \\times 2 = 6$, $3 \\times 5 = 15$. The new equation is $x + 6 = 15$.",
+      explanationType: 'text'
+    },
+    {
+      id: 'fe-isolate',
+      question: "Now solve $x + 6 = 15$. What is the next step to isolate $x$?",
+      questionType: 'text',
+      options: [
+        "Add 6 to both sides",
+        "Subtract 6 from both sides",
+        "Multiply both sides by 6",
+        "Divide both sides by 6"
+      ],
+      optionType: 'text', // Options contain text
+      correct: 1, // Index of the correct option
+      explanation: "To isolate $x$, you need to eliminate the constant term $+6$ on the same side. Subtract 6 from both sides.",
+      explanationType: 'text'
+    },
+    {
+      id: 'fe-subtract',
+      question: "Subtract 6 from both sides of $x + 6 = 15$. What is the value of $x$?",
+      questionType: 'text',
+      options: [
+        "$x = 9$",
+        "$x = 21$",
+        "$x = 3$",
+        "$x = 11$"
+      ],
+      optionType: 'text', // Options contain text
+      correct: 0, // Index of the correct option
+      explanation: "Perform the subtraction on both sides: Left side: $x + 6 - 6 = x + 0 = x$. Right side: $15 - 6 = 9$. Therefore, $x = 9$.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Solution (x/3 + 2 = 5)", "x = 9");
+      }
+    }
+  ]
+};
+
+// --- Multi-Step Question 5: Applying the Method ---
+const applyMethodQuestion: MultiStepQuestion = {
+  id: 'apply-method',
+  title: 'Applying the Solving Method',
+  steps: [
+    {
+      id: 'am-analyze',
+      question: "Solve $5x - 7 = 3x + 5$. What should you do FIRST to start collecting variable terms on one side?",
+      questionType: 'text',
+      options: [
+        "Add 7 to both sides",
+        "Subtract 5 from both sides",
+        "Subtract $3x$ from both sides",
+        "Add $3x$ to both sides"
+      ],
+      optionType: 'text', // Options contain text
+      correct: 2, // Index of the correct option
+      explanation: "A good first step is to get all terms containing the variable ($x$) on one side. You can subtract $3x$ from both sides to move the $3x$ term from the right side to the left side.",
+      explanationType: 'text'
+    },
+    {
+      id: 'am-subtract-variable',
+      question: "Subtract $3x$ from both sides of $5x - 7 = 3x + 5$. What equation do you get?",
+      questionType: 'text',
+      options: [
+        "$2x - 7 = 5$",
+        "$8x - 7 = 5$",
+        "$5x - 3x - 7 = 5$",
+        "$2x - 7 = 3x + 5 - 3x$"
+      ],
+      optionType: 'text', // Options contain text
+      correct: 0, // Index of the correct option
+      explanation: "Perform the subtraction on both sides: Left side: $5x - 3x - 7 = 2x - 7$. Right side: $3x + 5 - 3x = 0 + 5 = 5$. The new equation is $2x - 7 = 5$.",
+      explanationType: 'text'
+    },
+    {
+      id: 'am-isolate',
+      question: "Now solve $2x - 7 = 5$. What is the next step to isolate the term with $x$?",
+      questionType: 'text',
+      options: [
+        "Add 7 to both sides",
+        "Subtract 7 from both sides",
+        "Divide both sides by 2",
+        "Multiply both sides by 7"
+      ],
+      optionType: 'text', // Options contain text
+      correct: 0, // Index of the correct option
+      explanation: "To isolate the term with $x$ ($2x$), you need to eliminate the constant term $-7$ on the same side. You do this by adding 7 to both sides.",
+      explanationType: 'text'
+    },
+    {
+      id: 'am-add',
+      question: "Add 7 to both sides of $2x - 7 = 5$. What equation do you get?",
+      questionType: 'text',
+      options: [
+        "$2x = 12$",
+        "$2x = -2$",
+        "$2x + 0 = 12$",
+        "$2x - 7 + 7 = 5 + 7$"
+      ],
+      optionType: 'text', // Options contain text
+      correct: 0, // Index of the correct option
+      explanation: "Perform the addition on both sides: Left side: $2x - 7 + 7 = 2x + 0 = 2x$. Right side: $5 + 7 = 12$. The new equation is $2x = 12$.",
+      explanationType: 'text'
+    },
+    {
+      id: 'am-solve-for-x',
+      question: "Finally, solve for $x$ in $2x = 12$. What is the value of $x$?",
+      questionType: 'text',
+      options: [
+        "$x = 6$",
+        "$x = 24$",
+        "$x = 10$",
+        "$x = 14$"
+      ],
+      optionType: 'text', // Options contain text
+      correct: 0, // Index of the correct option
+      explanation: "To isolate $x$ from $2x$, divide both sides by 2: $2x \\div 2 = x$ and $12 \\div 2 = 6$. Therefore, $x = 6$.",
+      explanationType: 'text'
+    },
+    {
+      id: 'am-check',
+      question: "(Bonus Check) Substitute $x = 6$ back into the original equation $5x - 7 = 3x + 5$. Does it hold true?",
+      questionType: 'text',
+      options: [
+        "Yes: Left side = $5(6) - 7 = 23$, Right side = $3(6) + 5 = 23$. $23 = 23$ ✓",
+        "No: Left side = $23$, Right side = $25$",
+        "No: Left side = $25$, Right side = $23$",
+        "Yes: Left side = $30$, Right side = $15$"
+      ],
+      optionType: 'text', // Options contain text
+      correct: 0, // Index of the correct option
+      explanation: "Check the left side: $5x - 7 = 5(6) - 7 = 30 - 7 = 23$. Check the right side: $3x + 5 = 3(6) + 5 = 18 + 5 = 23$. Since both sides equal 23, the solution $x = 6$ is correct.",
+      explanationType: 'text',
+      onCorrect: (_selectedOptionIndex, setSharedValue) => {
+        setSharedValue("Solution (5x-7=3x+5)", "x = 6");
+      }
+    }
+  ]
+};
+
+// --- Combine all questions into an array ---
+const solvingLinearEquationsQuestions: MultiStepQuestion[] = [
+  leConceptQuestion,
+  simpleEquationQuestion,
+  multiStepEquationQuestion,
+  fractionEquationQuestion,
+  applyMethodQuestion
+];
+
+
+const SolvingLinearEquations: React.FC = () => {
+  const leRules = [
+    "Simplify both sides of the equation (clear fractions, expand brackets).",
+    "Use the balance principle: perform the same operation on both sides.",
+    "Isolate the variable term ($x$) on one side by adding/subtracting terms.",
+    "Solve for the variable by dividing/multiplying both sides by its coefficient.",
+    "Check your solution by substituting it back into the original equation."
+  ];
+
   return (
-    <MultiStepInteractiveComponent toolData={solvingLinearEquationsData} />
+    <div className="flex justify-center items-center">
+      <MultipleStepInteractiveComponent
+        title="Solving Linear Equations"
+        icon="🧮" // Or any other relevant icon like "✖️" or "❓"
+        theme={{ from: '', to: '', button: '', buttonHover: '' }} // Unused but required
+        rules={leRules}
+        rulesTitle="Solving Rules:"
+        questions={solvingLinearEquationsQuestions} // Pass the array of question objects
+        renderSharedValuesSummary={renderLinearEquationsSummary} // Pass the summary renderer
+        // initialSharedValues, onReset if needed
+      />
+    </div>
   );
-}
+};
+
+export default SolvingLinearEquations

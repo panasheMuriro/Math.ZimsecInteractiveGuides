@@ -16,21 +16,21 @@ import SpecialProducts from "./Topic7.4/SpecialProducts";
 import AddingSubtractingFractions from "./Topic7.5/AddSubtractFractions";
 import MultiplyingDividingFractions from "./Topic7.5/MultiplyingDividingFractions";
 import SimplifyingBasicFractions from "./Topic7.5/SimplifyingBasicFractions";
-import CompleteSquareA1Tool from "./Topic7.6/CompleteSquareA1Tool";
-import CompleteSquareANot1Tool from "./Topic7.6/CompleteSquareANot1Tool";
-import SolvingLinearEquationsTool from "./Topic7.7/SolvingLinearEquationsTool";
-import SolvingQuadraticEquationsCompletingSquareTool from "./Topic7.7/SolvingQuadraticEquationsCompletingSquareTool";
-import SolvingQuadraticEquationsFactoringTool from "./Topic7.7/SolvingQuadraticEquationsFactoringTool";
-import SolvingQuadraticEquationsFormulaTool from "./Topic7.7/SolvingQuadraticEquationsFormulaTool";
-import SolvingSimultaneousEquationsEliminationTool from "./Topic7.7/SolvingSimultaneousEquationsEliminationTool";
-import SolvingSimultaneousEquationsSubstitutionTool from "./Topic7.7/SolvingSimultaneousEquationsSubstitutionTool";
 import GraphInequalities from "./Topic7.8/GraphInequalities";
-import SolvingLinearInequalitiesTool from "./Topic7.8/SolvingLinearInequalitiesTool";
-import SolvingQuadraticInequalitiesTool from "./Topic7.8/SolvingQuadraticInequalitiesTool";
-import IntroductionToLogarithmsTool from "./Topic7.9/IntroductionToLogarithmsTool";
-import LawsOfIndicesTool from "./Topic7.9/LawsOfIndicesTool";
-import SolvingExponentialEquationsTool from "./Topic7.9/SolvingExponentialEquationsTool";
-import SolvingLogarithmicEquationsTool from "./Topic7.9/SolvingLogarithmicEquationsTool";
+import CompletingSquareA1 from "./Topic7.6/CompletingSquareA1";
+import CompletingTheSquareANot1 from "./Topic7.6/CompletingTheSquareANot1";
+import SolvingLinearEquations from "./Topic7.7/SolvingLinearEquationsTool";
+import SolvingSimultaneousEquationsElimination from "./Topic7.7/SolvingSimultaneousEquationsElimination";
+import SolvingSimultaneousEquationsSubstitution from "./Topic7.7/SolvingSimultaneousEquationsSubstitution";
+import SolvingQuadraticEquationsFactoring from "./Topic7.7/SolvingQuadraticEquationsFactoring";
+import SolvingQuadraticEquationsCompletingSquare from "./Topic7.7/SolvingQuadraticEquationsCompletingSquare";
+import SolvingQuadraticEquationsFormula from "./Topic7.7/SolvingQuadraticEquationsFormula";
+import SolvingLinearInequalities from "./Topic7.8/SolvingLinearInequalities";
+import SolvingQuadraticInequalities from "./Topic7.8/SolvingQuadraticInequalities";
+import LawsOfIndices from "./Topic7.9/LawsOfIndices";
+import SolvingExponentialEquations from "./Topic7.9/SolvingExponentialEquations";
+import IntroductionToLogarithms from "./Topic7.9/IntroductionToLogarithms";
+import SolvingLogarithmicEquations from "./Topic7.9/SolvingLogarithmicEquations";
 
 export const topic7Components: Record<string, React.ComponentType> = {
   "like-terms": LikeTerms,
@@ -51,19 +51,19 @@ export const topic7Components: Record<string, React.ComponentType> = {
   "simplify-fractions": SimplifyingBasicFractions,
   "add-subtract-fractions": AddingSubtractingFractions,
   "multiply-divide-fractions": MultiplyingDividingFractions,
-  "complete-square-a1": CompleteSquareA1Tool,
-  "complete-square-anot1": CompleteSquareANot1Tool,
-  "linear-equations": SolvingLinearEquationsTool,
-  "simultaneous-equations-elimination": SolvingSimultaneousEquationsEliminationTool,
-  "simultaneous-equations-substitution": SolvingSimultaneousEquationsSubstitutionTool,
-  "quadratic-equations-factoring": SolvingQuadraticEquationsFactoringTool,
-  "quadratic-equations-completing-square": SolvingQuadraticEquationsCompletingSquareTool,
-  "quadratic-equations-formula": SolvingQuadraticEquationsFormulaTool,
-  "linear-inequalities": SolvingLinearInequalitiesTool,
-  "quadratic-inequalities": SolvingQuadraticInequalitiesTool,
-  "indices-laws": LawsOfIndicesTool,
-  "exponential-equations": SolvingExponentialEquationsTool,
-  "logarithms-intro": IntroductionToLogarithmsTool,
-  "log-equations": SolvingLogarithmicEquationsTool,
+  "complete-square-a1": CompletingSquareA1,
+  "complete-square-anot1": CompletingTheSquareANot1,
+  "linear-equations": SolvingLinearEquations,
+  "simultaneous-equations-elimination": SolvingSimultaneousEquationsElimination,
+  "simultaneous-equations-substitution": SolvingSimultaneousEquationsSubstitution,
+  "quadratic-equations-factoring": SolvingQuadraticEquationsFactoring,
+  "quadratic-equations-completing-square": SolvingQuadraticEquationsCompletingSquare,
+  "quadratic-equations-formula": SolvingQuadraticEquationsFormula,
+  "linear-inequalities": SolvingLinearInequalities,
+  "quadratic-inequalities": SolvingQuadraticInequalities,
+  "indices-laws": LawsOfIndices,
+  "exponential-equations": SolvingExponentialEquations,
+  "logarithms-intro": IntroductionToLogarithms,
+  "log-equations": SolvingLogarithmicEquations,
   "graph-inequalities": GraphInequalities,
 };
