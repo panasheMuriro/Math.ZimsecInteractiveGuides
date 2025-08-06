@@ -6,6 +6,9 @@ import { VitePWA } from 'vite-plugin-pwa';
 // https://vite.dev/config/
 export default defineConfig({
     plugins: [react(), tailwindcss(), VitePWA({
+      workbox: {
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // 5MB
+      },
       registerType: 'autoUpdate',
       manifest: {
         name: 'Math | Zimsec Interactive Guides',
