@@ -35,7 +35,7 @@ export default defineConfig({
     registerType: 'autoUpdate',
     manifest: {
       name: 'Math | Zimsec Interactive Guides',
-      short_name: 'O Math Zim',
+      short_name: 'O Math Zimsec',
       start_url: '/',
       display: 'standalone',
       background_color: '#ffffff',
@@ -51,6 +51,12 @@ export default defineConfig({
           sizes: '512x512',
           type: 'image/png',
         },
+         {
+            src: '/splash.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any maskable',
+          },
       ],
     },
   })],
