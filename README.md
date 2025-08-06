@@ -1,6 +1,7 @@
 # ZIMSEC O-Level Mathematics Interactive Guide 📚
 
 ---
+<img width="822" height="271" alt="Screenshot 2025-08-06 at 9 54 14 AM" src="https://github.com/user-attachments/assets/03f87b10-3318-478b-b1a2-c9277fcd71a9" />
 
 ## Introduction
 
