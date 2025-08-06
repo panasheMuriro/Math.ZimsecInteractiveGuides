@@ -2,10 +2,19 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa';
+import { visualizer } from 'rollup-plugin-visualizer';
+
 // import checker from 'vite-plugin-checker';
 // https://vite.dev/config/
 export default defineConfig({
-    plugins: [react(), tailwindcss(), VitePWA({
+    plugins: [react(), tailwindcss(),
+      
+        visualizer({
+      open: true, // Opens browser on build
+      gzipSize: true,
+      brotliSize: true,
+    }),
+      VitePWA({
       workbox: {
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // 5MB
       },
@@ -16,7 +25,7 @@ export default defineConfig({
         start_url: '/',
         display: 'standalone',
         background_color: '#ffffff',
-        theme_color: '#e07a5f',
+        theme_color: '#f4f1de',
         icons: [
           {
             src: '/icon-192.png',
@@ -30,5 +39,21 @@ export default defineConfig({
           },
         ],
       }})],
+
+     build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            // Example: separate KaTeX, React, and Charting libs
+            if (id.includes('katex')) return 'katex';
+            if (id.includes('react')) return 'react';
+            if (id.includes('recharts')) return 'charts';
+            return 'vendor'; // fallback for all other node_modules
+          }
+        },
+      },
+    },
+  },
 
 })
