@@ -77,20 +77,23 @@ const renderInteractive = (type: string) => {
 
 
   const handleNext = () => {
+     window.scrollTo({ top: 0, behavior: "smooth" });
     if (
       section.subsections &&
       currentSubsection < section.subsections.length - 1
     ) {
       setCurrentSubsection(currentSubsection + 1);
-      // window.scrollTo({ top: 0, behavior: "smooth" });
+     
     }
+    
   };
 
   const handlePrev = () => {
+     window.scrollTo({ top: 0, behavior: "smooth" });
     if (currentSubsection > 0) {
       setCurrentSubsection(currentSubsection - 1);
     }
-    // window.scrollTo({ top: 0, behavior: "smooth" });
+   
   };
 
 
