@@ -42,12 +42,12 @@ export default defineConfig({
       theme_color: '#f4f1de',
       icons: [
         {
-          src: '/icon-192.png',
+          src: '/splash.png',
           sizes: '192x192',
           type: 'image/png',
         },
         {
-          src: '/icon-512.png',
+          src: '/splash.png',
           sizes: '512x512',
           type: 'image/png',
         },
