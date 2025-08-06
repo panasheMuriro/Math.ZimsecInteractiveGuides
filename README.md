@@ -1,54 +1,97 @@
-# React + TypeScript + Vite
+# ZIMSEC O-Level Mathematics Interactive Guide 📚
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+---
 
-Currently, two official plugins are available:
+## Introduction
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This repository contains the front-end code for an interactive web application designed to help students revise for their ZIMSEC O-Level Mathematics examination. The app provides over 170 interactive components covering a wide range of topics from Forms 1 to 4, making revision engaging and effective. The application is completely free to use. 💡
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Features ✨
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+* **Comprehensive Topic Coverage:** Explore key mathematical concepts including Real Numbers, Sets, Financial Mathematics, Measures and Mensuration, Graphs, Variation, Algebra, Geometry, Statistics, Trigonometry, Vectors, Matrices, Transformation, and Probability. ➕➖✖️➗
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+* **Interactive Learning Sections:** Engage with over 170 interactive components designed to enhance understanding and retention. 🧠
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+* **Dynamic Topic Display:** The landing page dynamically cycles through various mathematics topics, giving users a quick overview of the syllabus covered. 🔄
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+* **Neubrutalism UI Design:** A distinctive and modern user interface inspired by the neubrutalism design trend, featuring bold colors, strong borders, and prominent shadows. 🎨
+
+* **Responsive Layout:** Optimized for seamless viewing and interaction across all devices, from mobile phones to desktop computers. 📱💻
+
+* **Visual Screenshots:** The landing page showcases multiple mobile-aspect-ratio screenshots, providing a glimpse into the app's interactive sections. 📸
+
+---
+
+## PWA & Offline Capabilities 🚀
+
+This application is built as a **Progressive Web App (PWA)**, offering a native app-like experience directly from your browser.
+
+* **Offline Access:** Once downloaded, the app works **offline**, allowing you to continue your revision even without an internet connection. All core content and interactive features are available. ✈️
+
+* **Installable to Homescreen:** Users can **download and install** this web app directly to their device's homescreen (on supported browsers and operating systems), providing quick access just like a native application. Look for an "Add to Home Screen" or "Install App" prompt in your browser's menu. 📲
+
+---
+
+## Technologies Used 🛠️
+
+* **React:** A JavaScript library for building user interfaces. ⚛️
+
+* **Tailwind CSS:** A utility-first CSS framework for rapidly building custom designs. 💨
+
+* **Lucide React:** A collection of open-source icons for React applications. ✨
+
+---
+
+## Setup and Installation ⚙️
+
+To get a local copy up and running, follow these simple steps.
+
+### Prerequisites
+
+* Node.js (LTS version recommended)
+
+* npm or Yarn
+
+### Installation
+
+1.  **Clone the repository:**
+
+    ```bash
+    git clone [https://github.com/your-username/zimsec-math-guide.git](https://github.com/your-username/zimsec-math-guide.git)
+    cd zimsec-math-guide
+    ```
+
+2.  **Install dependencies:**
+
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
+
+3.  **Run the development server:**
+
+    ```bash
+    npm start
+    # or
+    yarn start
+    ```
+
+    The application will open in your browser at `http://localhost:3000`. 🌐
+
+---
+
+## Usage 📖
+
+Navigate through the topics list to access interactive sections for each mathematical concept. The app is designed for self-paced learning and revision. 🧑‍🎓
+
+---
+
+## Contributing 🤝
+
+Contributions are welcome! If you have suggestions for improvements or new features, please open an issue or submit a pull request. 💖
+
+---
+
