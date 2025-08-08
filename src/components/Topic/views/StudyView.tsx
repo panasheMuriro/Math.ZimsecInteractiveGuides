@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { ChevronLeft, ChevronRight} from "lucide-react";
-import {  useNavigate, useParams } from "react-router-dom";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
@@ -31,12 +31,9 @@ import VariationCodeRenderer from "../interactive/Topic6/VariationCodeRenderer";
 import TrigCodeRenderer from "../interactive/Topic10/Viewers/TrigCodeRenderer";
 import { renderTextWithMath } from "../../../utils/renderTextWithMath";
 
-
-
 const StudyView = () => {
   const { topicData } = useTopicContext();
-  const { sectionIndex , topicId} = useParams();
-  const navigate = useNavigate();
+  const { sectionIndex, topicId } = useParams();
   const [currentSubsection, setCurrentSubsection] = useState(0);
 
   const currentSectionIndex = parseInt(sectionIndex || "0");
@@ -46,26 +43,24 @@ const StudyView = () => {
     ? section.subsections[currentSubsection]
     : section;
 
-const allInteractiveComponents: Record<string, React.ComponentType> = {
-  ...topic1Components,
-  ...topic2Components,
-  ...topic3Components,
-  ...topic4Components,
-  ...topic5Components,
-  ...topic6Components,
-  ...topic7Components,
-  ...topic8Components,
-  ...topic9Components,
-  ...topic10Components,
-  ...topic11Components,
-  ...topic12Components,
-  ...topic13Components,
-  ...topic14Components,
-};
+  const allInteractiveComponents: Record<string, React.ComponentType> = {
+    ...topic1Components,
+    ...topic2Components,
+    ...topic3Components,
+    ...topic4Components,
+    ...topic5Components,
+    ...topic6Components,
+    ...topic7Components,
+    ...topic8Components,
+    ...topic9Components,
+    ...topic10Components,
+    ...topic11Components,
+    ...topic12Components,
+    ...topic13Components,
+    ...topic14Components,
+  };
 
-
-
-const renderInteractive = (type: string) => {
+  const renderInteractive = (type: string) => {
     if (!type) return null;
     const Component = allInteractiveComponents[type];
     if (!Component) {
@@ -75,7 +70,6 @@ const renderInteractive = (type: string) => {
     return <Component />;
   };
 
-
   const handleNext = () => {
      window.scrollTo({ top: 0, behavior: "smooth" });
     if (
@@ -83,7 +77,6 @@ const renderInteractive = (type: string) => {
       currentSubsection < section.subsections.length - 1
     ) {
       setCurrentSubsection(currentSubsection + 1);
-     
     }
     
   };
@@ -93,40 +86,35 @@ const renderInteractive = (type: string) => {
     if (currentSubsection > 0) {
       setCurrentSubsection(currentSubsection - 1);
     }
-   
   };
-
 
   let CodeRendererComponent; // : CodeRendererType | undefined;
 
-switch (topicId) {
-  case "8":
-    CodeRendererComponent = SVGCodeRenderer;
-    break;
-  case "6":
-    CodeRendererComponent = VariationCodeRenderer;
-    break;
-  case "10":
-     CodeRendererComponent = TrigCodeRenderer;
-     break
-  default: // Covers cases like "7" or any other ID
-    CodeRendererComponent = GraphCodeRenderer;
-    break;
-}
+  switch (topicId) {
+    case "8":
+      CodeRendererComponent = SVGCodeRenderer;
+      break;
+    case "6":
+      CodeRendererComponent = VariationCodeRenderer;
+      break;
+    case "10":
+      CodeRendererComponent = TrigCodeRenderer;
+      break;
+    default:
+      // Covers cases like "7" or any other ID
+      CodeRendererComponent = GraphCodeRenderer;
+      break;
+  }
 
   return (
     <div className="min-h-screen bg-[#fdfaf6] text-[#3b3a30] p-6 font-serif">
       <div className="max-w-md mx-auto">
-        <Header
-          title={section.title}
-          icon={section.icon}
-          showBackButton
-          onBack={() => navigate(`/topics/${topicData.id}`)}
-        />
+
+        <Header title={section.title} icon={section.icon} />
 
         {section.subsections && (
           <h3 className="text-lg font-semibold text-[#4e4b44] mb-4">
-             {renderTextWithMath(currentContent.title)}
+            {renderTextWithMath(currentContent.title)}
           </h3>
         )}
         <div className="bg-[#fffef9] shadow-lg border-3 border-gray-500 rounded-2xl p-6 mb-6 prose max-w-none">
@@ -135,7 +123,7 @@ switch (topicId) {
               remarkPlugins={[remarkMath, remarkGfm]}
               rehypePlugins={[rehypeKatex]}
               components={{
-                code: CodeRendererComponent
+                code: CodeRendererComponent,
               }}
             >
               {currentContent.content}
@@ -147,8 +135,6 @@ switch (topicId) {
 
         <div className="mb-6 font-sans">
           {renderInteractive(currentContent.interactive as string)}
-
-          
         </div>
 
         {section.subsections && (

@@ -1,11 +1,10 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import { ChevronRight, CheckCircle} from 'lucide-react'
 import { useTopicContext } from '../hooks/useTopicContext'
 import Header from '../../Global/Header'
 
 const HomeView = () => {
   const { topicData, completedSections } = useTopicContext()
-  const navigate = useNavigate()
 
   // Define the neubrutalism color palette, consistent with TopicsList
   const neubrutalismPalette = {
@@ -22,12 +21,13 @@ const HomeView = () => {
     <div className="min-h-screen p-6" style={{ backgroundColor: neubrutalismPalette.background }}>
       <div className="max-w-md mx-auto">
         {/* Header component - assuming it adapts or is styled externally */}
+      
+         {/* <AppBar title="" showBackButton onBack={() => navigate("/home")} /> */}
+
         <Header
           title="ZIMSEC O-Level"
           description="Mathematics Interactive Guide"
           icon={topicData.icon}
-          showBackButton
-          onBack={() => navigate('/home')}
         />
 
         {/* Topic Information Box */}

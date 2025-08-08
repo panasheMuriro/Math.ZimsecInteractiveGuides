@@ -1,9 +1,10 @@
 
-import { Link } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import { ChevronRight } from 'lucide-react'
 import { topics } from '../../data/topics' 
 
 const TopicsList = () => {
+
   
   const neubrutalismPalette = {
     background: "#f4f1de", 
@@ -18,6 +19,7 @@ const TopicsList = () => {
   return (
     <div className="min-h-screen p-6" style={{ backgroundColor: neubrutalismPalette.background }}>
       <div className="max-w-md mx-auto">
+
         <Link to="/">
         <div className="text-center mb-8 mt-12">
           <h1

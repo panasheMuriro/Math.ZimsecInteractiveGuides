@@ -20,7 +20,6 @@ const QuizCompleteView = () => {
         <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
           <Header
             title="Quiz Complete!"
-            showBackButton={false}
           />
           
           <div className="text-6xl mb-6 animate-bounce">

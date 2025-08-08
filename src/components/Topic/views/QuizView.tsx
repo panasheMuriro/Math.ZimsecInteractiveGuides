@@ -1,29 +1,3 @@
-// import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import { MathJax } from "better-react-mathjax";
-// import { Star, XCircle, CheckCircle } from "lucide-react";
-// import { useTopicContext } from "../hooks/useTopicContext";
-// import Header from "../../Global/Header";
-
-// const QuizView = () => {
-//   const { topicData } = useTopicContext();
-//   const navigate = useNavigate();
-//   const [currentQuestion, setCurrentQuestion] = useState(0);
-//   const [quizScore, setQuizScore] = useState(0);
-//   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
-//   const [showResult, setShowResult] = useState(false);
-//   const [animateScore, setAnimateScore] = useState(false);
-
-//   const handleQuizAnswer = (answerIndex: number) => {
-//     setSelectedAnswer(answerIndex);
-//     setShowResult(true);
-
-//     if (answerIndex === topicData.quizQuestions[currentQuestion].correct) {
-//       setQuizScore(quizScore + 1);
-//       setAnimateScore(true);
-//       setTimeout(() => setAnimateScore(false), 600);
-//     }
-//   };
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MathJax } from 'better-react-mathjax';
@@ -67,10 +41,9 @@ const QuizView = () => {
     <div className="min-h-screen bg-gradient-to-br from-yellow-600 to-orange-600 p-6">
       <div className="max-w-md mx-auto">
         <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mb-6">
+        
           <Header
             title={`Quiz: ${topicData.title}`}
-            showBackButton
-            onBack={() => navigate(`/topics/${topicData.id}`)}
           />
           
           <div className="flex items-center justify-between mb-4">
