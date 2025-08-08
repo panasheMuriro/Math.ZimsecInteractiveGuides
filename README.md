@@ -7,6 +7,7 @@
 
 This repository contains the front-end code for an interactive web application designed to help students revise for their ZIMSEC O-Level Mathematics examination. The app provides over 170 interactive components covering a wide range of topics from Forms 1 to 4, making revision engaging and effective. The application is completely free to use. 💡
 
+[Open Application](https://math-zimsecinteractiveguides.pages.dev/)
 ---
 
 ## Features ✨
