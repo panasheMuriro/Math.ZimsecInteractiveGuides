@@ -1,11 +1,13 @@
 # ZIMSEC O-Level Mathematics Interactive Guide 📚
 
 ---
+<img width="822" height="271" alt="Screenshot 2025-08-06 at 9 54 14 AM" src="https://github.com/user-attachments/assets/03f87b10-3318-478b-b1a2-c9277fcd71a9" />
 
 ## Introduction
 
 This repository contains the front-end code for an interactive web application designed to help students revise for their ZIMSEC O-Level Mathematics examination. The app provides over 170 interactive components covering a wide range of topics from Forms 1 to 4, making revision engaging and effective. The application is completely free to use. 💡
 
+[Open Application](https://math-zimsecinteractiveguides.pages.dev/)
 ---
 
 ## Features ✨
