@@ -345,14 +345,14 @@ const set1 = {
 
   return (
     <div className="min-h-screen bg-[#e76f51] text-[#3b3a30] p-6 font-serif">
-      <div className="max-w-md mx-auto">
+      <div className="max-w-3xl mx-auto">
         <Header title={headerTitle} icon={icon} />
         <h3 className="text-lg text-center font-semibold text-white mb-4">
           {renderTextWithMath(title)}
         </h3>
 
         <div className="bg-[#fffef9] shadow-lg border-3 border-gray-500 rounded-2xl p-6 mb-6 prose max-w-none">
-          <div className="prose max-w-none text-gray-900 leading-[30px] list-disc">
+          <div className="prose max-w-none text-gray-900 leading-[50px] list-disc">
             <ReactMarkdown
               remarkPlugins={[remarkMath, remarkGfm]}
               rehypePlugins={[rehypeKatex]}
