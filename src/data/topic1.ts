@@ -139,33 +139,73 @@ $H.C.F.(a,b) \\times L.C.M.(a,b) = a \\times b$
         "interactive": "multiples-lcm"
       },
       {
-        "title": "Directed Numbers",
-        "content": `**DIRECTED NUMBERS**
+     "title": "Directed Numbers",
+ "content": `**DIRECTED NUMBERS**
 Numbers with direction (positive or negative)
 - Positive numbers: $+5, +10, +3.2$ (above zero)
 - Negative numbers: $-3, -7, -1.5$ (below zero)
 - Zero is neither positive nor negative
 
+
 **OPERATIONS WITH DIRECTED NUMBERS**
 
 **Addition Rules:**
-- Same signs: Add and keep the sign $(+3) + (+5) = +8$
-- Different signs: Subtract and take sign of larger $(-7) + (+3) = -4$
+- Same signs: Add absolute values and keep the sign
+  - $(+3) + (+5) = +8$
+  - $(-4) + (-6) = -10$
+- Different signs: Subtract smaller from larger, keep sign of larger
+  - $(-7) + (+3) = -4$ (since $|-7| > |+3|$)
+  - $(+9) + (-2) = +7$ (since $|+9| > |-2|$)
 
 **Subtraction Rules:**
 - Change subtraction to addition of opposite
-- $5 - (-3) = 5 + 3 = 8$
-- $-4 - 6 = -4 + (-6) = -10$
-
+  - $5 - (-3) = 5 + (+3) = 8$
+  - $-4 - 6 = -4 + (-6) = -10$
+  - $-2 - (-5) = -2 + (+5) = +3$
+  - $7 - 10 = 7 + (-10) = -3$
+ ---
 **Multiplication and Division Rules:**
-- Same signs give positive result: $(-3) \\times (-4) = +12$
-- Different signs give negative result: $(+6) \\div (-2) = -3$
+- Same signs give positive result:
+  - $(+3) × (+4) = +12$
+  - $(-3) × (-4) = +12$
+  - $(+8) ÷ (+2) = +4$
+  - $(-12) ÷ (-3) = +4$
+- Different signs give negative result:
+  - $(+6) × (-2) = -12$
+  - $(-5) × (+3) = -15$
+  - $(+15) ÷ (-5) = -3$
+  - $(-20) ÷ (+4) = -5$
 
-**Practical Applications:**
-- Temperature changes, bank transactions, elevation changes
-- Using number lines to visualize operations`,
-        "interactive": "directed-numbers"
-      },
+**MEMORY AID FOR MULTIPLICATION/DIVISION:**
+- "Like signs give positive" (+,+ or -,-)
+- "Unlike signs give negative" (+,- or -,+)
+
+---
+**PRACTICAL APPLICATIONS:**
+- **Temperature changes:** $5°C - 8°C = -3°C$ (3 degrees below zero)
+- **Bank transactions:** Starting balance $£50$, withdraw $£75$: $50 + (-75) = -£25$ (overdrawn)
+- **Elevation changes:** Sea level = 0m, mountain peak = +2000m, ocean depth = -500m
+- **Profit and Loss:** Profit = positive, Loss = negative
+- **Sports scores:** Goals for = positive, goals against = negative difference
+
+---
+**COMMON MISTAKES TO AVOID:**
+- $-3 - 5 ≠ -3 + 5$ (Don't change the sign incorrectly)
+- $(-2)^2 ≠ -2^2$ (Mind the brackets with powers)
+- When multiplying many numbers, count negative signs: even count = positive, odd count = negative
+
+**NUMBER LINE ADDITION EXAMPLE:**
+To calculate $(-3) + (+5)$:
+1. Start at $-3$
+2. Move 5 units right (positive direction)
+3. End at $+2$
+
+**ADVANCED EXAMPLES:**
+- $(-2) × 3 × (-1) × (-4) = (-2) × 3 × (+4) = +24$
+- $\\frac{-15}{-3} + 2 × (-4) = 5 + (-8) = -3$
+- $|-7| + (-3) = 7 + (-3) = 4$ (absolute value makes -7 positive)`,
+  "interactive": "directed-numbers"
+},
       {
         "title": "Fractions and Percentages",
         "content": `**FRACTIONS**
@@ -195,34 +235,137 @@ Fractions out of 100: $\\frac{x}{100} = x\\%$
 - Practical applications: discounts, tax, interest`,
         "interactive": "fractions-percentages"
       },
-      {
-        "title": "Order of Operations",
-        "content": `**ORDER OF OPERATIONS (BODMAS/PEMDAS)**
-Rules for evaluating mathematical expressions
+  {
+ "title": "Order of Operations",
+ "content": `**ORDER OF OPERATIONS (BODMAS/PEMDAS)**
+Rules for evaluating mathematical expressions in the correct sequence
 
-**B - Brackets** (Parentheses)
-Do operations inside brackets first
+**BODMAS Memory Aid:**
+- **B - Brackets** (Parentheses) [ ], ( ), { }
+- **O - Orders** (Exponents/Powers/Indices) $x^2$, $\\sqrt{x}$
+- **D - Division** $÷$, $/$
+- **M - Multiplication** $×$, $\\cdot$, $*$
+- **A - Addition** $+$
+- **S - Subtraction** $-$
 
-**O - Orders** (Exponents/Powers)
-Calculate powers and roots
+**PEMDAS Memory Aid (Alternative):**
+- **P - Parentheses** ( )
+- **E - Exponents** $x^2$
+- **M - Multiplication** $×$
+- **D - Division** $÷$
+- **A - Addition** $+$
+- **S - Subtraction** $-$
 
-**DM - Division and Multiplication**
-From left to right
+**KEY RULES:**
 
-**AS - Addition and Subtraction** 
-From left to right
+**1. Brackets First (Innermost to Outermost):**
+- $3 × (4 + 2) = 3 × 6 = 18$
+- $2 × [(5 + 3) × 2] = 2 × [8 × 2] = 2 × 16 = 32$
+- $\\{[(2 + 3) × 4] - 6\\} = \\{[5 × 4] - 6\\} = \\{20 - 6\\} = 14$
 
-**Examples:**
-$2 + 3 \\times 4 = 2 + 12 = 14$ (not 20)
-$(2 + 3) \\times 4 = 5 \\times 4 = 20$
-$2^3 + 4 \\times 5 = 8 + 20 = 28$
+**2. Powers/Exponents Next:**
+- $2 + 3^2 = 2 + 9 = 11$ (not $5^2 = 25$)
+- $5^2 + 2^3 = 25 + 8 = 33$
+- $(2 + 3)^2 = 5^2 = 25$
+- $2 × 3^2 = 2 × 9 = 18$ (not $6^2 = 36$)
 
-**Mixed Operations with Different Number Types:**
-- Combining integers, fractions, and decimals
-- Following order of operations consistently
-- Real-world problem solving applications`,
-        "interactive": "order-operations"
-      },
+**3. Division and Multiplication (Left to Right):**
+- $12 ÷ 3 × 2 = 4 × 2 = 8$ (not $12 ÷ 6 = 2$)
+- $2 × 6 ÷ 3 = 12 ÷ 3 = 4$
+- $20 ÷ 4 × 5 = 5 × 5 = 25$
+
+**4. Addition and Subtraction (Left to Right):**
+- $10 - 3 + 2 = 7 + 2 = 9$ (not $10 - 5 = 5$)
+- $5 + 8 - 3 = 13 - 3 = 10$
+- $15 - 7 + 4 - 2 = 8 + 4 - 2 = 12 - 2 = 10$
+
+**STEP-BY-STEP EXAMPLES:**
+
+**Example 1:** $3 + 4 × 2^2$
+Step 1: Powers first → $2^2 = 4$
+Step 2: $3 + 4 × 4$
+Step 3: Multiplication → $4 × 4 = 16$
+Step 4: Addition → $3 + 16 = 19$
+
+**Example 2:** $(5 + 3) × 2^2 - 4$
+Step 1: Brackets → $(5 + 3) = 8$
+Step 2: Powers → $2^2 = 4$
+Step 3: $8 × 4 - 4$
+Step 4: Multiplication → $8 × 4 = 32$
+Step 5: Subtraction → $32 - 4 = 28$
+
+**Example 3:** $6 + 18 ÷ 3^2 - 2 × 4$
+Step 1: Powers → $3^2 = 9$
+Step 2: $6 + 18 ÷ 9 - 2 × 4$
+Step 3: Division and Multiplication (left to right) → $18 ÷ 9 = 2$, then $2 × 4 = 8$
+Step 4: $6 + 2 - 8$
+Step 5: Addition and Subtraction (left to right) → $6 + 2 = 8$, then $8 - 8 = 0$
+
+**COMPLEX EXAMPLES:**
+
+**Example 4:** $2 ×\\{3 + [4 × (5 - 2)]^2\\} ÷ 6$
+Step 1: Innermost brackets → $(5 - 2) = 3$
+Step 2: $2 × \\{3 + [4 × 3]^2\\} ÷ 6$
+Step 3: Next brackets → $4 × 3 = 12$
+Step 4: $2 × \\{3 + 12^2\\} ÷ 6$
+Step 5: Powers → $12^2 = 144$
+Step 6: $2 × \\{3 + 144\\} ÷ 6$
+Step 7: Final brackets → $3 + 144 = 147$
+Step 8: $2 × 147 ÷ 6$
+Step 9: Left to right → $2 × 147 = 294$, then $294 ÷ 6 = 49$
+
+**MIXED OPERATIONS WITH DIFFERENT NUMBER TYPES:**
+
+**With Fractions:**
+- $\frac{1}{2} + 3 × \frac{2}{3} = \frac{1}{2} + 2 = 2\frac{1}{2}$
+- $(\frac{3}{4})^2 + \frac{1}{4} = \frac{9}{16} + \frac{4}{16} = \frac{13}{16}$
+
+**With Decimals:**
+- $2.5 + 3 × 1.2 = 2.5 + 3.6 = 6.1$
+- $(1.5 + 0.5)^2 = 2^2 = 4$
+
+**With Directed Numbers:**
+- $-3 + 2 × (-4) = -3 + (-8) = -11$
+- $(-2)^3 + 5 = -8 + 5 = -3$
+- $5 - 3 × (-2) = 5 - (-6) = 5 + 6 = 11$
+
+**COMMON MISTAKES TO AVOID:**
+
+**❌ Wrong:** $2 + 3 × 4 = 5 × 4 = 20$
+**✅ Correct:** $2 + 3 × 4 = 2 + 12 = 14$
+
+**❌ Wrong:** $12 ÷ 3 × 2 = 12 ÷ 6 = 2$
+**✅ Correct:** $12 ÷ 3 × 2 = 4 × 2 = 8$
+
+**❌ Wrong:** $-2^2 = (-2)^2 = 4$
+**✅ Correct:** $-2^2 = -(2^2) = -4$ and $(-2)^2 = 4$
+
+**REAL-WORLD APPLICATIONS:**
+
+**Shopping Calculation:**
+"Buy 3 items at £5 each, get 20% discount, plus £2 delivery"
+$3 × 5 × (1 - 0.2) + 2 = 3 × 5 × 0.8 + 2 = 15 × 0.8 + 2 = 12 + 2 = £14$
+
+**Area Calculations:**
+"Rectangle with length (5 + 3) and width (2 × 3)"
+Area $= (5 + 3) × (2 × 3) = 8 × 6 = 48$ square units
+
+**Interest Calculations:**
+"£100 invested at 5% for 2 years"
+Final amount $= 100 × (1 + 0.05)^2 = 100 × 1.05^2 = 100 × 1.1025 = £110.25$
+
+**MEMORY TECHNIQUES:**
+- **"Please Excuse My Dear Aunt Sally"** (PEMDAS)
+- **"Big Elephants Destroy Many Animals Seriously"** (BEDMAS)
+- **"Brackets Orders Division Multiplication Addition Subtraction"** (BODMAS)
+
+**PRACTICE TIPS:**
+1. Always work step-by-step
+2. Show each calculation clearly
+3. Double-check by working backwards
+4. Use brackets to make your intention clear when writing expressions`,
+ "interactive": "order-operations"
+},
       {
         "title": "Squares and Square Roots",
         "content": `**SQUARES**
