@@ -11,17 +11,53 @@ const RevisionView = () => {
   const title = "Directed Numbers";
   const icon = "➕";
   const content = `
--1. Solve: $-5 + (-6)$  
-2. Solve: $-7 - (-3)$  
-3. Solve: $8 + (-12)$  
-4. Solve: $-4 - 9$  
-5. Solve: $-15 + 20$  
-6. Solve: $12 - (-7)$  
-7. Solve: $-9 + 14$  
-8. Solve: $-8 - (-8)$  
-9. Solve: $6 + (-11)$  
-10. Solve: $-13 - 5$
-`;
+**Directed Numbers Practice Questions**
+
+1.) $(-8) + (+15) = ?$
+
+2.) $(+12) - (-7) = ?$
+
+3.) $(-9) \\times (+6) = ?$
+
+4.) $(+24) \\div (-3) = ?$
+
+5.) $(-11) + (-13) = ?$
+
+6.) $(+18) - (+25) = ?$
+
+7.) $(-7) \\times (-8) = ?$
+
+8.) $(-36) \\div (+9) = ?$
+
+9.) $(+14) + (-22) = ?$
+
+10.) $(-16) - (-9) = ?$
+
+---
+
+**BODMAS Practice Questions**
+
+1.) $5 + 3 \\times 2 - 1 = ?$
+
+2.) $(8 - 3) \\times 2 + 4 = ?$
+
+3.) $20 \\div 4 + 3 \\times 2 = ?$
+
+4.) $6 + 2 \\times (9 - 5) = ?$
+
+5.) $15 - 3 \\times 2 + 8 \\div 4 = ?$
+
+6.) $(12 + 8) \\div 5 - 2 = ?$
+
+7.) $4 \\times 3 + 6 \\div 2 - 1 = ?$
+
+8.) $25 - (4 + 6) \\times 2 = ?$
+
+9.) $18 \\div 3 + 2 \\times (7 - 4) = ?$
+
+10.) $8 + 12 \\div 4 - 2 \\times 3 = ?$
+`
+;
 
   return (
     <div className="min-h-screen bg-[#e76f51] text-[#3b3a30] p-6 font-serif">
