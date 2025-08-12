@@ -11,7 +11,7 @@ import RevisionView from './components/Topic/views/RevisionView'
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<RevisionView />} />
+      {/* <Route path="/" element={<RevisionView />} /> */}
       {/* <Route path="/home" element={<TopicsList />} />
       <Route path="/topics/:topicId" element={<TopicLayout />}>
         <Route index element={<HomeView />} />
@@ -19,7 +19,14 @@ function App() {
         <Route path="quiz" element={<QuizView />} />
         <Route path="quiz-complete" element={<QuizCompleteView />} />
       </Route> */}
-      <Route path="*" element={<Navigate to="/" replace />} />
+      {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
+
+          <Route path="/" element={<Navigate to="/revision/false" replace />} />
+
+      {/* RevisionView with optional showSolutions param */}
+      <Route path="/revision/:showSolutions?" element={<RevisionView />} />
+
+      <Route path="*" element={<Navigate to="/revision/false" replace />} />
     </Routes>
   )
 }
