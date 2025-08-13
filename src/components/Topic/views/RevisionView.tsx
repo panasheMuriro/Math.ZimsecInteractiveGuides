@@ -15,7 +15,7 @@ const RevisionView = () => {
   const showSolutions = showSolutionsParam === "true";
 
   const headerTitle = "Holiday Revision";
-  const title = "Directed Numbers";
+  const title = "Standard Form and Indices";
   const icon = "➕";
 
   return (
