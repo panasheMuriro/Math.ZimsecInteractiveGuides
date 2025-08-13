@@ -1254,33 +1254,35 @@ These laws make it easier to work with large numbers or variables in algebra, li
 5. **Negative Exponent**: $a^{-n} = \\frac{1}{a^n}$ (move to denominator and make positive).
 6. **Fractional Exponent**: $a^{1/n} = \\sqrt[n]{a}$, $a^{m/n} = (\\sqrt[n]{a})^m$ (represents roots).
 
+---
 **Steps to Simplify Using Laws:**
 1. **Identify the base** and exponents.
 2. **Apply the relevant law** based on the operation.
 3. **Simplify** the expression.
 4. **Check** by calculating with numbers if needed.
 
+---
 **Example 1: Multiplication**
 Simplify $3^2 \\times 3^4$
 - Step 1: Base is 3, exponents are 2 and 4.
 - Step 2: Use multiplication law: $3^2 \\times 3^4 = 3^{2+4} = 3^6$.
 - Step 3: Simplify: $3^6 = 729$.
 - Step 4: Check: $3^2 = 9$, $3^4 = 81$, $9 \\times 81 = 729$ ✓.
-
+---
 **Example 2: Division and Negative Exponent**
 Simplify $\\frac{5^7}{5^3} \\times 5^{-2}$
 - Step 1: Base is 5, exponents are 7, 3, and -2.
 - Step 2: Division: $5^7 \\div 5^3 = 5^{7-3} = 5^4$. Then multiply: $5^4 \\times 5^{-2} = 5^{4-2} = 5^2$.
 - Step 3: Simplify: $5^2 = 25$.
 - Step 4: Check: $\\frac{5^7}{5^3} = 5^4 = 625$, $5^{-2} = \\frac{1}{25}$, $625 \\times \\frac{1}{25} = 25$ ✓.
-
+---
 **Example 3: Power of a Power and Fractional Exponent**
 Simplify $(2^3)^{1/2}$
 - Step 1: Base is 2, exponents are 3 and $1/2$.
 - Step 2: Power law: $(2^3)^{1/2} = 2^{3 \\times 1/2} = 2^{3/2}$.
 - Step 3: Fractional exponent: $2^{3/2} = (2^{1/2})^3 = (\\sqrt{2})^3$.
 - Step 4: Check: $2^3 = 8$, $8^{1/2} = \\sqrt{8} = 2\\sqrt{2} \\approx 2.828$. Also, $(\\sqrt{2})^3 \\approx (1.414)^3 \\approx 2.828$ ✓.
-
+---
 **Tips:**
 - Memorize one law at a time and practice with numbers (e.g., $2^2 \\times 2^3$).
 - Write out each step to avoid mixing up exponents.

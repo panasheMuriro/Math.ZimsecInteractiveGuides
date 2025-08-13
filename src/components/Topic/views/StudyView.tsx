@@ -108,7 +108,7 @@ const StudyView = () => {
 
   return (
     <div className="min-h-screen bg-[#fdfaf6] text-[#3b3a30] p-6 font-serif">
-      <div className="max-w-md mx-auto">
+      <div className="max-w-3xl mx-auto">
 
         <Header title={section.title} icon={section.icon} />
 
@@ -118,7 +118,7 @@ const StudyView = () => {
           </h3>
         )}
         <div className="bg-[#fffef9] shadow-lg border-3 border-gray-500 rounded-2xl p-6 mb-6 prose max-w-none">
-          <div className="prose max-w-none text-gray-900 leading-[30px] list-disc">
+          <div className="prose max-w-none text-gray-900 leading-[45px] list-disc">
             <ReactMarkdown
               remarkPlugins={[remarkMath, remarkGfm]}
               rehypePlugins={[rehypeKatex]}
@@ -138,11 +138,11 @@ const StudyView = () => {
         </div>
 
         {section.subsections && (
-          <div className="flex justify-between mb-6">
+          <div className="flex justify-between mb-6 items-center font-sans">
             <button
               onClick={handlePrev}
               disabled={currentSubsection === 0}
-              className={`flex items-center px-4 py-2 rounded-lg border ${
+              className={`flex items-center px-4 py-3 rounded-full border-2 ${
                 currentSubsection === 0
                   ? "text-gray-400 border-gray-200"
                   : "hover:bg-[#f0ece6] text-[#333] border-[#ddd]"
@@ -150,13 +150,13 @@ const StudyView = () => {
             >
               <ChevronLeft className="w-5 h-5 mr-1" /> Previous
             </button>
-            <div className="text-sm text-[#5c5b57] tracking-wide pt-2">
+            <div className="text-sm text-[#5c5b57] font-bold tracking-wide pt-2">
               {currentSubsection + 1} of {section.subsections.length}
             </div>
             <button
               onClick={handleNext}
               disabled={currentSubsection === section.subsections.length - 1}
-              className={`flex items-center px-4 py-2 rounded-lg border ${
+              className={`flex items-center px-4 py-3 rounded-full border-2 ${
                 currentSubsection === section.subsections.length - 1
                   ? "text-gray-400 border-gray-200"
                   : "hover:bg-[#f0ece6] text-[#333] border-[#ddd]"
