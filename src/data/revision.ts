@@ -781,3 +781,429 @@ export const set2 = {
 **Answer:** $\\mathbf{-0.068}$
 `
 };
+
+export const set3 = {
+  questions: `
+**Standard Form Practice Questions**
+
+**Converting large numbers to standard form:**
+
+1.) Express $4500000$ in standard form.
+
+2.) Express $720000000$ in standard form.
+
+3.) Express $98000$ in standard form.
+
+---
+
+**Converting small numbers to standard form:**
+
+4.) Express $0.00036$ in standard form.
+
+5.) Express $0.0000072$ in standard form.
+
+6.) Express $0.0089$ in standard form.
+
+---
+
+**Addition in standard form:**
+
+7.) $3 \\times 10^5 + 5 \\times 10^4 = ?$
+
+8.) $7 \\times 10^6 + 2 \\times 10^5 = ?$
+
+9.) $4 \\times 10^{-3} + 5 \\times 10^{-4} = ?$
+
+---
+
+**Subtraction in standard form:**
+
+10.) $9 \\times 10^4 - 3 \\times 10^3 = ?$
+
+11.) $5 \\times 10^{-2} - 2 \\times 10^{-3} = ?$
+
+---
+
+**Multiplication in standard form:**
+
+12.) $(3 \\times 10^3) \\times (2 \\times 10^4) = ?$
+
+13.) $(5 \\times 10^{-2}) \\times (4 \\times 10^3) = ?$
+
+14.) $(7 \\times 10^5) \\times (3 \\times 10^{-2}) = ?$
+
+---
+
+**Division in standard form:**
+
+15.) $(6 \\times 10^6) \\div (3 \\times 10^2) = ?$
+
+16.) $(8 \\times 10^{-3}) \\div (2 \\times 10^{-5}) = ?$
+
+17.) $(9 \\times 10^4) \\div (3 \\times 10^2) = ?$
+
+---
+
+**Indices Practice Questions**
+
+**Express as prime factors in index form:**
+
+18.) Express $72$ as a product of prime factors in index form.
+
+19.) Express $200$ as a product of prime factors in index form.
+
+20.) Express $150$ as a product of prime factors in index form.
+
+---
+
+**Multiplication using indices:**
+
+21.) $2^3 \\times 2^5 = ?$
+
+22.) $5^2 \\times 5^4 = ?$
+
+23.) $3^4 \\times 3^2 = ?$
+
+---
+
+**Division using indices:**
+
+24.) $2^7 \\div 2^3 = ?$
+
+25.) $5^6 \\div 5^2 = ?$
+
+26.) $3^5 \\div 3^2 = ?$
+
+---
+
+**Power of a power:**
+
+27.) $(2^3)^2 = ?$
+
+28.) $(3^2)^3 = ?$
+
+29.) $(5^4)^3 = ?$
+
+---
+
+**Fractional and negative indices:**
+
+30.) $4^{\\frac{1}{2}} = ?$
+
+31.) $9^{-\\frac{1}{2}} = ?$
+
+32.) $8^{-2} = ?$
+`
+,
+  solutions: `
+  **Standard Form Practice Questions with Solutions**
+
+---
+
+**1.)** Express $4500000$ in standard form.
+
+**Solution:**
+
+1. Identify first non-zero digits: 4.5  
+2. Count places to decimal: $4500000 = 4.5 \\times 10^6$  
+
+**Answer:** $\\mathbf{4.5 \\times 10^6}$
+
+---
+
+**2.)** Express $720000000$ in standard form.
+
+**Solution:**
+
+1. First non-zero digits: 7.2  
+2. Decimal places: $720000000 = 7.2 \\times 10^8$  
+
+**Answer:** $\\mathbf{7.2 \\times 10^8}$
+
+---
+
+**3.)** Express $98000$ in standard form.
+
+**Solution:**
+
+1. First digits: 9.8  
+2. Decimal places: $98000 = 9.8 \\times 10^4$  
+
+**Answer:** $\\mathbf{9.8 \\times 10^4}$
+
+---
+
+**4.)** Express $0.00036$ in standard form.
+
+**Solution:**
+
+1. First non-zero digits: 3.6  
+2. Decimal places: $0.00036 = 3.6 \\times 10^{-4}$  
+
+**Answer:** $\\mathbf{3.6 \\times 10^{-4}}$
+
+---
+
+**5.)** Express $0.0000072$ in standard form.
+
+**Solution:**
+
+1. First digits: 7.2  
+2. Decimal places: $0.0000072 = 7.2 \\times 10^{-6}$  
+
+**Answer:** $\\mathbf{7.2 \\times 10^{-6}}$
+
+---
+
+**6.)** Express $0.0089$ in standard form.
+
+**Solution:**
+
+1. First digits: 8.9  
+2. Decimal places: $0.0089 = 8.9 \\times 10^{-3}$  
+
+**Answer:** $\\mathbf{8.9 \\times 10^{-3}}$
+
+---
+
+**7.)** $3 \\times 10^5 + 5 \\times 10^4 = ?$
+
+**Solution:**
+
+1. Convert to ordinary: $3 \\times 10^5 = 300000$, $5 \\times 10^4 = 50000$  
+2. Add: $300000 + 50000 = 350000$  
+3. Convert back: $350000 = 3.5 \\times 10^5$  
+
+**Answer:** $\\mathbf{3.5 \\times 10^5}$
+
+---
+
+**8.)** $7 \\times 10^6 + 2 \\times 10^5 = ?$
+
+**Solution:**
+
+1. Ordinary: $7 \\times 10^6 = 7000000$, $2 \\times 10^5 = 200000$  
+2. Add: $7000000 + 200000 = 7200000$  
+3. Standard form: $7.2 \\times 10^6$  
+
+**Answer:** $\\mathbf{7.2 \\times 10^6}$
+
+---
+
+**9.)** $4 \\times 10^{-3} + 5 \\times 10^{-4} = ?$
+
+**Solution:**
+
+1. Ordinary: $4 \\times 10^{-3} = 0.004$, $5 \\times 10^{-4} = 0.0005$  
+2. Add: $0.004 + 0.0005 = 0.0045$  
+3. Standard form: $4.5 \\times 10^{-3}$  
+
+**Answer:** $\\mathbf{4.5 \\times 10^{-3}}$
+
+---
+
+**10.)** $9 \\times 10^4 - 3 \\times 10^3 = ?$
+
+**Solution:**
+
+1. Ordinary: $9 \\times 10^4 = 90000$, $3 \\times 10^3 = 3000$  
+2. Subtract: $90000 - 3000 = 87000$  
+3. Standard form: $8.7 \\times 10^4$  
+
+**Answer:** $\\mathbf{8.7 \\times 10^4}$
+
+---
+
+**11.)** $5 \\times 10^{-2} - 2 \\times 10^{-3} = ?$
+
+**Solution:**
+
+1. Ordinary: $5 \\times 10^{-2} = 0.05$, $2 \\times 10^{-3} = 0.002$  
+2. Subtract: $0.05 - 0.002 = 0.048$  
+3. Standard form: $4.8 \\times 10^{-2}$  
+
+**Answer:** $\\mathbf{4.8 \\times 10^{-2}}$
+
+---
+
+**12.)** $(3 \\times 10^3) \\times (2 \\times 10^4) = ?$
+
+**Solution:**
+
+1. Multiply numbers: $3 \\times 2 = 6$  
+2. Multiply powers of 10: $10^3 \\times 10^4 = 10^{3+4} = 10^7$  
+3. Result: $6 \\times 10^7$  
+
+**Answer:** $\\mathbf{6 \\times 10^7}$
+
+---
+
+**13.)** $(5 \\times 10^{-2}) \\times (4 \\times 10^3) = ?$
+
+**Solution:**
+
+1. Numbers: $5 \\times 4 = 20$  
+2. Powers: $10^{-2} \\times 10^3 = 10^{1}$  
+3. Combine: $20 \\times 10^1 = 200$  
+4. Standard form: $2 \\times 10^2$  
+
+**Answer:** $\\mathbf{2 \\times 10^2}$
+
+---
+
+**14.)** $(7 \\times 10^5) \\times (3 \\times 10^{-2}) = ?$
+
+**Solution:**
+
+1. Numbers: $7 \\times 3 = 21$  
+2. Powers: $10^5 \\times 10^{-2} = 10^{3}$  
+3. Combine: $21 \\times 10^3 = 2.1 \\times 10^4$  
+
+**Answer:** $\\mathbf{2.1 \\times 10^4}$
+
+---
+
+**15.)** $(6 \\times 10^6) \\div (3 \\times 10^2) = ?$
+
+**Solution:**
+
+1. Numbers: $6 \\div 3 = 2$  
+2. Powers: $10^6 \\div 10^2 = 10^{6-2} = 10^4$  
+3. Result: $2 \\times 10^4$  
+
+**Answer:** $\\mathbf{2 \\times 10^4}$
+
+---
+
+**16.)** $(8 \\times 10^{-3}) \\div (2 \\times 10^{-5}) = ?$
+
+**Solution:**
+
+1. Numbers: $8 \\div 2 = 4$  
+2. Powers: $10^{-3} \\div 10^{-5} = 10^{-3 - (-5)} = 10^{2}$  
+3. Result: $4 \\times 10^2$  
+
+**Answer:** $\\mathbf{4 \\times 10^2}$
+
+---
+
+**17.)** $(9 \\times 10^4) \\div (3 \\times 10^2) = ?$
+
+**Solution:**
+
+1. Numbers: $9 \\div 3 = 3$  
+2. Powers: $10^4 \\div 10^2 = 10^{2}$  
+3. Result: $3 \\times 10^2$  
+
+**Answer:** $\\mathbf{3 \\times 10^2}$
+
+---
+
+**Indices Practice Questions with Solutions**
+
+---
+
+**18.)** Express $72$ as a product of prime factors.
+
+**Solution:**
+
+1. $72 = 2 \\times 36$  
+2. $36 = 2 \\times 18$, $18 = 2 \\times 9$, $9 = 3 \\times 3$  
+3. Combine: $72 = 2^3 \\times 3^2$  
+
+**Answer:** $\\mathbf{2^3 \\times 3^2}$
+
+---
+
+**19.)** Express $200$ as a product of prime factors.
+
+**Solution:**
+
+1. $200 = 2 \\times 100$, $100 = 2 \\times 50$, $50 = 2 \\times 25$, $25 = 5 \\times 5$  
+2. Combine: $200 = 2^3 \\times 5^2$  
+
+**Answer:** $\\mathbf{2^3 \\times 5^2}$
+
+---
+
+**20.)** Express $150$ as a product of prime factors.
+
+**Solution:**
+
+1. $150 = 2 \\times 75$, $75 = 3 \\times 25$, $25 = 5 \\times 5$  
+2. Combine: $150 = 2 \\times 3 \\times 5^2$  
+
+**Answer:** $\\mathbf{2 \\times 3 \\times 5^2}$
+
+---
+
+**21.)** $2^3 \\times 2^5 = 2^{3+5} = 2^8$  
+
+**Answer:** $\\mathbf{2^8}$
+
+---
+
+**22.)** $5^2 \\times 5^4 = 5^{2+4} = 5^6$  
+
+**Answer:** $\\mathbf{5^6}$
+
+---
+
+**23.)** $3^4 \\times 3^2 = 3^{4+2} = 3^6$  
+
+**Answer:** $\\mathbf{3^6}$
+
+---
+
+**24.)** $2^7 \\div 2^3 = 2^{7-3} = 2^4$  
+
+**Answer:** $\\mathbf{2^4}$
+
+---
+
+**25.)** $5^6 \\div 5^2 = 5^{6-2} = 5^4$  
+
+**Answer:** $\\mathbf{5^4}$
+
+---
+
+**26.)** $3^5 \\div 3^2 = 3^{5-2} = 3^3$  
+
+**Answer:** $\\mathbf{3^3}$
+
+---
+
+**27.)** $(2^3)^2 = 2^{3*2} = 2^6$  
+
+**Answer:** $\\mathbf{2^6}$
+
+---
+
+**28.)** $(3^2)^3 = 3^{2*3} = 3^6$  
+
+**Answer:** $\\mathbf{3^6}$
+
+---
+
+**29.)** $(5^4)^3 = 5^{4*3} = 5^{12}$  
+
+**Answer:** $\\mathbf{5^{12}}$
+
+---
+
+**30.)** $4^{\\frac{1}{2}} = \\sqrt{4} = 2$  
+
+**Answer:** $\\mathbf{2}$
+
+---
+
+**31.)** $9^{-\\frac{1}{2}} = 1 / 9^{1/2} = 1 / 3$  
+
+**Answer:** $\\mathbf{\\frac{1}{3}}$
+
+---
+
+**32.)** $8^{-2} = 1 / 8^2 = 1 / 64$  
+
+**Answer:** $\\mathbf{\\frac{1}{64}}`
+};
