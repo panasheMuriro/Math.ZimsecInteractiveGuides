@@ -1211,9 +1211,7 @@ export const set3 = {
 
 export const set4 = {
   questions: `
-**Advanced Simplifying Algebra Practice Questions**
 
----
 
 **Identifying Like Terms (with higher powers and distractors):**
 

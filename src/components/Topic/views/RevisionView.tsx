@@ -14,15 +14,15 @@ const RevisionView = () => {
   // Convert param string to boolean
   const showSolutions = showSolutionsParam === "true";
 
-  const headerTitle = "Holiday Revision";
-  const title = "Standard Form and Indices";
-  const icon = "➕";
+  const headerTitle = "HOLIDAY REVISION";
+  const title = "ALGEBRA";
+  const icon = "𝓧";
 
   return (
-    <div className="min-h-screen bg-[#e76f51] text-[#3b3a30] p-6 font-serif">
+    <div className="min-h-screen bg-[#2a9d8f] text-[#3b3a30] p-6 font-serif">
       <div className="max-w-3xl mx-auto">
         <Header title={headerTitle} icon={icon} />
-        <h3 className="text-lg text-center font-semibold text-white mb-4">
+        <h3 className="text-lg text-center font-semibold text-white mb-4 font-sans">
           {renderTextWithMath(title)}
         </h3>
 
