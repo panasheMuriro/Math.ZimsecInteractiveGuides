@@ -1207,3 +1207,203 @@ export const set3 = {
 
 **Answer:** $\\mathbf{\\frac{1}{64}}`
 };
+
+
+export const set4 = {
+  questions: `
+**Advanced Simplifying Algebra Practice Questions**
+
+---
+
+**Identifying Like Terms (with higher powers and distractors):**
+
+1.) Identify all like terms: $4x^2 + 3x - 5x^2 + 7 - 2x + 9x^2$
+
+2.) Identify like terms: $-2a^3 + 5ab - 3a^2 + 4ab + a^3 - ab$
+
+3.) Identify like terms: $6m^2n - 3mn^2 + 2m^2n + 4mn + mn^2$
+
+4.) Identify like terms: $8p^2q + 3pq^2 - 4p^2q + pq^2 - p^2q$
+
+5.) Identify like terms: $-x^2y + 3xy^2 + 2x^2y - 5xy^2 + 4xy$
+
+---
+
+**Like Terms Addition & Subtraction (with mixed powers):**
+
+6.) Simplify: $7x^2 - 3x + 2x^2 + 5x - x^2$
+
+7.) Simplify: $-4a^3 + 2a^2 - a^3 + 5a^2 + 3a^3$
+
+8.) Simplify: $5m^2n - 3mn^2 + 2m^2n + mn^2 - m^2n$
+
+---
+
+**Multiplication of Like Terms (with exponents and negatives):**
+
+9.) Simplify: $(-3x^2) × (4x^3)$
+
+10.) Simplify: $(5a^2b) × (-2ab^2)$
+
+11.) Simplify: $(-6m^3n^2) × (2m^2n)$
+
+---
+
+**Division of Like Terms (with coefficients and exponents):**
+
+12.) Simplify: $15x^5 ÷ 3x^2$
+
+13.) Simplify: $-20a^4b^3 ÷ 5a^2b$
+
+14.) Simplify: $18m^6n^4 ÷ (-6m^2n^3)$
+
+---
+
+**Expansion of Number and Bracket (3+ terms, negatives, binomials):**
+
+15.) Expand: $-3(2x - 4y + 5z - 1)$, find the coefficient of each variable and constant
+
+16.) Expand: $4a(a^2 - 3a + 2)$, find the coefficient of $a^3$, $a^2$, and $a$
+
+17.) Expand: $-2m(3m^2 - 4mn + n)$, find the coefficient of $m^3$, $m^2n$, and $mn$
+
+---
+
+**Expansion of Two Brackets (including binomials and trinomials):**
+
+18.) Expand: $(2x + 3)(x - 4)$, find the coefficient of $x^2$, $x$, and constant
+
+19.) Expand: $(3a - 2)(2a + 5)$, find the coefficient of $a^2$, $a$, and constant
+
+20.) Expand: $(m - 4)(2m^2 + m - 1)$, find the coefficient of $m^3$, $m^2$, $m$, and constant
+
+21.) Expand: $(p + 3)^2 - (p - 1)(p + 2)$, simplify fully and find the coefficient of $p$ and constant
+
+---
+
+**Substitution / Evaluation (with powers and negatives):**
+
+22.) If $x = -2$, evaluate $4x^2 - 3x + 5$
+
+23.) If $a = 3$, evaluate $2a^3 - 5a^2 + a$
+
+24.) If $m = -1$, evaluate $3m^4 - 2m^2 + 4m$
+
+25.) If $p = \\frac{1}{2}$, evaluate $8p^2 - 4p + 6$
+`,
+  solutions: `
+**Advanced Simplifying Algebra Practice Questions with Solutions**
+
+---
+
+**Identifying Like Terms:**
+
+**1.)** $4x^2 + 3x - 5x^2 + 7 - 2x + 9x^2$  
+**Solution:**  
+- $x^2$ terms: $4x^2, -5x^2, 9x^2$  
+- $x$ terms: $3x, -2x$  
+- Constants: $7$  
+**Answer:** $(4x^2, -5x^2, 9x^2), (3x, -2x), (7)$
+
+**2.)** $-2a^3 + 5ab - 3a^2 + 4ab + a^3 - ab$  
+**Solution:**  
+- $a^3$: $-2a^3, a^3$  
+- $ab$: $5ab, 4ab, -ab$  
+- $a^2$: $-3a^2$ (no like terms)  
+**Answer:** $(-2a^3, a^3), (5ab, 4ab, -ab), (-3a^2)$
+
+**3.)** $6m^2n - 3mn^2 + 2m^2n + 4mn + mn^2$  
+**Solution:**  
+- $m^2n$: $6m^2n, 2m^2n$  
+- $mn^2$: $-3mn^2, mn^2$  
+- $mn$: $4mn$  
+**Answer:** $(6m^2n, 2m^2n), (-3mn^2, mn^2), (4mn)$
+
+**4.)** $8p^2q + 3pq^2 - 4p^2q + pq^2 - p^2q$  
+**Solution:**  
+- $p^2q$: $8p^2q, -4p^2q, -p^2q$  
+- $pq^2$: $3pq^2, pq^2$  
+**Answer:** $(8p^2q, -4p^2q, -p^2q), (3pq^2, pq^2)$
+
+**5.)** $-x^2y + 3xy^2 + 2x^2y - 5xy^2 + 4xy$  
+**Solution:**  
+- $x^2y$: $-x^2y, 2x^2y$  
+- $xy^2$: $3xy^2, -5xy^2$  
+- $xy$: $4xy$  
+**Answer:** $(-x^2y, 2x^2y), (3xy^2, -5xy^2), (4xy)$
+
+---
+
+**Like Terms Addition & Subtraction:**
+
+**6.)** $7x^2 - 3x + 2x^2 + 5x - x^2 = (7+2-1)x^2 + (-3+5)x = 8x^2 + 2x$
+
+**7.)** $-4a^3 + 2a^2 - a^3 + 5a^2 + 3a^3 = (-4-1+3)a^3 + (2+5)a^2 = -2a^3 + 7a^2$
+
+**8.)** $5m^2n - 3mn^2 + 2m^2n + mn^2 - m^2n = (5+2-1)m^2n + (-3+1)mn^2 = 6m^2n - 2mn^2$
+
+---
+
+**Multiplication of Like Terms:**
+
+**9.)** $(-3x^2) × (4x^3) = -12x^{2+3} = -12x^5$
+
+**10.)** $(5a^2b) × (-2ab^2) = 5×-2 × a^{2+1} × b^{1+2} = -10a^3b^3$
+
+**11.)** $(-6m^3n^2) × (2m^2n) = -12m^{3+2}n^{2+1} = -12m^5n^3$
+
+---
+
+**Division of Like Terms:**
+
+**12.)** $15x^5 ÷ 3x^2 = (15÷3)x^{5-2} = 5x^3$
+
+**13.)** $-20a^4b^3 ÷ 5a^2b = (-20÷5)a^{4-2}b^{3-1} = -4a^2b^2$
+
+**14.)** $18m^6n^4 ÷ (-6m^2n^3) = (18÷-6)m^{6-2}n^{4-3} = -3m^4n$
+
+---
+
+**Expansion of Number and Bracket:**
+
+**15.)** $-3(2x - 4y + 5z - 1) = -6x + 12y - 15z + 3$  
+**Coefficients:** $(x:-6, y:12, z:-15, constant:3)$
+
+**16.)** $4a(a^2 - 3a + 2) = 4a^3 - 12a^2 + 8a$  
+**Coefficients:** $(a^3:4, a^2:-12, a:8)$
+
+**17.)** $-2m(3m^2 - 4mn + n) = -6m^3 + 8m^2n - 2mn$  
+**Coefficients:** $(m^3:-6, m^2n:8, mn:-2)$
+
+---
+
+**Expansion of Two Brackets:**
+
+**18.)** $(2x + 3)(x - 4) = 2x×x + 2x×(-4) + 3×x + 3×(-4) = 2x^2 -8x +3x -12 = 2x^2 -5x -12$  
+**Coefficients:** $(x^2:2, x:-5, constant:-12)$
+
+**19.)** $(3a - 2)(2a + 5) = 3a×2a + 3a×5 + (-2)×2a + (-2)×5 = 6a^2 +15a -4a -10 = 6a^2 +11a -10$  
+**Coefficients:** $(a^2:6, a:11, constant:-10)$
+
+**20.)** $(m - 4)(2m^2 + m - 1) = m(2m^2 + m - 1) -4(2m^2 + m - 1) = 2m^3 + m^2 - m -8m^2 -4m +4 = 2m^3 -7m^2 -5m +4$  
+**Coefficients:** $(m^3:2, m^2:-7, m:-5, constant:4)$
+
+**21.)** $(p + 3)^2 - (p - 1)(p + 2)$  
+First: $(p+3)^2 = p^2 + 6p + 9$  
+Second: $(p-1)(p+2) = p^2 +2p -p -2 = p^2 + p - 2$  
+Now subtract: $(p^2 + 6p + 9) - (p^2 + p - 2) = p^2 +6p +9 -p^2 -p +2 = 5p +11$  
+**Final Answer:** $5p + 11$ → Coefficient of $p$: $5$, constant: $11$
+
+---
+
+**Substitution / Evaluation:**
+
+**22.)** $x = -2$: $4(-2)^2 - 3(-2) + 5 = 4×4 +6 +5 = 16 +6 +5 = 27$
+
+**23.)** $a = 3$: $2(3)^3 - 5(3)^2 + 3 = 2×27 - 5×9 + 3 = 54 - 45 + 3 = 12$
+
+**24.)** $m = -1$: $3(-1)^4 - 2(-1)^2 + 4(-1) = 3(1) - 2(1) - 4 = 3 - 2 - 4 = -3$
+
+**25.)** $p = \\frac{1}{2}$: $8\\left(\\frac{1}{2}\\right)^2 - 4\\left(\\frac{1}{2}\\right) + 6 = 8×\\frac{1}{4} - 2 + 6 = 2 - 2 + 6 = 6$
+`
+};

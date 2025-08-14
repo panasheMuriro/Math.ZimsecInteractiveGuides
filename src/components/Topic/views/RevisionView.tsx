@@ -6,7 +6,7 @@ import remarkGfm from "remark-gfm";
 import { renderTextWithMath } from "../../../utils/renderTextWithMath";
 import Header from "../../Global/Header";
 import { useParams } from "react-router-dom";
-import { set3 } from "../../../data/revision";
+import {  set4 } from "../../../data/revision";
 
 const RevisionView = () => {
   const { showSolutions: showSolutionsParam } = useParams<{ showSolutions?: string }>();
@@ -32,7 +32,7 @@ const RevisionView = () => {
               remarkPlugins={[remarkMath, remarkGfm]}
               rehypePlugins={[rehypeKatex]}
             >
-              {showSolutions ? set3.solutions : set3.questions}
+              {showSolutions ? set4.solutions : set4.questions}
             </ReactMarkdown>
           </div>
         </div>
